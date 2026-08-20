@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" role="img" aria-labelledby="title desc">
+  <title id="title">LANE SWITCH Bildzeichen</title>
+  <desc id="desc">Rundes Zeichen aus drei Fahrbahnen und einem Wechselpfeil</desc>
+  <defs><clipPath id="circleClip"><circle cx="180" cy="180" r="142"/></clipPath></defs>
+  <circle cx="180" cy="180" r="145" fill="#ffffff" stroke="#02304f" stroke-width="11"/>
+  <g clip-path="url(#circleClip)">
+    <path d="M18 330 L104 62 L144 62 L101 331 Z" fill="#02304f"/>
+    <path d="M101 331 L149 62 L191 62 L225 331 Z" fill="#00b6c6"/>
+    <path d="M225 331 L198 62 L238 62 L342 330 Z" fill="#0a5d84"/>
+    <path d="M116 329 L155 63" fill="none" stroke="#ffffff" stroke-width="9"/>
+    <path d="M213 329 L194 63" fill="none" stroke="#ffffff" stroke-width="9"/>
+    <path d="M174 82 L177 105 M171 129 L174 156 M168 183 L170 213 M165 244 L167 278" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <path d="M63 229 C91 173 130 149 188 154 L188 125 L251 173 L188 221 L188 190 C142 187 108 203 77 244 Z" fill="#ffffff" stroke="#02304f" stroke-width="7" stroke-linejoin="round"/>
+</svg>
