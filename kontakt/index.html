@@ -8,6 +8,13 @@
 (function(){
   var form=document.querySelector(".contact-form");
   if(!form)return;
+  var params=new URLSearchParams(window.location.search);
+  if(params.get("anliegen")==="fahrschul-check"){
+    var topic=form.querySelector('select[name="topic"]');
+    var message=form.querySelector('textarea[name="message"]');
+    if(topic)topic.value="Ergebnis des Fahrschul-Checks besprechen";
+    if(message&&!message.value)message.value="Ich möchte mein Ergebnis aus dem Fahrschul-Check gemeinsam einordnen.";
+  }
   form.addEventListener("submit",function(event){
     event.preventDefault();
     var data=new FormData(form);
