@@ -23,7 +23,16 @@
   
     .storage-controls{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid #ffffff18}.storage-controls span{font-size:11px;color:#ffffff99}.storage-link{border:0;background:transparent;color:var(--cyan2);padding:4px 0;font-size:11px;font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.storage-dialog{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:#031126cc;backdrop-filter:blur(8px)}.storage-dialog.active{display:flex}.storage-panel{position:relative;width:min(620px,100%);max-height:calc(100vh - 40px);overflow:auto;background:#fff;border-radius:10px;padding:clamp(25px,5vw,42px);box-shadow:0 30px 90px #0006}.storage-panel h2{font-size:clamp(29px,5vw,42px);line-height:1.05;letter-spacing:-.035em;margin:0 0 15px}.storage-panel>p{color:var(--muted);font-size:14px}.storage-list{margin:20px 0;padding:18px 20px;background:var(--ice);border-radius:6px;color:var(--muted);font-size:13px}.storage-list strong{display:block;color:var(--ink);margin-bottom:6px}.storage-list ul{margin:6px 0 0;padding-left:20px}.storage-actions{display:grid;gap:10px;margin-top:22px}.storage-actions button{width:100%}.storage-delete{border:0;background:transparent;color:var(--bad);padding:8px;font-size:12px;font-weight:750;cursor:pointer}.storage-close{position:absolute;right:16px;top:14px;border:0;background:transparent;color:var(--muted);font-size:25px;line-height:1;cursor:pointer}.storage-close[hidden],.storage-delete[hidden]{display:none}.storage-error{min-height:18px;margin-top:9px;color:var(--bad);font-size:12px}.storage-legal{font-size:11px!important}.storage-legal a{color:#087b8b;font-weight:750}
 </style>
-</head>
+<style id="responsive-text-guard">
+:where(h1,h2,h3,h4,h5,h6,p,li,legend,summary,label,.button,.header-cta,.card,.tile,.module-card,.tool-card){max-width:100%;overflow-wrap:anywhere;word-break:normal;-webkit-hyphens:auto;hyphens:auto}
+:where(main,section,article,fieldset,.container,.grid,.hero-grid,.check-wrap,.questions,.card,.question,.module-card,.tool-card){min-width:0}
+:where(.button,.header-cta,button){white-space:normal}
+img,video{max-width:100%}
+@media(max-width:600px){
+  :where(h1,h2,h3,h4,legend,summary){line-height:1.22}
+  :where(.button,.header-cta,button){text-align:center}
+}
+</style></head>
 <body>
   <header class="site-header"><div class="container header-inner"><a class="brand" href="../" aria-label="LANE SWITCH Startseite"><img class="brand-full" src="../assets/logo-primary-dark.svg" alt="LANE SWITCH"><img class="brand-compact" src="../assets/logo-ls.svg" alt="LANE SWITCH"></a><nav class="main-nav" aria-label="Hauptnavigation"><a href="../fahrschulen/">Für Fahrschulen</a><a href="../fahrschueler/">Für Fahrschüler:innen</a><a href="../cockpit/">Cockpit</a><a href="../kontakt/">Kontakt</a></nav><a class="header-cta" href="../kontakt/">20-Minuten-Kennenlernen</a></div></header>
   <main>

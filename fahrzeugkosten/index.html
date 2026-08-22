@@ -22,7 +22,16 @@
     @media(max-width:650px){.container{width:min(100% - 28px,1120px)}.header-inner{min-height:70px;gap:10px}.brand .full{display:none}.brand .compact{display:block}.header-cta{font-size:10px;padding:8px}.hero{padding:62px 0 105px}.hero h1{font-size:43px}.calculator-wrap{margin-top:-54px}.calc-head,.step{padding-left:20px;padding-right:20px}.fields,.vehicle-data,.source-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.route-options,.cover-options{grid-template-columns:1fr}.actions{flex-direction:column-reverse}.actions .button,.result-actions .button{width:100%}.footer-inner{padding:30px 0}.footer-inner img{width:220px}.ranking{padding:17px}.ranking-head{display:block}.ranking-head span{display:inline-block;margin-top:10px}.rec-card{grid-template-columns:28px 1fr}.rec-card>span{grid-column:2}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   </style>
-</head>
+<style id="responsive-text-guard">
+:where(h1,h2,h3,h4,h5,h6,p,li,legend,summary,label,.button,.header-cta,.card,.tile,.module-card,.tool-card){max-width:100%;overflow-wrap:anywhere;word-break:normal;-webkit-hyphens:auto;hyphens:auto}
+:where(main,section,article,fieldset,.container,.grid,.hero-grid,.check-wrap,.questions,.card,.question,.module-card,.tool-card){min-width:0}
+:where(.button,.header-cta,button){white-space:normal}
+img,video{max-width:100%}
+@media(max-width:600px){
+  :where(h1,h2,h3,h4,legend,summary){line-height:1.22}
+  :where(.button,.header-cta,button){text-align:center}
+}
+</style></head>
 <body>
   <header class="site-header"><div class="container header-inner">
     <a class="brand" href="../" aria-label="LANE SWITCH Startseite"><img class="full" src="../assets/logo-primary-dark.svg" alt="LANE SWITCH"><img class="compact" src="../assets/logo-ls.svg" alt="LANE SWITCH"></a>
