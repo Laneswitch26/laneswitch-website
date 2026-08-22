@@ -146,7 +146,7 @@
   function leave(){$('#trainer').classList.remove('active');$('#start').scrollIntoView({behavior:'smooth'})}
   $('#leave').addEventListener('click',leave);
   $$('[data-mode]').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.mode;if(m==='topic'){openTrainer();$('#questionArea').style.display='none';$('#result').classList.remove('active');$('#topicPicker').classList.add('active');$('#modeEyebrow').textContent='Themenauswahl';$('#modeTitle').textContent='Konzentriert lernen';$('#modeDescription').textContent='Wähle einen Bereich für eine kurze Lernrunde.'}else start(m)}));
-  $('#topicButtons').innerHTML=TOPICS.map(t=>`<button class="topic-button" data-topic="${t}"><strong>${t}</strong><span>${Q.filter(q=>q.t===t).length} Fragen</span></button>`).join('');$('[data-topic]').forEach(b=>b.addEventListener('click',()=>start('topic',b.dataset.topic)));
+  $('#topicButtons').innerHTML=TOPICS.map(t=>`<button class="topic-button" data-topic="${t}"><strong>${t}</strong><span>${Q.filter(q=>q.t===t).length} Fragen</span></button>`).join('');$$('[data-topic]').forEach(b=>b.addEventListener('click',()=>start('topic',b.dataset.topic)));
   $('#storageSettings').addEventListener('click',openStorage);$('#storageClose').addEventListener('click',closeStorage);$('#storageAllow').addEventListener('click',allowStorage);$('#storageSession').addEventListener('click',useSession);$('#storageDelete').addEventListener('click',deleteStorage);
   if(storageMode==='local')closeStorage();else openStorage();
   updateStats();
