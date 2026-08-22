@@ -122,7 +122,7 @@
   let storageMode=hasStorageChoice()?'local':'unset';
   let stats=storageMode==='local'?readProgress():freshStats();
   let mode='exam',session=[],index=0,responses=[],checked=false,topic='';
-  const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
+  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
   function save(){if(storageMode==='local'){try{localStorage.setItem(storeKey,JSON.stringify(stats))}catch{storageMode='session'}}updateStats()}
   function updateStats(){const rate=stats.answered?Math.round(stats.correct/stats.answered*100)+' %':'–';$('#statAnswered').textContent=stats.answered;$('#statRate').textContent=rate;$('#statExams').textContent=stats.exams;$('#progressText').textContent=`${stats.seen.length} von ${Q.length} Fragen gesehen`;$('#progressBar').style.width=Math.min(100,stats.seen.length/Q.length*100)+'%';$('#mistakeLabel').textContent=stats.mistakes.length?`${stats.mistakes.length} Fehler wiederholen →`:'Noch keine Fehler →';const persistent=storageMode==='local';$('#storageBadge').textContent=persistent?'Dauerhaft auf diesem Gerät':'Nur für diese Sitzung';$('#storageStatus').textContent=persistent?'Dein Lernstand wird ausschließlich lokal in diesem Browser gespeichert.':'Dein Lernstand bleibt nur erhalten, solange diese Seite geöffnet ist.'}
   function openStorage(){const persistent=storageMode==='local';$('#storageDialog').classList.add('active');$('#storageClose').hidden=storageMode==='unset';$('#storageDelete').hidden=!persistent;$('#storageError').textContent=''}
