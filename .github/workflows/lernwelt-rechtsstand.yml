@@ -1,0 +1,57 @@
+name: Lernwelt Rechtsstand pruefen
+on:
+  schedule:
+    - cron: "30 7 1 * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  reminder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Monatlichen Pruefhinweis pflegen
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = "[Lernwelt] Rechtsstand pruefen";
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100
+            });
+            const existing = issues.find(i => !i.pull_request && i.title === marker);
+            const checked = new Date().toISOString().slice(0, 10);
+            const body = [
+              "Automatischer monatlicher Wartungshinweis fuer die LANE SWITCH Lernwelt.",
+              "",
+              "Bitte diese amtlichen Quellen auf Aenderungen pruefen:",
+              "- FeV Anlage 7: https://www.gesetze-im-internet.de/fev_2010/anlage_7.html",
+              "- StVO: https://www.gesetze-im-internet.de/stvo_2013/",
+              "- TUEV | DEKRA arge tp 21: https://fahrerlaubnis.tuev-dekra.de/",
+              "",
+              "Falls sich pruefungsrelevante Regeln oder der Pruefungsumfang geaendert haben:",
+              "1. betroffene Lernfragen und Erklaerungen fachlich pruefen,",
+              "2. Aktualitaetsdatum auf lernwelt/index.html anpassen,",
+              "3. JavaScript-Pruefung und Mobilansicht testen,",
+              "4. Aenderung per Pull Request veroeffentlichen.",
+              "",
+              "Dieser Workflow aktualisiert bewusst keine fachlichen Inhalte ohne menschliche Pruefung.",
+              `Prueflauf: ${checked}`
+            ].join("\n");
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: marker,
+                body
+              });
+            }
