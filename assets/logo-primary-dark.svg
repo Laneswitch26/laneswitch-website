@@ -8,14 +8,10 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <title
-     id="title">LANE SWITCH Primärlogo auf dunklem Hintergrund</title>
+     id="title">LANE SWITCH Primärlogo</title>
   <desc
-     id="desc">Helle Logoausführung für dunkelblaue Hintergründe</desc>
-  <rect
-     width="1400"
-     height="360"
-     fill="#02304f"
-     id="rect4" />
+     id="desc">Helle Logoausführung ohne rechteckige Hintergrundfläche für dunkle Hintergründe</desc>
+  
   <defs
      id="defs9">
     <clipPath
