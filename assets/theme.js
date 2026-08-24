@@ -71,30 +71,61 @@
     return link;
   };
 
-  const createMobileNavigation = () => {
+  const normalizePrimaryNavigation = () => {
     const parts = ensureHeaderActions();
-    if (!parts || parts.inner.querySelector('.unified-mobile-nav')) return;
+    if (!parts) return;
 
     const siteRoot = getSiteRoot();
-    const items = [
+    const currentPath = (window.location.pathname.replace(/\/+$/, '') || '/');
+    const navItems = [
       ['fahrschulen/', 'Für Fahrschulen'],
       ['fahrschueler/', 'Für Fahrschüler:innen'],
-      ['cockpit/', 'Cockpit'],
-      ['kontakt/', 'Kontakt']
+      ['cockpit/', 'Cockpit']
     ];
-    const nav = document.createElement('nav');
-    nav.className = 'unified-mobile-nav';
-    nav.setAttribute('aria-label', 'Bereichsnavigation');
-    const currentPath = window.location.pathname.replace(/\/+$/, '/') || '/';
+    const serviceGroups = [
+      {
+        title: 'Für Fahrschulen',
+        links: [
+          ['fahrschul-check/', '5-Minuten-Check', 'Betrieb kompakt einordnen'],
+          ['notfallcenter/', 'Notfallcenter', 'Im Ernstfall strukturiert handeln'],
+          ['vorlagen/', 'Vorlagen', 'Praktische Arbeitsmaterialien']
+        ]
+      },
+      {
+        title: 'Für Fahrschüler:innen',
+        links: [
+          ['fahrzeugkosten/', 'Fahrzeugkosten-Rechner', 'Monatliche Autokosten einschätzen'],
+          ['lernwelt/', 'Lernwelt Klasse B', 'Wissen üben und festigen']
+        ]
+      }
+    ];
 
-    items.forEach(([path, label]) => {
+    parts.inner.querySelectorAll('nav.desktop-nav, nav.main-nav, nav.nav, nav.unified-mobile-nav, nav.unified-primary-nav').forEach((nav) => nav.remove());
+    parts.inner.querySelectorAll('.global-services-panel').forEach((panel) => panel.remove());
+
+    const nav = document.createElement('nav');
+    nav.className = 'unified-primary-nav';
+    nav.setAttribute('aria-label', 'Hauptnavigation');
+
+    navItems.forEach(([path, label]) => {
       const link = document.createElement('a');
       const url = new URL(path, siteRoot);
+      const targetPath = url.pathname.replace(/\/+$/, '') || '/';
+      link.className = 'unified-primary-link';
       link.href = url.href;
       link.textContent = label;
-      if (currentPath === url.pathname.replace(/\/+$/, '/')) link.setAttribute('aria-current', 'page');
+      if (currentPath === targetPath) link.setAttribute('aria-current', 'page');
       nav.append(link);
     });
+
+    const servicesButton = document.createElement('button');
+    servicesButton.className = 'unified-services-trigger';
+    servicesButton.type = 'button';
+    servicesButton.setAttribute('aria-haspopup', 'true');
+    servicesButton.setAttribute('aria-expanded', 'false');
+    servicesButton.setAttribute('aria-controls', 'global-services-panel');
+    servicesButton.innerHTML = '<span>Services</span><svg viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1.5 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    nav.append(servicesButton);
 
     const recommendSource = document.querySelector('.header-recommend[data-recommend-open], [data-recommend-open]');
     if (recommendSource) {
@@ -106,9 +137,64 @@
       recommend.addEventListener('click', () => recommendSource.click());
       nav.append(recommend);
     }
-
     nav.append(createInstagramLink('unified-mobile-instagram', 'Instagram ↗'));
-    parts.inner.append(nav);
+
+    const panel = document.createElement('div');
+    panel.className = 'global-services-panel';
+    panel.id = 'global-services-panel';
+    panel.hidden = true;
+    panel.setAttribute('aria-label', 'Services');
+
+    serviceGroups.forEach((group) => {
+      const section = document.createElement('section');
+      const heading = document.createElement('h2');
+      heading.textContent = group.title;
+      section.append(heading);
+
+      group.links.forEach(([path, label, description]) => {
+        const link = document.createElement('a');
+        const url = new URL(path, siteRoot);
+        const targetPath = url.pathname.replace(/\/+$/, '') || '/';
+        link.href = url.href;
+        link.innerHTML = '<strong>' + label + '</strong><span>' + description + '</span>';
+        if (currentPath === targetPath) {
+          link.setAttribute('aria-current', 'page');
+          servicesButton.classList.add('is-current');
+        }
+        section.append(link);
+      });
+      panel.append(section);
+    });
+
+    const setOpen = (open) => {
+      panel.hidden = !open;
+      servicesButton.setAttribute('aria-expanded', String(open));
+      parts.header.classList.toggle('services-open', open);
+    };
+
+    servicesButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setOpen(panel.hidden);
+    });
+    panel.addEventListener('click', (event) => event.stopPropagation());
+    document.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !panel.hidden) {
+        setOpen(false);
+        servicesButton.focus();
+      }
+    });
+
+    parts.inner.insertBefore(nav, parts.actions);
+    parts.inner.append(panel);
+
+    const cta = parts.actions.querySelector('.header-cta');
+    if (cta) {
+      cta.href = new URL('kontakt/', siteRoot).href;
+      cta.textContent = '20 Minuten kennenlernen';
+    }
+
+    if (/\/cockpit\/?$/.test(window.location.pathname)) document.body.classList.add('page-cockpit');
   };
 
   const addInstagramLinks = () => {
@@ -196,7 +282,7 @@
 
   const initialize = () => {
     removeLegacyExportArtifacts();
-    createMobileNavigation();
+    normalizePrimaryNavigation();
     addInstagramLinks();
     initializeToggle();
     initializeScrollHeader();
