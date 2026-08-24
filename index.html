@@ -166,8 +166,28 @@
       .audience-grid,.service-grid,.process-grid{grid-template-columns:1fr}.audience-card{min-height:0;padding:28px}.audience-card h3{margin-top:42px}
       .module-grid{grid-template-columns:1fr}.module{min-height:0}.module h3{margin-top:34px}
       .process-grid article{padding:26px 0}.process-grid article+article{padding-left:0;border-top:1px solid var(--line);border-left:0}.process-grid h3{margin-top:26px}
+      .recommend-fab{right:14px;bottom:14px}.recommend-dialog-inner{padding:28px 20px}.recommend-targets,.recommend-actions{grid-template-columns:1fr}.recommend-action{width:100%}
       .cta-section{padding:8px 0 72px}.cta-panel{grid-template-columns:1fr;gap:28px;padding:34px 26px}.footer-grid{grid-template-columns:1fr;min-height:230px;padding:34px 0}.footer-links{justify-content:flex-start}
     }
+
+    .recommend-fab{position:fixed;z-index:40;right:22px;bottom:22px;min-height:50px;padding:13px 18px;border:1px solid rgba(255,255,255,.45);border-radius:999px;background:var(--navy-950);color:#fff;box-shadow:0 14px 40px rgba(2,48,79,.28);cursor:pointer;font-size:12px;font-weight:850}
+    .recommend-fab:hover{background:var(--navy-900);transform:translateY(-2px)}
+    .recommend-dialog{width:min(720px,calc(100% - 28px));padding:0;border:0;border-radius:14px;background:#fff;color:var(--ink);box-shadow:0 28px 100px rgba(0,25,45,.34)}
+    .recommend-dialog::backdrop{background:rgba(2,35,55,.72);backdrop-filter:blur(4px)}
+    .recommend-dialog-inner{position:relative;padding:34px}
+    .recommend-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy-950);cursor:pointer;font-size:22px}
+    .recommend-dialog h2{max-width:580px;margin:0;font-size:clamp(29px,5vw,42px);line-height:1.05;letter-spacing:-.04em}
+    .recommend-dialog .dialog-lead{margin:14px 42px 26px 0;color:var(--muted);font-size:14px}
+    .recommend-targets{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .recommend-target{padding:18px;border:1px solid var(--line);border-radius:9px;background:var(--ice);color:var(--ink);cursor:pointer;text-align:left;font-weight:800}
+    .recommend-target small{display:block;margin-top:5px;color:var(--muted);font-weight:400}
+    .recommend-target[aria-pressed="true"]{border-color:var(--cyan-500);background:var(--cyan-100)}
+    .recommend-preview{margin:18px 0 0;padding:18px;border-left:4px solid var(--cyan-500);background:var(--ice);color:var(--muted);font-size:13px;line-height:1.65}
+    .recommend-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:18px}
+    .recommend-action{min-height:46px;padding:11px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--navy-900);cursor:pointer;font-size:12px;font-weight:820}
+    .recommend-action-primary{border-color:var(--cyan-500);background:var(--cyan-500);color:var(--navy-950)}
+    .recommend-note{margin:14px 0 0;color:var(--muted);font-size:10px}
+
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important}}
   </style>
 </head>
@@ -362,6 +382,29 @@
     </section>
   </main>
 
+
+  <button class="recommend-fab" type="button" data-recommend-open aria-haspopup="dialog">LANE SWITCH empfehlen</button>
+  <dialog class="recommend-dialog" id="recommend-dialog" aria-labelledby="recommend-title">
+    <div class="recommend-dialog-inner">
+      <button class="recommend-close" type="button" data-recommend-close aria-label="Fenster schließen">×</button>
+      <p class="eyebrow">Mehrwert weitergeben</p>
+      <h2 id="recommend-title">Wem möchten Sie LANE SWITCH empfehlen?</h2>
+      <p class="dialog-lead">Wählen Sie die Zielgruppe. Der passende Link und ein fertiger Text werden automatisch vorbereitet.</p>
+      <div class="recommend-targets" role="group" aria-label="Zielgruppe auswählen">
+        <button class="recommend-target" type="button" data-recommend-target="learner" aria-pressed="true">Fahrschüler:in<small>Lernwelt, Fahrzeugkosten und Orientierung</small></button>
+        <button class="recommend-target" type="button" data-recommend-target="school" aria-pressed="false">Fahrschule<small>Kooperationskonzept und betriebliche Mehrwerte</small></button>
+      </div>
+      <p class="recommend-preview" data-recommend-preview aria-live="polite"></p>
+      <div class="recommend-actions">
+        <button class="recommend-action recommend-action-primary" type="button" data-recommend-share>Teilen</button>
+        <a class="recommend-action" data-recommend-whatsapp target="_blank" rel="noopener">WhatsApp</a>
+        <a class="recommend-action" data-recommend-email>E-Mail</a>
+        <button class="recommend-action" type="button" data-recommend-copy>Link kopieren</button>
+      </div>
+      <p class="recommend-note">Es werden keine Kontaktdaten gespeichert und keine Cookies gesetzt. Erst die gewählte App übernimmt den Versand.</p>
+    </div>
+  </dialog>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <a class="footer-brand" href="./" aria-label="LANE SWITCH Startseite"><img src="./assets/logo-primary-dark.svg?v=20260824" alt="LANE SWITCH – Fahrschul-Partnerkonzept" width="1400" height="360" loading="lazy"></a>
@@ -383,6 +426,59 @@
     toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
     menu.addEventListener('click', (event) => { if (event.target.closest('a')) setMenu(false); });
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
+
+    const recommendDialog = document.querySelector('#recommend-dialog');
+    const recommendPreview = document.querySelector('[data-recommend-preview]');
+    const recommendTargets = [...document.querySelectorAll('[data-recommend-target]')];
+    const recommendShare = document.querySelector('[data-recommend-share]');
+    const recommendWhatsApp = document.querySelector('[data-recommend-whatsapp]');
+    const recommendEmail = document.querySelector('[data-recommend-email]');
+    const recommendCopy = document.querySelector('[data-recommend-copy]');
+    const recommendations = {
+      learner: {
+        title: 'LANE SWITCH für Fahrschüler:innen',
+        url: 'https://laneswitch.de/fahrschueler/',
+        text: 'Hi, ich möchte dir LANE SWITCH empfehlen. Dort findest du verständliche Informationen und kostenlose Hilfen rund um den Führerschein, das erste Auto und den sicheren Start in die eigene Mobilität.'
+      },
+      school: {
+        title: 'LANE SWITCH für Fahrschulen',
+        url: 'https://laneswitch.de/fahrschulen/',
+        text: 'Hallo, ich möchte Ihnen LANE SWITCH empfehlen – ein modulares Kooperationskonzept für Fahrschulen mit Versicherungscheck, Theoriebeitrag, Arbeitshilfen und Mehrwerten für Fahrschüler:innen.'
+      }
+    };
+    let recommendType = 'learner';
+    const recommendPayload = () => recommendations[recommendType];
+    const updateRecommendation = () => {
+      const item = recommendPayload();
+      recommendPreview.textContent = item.text + ' ' + item.url;
+      recommendWhatsApp.href = 'https://wa.me/?text=' + encodeURIComponent(item.text + '\n\n' + item.url);
+      recommendEmail.href = 'mailto:?subject=' + encodeURIComponent(item.title) + '&body=' + encodeURIComponent(item.text + '\n\n' + item.url);
+      recommendTargets.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.recommendTarget === recommendType)));
+    };
+    document.querySelector('[data-recommend-open]').addEventListener('click', () => {
+      updateRecommendation();
+      if (typeof recommendDialog.showModal === 'function') recommendDialog.showModal();
+    });
+    document.querySelector('[data-recommend-close]').addEventListener('click', () => recommendDialog.close());
+    recommendDialog.addEventListener('click', (event) => { if (event.target === recommendDialog) recommendDialog.close(); });
+    recommendTargets.forEach((button) => button.addEventListener('click', () => { recommendType = button.dataset.recommendTarget; updateRecommendation(); }));
+    recommendShare.addEventListener('click', async () => {
+      const item = recommendPayload();
+      if (navigator.share) {
+        try { await navigator.share({ title: item.title, text: item.text, url: item.url }); } catch (error) { if (error.name !== 'AbortError') console.warn(error); }
+      } else {
+        await navigator.clipboard.writeText(item.text + '\n\n' + item.url);
+        recommendShare.textContent = 'Kopiert';
+        setTimeout(() => { recommendShare.textContent = 'Teilen'; }, 1800);
+      }
+    });
+    recommendCopy.addEventListener('click', async () => {
+      const item = recommendPayload();
+      await navigator.clipboard.writeText(item.url);
+      recommendCopy.textContent = 'Kopiert';
+      setTimeout(() => { recommendCopy.textContent = 'Link kopieren'; }, 1800);
+    });
+
   </script>
 </body>
 </html>
