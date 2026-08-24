@@ -1,5 +1,6 @@
 (() => {
   const THEME_KEY = 'laneswitch-theme-v1';
+  const INSTAGRAM_URL = 'https://www.instagram.com/laneswitch.de?igsi=MW53eTZrdzY0cmY2YQ==';
   const root = document.documentElement;
   const storage = {
     read(key) { try { return window.localStorage.getItem(key); } catch (_) { return null; } },
@@ -34,13 +35,47 @@
     malformed.forEach((node) => node.remove());
   };
 
-  const createMobileNavigation = () => {
+  const getSiteRoot = () => {
+    const script = document.currentScript || [...document.scripts].find((item) => /\/assets\/theme\.js/.test(item.src));
+    return script && script.src ? new URL('../', script.src) : new URL('/', window.location.href);
+  };
+
+  const ensureHeaderActions = () => {
     const header = document.querySelector('.site-header');
     const inner = header && header.querySelector('.header-inner');
-    if (!inner || inner.querySelector('.unified-mobile-nav')) return;
+    if (!inner) return null;
 
-    const script = document.currentScript || [...document.scripts].find((item) => /\/assets\/theme\.js/.test(item.src));
-    const siteRoot = script && script.src ? new URL('../', script.src) : new URL('/', window.location.href);
+    const cta = inner.querySelector('.header-cta');
+    let actions = cta ? cta.closest('.global-header-actions') : inner.querySelector('.global-header-actions');
+    if (!actions) {
+      actions = document.createElement('div');
+      actions.className = 'global-header-actions';
+      if (cta) {
+        cta.before(actions);
+        actions.append(cta);
+      } else {
+        inner.append(actions);
+      }
+    }
+    return { header, inner, actions };
+  };
+
+  const createInstagramLink = (className, label = 'Instagram') => {
+    const link = document.createElement('a');
+    link.className = className;
+    link.href = INSTAGRAM_URL;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.setAttribute('aria-label', 'LANE SWITCH auf Instagram öffnen');
+    link.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.4" cy="6.7" r="1" fill="currentColor" stroke="none"></circle></svg><span>' + label + '</span>';
+    return link;
+  };
+
+  const createMobileNavigation = () => {
+    const parts = ensureHeaderActions();
+    if (!parts || parts.inner.querySelector('.unified-mobile-nav')) return;
+
+    const siteRoot = getSiteRoot();
     const items = [
       ['fahrschulen/', 'Für Fahrschulen'],
       ['fahrschueler/', 'Für Fahrschüler:innen'],
@@ -60,33 +95,43 @@
       if (currentPath === url.pathname.replace(/\/+$/, '/')) link.setAttribute('aria-current', 'page');
       nav.append(link);
     });
-    inner.append(nav);
+
+    const recommendSource = document.querySelector('.header-recommend[data-recommend-open], [data-recommend-open]');
+    if (recommendSource) {
+      const recommend = document.createElement('button');
+      recommend.className = 'unified-mobile-recommend';
+      recommend.type = 'button';
+      recommend.textContent = 'Empfehlen';
+      recommend.setAttribute('aria-haspopup', 'dialog');
+      recommend.addEventListener('click', () => recommendSource.click());
+      nav.append(recommend);
+    }
+
+    nav.append(createInstagramLink('unified-mobile-instagram', 'Instagram ↗'));
+    parts.inner.append(nav);
+  };
+
+  const addInstagramLinks = () => {
+    const parts = ensureHeaderActions();
+    if (parts && !parts.actions.querySelector('.instagram-header-link')) {
+      const link = createInstagramLink('instagram-header-link');
+      parts.actions.insertBefore(link, parts.actions.firstChild);
+    }
+
+    document.querySelectorAll('.footer-links').forEach((footer) => {
+      if (!footer.querySelector('.footer-instagram-link')) footer.append(createInstagramLink('footer-instagram-link', 'Instagram ↗'));
+    });
   };
 
   const initializeToggle = () => {
-    const header = document.querySelector('.site-header');
-    const headerInner = header && header.querySelector('.header-inner');
-    if (!headerInner) return;
-
-    const cta = headerInner.querySelector('.header-cta');
-    let actions = cta ? cta.closest('.global-header-actions') : headerInner.querySelector('.global-header-actions');
-    if (!actions) {
-      actions = document.createElement('div');
-      actions.className = 'global-header-actions';
-      if (cta) {
-        cta.before(actions);
-        actions.append(cta);
-      } else {
-        headerInner.append(actions);
-      }
-    }
-    if (actions.querySelector('.theme-toggle')) return;
+    const parts = ensureHeaderActions();
+    if (!parts || parts.actions.querySelector('.theme-toggle')) return;
 
     const button = document.createElement('button');
     button.className = 'theme-toggle';
     button.type = 'button';
     button.innerHTML = '<span class="theme-toggle-icon" aria-hidden="true"></span>';
-    actions.append(button);
+    parts.actions.append(button);
 
     const render = () => {
       const dark = root.dataset.theme === 'dark';
@@ -104,10 +149,57 @@
     render();
   };
 
+  const initializeScrollHeader = () => {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    let lastY = Math.max(window.scrollY, 0);
+    let direction = 'none';
+    let directionStartY = lastY;
+    let ticking = false;
+    const show = () => header.classList.remove('is-scroll-hidden');
+    const update = () => {
+      const currentY = Math.max(window.scrollY, 0);
+      const threshold = header.offsetHeight;
+
+      if (currentY <= threshold) {
+        show();
+        direction = 'none';
+        directionStartY = currentY;
+      } else if (currentY > lastY) {
+        if (direction !== 'down') {
+          direction = 'down';
+          directionStartY = lastY;
+        }
+        if (currentY - directionStartY >= 8) header.classList.add('is-scroll-hidden');
+      } else if (currentY < lastY) {
+        if (direction !== 'up') {
+          direction = 'up';
+          directionStartY = lastY;
+        }
+        if (directionStartY - currentY >= 6) show();
+      }
+
+      lastY = currentY;
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    window.addEventListener('resize', show, { passive: true });
+    header.addEventListener('focusin', show);
+  };
+
   const initialize = () => {
     removeLegacyExportArtifacts();
     createMobileNavigation();
+    addInstagramLinks();
     initializeToggle();
+    initializeScrollHeader();
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initialize, { once: true });
