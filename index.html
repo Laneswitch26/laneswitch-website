@@ -166,12 +166,15 @@
       .audience-grid,.service-grid,.process-grid{grid-template-columns:1fr}.audience-card{min-height:0;padding:28px}.audience-card h3{margin-top:42px}
       .module-grid{grid-template-columns:1fr}.module{min-height:0}.module h3{margin-top:34px}
       .process-grid article{padding:26px 0}.process-grid article+article{padding-left:0;border-top:1px solid var(--line);border-left:0}.process-grid h3{margin-top:26px}
-      .recommend-fab{right:14px;bottom:14px}.recommend-dialog-inner{padding:28px 20px}.recommend-targets,.recommend-actions{grid-template-columns:1fr}.recommend-action{width:100%}
+      .recommend-entry{grid-template-columns:1fr;gap:18px;padding:22px}.recommend-entry-button{width:100%}.recommend-dialog-inner{padding:28px 20px}.recommend-targets,.recommend-actions{grid-template-columns:1fr}.recommend-action{width:100%}
       .cta-section{padding:8px 0 72px}.cta-panel{grid-template-columns:1fr;gap:28px;padding:34px 26px}.footer-grid{grid-template-columns:1fr;min-height:230px;padding:34px 0}.footer-links{justify-content:flex-start}
     }
 
-    .recommend-fab{position:fixed;z-index:40;right:22px;bottom:22px;min-height:50px;padding:13px 18px;border:1px solid rgba(255,255,255,.45);border-radius:999px;background:var(--navy-950);color:#fff;box-shadow:0 14px 40px rgba(2,48,79,.28);cursor:pointer;font-size:12px;font-weight:850}
-    .recommend-fab:hover{background:var(--navy-900);transform:translateY(-2px)}
+    .recommend-entry{margin-top:22px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;padding:25px 28px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(105deg,#fff,var(--cyan-100));box-shadow:0 12px 34px rgba(8,60,91,.07)}
+    .recommend-entry p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+    .recommend-entry strong{display:block;margin-bottom:3px;color:var(--navy-900);font-size:17px;letter-spacing:-.02em}
+    .recommend-entry-button{min-height:48px;padding:12px 18px;border:1px solid var(--navy-900);border-radius:5px;background:var(--navy-900);color:#fff;cursor:pointer;white-space:nowrap;font-size:12px;font-weight:850}
+    .recommend-entry-button:hover{background:var(--navy-950);transform:translateY(-2px)}
     .recommend-dialog{width:min(720px,calc(100% - 28px));padding:0;border:0;border-radius:14px;background:#fff;color:var(--ink);box-shadow:0 28px 100px rgba(0,25,45,.34)}
     .recommend-dialog::backdrop{background:rgba(2,35,55,.72);backdrop-filter:blur(4px)}
     .recommend-dialog-inner{position:relative;padding:34px}
@@ -323,6 +326,10 @@
             <a class="text-link" href="./fahrschueler/">Bereich für Fahrschüler:innen öffnen →</a>
           </article>
         </div>
+        <aside class="recommend-entry" aria-label="LANE SWITCH weiterempfehlen">
+          <p><strong>LANE SWITCH weitergeben</strong>Empfehlen Sie gezielt den passenden Bereich an eine Fahrschule oder eine:n Fahrschüler:in.</p>
+          <button class="recommend-entry-button" type="button" data-recommend-open aria-haspopup="dialog">LANE SWITCH empfehlen</button>
+        </aside>
       </div>
     </section>
 
@@ -383,7 +390,6 @@
   </main>
 
 
-  <button class="recommend-fab" type="button" data-recommend-open aria-haspopup="dialog">LANE SWITCH empfehlen</button>
   <dialog class="recommend-dialog" id="recommend-dialog" aria-labelledby="recommend-title">
     <div class="recommend-dialog-inner">
       <button class="recommend-close" type="button" data-recommend-close aria-label="Fenster schließen">×</button>
