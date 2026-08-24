@@ -191,10 +191,21 @@
     .recommend-action-primary{border-color:var(--cyan-500);background:var(--cyan-500);color:var(--navy-950)}
     .recommend-note{margin:14px 0 0;color:var(--muted);font-size:10px}
 
+
+    .header-recommend{white-space:nowrap;border:1px solid var(--cyan-400);border-radius:5px;padding:11px 13px;background:rgba(0,182,198,.12);color:#fff;cursor:pointer;font-size:12px;font-weight:820}
+    .header-recommend:hover{background:var(--cyan-500);color:var(--navy-950)}
+    .mobile-recommend{width:100%;margin-top:24px;background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+    .recommend-reminder{position:fixed;z-index:48;left:50%;bottom:max(20px,env(safe-area-inset-bottom));width:min(620px,calc(100% - 32px));display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:18px;padding:16px 18px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:var(--navy-950);color:#fff;box-shadow:0 20px 70px rgba(0,24,42,.32);transform:translate(-50%,calc(100% + 60px));opacity:0;transition:transform .3s ease,opacity .3s ease}
+    .recommend-reminder.is-visible{transform:translate(-50%,0);opacity:1}
+    .recommend-reminder-copy{min-width:0}.recommend-reminder strong{display:block;font-size:14px}.recommend-reminder span{display:block;margin-top:2px;color:rgba(255,255,255,.68);font-size:11px}
+    .recommend-reminder-action{min-height:40px;padding:9px 13px;border:0;border-radius:5px;background:var(--cyan-500);color:var(--navy-950);cursor:pointer;font-size:11px;font-weight:850}
+    .recommend-reminder-close{width:38px;height:38px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:transparent;color:#fff;cursor:pointer;font-size:20px}
+    @media(max-width:700px){.header-recommend{display:none}.mobile-recommend{display:inline-flex}.recommend-reminder{left:14px;right:14px;bottom:max(14px,env(safe-area-inset-bottom));width:auto;grid-template-columns:1fr auto;gap:12px;transform:translateY(calc(100% + 60px))}.recommend-reminder.is-visible{transform:translateY(0)}.recommend-reminder-action{grid-column:1/-1;width:100%}.recommend-reminder-close{grid-column:2;grid-row:1}.recommend-reminder-copy{grid-column:1;grid-row:1}}
+
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important}}
   </style>
 </head>
-<body>
+<link rel="stylesheet" href="./assets/theme.css?v=20260824"><script src="./assets/theme.js?v=20260824"></script><body>
   <a class="skip-link" href="#inhalt">Zum Inhalt</a>
   <header class="site-header">
     <div class="container header-inner">
@@ -224,7 +235,7 @@
           </div>
         </div>
       </nav>
-      <a class="header-cta" href="./kontakt/">20 Minuten kennenlernen</a>
+      <div class="global-header-actions"><button class="header-recommend" type="button" data-recommend-open aria-haspopup="dialog">Empfehlen</button><a class="header-cta" href="./kontakt/">20 Minuten kennenlernen</a></div>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen"><span></span></button>
     </div>
   </header>
@@ -251,7 +262,7 @@
           <a href="./lernwelt/">Lernwelt Klasse B</a>
         </div>
       </div>
-      <a class="button button-primary mobile-cta" href="./kontakt/">20 Minuten kennenlernen <span aria-hidden="true">→</span></a>
+      <button class="button button-secondary mobile-recommend" type="button" data-recommend-open aria-haspopup="dialog">LANE SWITCH empfehlen</button>\n      <a class="button button-primary mobile-cta" href="./kontakt/">20 Minuten kennenlernen <span aria-hidden="true">→</span></a>
     </div>
   </nav>
 
@@ -326,10 +337,6 @@
             <a class="text-link" href="./fahrschueler/">Bereich für Fahrschüler:innen öffnen →</a>
           </article>
         </div>
-        <aside class="recommend-entry" aria-label="LANE SWITCH weiterempfehlen">
-          <p><strong>LANE SWITCH weitergeben</strong>Empfehlen Sie gezielt den passenden Bereich an eine Fahrschule oder eine:n Fahrschüler:in.</p>
-          <button class="recommend-entry-button" type="button" data-recommend-open aria-haspopup="dialog">LANE SWITCH empfehlen</button>
-        </aside>
       </div>
     </section>
 
@@ -411,6 +418,13 @@
     </div>
   </dialog>
 
+
+  <aside class="recommend-reminder" data-recommend-reminder hidden aria-label="LANE SWITCH weiterempfehlen">
+    <div class="recommend-reminder-copy"><strong>LANE SWITCH könnte auch anderen helfen.</strong><span>Empfehlen Sie den passenden Bereich direkt weiter.</span></div>
+    <button class="recommend-reminder-action" type="button" data-recommend-open aria-haspopup="dialog">Jetzt empfehlen</button>
+    <button class="recommend-reminder-close" type="button" data-recommend-reminder-close aria-label="Empfehlungshinweis dauerhaft schließen">×</button>
+  </aside>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <a class="footer-brand" href="./" aria-label="LANE SWITCH Startseite"><img src="./assets/logo-primary-dark.svg?v=20260824" alt="LANE SWITCH – Fahrschul-Partnerkonzept" width="1400" height="360" loading="lazy"></a>
@@ -461,10 +475,29 @@
       recommendEmail.href = 'mailto:?subject=' + encodeURIComponent(item.title) + '&body=' + encodeURIComponent(item.text + '\n\n' + item.url);
       recommendTargets.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.recommendTarget === recommendType)));
     };
-    document.querySelector('[data-recommend-open]').addEventListener('click', () => {
+    const recommendReminder = document.querySelector('[data-recommend-reminder]');
+    const recommendReminderClose = document.querySelector('[data-recommend-reminder-close]');
+    const recommendReminderKey = 'laneswitch-recommend-hint-dismissed-v1';
+    const recommendationWasDismissed = () => { try { return localStorage.getItem(recommendReminderKey) === '1'; } catch (_) { return false; } };
+    const dismissRecommendationReminder = () => {
+      try { localStorage.setItem(recommendReminderKey, '1'); } catch (_) {}
+      recommendReminder.classList.remove('is-visible');
+      window.setTimeout(() => { recommendReminder.hidden = true; }, 320);
+    };
+    document.querySelectorAll('[data-recommend-open]').forEach((button) => button.addEventListener('click', () => {
+      if (!recommendReminder.hidden) dismissRecommendationReminder();
+      else { try { localStorage.setItem(recommendReminderKey, '1'); } catch (_) {} }
       updateRecommendation();
       if (typeof recommendDialog.showModal === 'function') recommendDialog.showModal();
-    });
+    }));
+    recommendReminderClose.addEventListener('click', dismissRecommendationReminder);
+    if (!recommendationWasDismissed()) {
+      window.setTimeout(() => {
+        if (recommendationWasDismissed()) return;
+        recommendReminder.hidden = false;
+        window.requestAnimationFrame(() => recommendReminder.classList.add('is-visible'));
+      }, 180000);
+    }
     document.querySelector('[data-recommend-close]').addEventListener('click', () => recommendDialog.close());
     recommendDialog.addEventListener('click', (event) => { if (event.target === recommendDialog) recommendDialog.close(); });
     recommendTargets.forEach((button) => button.addEventListener('click', () => { recommendType = button.dataset.recommendTarget; updateRecommendation(); }));
