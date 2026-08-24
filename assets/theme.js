@@ -41,7 +41,31 @@
   };
 
   const ensureHeaderActions = () => {
-    const header = document.querySelector('.site-header');
+    let header = document.querySelector('.site-header');
+    if (!header && document.body) {
+      const siteRoot = getSiteRoot();
+      header = document.createElement('header');
+      header.className = 'site-header generated-site-header';
+
+      const inner = document.createElement('div');
+      inner.className = 'container header-inner';
+
+      const brand = document.createElement('a');
+      brand.className = 'brand';
+      brand.href = siteRoot.href;
+      brand.setAttribute('aria-label', 'LANE SWITCH Startseite');
+      brand.innerHTML = '<img class="brand-primary" src="' + new URL('assets/logo-primary-dark.svg', siteRoot).href + '" alt="LANE SWITCH – Fahrschul-Partnerkonzept" width="1400" height="360">';
+
+      const cta = document.createElement('a');
+      cta.className = 'header-cta';
+      cta.href = new URL('kontakt/', siteRoot).href;
+      cta.textContent = '20 Minuten kennenlernen';
+
+      inner.append(brand, cta);
+      header.append(inner);
+      document.body.insertBefore(header, document.body.firstChild);
+    }
+
     const inner = header && header.querySelector('.header-inner');
     if (!inner) return null;
 
