@@ -91,7 +91,7 @@
   }
 
   /* Numbered markers must be readable, not merely decorative. */
-  html[data-theme="dark"] :where(.step-no,.case-icon,.concept-step>span:first-child,.process-grid article>span:first-child,.rec-card b:first-child){
+  html[data-theme="dark"] :where(.step-no,.case-icon,.concept-step>span:first-child,.process-grid article>span:first-child,.rec-card b:first-child,.protection-card>span:first-child,.topic-grid article>span:first-child){
     background:var(--dark-accent)!important;
     color:var(--dark-accent-ink)!important;
     border-color:var(--dark-accent)!important
