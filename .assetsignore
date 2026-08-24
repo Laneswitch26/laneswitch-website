@@ -1,0 +1,12 @@
+**/.git
+**/.DS_Store
+.github/
+.wrangler/
+.assetsignore
+wrangler.jsonc
+package.json
+package-lock.json
+README.md
+CLOUDFLARE.md
+CNAME
+node_modules/
