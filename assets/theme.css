@@ -17,5 +17,5 @@
   html[data-theme="dark"] .recommend-target[aria-pressed="true"],html[data-theme="dark"] .recommend-action-primary{background:var(--cyan-500)!important;color:#02304f!important;border-color:var(--cyan-400)!important}
 }
 
-@media(max-width:700px){.global-header-actions{gap:7px}.theme-toggle{width:43px;height:43px}.global-header-actions .header-cta{display:none}}
+@media(max-width:700px){.global-header-actions{gap:7px}.theme-toggle{width:43px;height:43px}}
 @media print{.theme-toggle{display:none!important}}
