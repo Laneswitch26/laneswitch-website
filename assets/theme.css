@@ -1131,3 +1131,28 @@
     font-size:8.5px!important;
   }
 }
+
+
+/* Compact visual label for the mobile CTA; the anchor keeps its full accessible name. */
+@media(max-width:900px){
+  .canonical-site-header .canonical-header-cta{
+    font-size:0!important;
+  }
+  .canonical-site-header .canonical-header-cta::before{
+    content:"20 Min. kennenlernen";
+    display:block;
+    color:inherit;
+    font-family:inherit;
+    font-size:9px;
+    font-weight:800;
+    line-height:1;
+    letter-spacing:-.01em;
+    white-space:nowrap;
+  }
+}
+
+@media(max-width:420px){
+  .canonical-site-header .canonical-header-cta::before{
+    font-size:8.5px;
+  }
+}
