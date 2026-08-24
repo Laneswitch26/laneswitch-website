@@ -1,20 +1,165 @@
+/* LANE SWITCH shared interface layer
+   Common typography plus a complete, contrast-safe dark theme. */
 .global-header-actions{display:flex;align-items:center;justify-self:end;gap:9px;min-width:0}
-.theme-toggle{width:42px;height:42px;display:inline-grid;place-items:center;flex:0 0 auto;border:1px solid rgba(255,255,255,.35);border-radius:5px;background:rgba(255,255,255,.04);color:#fff;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
-.theme-toggle:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.72);transform:translateY(-1px)}
+.theme-toggle{width:42px;height:42px;display:inline-grid;place-items:center;flex:0 0 auto;border:1px solid rgba(255,255,255,.42);border-radius:5px;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.theme-toggle:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.78);transform:translateY(-1px)}
 .theme-toggle-icon{font-size:18px;line-height:1}
 
+/* Cockpit-inspired typography across every page. */
 @media screen{
-  html[data-theme="dark"]{--paper:#052f49!important;--ice:#083b56!important;--ink:#f5fbfc!important;--muted:#bfd1d8!important;--line:#2d6881!important;--cyan-100:#0b536c!important;--shadow:0 24px 70px rgba(0,12,24,.28)!important;color-scheme:dark}
-  html[data-theme="dark"] body{background:var(--paper)!important;color:var(--ink)!important}
-  html[data-theme="dark"] main>section:not(.hero):not(.subpage-hero):not(.section-dark):not(.cooperation-section):not(.student-cover-section){background:var(--paper)!important;color:var(--ink)}
-  html[data-theme="dark"] :where(.nav-panel,.audience-card,.service-card,.benefit-card,.protection-card,.topic-grid article,.role-grid article,.contact-form,.contact-person-card,.legal-card,.info-card,.source-card,.vehicle-card,.mode-card,.progress-card,.question,.question-card,.rec-card,.result-card,.storage-dialog,.storage-panel,.calculator-wrap,.check-wrap,.app-shell,.box,.notice,.template-area,.recommend-dialog,.recommend-entry,.recommend-preview){background:#0a4564!important;color:var(--ink)!important;border-color:var(--line)!important;box-shadow:0 16px 44px rgba(0,14,28,.2)!important}
-  html[data-theme="dark"] :where(.cta-panel,.hero-panel,.video-card,.learning-card,.cost-check-card,.feature-benefit,.module){border-color:#2d6881!important}
-  html[data-theme="dark"] :where(h1,h2,h3,h4,legend,summary,label,strong,.nav-panel h3,.recommend-entry strong){color:var(--ink)}
-  html[data-theme="dark"] :where(p,li,small,.form-footnote,.result-note,.template-note,.nav-panel a){color:var(--muted)}
-  html[data-theme="dark"] :where(input,select,textarea){background:#072f47!important;color:#fff!important;border-color:var(--line)!important}
-  html[data-theme="dark"] :where(input,textarea)::placeholder{color:#a9c1ca!important}
-  html[data-theme="dark"] :where(.recommend-action,.recommend-close,.recommend-target,.template-button){background:#083b56!important;color:#fff!important;border-color:var(--line)!important}
-  html[data-theme="dark"] .recommend-target[aria-pressed="true"],html[data-theme="dark"] .recommend-action-primary{background:var(--cyan-500)!important;color:#02304f!important;border-color:var(--cyan-400)!important}
+  body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important}
+  :where(h1,h2,h3,h4,h5,h6){font-weight:800}
+  :where(.eyebrow,.card-label,.card-index,.service-audience,.num,.pill,.button,button,.header-cta,.text-link){font-weight:800}
+  :focus-visible{outline:3px solid #65e3e8!important;outline-offset:3px}
+
+  html[data-theme="dark"]{
+    --dark-page:#071f32;
+    --dark-section:#092b40;
+    --dark-surface:#0d3d58;
+    --dark-surface-2:#124b68;
+    --dark-field:#08283c;
+    --dark-line:#3a7891;
+    --dark-text:#f7fcfd;
+    --dark-muted:#c8dbe1;
+    --dark-accent:#65e3e8;
+    --dark-accent-strong:#31d2da;
+    --dark-accent-ink:#04243b;
+    --paper:var(--dark-surface)!important;
+    --bg:var(--dark-page)!important;
+    --ice:var(--dark-section)!important;
+    --ink:var(--dark-text)!important;
+    --muted:var(--dark-muted)!important;
+    --line:var(--dark-line)!important;
+    --cyan-100:#17566f!important;
+    --shadow:0 24px 70px rgba(0,10,22,.34)!important;
+    color-scheme:dark;
+  }
+
+  html[data-theme="dark"] body{background:var(--dark-page)!important;color:var(--dark-text)!important}
+  html[data-theme="dark"] main>section:not(.hero):not(.subpage-hero):not(.section-dark):not(.dark):not(.cooperation-section):not(.student-cover-section){
+    background:var(--dark-page)!important;color:var(--dark-text)!important
+  }
+  html[data-theme="dark"] :where(.section-soft,.sources,.cta-section){background:var(--dark-section)!important}
+
+  /* Primary cards and containers. */
+  html[data-theme="dark"] :where(
+    .nav-panel,.audience-card,.service-card,.benefit-card,.protection-card,
+    .topic-grid article,.role-grid article,.contact-form,.contact-person-card,
+    .legal-card,.info-card,.source-card,.vehicle-card,.mode-card,.progress-card,
+    .question,.question-card,.rec-card,.result-card,.storage-dialog,.storage-panel,
+    .calculator-wrap,.check-wrap,.app-shell,.box,.notice,.template-area,
+    .recommend-dialog,.recommend-entry,.recommend-preview,.card,.case,.calculator,
+    .ranking,.learning-card,.cost-check-card,.feature-benefit,.module-card,.tool-card,
+    .result,.lane-result,.review-item,fieldset,.faq details,details
+  ){
+    background:var(--dark-surface)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important;
+    box-shadow:0 16px 44px rgba(0,10,22,.22)!important
+  }
+
+  /* Nested cards, answer choices and functional controls. */
+  html[data-theme="dark"] :where(
+    .case .step,.vehicle-data div,.choice label,.cost-row,.ranking .rec-card,
+    .question label,.answer,.option,.option-card,.choice-card,.review-row,
+    .tool,.tile,.template-card,.result-row,.stat,.metric,.data-card
+  ){
+    background:var(--dark-surface-2)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important
+  }
+
+  html[data-theme="dark"] :where(.cta-panel,.hero-panel,.video-card,.module,.dark-grid .card){
+    border-color:rgba(101,227,232,.34)!important
+  }
+  html[data-theme="dark"] :where(.dark-grid .card,.section-dark .card,.dark .card){
+    background:rgba(255,255,255,.09)!important
+  }
+
+  /* Consistent readable type hierarchy. */
+  html[data-theme="dark"] :where(h1,h2,h3,h4,h5,h6,legend,summary,label,strong,b,.nav-panel h3,.recommend-entry strong){
+    color:var(--dark-text)!important
+  }
+  html[data-theme="dark"] :where(p,li,small,.lead,.hint,.form-footnote,.result-note,.template-note,.ranking-note,.case-intro,.external,.nav-panel a){
+    color:var(--dark-muted)!important
+  }
+  html[data-theme="dark"] main a:not(.button):not(.brand):not(.header-cta):not(.mobile-cta){
+    color:var(--dark-accent)!important
+  }
+  html[data-theme="dark"] :where(.eyebrow,.card-label,.card-index,.service-audience,.num,.pill,.text-link,.source-links a,.legal-back,.module>span,.process-grid span){
+    color:var(--dark-accent)!important
+  }
+
+  /* Numbered markers must be readable, not merely decorative. */
+  html[data-theme="dark"] :where(.step-no,.case-icon,.concept-step>span:first-child,.process-grid article>span:first-child,.rec-card b:first-child){
+    background:var(--dark-accent)!important;
+    color:var(--dark-accent-ink)!important;
+    border-color:var(--dark-accent)!important
+  }
+  html[data-theme="dark"] .pill{
+    background:#123f57!important;
+    border:1px solid var(--dark-line)!important
+  }
+
+  /* Forms, calculators and learning controls. */
+  html[data-theme="dark"] :where(input,select,textarea){
+    background:var(--dark-field)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important;
+    caret-color:var(--dark-accent)!important
+  }
+  html[data-theme="dark"] :where(input,textarea)::placeholder{color:#a9c4ce!important;opacity:1}
+  html[data-theme="dark"] select option{background:var(--dark-field);color:var(--dark-text)}
+  html[data-theme="dark"] :where(input[type="radio"],input[type="checkbox"]){accent-color:var(--dark-accent-strong)}
+  html[data-theme="dark"] :where(.choice input:checked+label,.option[aria-checked="true"],.selected,.active-answer){
+    background:#155a70!important;
+    border-color:var(--dark-accent)!important;
+    box-shadow:0 0 0 3px rgba(101,227,232,.2)!important
+  }
+  html[data-theme="dark"] :where(.progress i,.progress-bar,.meter){background:#315f72!important}
+  html[data-theme="dark"] :where(.progress i.active,.progress-bar>span,.meter>span){background:var(--dark-accent-strong)!important}
+
+  /* Buttons and links keep distinct, obvious states. */
+  html[data-theme="dark"] :where(.button-secondary,.secondary,.recommend-action,.recommend-close,.recommend-target,.template-button){
+    background:var(--dark-surface-2)!important;
+    color:var(--dark-text)!important;
+    border:1px solid var(--dark-line)!important
+  }
+  html[data-theme="dark"] :where(.button-secondary,.secondary,.recommend-action,.recommend-close,.recommend-target,.template-button):hover{
+    background:#175a75!important;
+    border-color:var(--dark-accent)!important
+  }
+  html[data-theme="dark"] :where(.button-primary,.recommend-target[aria-pressed="true"],.recommend-action-primary){
+    background:var(--dark-accent-strong)!important;
+    color:var(--dark-accent-ink)!important;
+    border-color:var(--dark-accent)!important
+  }
+  html[data-theme="dark"] :where(.button-primary,.recommend-target[aria-pressed="true"],.recommend-action-primary) *{
+    color:var(--dark-accent-ink)!important
+  }
+  html[data-theme="dark"] :where(button,[role="button"],.button){text-decoration:none}
+  html[data-theme="dark"] :where(button,[role="button"],.button)[disabled]{opacity:.58}
+
+  /* Page-specific surfaces that previously stayed white. */
+  html[data-theme="dark"] .calculator .calc-head{background:var(--dark-surface)!important;border-color:var(--dark-line)!important}
+  html[data-theme="dark"] .calculator .step{background:transparent!important}
+  html[data-theme="dark"] .ranking{background:var(--dark-surface)!important}
+  html[data-theme="dark"] .rec-card:hover{background:#175a75!important;border-color:var(--dark-accent)!important}
+  html[data-theme="dark"] .rec-card>span{color:var(--dark-accent)!important}
+  html[data-theme="dark"] .field label{color:var(--dark-text)!important}
+  html[data-theme="dark"] .source-card a,
+  html[data-theme="dark"] .result-count button,
+  html[data-theme="dark"] .cost-row span{color:var(--dark-accent)!important}
+  html[data-theme="dark"] .disclaimer{background:var(--dark-section)!important;color:var(--dark-muted)!important}
+  html[data-theme="dark"] .urgent{background:#4a2631!important;color:#ffd9df!important;border-color:#df7585!important}
+  html[data-theme="dark"] .urgent :where(p,strong){color:#ffd9df!important}
+
+  /* Menus, tables and native disclosure widgets. */
+  html[data-theme="dark"] :where(th,td){border-color:var(--dark-line)!important}
+  html[data-theme="dark"] th{background:var(--dark-surface-2)!important;color:var(--dark-text)!important}
+  html[data-theme="dark"] td{background:var(--dark-surface)!important;color:var(--dark-muted)!important}
+  html[data-theme="dark"] summary::marker{color:var(--dark-accent)}
+  html[data-theme="dark"] .skip-link:focus{background:var(--dark-accent)!important;color:var(--dark-accent-ink)!important}
 }
 
 @media(max-width:700px){.global-header-actions{gap:7px}.theme-toggle{width:43px;height:43px}}
