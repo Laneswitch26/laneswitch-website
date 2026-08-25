@@ -1279,3 +1279,20 @@
     border-color:#65e3e8!important;
   }
 }
+
+
+/* Final light-mode contrast refinements for highlighted navy cards and steps. */
+@media screen{
+  html:not([data-theme="dark"]) main .step-no{
+    color:#087b8b!important;
+  }
+
+  html:not([data-theme="dark"]) main :where(.audience-card-dark,.feature-benefit)
+    :where(.card-label,.card-index,.text-link){
+    color:#65e3e8!important;
+  }
+
+  html:not([data-theme="dark"]) body.page-cockpit .section:not(.dark) .card a{
+    color:#087b8b!important;
+  }
+}
