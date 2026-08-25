@@ -1156,3 +1156,126 @@
     font-size:8.5px;
   }
 }
+
+
+/* Contrast integrity layer
+   Keeps LANE SWITCH accents readable on light surfaces and prevents late
+   page-specific rules from turning dark-mode cards white. */
+@media screen{
+  /* On white and ice surfaces, the brand cyan remains an accent while the
+     darker petrol tone carries text at WCAG-readable contrast. */
+  html:not([data-theme="dark"]) main :where(
+    .eyebrow,.card-index,.card-label,.service-audience,.num,.text-link,
+    .mode-icon,.mode-card span:last-child
+  ){
+    color:#087b8b!important;
+  }
+
+  html:not([data-theme="dark"]) main :where(
+    .hero,.subpage-hero,.dark,.section-dark,.cooperation-section,.student-cover-section
+  ) :where(
+    .eyebrow,.card-index,.card-label,.service-audience,.num,.text-link,
+    .mode-icon,.mode-card span:last-child
+  ){
+    color:#65e3e8!important;
+  }
+
+  html:not([data-theme="dark"]) .form-footnote{
+    color:#526b7c!important;
+  }
+
+  /* The Cockpit contains navy sections in both themes. Their cards must never
+     inherit the white-card normalization used by the light content sections. */
+  body.page-cockpit .dark-grid .card{
+    background:#0d3d58!important;
+    color:#f7fcfd!important;
+    border-color:#3a7891!important;
+    box-shadow:0 16px 44px rgba(0,10,22,.22)!important;
+  }
+  body.page-cockpit .dark-grid .card :where(h3,strong){
+    color:#f7fcfd!important;
+  }
+  body.page-cockpit .dark-grid .card p{
+    color:#c8dbe1!important;
+  }
+  body.page-cockpit .dark-grid .card a{
+    color:#65e3e8!important;
+  }
+
+  /* Reset the late Cockpit light-theme variables when dark mode is active. */
+  html[data-theme="dark"] body.page-cockpit{
+    --paper:var(--dark-surface)!important;
+    --bg:var(--dark-page)!important;
+    --ice:var(--dark-section)!important;
+    --ink:var(--dark-text)!important;
+    --muted:var(--dark-muted)!important;
+    --line:var(--dark-line)!important;
+    background:var(--dark-page)!important;
+    color:var(--dark-text)!important;
+  }
+
+  html[data-theme="dark"] body.page-cockpit :where(.card,.faq details,.notice){
+    background:var(--dark-surface)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important;
+    box-shadow:0 16px 44px rgba(0,10,22,.22)!important;
+  }
+  html[data-theme="dark"] body.page-cockpit :where(.card,.faq details,.notice) :where(h3,summary,strong){
+    color:var(--dark-text)!important;
+  }
+  html[data-theme="dark"] body.page-cockpit :where(.card p,.faq p,.notice){
+    color:var(--dark-muted)!important;
+  }
+  html[data-theme="dark"] body.page-cockpit :where(.card a,.text-link){
+    color:var(--dark-accent)!important;
+  }
+  html[data-theme="dark"] body.page-cockpit .dark-grid .card{
+    background:var(--dark-surface-2)!important;
+  }
+  html[data-theme="dark"] body.page-cockpit .button-secondary{
+    background:var(--dark-surface-2)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important;
+  }
+
+  /* Lernwelt and theory trainer: active panels are created only after a mode
+     is selected, so they need explicit dark surfaces of their own. */
+  html[data-theme="dark"] :where(.topic-picker,.question-card,.result-card,.storage-panel){
+    background:var(--dark-surface)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important;
+  }
+  html[data-theme="dark"] :where(.topic-button,.ghost,.secondary,.result-number,.review-item){
+    background:var(--dark-surface-2)!important;
+    color:var(--dark-text)!important;
+    border-color:var(--dark-line)!important;
+  }
+  html[data-theme="dark"] :where(.topic-picker,.topic-button,.ghost,.secondary,.result-card)
+    :where(h2,h3,strong,label){
+    color:var(--dark-text)!important;
+  }
+  html[data-theme="dark"] :where(.topic-button span,.result-number span,.review-item span){
+    color:var(--dark-muted)!important;
+  }
+  html[data-theme="dark"] .topic-button:hover,
+  html[data-theme="dark"] .topic-button:focus-visible,
+  html[data-theme="dark"] .ghost:hover,
+  html[data-theme="dark"] .ghost:focus-visible,
+  html[data-theme="dark"] .secondary:hover,
+  html[data-theme="dark"] .secondary:focus-visible{
+    background:#176a7f!important;
+    color:#fff!important;
+    border-color:var(--dark-accent)!important;
+  }
+  html[data-theme="dark"] .toast{
+    color:#ffadba!important;
+  }
+
+  /* Selected choices, including the 5-minute check and theory trainer, use a
+     darker petrol fill in dark mode instead of cyan-on-cyan. */
+  html[data-theme="dark"] :where(.option input:checked + label,.answer input:checked + label){
+    background:#176a7f!important;
+    color:#fff!important;
+    border-color:#65e3e8!important;
+  }
+}
