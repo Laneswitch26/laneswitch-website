@@ -203,7 +203,12 @@
     @media(max-width:700px){.header-recommend{display:none}.mobile-recommend{display:inline-flex}.recommend-reminder{left:14px;right:14px;bottom:max(14px,env(safe-area-inset-bottom));width:auto;grid-template-columns:1fr auto;gap:12px;transform:translateY(calc(100% + 60px))}.recommend-reminder.is-visible{transform:translateY(0)}.recommend-reminder-action{grid-column:1/-1;width:100%}.recommend-reminder-close{grid-column:2;grid-row:1}.recommend-reminder-copy{grid-column:1;grid-row:1}}
 
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important}}
-  </style>
+  
+@media screen{
+  html:not([data-theme="dark"]) body main .process-grid article>span,
+  html:not([data-theme="dark"]) body main .step-no{color:#006b7c!important}
+}
+</style>
 </head>
 <link rel="stylesheet" href="./assets/theme.css?v=20260825-contrastaudit2"><script src="./assets/theme.js?v=20260825-contrastaudit2"></script><body>
   <a class="skip-link" href="#inhalt">Zum Inhalt</a>
