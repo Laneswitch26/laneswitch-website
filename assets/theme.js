@@ -7,9 +7,8 @@
     write(key, value) { try { window.localStorage.setItem(key, value); } catch (_) {} }
   };
 
-  const media = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
   const saved = storage.read(THEME_KEY);
-  root.dataset.theme = saved === 'dark' || saved === 'light' ? saved : (media && media.matches ? 'dark' : 'light');
+  root.dataset.theme = saved === 'dark' || saved === 'light' ? saved : 'light';
 
   let openRecommendation = () => {};
 
