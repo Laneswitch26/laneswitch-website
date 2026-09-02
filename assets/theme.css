@@ -259,7 +259,7 @@
 @media(max-width:700px){.global-header-actions{gap:7px}.theme-toggle{width:43px;height:43px}}
 @media print{.theme-toggle{display:none!important}}
 
-/* Unified persistent navigation – 2026-08-24 */
+/* Unified persistent navigation, 2026-08-24 */
 @media screen{
   .site-header{
     position:sticky!important;
@@ -359,7 +359,7 @@
   .site-header .unified-mobile-nav{gap:15px!important}
 }
 
-/* Social links and direction-aware header visibility – 2026-08-24 */
+/* Social links and direction-aware header visibility, 2026-08-24 */
 @media screen{
   .site-header{
     transform:translateY(0);
@@ -425,7 +425,7 @@
 }
 
 
-/* One navigation system across every page – 2026-08-24 */
+/* One navigation system across every page, 2026-08-24 */
 @media screen{
   .site-header .header-inner{position:relative!important}
   .site-header :where(.desktop-nav,.main-nav,.nav,.unified-mobile-nav){display:none!important}
@@ -608,7 +608,7 @@
 }
 
 
-/* Canonical header, footer and cockpit – final shared interface */
+/* Canonical header, footer and cockpit: final shared interface */
 @media screen{
   body{
     font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif!important;
