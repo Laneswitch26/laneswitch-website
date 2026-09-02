@@ -96,7 +96,7 @@
       school: {
         title: 'LANE SWITCH für Fahrschulen',
         url: new URL('fahrschulen/', siteRoot).href,
-        text: 'Hallo, ich möchte Ihnen LANE SWITCH empfehlen – ein modulares Kooperationskonzept für Fahrschulen mit Versicherungscheck, Theoriebeitrag, Arbeitshilfen und Mehrwerten für Fahrschüler:innen.'
+        text: 'Hallo, ich möchte Ihnen LANE SWITCH empfehlen. Es ist ein modulares Kooperationskonzept für Fahrschulen mit Versicherungscheck, Theoriebeitrag, Arbeitshilfen und Mehrwerten für Fahrschüler:innen.'
       }
     };
 
@@ -186,7 +186,7 @@
     brand.className = 'brand canonical-brand';
     brand.href = siteRoot.href;
     brand.setAttribute('aria-label', 'LANE SWITCH Startseite');
-    brand.innerHTML = '<img src="' + new URL('assets/logo-primary-dark.svg', siteRoot).href + '" alt="LANE SWITCH – Fahrschul-Partnerkonzept" width="1400" height="360">';
+    brand.innerHTML = '<img src="' + new URL('assets/logo-primary-dark.svg', siteRoot).href + '" alt="LANE SWITCH: Fahrschul-Partnerkonzept" width="1400" height="360">';
 
     const nav = document.createElement('nav');
     nav.className = 'unified-primary-nav';
