@@ -1292,7 +1292,42 @@
     color:#65e3e8!important;
   }
 
-  html:not([data-theme="dark"]) body.page-cockpit .section:not(.dark) .card a{
+html:not([data-theme="dark"]) body.page-cockpit .section:not(.dark) .card a{
     color:#087b8b!important;
   }
+}
+
+/* Fahrschueler:innen: entry cards for EaSI Drive and the accident helper. */
+@media screen{
+  .student-new-tools{background:#fff}
+  .student-new-tools-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .student-tool-card{
+    min-height:360px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:clamp(30px,4vw,46px);
+    border:1px solid var(--line,#dbe6eb);
+    border-radius:8px;
+    background:var(--paper,#fff);
+    color:var(--ink,#10243e);
+    box-shadow:0 18px 48px rgba(6,28,61,.09)
+  }
+  .student-tool-card-easi{border-top:5px solid #00b8cc}
+  .student-tool-card-accident{border-top:5px solid #0b2c59}
+  .student-tool-card .card-label{margin:0 0 32px;color:#087b8b;font-size:12px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
+  .student-tool-card h3{margin:0 0 15px;font-size:clamp(28px,3.2vw,40px);line-height:1.08;letter-spacing:-.04em}
+  .student-tool-card>p:not(.card-label){margin:0 0 28px;color:var(--muted,#617186);font-size:16px;line-height:1.72}
+  .student-tool-card .button{margin-top:auto}
+  html[data-theme="dark"] .student-new-tools{background:var(--dark-page)!important}
+  html[data-theme="dark"] .student-tool-card{background:var(--dark-surface)!important;color:var(--dark-text)!important;border-color:var(--dark-line)!important}
+  html[data-theme="dark"] .student-tool-card-easi{border-top-color:var(--dark-accent)!important}
+  html[data-theme="dark"] .student-tool-card-accident{border-top-color:#8ebbd2!important}
+  html[data-theme="dark"] .student-tool-card h3{color:var(--dark-text)!important}
+  html[data-theme="dark"] .student-tool-card>p:not(.card-label){color:var(--dark-muted)!important}
+  html[data-theme="dark"] .student-tool-card .card-label{color:var(--dark-accent)!important}
+}
+@media(max-width:760px){
+  .student-new-tools-grid{grid-template-columns:1fr}
+  .student-tool-card{min-height:330px}
 }

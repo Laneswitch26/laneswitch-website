@@ -263,7 +263,9 @@
         title: 'Für Fahrschüler:innen',
         links: [
           ['fahrzeugkosten/', 'Fahrzeugkosten-Rechner', 'Monatliche Autokosten einschätzen'],
-          ['lernwelt/', 'Lernwelt Klasse B', 'Wissen üben und festigen']
+          ['lernwelt/', 'Lernwelt Klasse B', 'Wissen üben und festigen'],
+          ['easi-drive/', 'EaSI Drive', 'Mögliche Vertragslösung einordnen'],
+          ['unfallhelfer/', 'Unfallhelfer', 'Nach einem Unfall strukturiert handeln']
         ]
       }
     ];
