@@ -1,6 +1,6 @@
 <!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Gefahrenradar · Illustrationsprüfung</title><style>body{margin:20px;background:#e8eee9;color:#173e50;font:16px system-ui}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}article{background:white;border-radius:12px;overflow:hidden}h2{font-size:16px;margin:12px}svg{display:block;width:100%}p{margin:12px;font-size:13px}</style><h1>25 Szenen · ruhender Moment nach dem Hinweis</h1><main id="gallery"></main><script type="module">
-import{SCENES}from'../lernwelt/gefahrenradar/scenes.mjs?v=4';
-import{illustration,paint}from'../lernwelt/gefahrenradar/illustrations.mjs?v=4';
+import{SCENES}from'../lernwelt/gefahrenradar/scenes.mjs?v=5';
+import{illustration,paint}from'../lernwelt/gefahrenradar/illustrations.mjs?v=5';
 const gallery=document.querySelector('#gallery');
 for(const scene of SCENES){const card=document.createElement('article');const title=document.createElement('h2');title.textContent=scene.title;const stage=document.createElement('div');stage.innerHTML=illustration(scene,'gallery');paint(stage,scene,scene.cueMs+scene.motionMs/2);const caption=document.createElement('p');caption.textContent=scene.intro;card.append(title,stage,caption);gallery.append(card);}
 </script></html>

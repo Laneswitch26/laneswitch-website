@@ -26,7 +26,9 @@ const screenshots=process.env.RADAR_SCREENSHOTS;
  }
  const seen=[];
  for(let i=0;i<5;i++){
-  await page.clock.runFor(4400);
+  const currentTitle=await page.locator('#gr-scene-title').innerText();
+  const current=SCENES.find(s=>s.title===currentTitle);
+  await page.clock.runFor(current.cueMs===0?1000:4400);
   const title=await page.locator('#gr-scene-title').innerText();seen.push(title);
   if(screenshots)await page.screenshot({path:screenshots+'/scene-'+SCENES.find(s=>s.title===title).id+'-mobile.png',fullPage:true});
   const s=await hit();
@@ -42,6 +44,7 @@ const screenshots=process.env.RADAR_SCREENSHOTS;
  console.log('PASS: five touch scenes, correct answers, 100 points, badge, no storage/cookies');
  await page.locator('#gr-again').click();
  assert.match(await page.locator('#gr-total').innerText(),/^0 Punkte/);
+ assert(!seen.includes(await page.locator('#gr-scene-title').innerText()),'replay starts with a new scene');
  // An early, irrelevant tap receives one penalty; a rapid second tap is ignored.
  let box=await page.locator('#gr-stage').boundingBox();await page.touchscreen.tap(box.x+20,box.y+20);await page.touchscreen.tap(box.x+20,box.y+20);
  assert.match(await page.locator('#gr-status').innerText(),/1\/4/);
@@ -49,7 +52,7 @@ const screenshots=process.env.RADAR_SCREENSHOTS;
  assert.match(await page.locator('#gr-status').innerText(),/Abzugslimit/);
  await page.clock.runFor(700);
  const penaltyScene=await hit();await page.locator('[data-answer="'+penaltyScene.options.find(o=>o.correct).id+'"]').click();
- assert.match(await page.locator('.gr-feedback-points').innerText(),/^16 \/ 20/);
+ assert.match(await page.locator('.gr-feedback-points').innerText(),penaltyScene.cueMs===0?/^14 \/ 20/:/^16 \/ 20/);
  console.log('PASS: cooldown and capped penalties');
  await page.locator('#gr-next').click();
  await page.clock.runFor(3500);

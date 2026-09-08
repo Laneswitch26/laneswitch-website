@@ -1,5 +1,5 @@
-import { additionalArt } from './more-illustrations.mjs?v=4';
-import { hazardAt } from './core.mjs?v=4';
+import { additionalArt } from './more-illustrations.mjs?v=5';
+import { hazardAt } from './core.mjs?v=5';
 // All vectors are original, local markup. No image services, fonts or trackers.
 const windows = (x, y, columns, rows, step = 40) => Array.from({length: columns * rows}, (_, i) => `<g transform="translate(${x + (i % columns) * step} ${y + Math.floor(i / columns) * 47})"><rect width="17" height="25" rx="2" fill="#527d8c"/><path d="M8.5 0v25M0 12h17" stroke="#dce7e5" stroke-width="2"/></g>`).join('');
 const house = (x,y,w,h,color) => `<g><path d="M${x-9} ${y}l${w/2+9} -33 ${w/2+9} 33" fill="#426372"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}"/>${windows(x+14,y+17,Math.max(1,Math.floor((w-16)/40)),Math.max(1,Math.floor((h-10)/47)))}<path d="M${x} ${y+h}h${w}" stroke="#8eacae" stroke-width="6"/></g>`;

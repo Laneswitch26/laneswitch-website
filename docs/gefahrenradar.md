@@ -17,7 +17,7 @@ Eigenständiges Browser-Minispiel in der bestehenden statischen Website unter `/
 - `tests/gefahrenradar-browser.cjs`: vorbereitete Playwright-End-to-End-Prüfung; Playwright ist nur ein Testwerkzeug.
 - `tests/gefahrenradar-responsive.html`: nicht indexierte Testansicht für definierte Browserfenstergrößen.
 
-## Fünf Szenen und fachliche Grundlagen
+## Ursprüngliche fünf Szenen und fachliche Grundlagen
 
 | ID | Gefahr | Lernziel | Grundlage |
 | --- | --- | --- | --- |
@@ -123,7 +123,13 @@ Am 8. September 2026 anhand von Gesetze im Internet geprüft: StVO §§ 3 (Sicht
 
 ### Prüfung der Erweiterung
 
-- Acht Node-Tests bestanden: `node --test tests/gefahrenradar-core.test.mjs`.
+- Neun Node-Tests bestanden: `node --test tests/gefahrenradar-core.test.mjs`.
 - Auswahltest mit 80 reproduzierbaren Zufallsfolgen für jede der Poolgrößen 25, 26, 27, 29, 30 und 51, jeweils über 20 komplette Vorräte: vollständige Abdeckung und keine Überschneidung benachbarter Runden.
 - Trefferflächen für alle 25 Szenen vor, während und nach dem Hinweis geprüft, auch bei schmalen Darstellungen; Punkte/Fehlklickobergrenze/Abzeichen unverändert getestet.
 - Android-Touchfunktion der bisherigen Version vom Nutzer bestätigt; kein eigener physischer Android-Gerätetest.
+
+- Live-Browserprüfung: alle 25 Szenen über fünf vollständige Runden im Modus ohne Zeitdruck getroffen und richtig beantwortet; jede Runde 90/90 Punkte, insgesamt 25 unterschiedliche Titel. Erste Szene nach Poolwechsel gehörte nicht zur unmittelbar vorherigen Runde.
+- Neue SVG-Szenen auf der Galerie geprüft. Rettungswagen fährt jetzt mit der Front in Bewegungsrichtung. Beim haltenden Warnblinkbus zählen sowohl der Bus als auch die hervortretende Person ab Szenenbeginn; die zusätzliche Trefferregion ist separat getestet.
+- Mobile Ansicht: irrelevanter Klick ergibt einen Abzug; anschließender Treffer plus falsche Antwort ergibt korrekt 5/18 Punkte. Neue Warnkleidungs-Szene bei 390 px in Hell und 320 px in Dunkel visuell geprüft.
+- Breitenprüfung bei 320, 390, 844 (Querformat), 768 und 1280 px; kein horizontaler Überlauf. Der gemeinsame Theme-Schalter lässt sich per Tastatur bedienen.
+- Die vorbereitete Playwright-Datei wurde an statische Hinweise angepasst (Frühbonus beginnt dort sofort). Sie wurde nicht separat ausgeführt; die Live-Browserprüfung erfolgte über den verfügbaren Browserzugang.

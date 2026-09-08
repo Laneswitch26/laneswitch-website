@@ -57,3 +57,9 @@ test('small future pools remain usable and invalid pools are rejected',()=>{
  assert.throws(()=>createSceneDeck([]));assert.throws(()=>createSceneDeck([{id:'a'},{id:'a'}]));
  const deck=createSceneDeck([{id:'a'}]);assert.equal(deck.next().id,'a');assert.equal(deck.next().id,'a');
 });
+
+test('warning bus and emerging passenger are both relevant from the start',()=>{
+ const bus=SCENES.find(s=>s.id==='bus-warning');assert.equal(bus.cueMs,0);
+ assert(isHit(bus,0,589,320));assert(isHit(bus,4000,...Object.values(hazardAt(bus,4000)).slice(0,2)));
+ assert(!isHit(bus,-1,589,320));assert(!isHit(bus,bus.durationMs,589,320));
+});

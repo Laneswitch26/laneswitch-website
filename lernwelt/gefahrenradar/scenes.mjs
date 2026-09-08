@@ -1,4 +1,4 @@
-import { MORE_SCENES } from './more-scenes.mjs?v=4';
+import { MORE_SCENES } from './more-scenes.mjs?v=5';
 // Original LANE SWITCH scenarios. Content and timing are independent of the engine.
 export const RULES = Object.freeze({ detected: 6, early: 2, correct: 12, misclick: 1, maxPenalty: 4, cooldownMs: 650, earlyMs: 3000 });
 export const BADGES = [

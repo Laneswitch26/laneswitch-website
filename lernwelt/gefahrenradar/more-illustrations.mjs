@@ -39,7 +39,7 @@ export function additionalArt(scene, {car, person, cyclist, sideCar, tree}) {
     case 'overtake-cycle':context=move(523,370,cyclist,.85);moving=frontCar(0,0,.8);break;
     case 'reversing':context='<path d="M574 335h226v86H574z" fill="#a2b2b1"/><path d="M614 340l-25 69m64-69-24 69m65-69-24 69m65-69-24 69" stroke="#e7eadd" stroke-width="4"/>';before=move(640,362,van());moving=van(true);break;
     case 'truck-turn':moving='<path d="M-61-127h110v131H-61z" fill="#a4b9b7" stroke="#355968" stroke-width="4"/><path d="M-57-116h102M-57-91h102M-57-66h102M-57-41h102M-5-127V4" stroke="#d4dfd7" stroke-width="3"/><path d="M-41 8v22m75-22v22" stroke="#294754" stroke-width="15"/><rect x="27" y="-8" width="17" height="10" fill="#ffc45a"/><path d="M56-9l14-4m-13 15 14 3" stroke="#ffc45a" stroke-width="4"/>';break;
-    case 'emergency':moving=ambulance;break;
+    case 'emergency':moving='<g transform="scale(-1 1)">'+ambulance+'</g>';break;
   }
   return {context,moving,before};
 }

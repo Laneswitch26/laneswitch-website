@@ -1,7 +1,7 @@
 // Eigenständige LANE SWITCH Lernfälle, keine amtlichen Prüfungsfragen.
 const make = (id, title, category, intro, description, from, to, question, right, wrongA, wrongB, feedback, principle, section, visual = {}) => ({
   id, title, category, intro, description, cueMs: visual.static ? 0 : 2400, durationMs:11000, motionMs:6500,
-  hazard:{from,to,rx:76,ry:78}, question,
+  hazard:{from,to,rx:76,ry:78,...visual.hitArea}, question,
   options:[{id:'safe',text:right,correct:true},{id:'risk-a',text:wrongA,correct:false},{id:'risk-b',text:wrongB,correct:false}],
   feedback, principle, source:{label:`StVO ${section === 'anlage_2' ? 'Anlage 2 · Zeichen 206 / Haltlinie' : '§ '+section}`,url:`https://www.gesetze-im-internet.de/stvo_2013/${section === 'anlage_2' ? section : '__'+section}.html`}, visual
 });
@@ -26,7 +26,7 @@ export const MORE_SCENES = [
     [518,357],[487,367], 'Wie fährst du an diesem haltenden Bus vorbei?',
     'Nur mit Schrittgeschwindigkeit und ohne Fahrgäste zu gefährden oder zu behindern; nötigenfalls warten.', 'Mit normalem Tempo, solange niemand auf deiner Fahrbahn steht.', 'Beschleunigen, damit die Fahrgäste nicht warten müssen.',
     'Beim haltenden Linienbus mit Warnblinklicht ist besondere Vorsicht nötig: Fahrgäste können unvermittelt hervortreten. Schrittgeschwindigkeit gilt hier auch für den Gegenverkehr auf derselben Fahrbahn.',
-    'Rechne mit Menschen, die das große Fahrzeug verdeckt.', '20'),
+    'Rechne mit Menschen, die das große Fahrzeug verdeckt.', '20',{static:true,hitArea:{also:[{x:589,y:320,rx:76,ry:108}]}}),
   make('bus-departure','Der Bus fährt an','Öffentliche Verkehrsmittel',
     'Du näherst dich einem Linienbus an einer gekennzeichneten Haltestelle.',
     'Der Bus rechts setzt seinen linken Blinker und beginnt, sich aus der Haltestelle zur Fahrbahn hin zu bewegen.',

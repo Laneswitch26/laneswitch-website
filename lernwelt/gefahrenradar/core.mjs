@@ -1,4 +1,4 @@
-import { RULES, BADGES } from './scenes.mjs?v=4';
+import { RULES, BADGES } from './scenes.mjs?v=5';
 export function shuffle(items, random = Math.random) {
   const result = [...items];
   for (let i = result.length - 1; i > 0; i--) {
@@ -17,8 +17,9 @@ export function isHit(scene, elapsed, x, y, width = 800) {
   const position = hazardAt(scene, elapsed);
   // Minimum target diameter of 56 CSS pixels, in the same SVG coordinate system.
   const minRadius = 28 * 800 / Math.max(width, 1);
-  return ((x - position.x) / Math.max(scene.hazard.rx, minRadius)) ** 2 +
-    ((y - position.y) / Math.max(scene.hazard.ry, minRadius)) ** 2 <= 1;
+  return [{...position,rx:scene.hazard.rx,ry:scene.hazard.ry}, ...(scene.hazard.also || [])].some(area =>
+    ((x - area.x) / Math.max(area.rx, minRadius)) ** 2 +
+    ((y - area.y) / Math.max(area.ry, minRadius)) ** 2 <= 1);
 }
 export function scoreScene(record) {
   return Math.max(0, (record.detected ? RULES.detected : 0) +
@@ -37,7 +38,7 @@ export function summarize(records) {
 }
 
 // A session-local bag: consume only scenes actually displayed, never a whole reserved round.
-// Across bag boundaries, put the last round at the back of the next shuffled bag.
+// Across bag boundaries, put the recent window at the back of the next shuffled bag.
 export function createSceneDeck(pool, random = Math.random, roundSize = 5) {
   if (!pool.length || new Set(pool.map(scene => scene.id)).size !== pool.length) throw new Error('Scene IDs must be unique and nonempty.');
   let remaining = [], recent = [];
