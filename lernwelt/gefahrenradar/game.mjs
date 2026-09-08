@@ -1,6 +1,6 @@
 import { SCENES, RULES, BADGES } from './scenes.mjs';
 import { shuffle, isHit, scoreScene, summarize } from './core.mjs';
-import { illustration, paint } from './illustrations.mjs';
+import { illustration, paint } from './illustrations.mjs?v=2';
 
 const $ = id => document.getElementById(id);
 const stage = $('gr-stage');

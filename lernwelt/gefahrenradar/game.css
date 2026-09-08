@@ -6,3 +6,7 @@ html[data-theme="dark"] .gr-start h1 span,html[data-theme="dark"] .gr-feedback-p
 @media(max-width:380px){.gr-main{width:calc(100% - 24px)}.gr-start h1{font-size:43px}.gr-lead{font-size:23px}.gr-round-top h1{font-size:27px}.gr-scene-controls{align-items:flex-start}.gr-result-grid div{padding:12px}.gr-tags{gap:5px}.gr-tags span{font-size:10px}}
 @media(orientation:landscape) and (max-height:550px) and (min-width:650px){.gr-play-layout{grid-template-columns:1.2fr 1fr}.gr-main{padding-top:10px}.gr-stage{max-width:520px}.gr-wait-panel{display:block}.gr-panel{padding:16px}.gr-round-top h1{font-size:28px}.gr-context{margin-bottom:8px}}
 @media(prefers-reduced-motion:reduce){.gr-start-visual{transform:none}.gr-page *{scroll-behavior:auto!important}}
+/* Keep long scene titles and the exit control inside narrow phone viewports. */
+.gr-round-top>div{min-width:0}.gr-main :where(h1,h2,h3,p,button){overflow-wrap:anywhere}
+@media(max-width:620px){.gr-round-top{display:grid;grid-template-columns:minmax(0,1fr);gap:0}.gr-round-top .gr-quiet{justify-self:end;max-width:none;min-height:40px;padding:8px 12px;margin-bottom:6px}.gr-round-top h1{margin-bottom:8px}}
+@media(max-width:380px){.gr-start h1{font-size:39px}.gr-start h1 span{display:block}}
