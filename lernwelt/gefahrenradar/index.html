@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Gefahrenradar: Erkennst du’s rechtzeitig? | LANE SWITCH</title>
+  <meta name="description" content="Fünf interaktive Verkehrsszenen: Gefahren entdecken, sicher entscheiden und direkt dazulernen. Das kostenlose Minispiel der LANE SWITCH Lernwelt.">
+  <link rel="canonical" href="https://laneswitch.de/lernwelt/gefahrenradar/">
+  <meta property="og:title" content="Wie gut ist dein Gefahrenradar? Jetzt testen."><meta property="og:description" content="Fünf Verkehrsszenen. Dein Blick fürs Wesentliche. Das Minispiel von LANE SWITCH."><meta property="og:type" content="website"><meta property="og:url" content="https://laneswitch.de/lernwelt/gefahrenradar/"><meta property="og:image" content="https://laneswitch.de/assets/og-fahrschueler.png">
+  <link rel="icon" href="/assets/logo-symbol.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/theme.css?v=20260908-cooperations"><script src="/assets/theme.js?v=20260908-cooperations"></script>
+  <link rel="stylesheet" href="./game.css?v=1"><script type="module" src="./game.mjs?v=1"></script>
+</head>
+<body class="gr-page">
+  <a class="gr-skip" href="#game">Direkt zum Spiel</a>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="LANE SWITCH Startseite"><img src="/assets/logo-primary-dark.svg" alt="LANE SWITCH" width="210" height="54"></a><nav aria-label="Hauptnavigation"><a href="/lernwelt/">Lernwelt</a><a href="/fahrschueler/">Für Fahrschüler:innen</a></nav></div></header>
+  <main class="gr-main">
+    <nav class="gr-breadcrumb" aria-label="Brotkrumennavigation"><a href="/lernwelt/">← Lernwelt</a><span aria-hidden="true">/</span><span aria-current="page">Gefahrenradar</span></nav>
+    <div id="game" tabindex="-1">
+      <section class="gr-start" id="gr-start" aria-labelledby="gr-title">
+        <div class="gr-start-copy"><p class="gr-kicker">Dein Blick macht den Unterschied</p><h1 id="gr-title">Gefahren<span>radar.</span></h1><p class="gr-lead">Erkennst du’s rechtzeitig?</p><p>Entdecke, was kritisch werden könnte. Tippe auf die Gefahr und entscheide, wie du reagierst.</p>
+          <div class="gr-tags"><span>5 Verkehrsszenen</span><span>ca. 60–90 Sekunden*</span><span>Ohne Anmeldung</span></div>
+          <button type="button" class="gr-button gr-primary" id="gr-play" disabled>Spiel wird geladen …</button>
+          <p class="gr-small">* Mit Erklärungen, je nach Lesetempo. Kein Zeitlimit für Antworten.</p>
+        </div>
+        <div class="gr-start-visual"><div id="gr-preview"></div><div class="gr-visual-caption"><span class="gr-radar-icon" aria-hidden="true">◎</span><div><strong>Sehen. Vorausdenken. Handeln.</strong><span>Deine Entscheidung zählt mehr als dein Tempo.</span></div></div></div>
+        <div class="gr-settings"><label><input type="checkbox" id="gr-calm"> Ohne Zeitdruck und ohne Animationen spielen</label><label><input type="checkbox" id="gr-text"> Textalternative statt visueller Suche</label><p class="gr-small">Tastatur: Szene mit Tab fokussieren, Blickpunkt mit Pfeiltasten bewegen, mit Eingabe markieren. In der Textalternative bewertest du beschriebene Situationen ohne Suchpunkte.</p></div>
+      </section>
+      <section id="gr-round" hidden aria-labelledby="gr-scene-title">
+        <div class="gr-round-top"><div><p class="gr-kicker" id="gr-count"></p><h1 id="gr-scene-title" tabindex="-1"></h1></div><button class="gr-button gr-quiet" id="gr-exit" type="button">Runde beenden</button></div>
+        <div class="gr-round-meta"><span id="gr-mode"></span><strong id="gr-total">0 Punkte</strong><progress id="gr-progress" value="0" max="5" aria-label="Abgeschlossene Szenen"></progress></div>
+        <p id="gr-context" class="gr-context"></p>
+        <div class="gr-play-layout"><div class="gr-scene-column">
+          <div class="gr-stage" id="gr-stage" tabindex="0" role="group" aria-label="Verkehrsszene. Tippe auf eine Gefahr. Tastatur: Pfeiltasten bewegen den Blickpunkt, Eingabe markiert." aria-describedby="gr-context gr-instruction"></div>
+          <div class="gr-scene-controls"><span id="gr-instruction">Tippe auf die Stelle, die gefährlich werden könnte.</span><button type="button" class="gr-button gr-quiet" id="gr-pause">Pause</button></div>
+          <progress id="gr-time" max="1" value="1" aria-label="Verbleibende Beobachtungszeit"></progress>
+          <p id="gr-status" class="gr-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        </div>
+        <div id="gr-panel" class="gr-panel"></div></div>
+      </section>
+      <section id="gr-result" class="gr-result" hidden aria-labelledby="gr-result-title"></section>
+    </div>
+    <details class="gr-explainer"><summary>So zählen die Punkte</summary><p>Pro Szene: 6 Punkte fürs Erkennen, 2 Zusatzpunkte in den ersten 3 Sekunden nach dem sichtbaren Hinweis und 12 Punkte für die passende Entscheidung. Das sind bis zu 100 Punkte pro Runde.</p><p>Fehlklicks: jeweils 1 Punkt Abzug, maximal 4 je Szene. Eine kurze Eingabepause verhindert wahlloses Tippen. Der Szenenwert fällt nie unter null. Auch nach einer verpassten Gefahr kannst du mit der richtigen Entscheidung 12 Punkte sammeln.</p><p>Ohne Zeitdruck entfällt der Frühbonus, maximal sind 90 Punkte möglich. In der Textalternative gibt es ausschließlich Entscheidungspunkte, maximal 60. Ergebnisse dieser Modi werden getrennt eingeordnet.</p><p>Abzeichen im Radarmodus: „Gefahrenentdecker:in“ ab 45 Punkten, 3 erkannten Gefahren und 3 richtigen Entscheidungen; „Aufmerksam unterwegs“ ab 65 Punkten und jeweils 4 Treffern; „Gefahrenprofi“ ab 85 Punkten und jeweils 5 Treffern. In der Textalternative zählen nur die richtigen Entscheidungen: 3, 4 oder 5.</p></details>
+    <p class="gr-disclaimer">Eigene Lernszenen von LANE SWITCH, keine amtlichen Prüfungsaufgaben. Das Spiel ergänzt das Lernen und ersetzt weder Fahrschulausbildung noch Prüfungsvorbereitung. Punkte sind kein Nachweis deiner Fahrkompetenz.</p>
+    <p class="gr-disclaimer">Spielergebnisse bleiben nur im Arbeitsspeicher dieser Seite. Beim Neuladen werden sie zurückgesetzt. Keine Spielkonten, kein Spieltracking. <a href="/datenschutz/#gefahrenradar">Datenschutzhinweise</a></p>
+    <noscript><p class="gr-panel">Für das interaktive Spiel muss JavaScript aktiviert sein. <a href="/lernwelt/">Zurück zur Lernwelt</a></p></noscript>
+  </main>
+  <footer class="gr-footer"><div class="container"><a href="/" aria-label="LANE SWITCH Startseite"><img src="/assets/logo-primary-dark.svg" width="180" height="47" alt="LANE SWITCH"></a><nav aria-label="Weitere Seiten"><a href="/lernwelt/">Lernwelt</a><a href="/kontakt/">Kontakt</a><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a></nav></div></footer>
+</body>
+</html>
