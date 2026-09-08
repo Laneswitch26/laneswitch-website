@@ -1,4 +1,5 @@
-import { hazardAt } from './core.mjs';
+import { additionalArt } from './more-illustrations.mjs?v=4';
+import { hazardAt } from './core.mjs?v=4';
 // All vectors are original, local markup. No image services, fonts or trackers.
 const windows = (x, y, columns, rows, step = 40) => Array.from({length: columns * rows}, (_, i) => `<g transform="translate(${x + (i % columns) * step} ${y + Math.floor(i / columns) * 47})"><rect width="17" height="25" rx="2" fill="#527d8c"/><path d="M8.5 0v25M0 12h17" stroke="#dce7e5" stroke-width="2"/></g>`).join('');
 const house = (x,y,w,h,color) => `<g><path d="M${x-9} ${y}l${w/2+9} -33 ${w/2+9} 33" fill="#426372"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${color}"/>${windows(x+14,y+17,Math.max(1,Math.floor((w-16)/40)),Math.max(1,Math.floor((h-10)/47)))}<path d="M${x} ${y+h}h${w}" stroke="#8eacae" stroke-width="6"/></g>`;
@@ -11,13 +12,14 @@ const zebra = () => Array.from({length:9},(_,i)=>{const x=181+i*43;return `<path
 const crossingSign = `<g transform="translate(704 270)"><path d="M0 0v95" stroke="#748d92" stroke-width="5"/><rect x="-25" y="-50" width="50" height="50" rx="3" fill="#246384" stroke="#eef5f1" stroke-width="3"/><path d="M0-44l22 37h-44z" fill="#fff"/><circle cy="-30" r="3" fill="#214555"/><path d="M0-27l-3 7 7 8M-2-21l-7 8M-2-25l8 5M-15-9h30" fill="none" stroke="#214555" stroke-width="2.5"/></g>`;
 export function illustration(scene, variant = 'scene') {
   const prefix = scene.id + '-' + variant;
-  const cross = ['cycle','junction'].includes(scene.id);
+  const cross = ['cycle','junction','left-turn','turn-pedestrian','stop-sign','red-light','blocked-junction','truck-turn','emergency'].includes(scene.id);
+  const extra = additionalArt(scene, {car,person,cyclist,sideCar,tree});
   return `<svg class="gr-art" viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <defs><linearGradient id="gr-sky-${prefix}" x2="0" y2="1"><stop stop-color="#b9dbe2"/><stop offset="1" stop-color="#edf2e7"/></linearGradient><linearGradient id="gr-road-${prefix}" x2="0" y2="1"><stop stop-color="#879a9f"/><stop offset="1" stop-color="#566c78"/></linearGradient><linearGradient id="gr-dash-${prefix}" x2="0" y2="1"><stop stop-color="#284856"/><stop offset="1" stop-color="#102f43"/></linearGradient></defs>
   <rect width="800" height="560" fill="url(#gr-sky-${prefix})"/><circle cx="642" cy="82" r="39" fill="#f6f3d9" opacity=".8"/>
   <path d="M0 218q160-55 297-3t256-8 247 5v100H0z" fill="#b5c8bc"/>
-  ${house(260,173,57,88,'#d6dfd6')}${house(381,177,51,80,'#c2d6d0')}
-  ${house(0,100,150,223,'#e8e1d0')}${house(169,161,79,135,'#cedbd6')}${house(546,126,139,195,'#e9e5d8')}${house(698,78,125,255,'#c9dad5')}
+  ${scene.visual?.rural ? tree(240,268,.85)+tree(140,299,1.3)+tree(574,282,1.1)+tree(698,312,1.6) : house(260,173,57,88,'#d6dfd6')}${scene.visual?.rural ? '' : house(381,177,51,80,'#c2d6d0')}
+  ${scene.visual?.rural ? tree(40,375,1.7)+tree(769,378,1.8) : house(0,100,150,223,'#e8e1d0')+house(169,161,79,135,'#cedbd6')+house(546,126,139,195,'#e9e5d8')+house(698,78,125,255,'#c9dad5')}
   ${tree(282,270,.48)}${tree(486,274,.5)}${tree(38,359,1)}
   <path d="M307 237h86l407 323H0z" fill="#c0ccc7"/><path d="M317 237h66l367 323H34z" fill="url(#gr-road-${prefix})"/>
   <path d="M314 237L40 532M387 237l355 296" stroke="#e1e6df" stroke-width="5"/>
@@ -29,7 +31,8 @@ export function illustration(scene, variant = 'scene') {
   ${scene.id==='door' ? car(602,441,1.15,'#4d999e')+car(500,318,.46,'#a1b4b1') : ''}
   ${['cycle','crossing'].includes(scene.id) ? car(221,326,.47,'#a0b2ad') : ''}
   ${scene.id==='junction' ? '<path d="M674 240h126v120H674z" fill="#9eafa1"/><path d="M670 243q30-40 62-17 35-36 68-12v105H670z" fill="#668f7f"/>' : ''}
-  <g data-moving="" visibility="hidden">
+  ${extra.context}<g data-before="">${extra.before}</g>
+  <g data-moving="" visibility="hidden">${extra.moving}
     ${scene.id==='ball' ? '<ellipse cy="16" rx="23" ry="7" fill="#173e50" opacity=".2"/><g data-ball=""><circle r="19" fill="#f09d46" stroke="#8c5639" stroke-width="2"/><path d="M-16-10q26 9 25 27M-12 15q1-23 26-27" fill="none" stroke="#fff1c2" stroke-width="4"/></g>' : ''}
     ${scene.id==='cycle' ? cyclist : ''}${scene.id==='junction' ? sideCar : ''}${scene.id==='crossing' ? person : ''}
   </g>
@@ -39,12 +42,14 @@ export function illustration(scene, variant = 'scene') {
   <path d="M0 0h17l37 441-31 57H0zM800 0h-17l-37 441 31 57h23z" fill="#183e50" opacity=".95"/>
   <path d="M0 523q400-94 800 0v37H0z" fill="url(#gr-dash-${prefix})"/><path d="M100 538q305-64 600 0" fill="none" stroke="#52717b" stroke-width="2"/>
   <path d="M305 560a104 104 0 0 1 201 0" fill="none" stroke="#0b2535" stroke-width="25"/><path d="M311 559a98 98 0 0 1 189 0" fill="none" stroke="#45616e" stroke-width="3"/>
-  ${scene.id==='cycle' ? '<path d="M455 519h30m-10-8 10 8-10 8" stroke="#64e3c6" stroke-width="5" fill="none"/>' : ''}
+  ${['cycle','turn-pedestrian'].includes(scene.id) ? '<path d="M455 519h30m-10-8 10 8-10 8" stroke="#64e3c6" stroke-width="5" fill="none"/>' : ''}
+  ${scene.id==='left-turn' ? '<path d="M350 519h-30m10-8-10 8 10 8" stroke="#64e3c6" stroke-width="5" fill="none"/>' : ''}
   </svg>`;
 }
 export function paint(stage, scene, elapsed, reveal = false) {
   const at = hazardAt(scene, elapsed);
   const visible = elapsed >= scene.cueMs;
+  stage.querySelector('[data-before]')?.setAttribute('visibility', visible ? 'hidden' : 'visible');
   const moving = stage.querySelector('[data-moving]');
   moving.setAttribute('visibility', visible ? 'visible' : 'hidden');
   moving.setAttribute('transform', `translate(${at.x} ${at.y})`);

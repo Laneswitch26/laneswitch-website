@@ -89,3 +89,41 @@ Die Website wurde über den bereits bestehenden GitHub-Pages-Workflow veröffent
 - Zwei gefundene Layoutfehler behoben: doppelte SVG-Verlaufs-IDs und überlaufender Beenden-Button bei langen Szenentiteln auf schmalen Geräten. Zusätzlicher Scrollabstand hält Inhalte unterhalb der bestehenden festen Navigation.
 
 Kein Test auf einem physischen Smartphone oder in Safari/Firefox durchgeführt. Der vorbereitete komplette Playwright-Testlauf wurde nicht als bestanden ausgegeben. Die Quellenprüfung ersetzt keine didaktische Freigabe durch eine Fahrlehrkraft.
+
+
+## Erweiterung: 25 Szenen (8. September 2026)
+
+Der Pool enthält jetzt 25 eigenständige Situationen. Eine Runde bleibt bei fünf Szenen und maximal 100 Punkten. Die fünf ursprünglichen Szenen bleiben erhalten.
+
+Neu: Bremslichter voraus, Engstelle mit Gegenverkehr, haltender Bus mit Warnblinklicht, abfahrender Linienbus, Bahnübergang mit rotem Licht, Linksabbiegen vor einem Motorrad, Fußverkehr beim Rechtsabbiegen, Grundstücksausfahrt, Stoppschild, rote Ampel, blockierter Kreuzungsausgang bei Grün, Straßenarbeiten, Wildwechsel, geführtes Pferd, Wasser auf der Fahrbahn, Nebelbank, Überholen eines Fahrrads mit Gegenverkehr, rückwärts ausparkender Lieferwagen, rechts abbiegender Lkw und Rettungswagen mit Blaulicht/Einsatzhorn.
+
+Die Szenen decken weitere relevante Lernthemen ab, aber keinen vollständigen amtlichen Prüfungsfragenkatalog. Alle Texte und Illustrationen sind eigenständig. Das Einsatzhorn ist im Einführungstext beschrieben; es wird kein Ton abgespielt. Sichtbare permanente Gefahren (z. B. Stoppschild oder Wasserfläche) sind sofort anklickbar. Andere Hinweise entstehen wie bisher zeitversetzt.
+
+### Auswahl ohne direkte Wiederholungen
+
+`createSceneDeck` in `core.mjs` hält einen gemischten Vorrat ausschließlich im Arbeitsspeicher. Erst wenn alle 25 Einträge gezeigt wurden, wird neu gemischt. Die zuletzt gezeigten neun Einträge werden am Beginn des neuen Vorrats zurückgestellt. Dadurch überschneiden sich benachbarte Fünfer-Runden auch bei späteren Poolgrößen, die nicht durch fünf teilbar sind, nicht (bei ausreichend großem Pool). Innerhalb jedes vollständigen Vorrats erscheint jede Szene genau einmal.
+
+Die Engine fordert erst beim tatsächlichen Szenenwechsel den nächsten Eintrag an. Ein Abbruch verbraucht daher keine noch ungesehenen Szenen. „Erneut spielen“ und „Modus ändern“ behalten den Vorrat. Ein Neuladen startet eine neue Auswahl. Kein Session Storage, Local Storage, Cookie, Tracking oder zusätzlicher Drittanbieter wird hierfür verwendet; die bestehende Datenschutzbeschreibung bleibt zutreffend.
+
+### Dateien und Erweiterung
+
+- `more-scenes.mjs`: 20 neue Szenendatensätze, über `scenes.mjs` in den gemeinsamen Pool aufgenommen.
+- `more-illustrations.mjs`: neue lokale SVG-Bausteine und szenenspezifische Umgebung / Hinweise; `illustrations.mjs` zeichnet weiterhin die gemeinsame Fahrerperspektive und Animation.
+- `core.mjs`: Vorratsauswahl als unabhängig testbare Funktion.
+- `game.mjs` und `index.html`: Auswahl integriert, Poolgröße angezeigt, Sitzungshinweis ergänzt.
+- `tests/gefahrenradar-core.test.mjs`: Poolintegrität, bestehende Wertung/Trefferflächen und neue Wiederholungsregeln.
+- `tests/gefahrenradar-gallery.html`: nicht indexierte visuelle Prüfseite aller 25 Szenen, keine versteckte Szenenwahl in der Spiel-Engine.
+- `tests/gefahrenradar-responsive.html`: aktualisierte Vorschauversion.
+
+Weitere Szenen benötigen einen eindeutigen Datensatz mit genau einer richtigen Antwort und einen passenden visuellen Hinweis in der SVG-Darstellung. Statische Hinweise setzen `visual.static` und `cueMs: 0`; sie erhalten keine zufällige Startverzögerung. Landstraßenszenen können `visual.rural` verwenden. Runde, Wertung und Auswahl müssen nicht geändert werden.
+
+### Fachliche Referenzen
+
+Am 8. September 2026 anhand von Gesetze im Internet geprüft: StVO §§ 3 (Sicht/Tempo), 4 (Abstand), 5 (Überholen), 6 (Hindernisse), 9 (Abbiegen/Rückwärtsfahren), 10 (Einfahren), 11 (blockierte Kreuzungen), 19 (Bahnübergang), 20 (Busverkehr), 37 (Lichtzeichen), 38 (Einsatzfahrzeuge), Anlage 2 (Stoppschild/Haltlinie). Links stehen im jeweiligen Datensatz und werden im Feedback ausgegeben. Allgemeine Rücksichtnahme bei Pferden und ausschwenkenden Lkw ist mit § 1 verknüpft; dies begründet keine pauschale Vorfahrt dieser Beteiligten.
+
+### Prüfung der Erweiterung
+
+- Acht Node-Tests bestanden: `node --test tests/gefahrenradar-core.test.mjs`.
+- Auswahltest mit 80 reproduzierbaren Zufallsfolgen für jede der Poolgrößen 25, 26, 27, 29, 30 und 51, jeweils über 20 komplette Vorräte: vollständige Abdeckung und keine Überschneidung benachbarter Runden.
+- Trefferflächen für alle 25 Szenen vor, während und nach dem Hinweis geprüft, auch bei schmalen Darstellungen; Punkte/Fehlklickobergrenze/Abzeichen unverändert getestet.
+- Android-Touchfunktion der bisherigen Version vom Nutzer bestätigt; kein eigener physischer Android-Gerätetest.

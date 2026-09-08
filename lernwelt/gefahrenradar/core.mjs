@@ -1,4 +1,4 @@
-import { RULES, BADGES } from './scenes.mjs';
+import { RULES, BADGES } from './scenes.mjs?v=4';
 export function shuffle(items, random = Math.random) {
   const result = [...items];
   for (let i = result.length - 1; i > 0; i--) {
@@ -34,4 +34,23 @@ export function summarize(records) {
     penalty: records.reduce((total, item) => total + Math.min(item.misclicks, RULES.maxPenalty), 0) };
   result.badge = BADGES.find(badge => result.points >= badge.minPoints && result.detected >= badge.minDetected && result.correct >= badge.minCorrect) || null;
   return result;
+}
+
+// A session-local bag: consume only scenes actually displayed, never a whole reserved round.
+// Across bag boundaries, put the last round at the back of the next shuffled bag.
+export function createSceneDeck(pool, random = Math.random, roundSize = 5) {
+  if (!pool.length || new Set(pool.map(scene => scene.id)).size !== pool.length) throw new Error('Scene IDs must be unique and nonempty.');
+  let remaining = [], recent = [];
+  return {
+    next() {
+      if (!remaining.length) {
+        const shuffled = shuffle(pool, random);
+        const avoid = new Set(recent);
+        remaining = [...shuffled.filter(s => !avoid.has(s.id)), ...shuffled.filter(s => avoid.has(s.id))];
+      }
+      const scene = remaining.shift();
+      recent = [...recent, scene.id].slice(-Math.min(roundSize * 2 - 1, pool.length - 1));
+      return scene;
+    }
+  };
 }

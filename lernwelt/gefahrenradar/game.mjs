@@ -1,10 +1,12 @@
-import { SCENES, RULES, BADGES } from './scenes.mjs';
-import { shuffle, isHit, scoreScene, summarize } from './core.mjs';
-import { illustration, paint } from './illustrations.mjs?v=2';
+import { SCENES, RULES, BADGES } from './scenes.mjs?v=4';
+import { shuffle, createSceneDeck, isHit, scoreScene, summarize } from './core.mjs?v=4';
+import { illustration, paint } from './illustrations.mjs?v=4';
 
 const $ = id => document.getElementById(id);
 const stage = $('gr-stage');
 const panel = $('gr-panel');
+const deck = createSceneDeck(SCENES);
+$('gr-pool-size').textContent = `${SCENES.length} Szenen · 5 pro Runde`;
 let phase = 'start', scenes = [], index = 0, records = [], record, scene;
 let frame = 0, lastTick = 0, elapsed = 0, lastAttempt = -Infinity;
 let calm = false, textMode = false, cursor = { x: 400, y: 280 };
@@ -22,7 +24,7 @@ function drawCursor() {
 }
 function start() {
   stopClock(); calm = $('gr-calm').checked; textMode = $('gr-text').checked;
-  scenes = shuffle(SCENES).slice(0,5).map(item => ({...item, cueMs: item.cueMs + Math.round(Math.random()*700)-350, options:shuffle(item.options)}));
+  scenes = Array(5);
   index = 0; records = []; record = null;
   $('gr-start').hidden = true; $('gr-result').hidden = true; $('gr-round').hidden = false;
   nextScene();
@@ -30,7 +32,9 @@ function start() {
 }
 function nextScene() {
   stopClock();
-  scene = scenes[index];
+  const item = deck.next();
+  scene = {...item, cueMs: item.cueMs === 0 ? 0 : item.cueMs + Math.round(Math.random()*700)-350, options:shuffle(item.options)};
+  scenes[index] = scene;
   record = { id:scene.id, detected:false, early:false, correct:false, misclicks:0, selected:null };
   elapsed = calm || textMode ? scene.cueMs + scene.motionMs*.5 : 0;
   lastAttempt = -Infinity; phase = 'observing'; cursor = {x:400,y:280};
@@ -114,7 +118,7 @@ function finish() {
   const result=summarize(records);
   const badge=textMode ? (result.correct>=5?BADGES[0]:result.correct>=4?BADGES[1]:result.correct>=3?BADGES[2]:null) : result.badge;
   const max=textMode?60:calm?90:100;
-  $('gr-result').innerHTML=`<p class="gr-kicker">Deine Runde · ${textMode?'Textalternative':calm?'Radar ohne Zeitdruck':'Gefahrenradar'}</p><h1 id="gr-result-title" tabindex="-1">${badge?'Gut hingeschaut. Weitergedacht.':'Jede Runde schärft deinen Blick.'}</h1><div class="gr-result-score">${result.points}<span> / ${max} Punkte</span></div>${badge?`<div class="gr-badge">◎ ${badge.name}${textMode?' · Textmodus':''}</div>`:'<p>Das nächste Abzeichen wartet. Schau dir die Erklärungen an und probiere es erneut.</p>'}<div class="gr-result-grid"><div><strong>${textMode?'—':result.detected+'/5'}</strong><span>Gefahren erkannt</span></div><div><strong>${result.correct}/5</strong><span>passend entschieden</span></div><div><strong>${textMode?'—':result.missed}</strong><span>Gefahren verpasst</span></div><div><strong>${result.penalty}</strong><span>Fehlklick-Abzüge</span></div></div><p class="gr-small">${textMode?'Die visuelle Gefahrensuche wurde nicht bewertet.':`Früh erkannt: ${result.early} von 5. ${calm?'In diesem Modus gibt es keinen Frühbonus.':''}`} Deine Ergebnisse bleiben bis zum Neuladen dieser Seite erhalten.</p><div class="gr-result-actions"><button type="button" class="gr-button gr-primary" id="gr-again">Erneut spielen</button><button type="button" class="gr-button" id="gr-settings-back">Modus ändern</button><a class="gr-button" href="/lernwelt/">Zur Lernwelt</a></div><div class="gr-review"><h2>Deine fünf Situationen</h2>${records.map(item=>{const original=SCENES.find(s=>s.id===item.id);return `<details class="gr-review-item"><summary>${escape(original.title)} · ${scoreScene(item)} Punkte · ${item.correct?'✓ passend entschieden':'↗ noch einmal ansehen'}</summary><small>${textMode?'Textalternative':item.detected?'Gefahr erkannt':'Gefahr übersehen'}</small><p><strong>Passende Reaktion:</strong> ${escape(original.options.find(o=>o.correct).text)}</p><p>${escape(original.feedback)}</p><a class="gr-source" href="${original.source.url}" target="_blank" rel="noopener noreferrer">${escape(original.source.label)} ↗</a></details>`;}).join('')}</div>`;
+  $('gr-result').innerHTML=`<p class="gr-kicker">Deine Runde · ${textMode?'Textalternative':calm?'Radar ohne Zeitdruck':'Gefahrenradar'}</p><h1 id="gr-result-title" tabindex="-1">${badge?'Gut hingeschaut. Weitergedacht.':'Jede Runde schärft deinen Blick.'}</h1><div class="gr-result-score">${result.points}<span> / ${max} Punkte</span></div>${badge?`<div class="gr-badge">◎ ${badge.name}${textMode?' · Textmodus':''}</div>`:'<p>Das nächste Abzeichen wartet. Schau dir die Erklärungen an und probiere es erneut.</p>'}<div class="gr-result-grid"><div><strong>${textMode?'—':result.detected+'/5'}</strong><span>Gefahren erkannt</span></div><div><strong>${result.correct}/5</strong><span>passend entschieden</span></div><div><strong>${textMode?'—':result.missed}</strong><span>Gefahren verpasst</span></div><div><strong>${result.penalty}</strong><span>Fehlklick-Abzüge</span></div></div><p class="gr-small">${textMode?'Die visuelle Gefahrensuche wurde nicht bewertet.':`Früh erkannt: ${result.early} von 5. ${calm?'In diesem Modus gibt es keinen Frühbonus.':''}`} Die nächste Runde bringt andere Situationen. Die Auswahl merkt sich gespielte Szenen bis zum Neuladen dieser Seite.</p><div class="gr-result-actions"><button type="button" class="gr-button gr-primary" id="gr-again">Erneut spielen</button><button type="button" class="gr-button" id="gr-settings-back">Modus ändern</button><a class="gr-button" href="/lernwelt/">Zur Lernwelt</a></div><div class="gr-review"><h2>Deine fünf Situationen</h2>${records.map(item=>{const original=SCENES.find(s=>s.id===item.id);return `<details class="gr-review-item"><summary>${escape(original.title)} · ${scoreScene(item)} Punkte · ${item.correct?'✓ passend entschieden':'↗ noch einmal ansehen'}</summary><small>${textMode?'Textalternative':item.detected?'Gefahr erkannt':'Gefahr übersehen'}</small><p><strong>Passende Reaktion:</strong> ${escape(original.options.find(o=>o.correct).text)}</p><p>${escape(original.feedback)}</p><a class="gr-source" href="${original.source.url}" target="_blank" rel="noopener noreferrer">${escape(original.source.label)} ↗</a></details>`;}).join('')}</div>`;
   $('gr-again').addEventListener('click',start); $('gr-settings-back').addEventListener('click',home);
   focus('gr-result-title'); $('game').scrollIntoView({block:'start',behavior:'instant'});
 }

@@ -8,7 +8,7 @@
   <meta property="og:title" content="Wie gut ist dein Gefahrenradar? Jetzt testen."><meta property="og:description" content="Fünf Verkehrsszenen. Dein Blick fürs Wesentliche. Das Minispiel von LANE SWITCH."><meta property="og:type" content="website"><meta property="og:url" content="https://laneswitch.de/lernwelt/gefahrenradar/"><meta property="og:image" content="https://laneswitch.de/assets/og-fahrschueler.png">
   <link rel="icon" href="/assets/logo-symbol.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/theme.css?v=20260908-cooperations"><script src="/assets/theme.js?v=20260908-cooperations"></script>
-  <link rel="stylesheet" href="./game.css?v=3"><script type="module" src="./game.mjs?v=2"></script>
+  <link rel="stylesheet" href="./game.css?v=3"><script type="module" src="./game.mjs?v=4"></script>
 </head>
 <body class="gr-page">
   <a class="gr-skip" href="#game">Direkt zum Spiel</a>
@@ -18,7 +18,7 @@
     <div id="game" tabindex="-1">
       <section class="gr-start" id="gr-start" aria-labelledby="gr-title">
         <div class="gr-start-copy"><p class="gr-kicker">Dein Blick macht den Unterschied</p><h1 id="gr-title">Gefahren<span>radar.</span></h1><p class="gr-lead">Erkennst du’s rechtzeitig?</p><p>Entdecke, was kritisch werden könnte. Tippe auf die Gefahr und entscheide, wie du reagierst.</p>
-          <div class="gr-tags"><span>5 Verkehrsszenen</span><span>ca. 60–90 Sekunden*</span><span>Ohne Anmeldung</span></div>
+          <div class="gr-tags"><span id="gr-pool-size">25 Szenen · 5 pro Runde</span><span>ca. 60–90 Sekunden*</span><span>Ohne Anmeldung</span></div>
           <button type="button" class="gr-button gr-primary" id="gr-play" disabled>Spiel wird geladen …</button>
           <p class="gr-small">* Mit Erklärungen, je nach Lesetempo. Kein Zeitlimit für Antworten.</p>
         </div>
@@ -39,6 +39,7 @@
       </section>
       <section id="gr-result" class="gr-result" hidden aria-labelledby="gr-result-title"></section>
     </div>
+    <p class="gr-small">Mehr Abwechslung: In dieser geöffneten Sitzung kommen erst alle 25 Situationen dran, bevor sie sich wiederholen. Auch danach folgt direkt eine andere Auswahl. Beim Neuladen beginnt die Auswahl neu.</p>
     <details class="gr-explainer"><summary>So zählen die Punkte</summary><p>Pro Szene: 6 Punkte fürs Erkennen, 2 Zusatzpunkte in den ersten 3 Sekunden nach dem sichtbaren Hinweis und 12 Punkte für die passende Entscheidung. Das sind bis zu 100 Punkte pro Runde.</p><p>Fehlklicks: jeweils 1 Punkt Abzug, maximal 4 je Szene. Eine kurze Eingabepause verhindert wahlloses Tippen. Der Szenenwert fällt nie unter null. Auch nach einer verpassten Gefahr kannst du mit der richtigen Entscheidung 12 Punkte sammeln.</p><p>Ohne Zeitdruck entfällt der Frühbonus, maximal sind 90 Punkte möglich. In der Textalternative gibt es ausschließlich Entscheidungspunkte, maximal 60. Ergebnisse dieser Modi werden getrennt eingeordnet.</p><p>Abzeichen im Radarmodus: „Gefahrenentdecker:in“ ab 45 Punkten, 3 erkannten Gefahren und 3 richtigen Entscheidungen; „Aufmerksam unterwegs“ ab 65 Punkten und jeweils 4 Treffern; „Gefahrenprofi“ ab 85 Punkten und jeweils 5 Treffern. In der Textalternative zählen nur die richtigen Entscheidungen: 3, 4 oder 5.</p></details>
     <p class="gr-disclaimer">Eigene Lernszenen von LANE SWITCH, keine amtlichen Prüfungsaufgaben. Das Spiel ergänzt das Lernen und ersetzt weder Fahrschulausbildung noch Prüfungsvorbereitung. Punkte sind kein Nachweis deiner Fahrkompetenz.</p>
     <p class="gr-disclaimer">Spielergebnisse bleiben nur im Arbeitsspeicher dieser Seite. Beim Neuladen werden sie zurückgesetzt. Keine Spielkonten, kein Spieltracking. <a href="/datenschutz/#gefahrenradar">Datenschutzhinweise</a></p>
