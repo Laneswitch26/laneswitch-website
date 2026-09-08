@@ -194,6 +194,7 @@
     const navItems = [
       ['fahrschulen/', 'Für Fahrschulen'],
       ['fahrschueler/', 'Für Fahrschüler:innen'],
+      ['kooperationen/', 'Kooperationen'],
       ['cockpit/', 'Cockpit']
     ];
     navItems.forEach(([path, label]) => {
@@ -204,6 +205,7 @@
       link.href = url.href;
       link.textContent = label;
       if (currentPath === targetPath) link.setAttribute('aria-current', 'page');
+      else if (path === 'kooperationen/' && currentPath.startsWith(targetPath + '/')) link.setAttribute('aria-current', 'location');
       nav.append(link);
     });
 

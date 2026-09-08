@@ -1,5 +1,6 @@
 /* LANE SWITCH shared interface layer
    Common typography plus a complete, contrast-safe dark theme. */
+@media(min-width:901px){.canonical-site-header .unified-primary-nav{flex-wrap:wrap!important;column-gap:16px!important;row-gap:0!important}.canonical-site-header .unified-primary-link[aria-current="location"]{color:#65e3e8!important}}
 .global-header-actions{display:flex;align-items:center;justify-self:end;gap:9px;min-width:0}
 .theme-toggle{width:42px;height:42px;display:inline-grid;place-items:center;flex:0 0 auto;border:1px solid rgba(255,255,255,.42);border-radius:5px;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
 .theme-toggle:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.78);transform:translateY(-1px)}
