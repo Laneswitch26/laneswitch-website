@@ -1,0 +1,6 @@
+CODE_PEPPER=replace-with-a-long-random-secret
+SESSION_SECRET=replace-with-another-long-random-secret
+RATE_LIMIT_SECRET=replace-with-a-third-long-random-secret
+ACCESS_DOMAIN=https://replace-with-team-name.cloudflareaccess.com
+ACCESS_AUD=replace-with-access-application-audience
+
