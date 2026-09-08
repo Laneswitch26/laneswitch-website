@@ -153,6 +153,6 @@ stage.addEventListener('focus',()=>{if(phase==='observing' && stage.matches(':fo
 stage.addEventListener('blur',clearCursor);
 $('gr-play').addEventListener('click',start); $('gr-exit').addEventListener('click',home);
 $('gr-calm').checked=matchMedia('(prefers-reduced-motion: reduce)').matches;
-$('gr-preview').innerHTML=illustration(SCENES[0]);
+$('gr-preview').innerHTML=illustration(SCENES[0],'preview');
 paint($('gr-preview'),SCENES[0],SCENES[0].cueMs+3200);
 $('gr-play').disabled=false; $('gr-play').textContent='Gefahrenradar starten →';

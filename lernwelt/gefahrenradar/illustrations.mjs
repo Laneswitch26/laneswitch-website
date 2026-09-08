@@ -9,16 +9,17 @@ const cyclist = `<g><g fill="none" stroke="#244653" stroke-width="4"><ellipse cx
 const sideCar = `<g><ellipse cy="28" rx="63" ry="7" fill="#264856" opacity=".18"/><path d="M-65 14v-20l21-8 14-24h42l25 23 28 6v25z" fill="#558eae" stroke="#2a5268" stroke-width="3"/><path d="M-22-32h30l18 17h-60z" fill="#b5d7dc"/><path d="M-4-32v17" stroke="#2a5268" stroke-width="3"/><circle cx="-38" cy="15" r="13" fill="#284655"/><circle cx="42" cy="15" r="13" fill="#284655"/><circle cx="-38" cy="15" r="6" fill="#b1c4ca"/><circle cx="42" cy="15" r="6" fill="#b1c4ca"/><path d="M-63-2h8" stroke="#fff3cc" stroke-width="6"/></g>`;
 const zebra = () => Array.from({length:9},(_,i)=>{const x=181+i*43;return `<path d="M${x+24} 349h23l13 33h-31z" fill="#f5f3e5"/>`;}).join('');
 const crossingSign = `<g transform="translate(704 270)"><path d="M0 0v95" stroke="#748d92" stroke-width="5"/><rect x="-25" y="-50" width="50" height="50" rx="3" fill="#246384" stroke="#eef5f1" stroke-width="3"/><path d="M0-44l22 37h-44z" fill="#fff"/><circle cy="-30" r="3" fill="#214555"/><path d="M0-27l-3 7 7 8M-2-21l-7 8M-2-25l8 5M-15-9h30" fill="none" stroke="#214555" stroke-width="2.5"/></g>`;
-export function illustration(scene) {
+export function illustration(scene, variant = 'scene') {
+  const prefix = scene.id + '-' + variant;
   const cross = ['cycle','junction'].includes(scene.id);
   return `<svg class="gr-art" viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs><linearGradient id="gr-sky" x2="0" y2="1"><stop stop-color="#b9dbe2"/><stop offset="1" stop-color="#edf2e7"/></linearGradient><linearGradient id="gr-road" x2="0" y2="1"><stop stop-color="#879a9f"/><stop offset="1" stop-color="#566c78"/></linearGradient><linearGradient id="gr-dash" x2="0" y2="1"><stop stop-color="#284856"/><stop offset="1" stop-color="#102f43"/></linearGradient></defs>
-  <rect width="800" height="560" fill="url(#gr-sky)"/><circle cx="642" cy="82" r="39" fill="#f6f3d9" opacity=".8"/>
+  <defs><linearGradient id="gr-sky-${prefix}" x2="0" y2="1"><stop stop-color="#b9dbe2"/><stop offset="1" stop-color="#edf2e7"/></linearGradient><linearGradient id="gr-road-${prefix}" x2="0" y2="1"><stop stop-color="#879a9f"/><stop offset="1" stop-color="#566c78"/></linearGradient><linearGradient id="gr-dash-${prefix}" x2="0" y2="1"><stop stop-color="#284856"/><stop offset="1" stop-color="#102f43"/></linearGradient></defs>
+  <rect width="800" height="560" fill="url(#gr-sky-${prefix})"/><circle cx="642" cy="82" r="39" fill="#f6f3d9" opacity=".8"/>
   <path d="M0 218q160-55 297-3t256-8 247 5v100H0z" fill="#b5c8bc"/>
   ${house(260,173,57,88,'#d6dfd6')}${house(381,177,51,80,'#c2d6d0')}
   ${house(0,100,150,223,'#e8e1d0')}${house(169,161,79,135,'#cedbd6')}${house(546,126,139,195,'#e9e5d8')}${house(698,78,125,255,'#c9dad5')}
   ${tree(282,270,.48)}${tree(486,274,.5)}${tree(38,359,1)}
-  <path d="M307 237h86l407 323H0z" fill="#c0ccc7"/><path d="M317 237h66l367 323H34z" fill="url(#gr-road)"/>
+  <path d="M307 237h86l407 323H0z" fill="#c0ccc7"/><path d="M317 237h66l367 323H34z" fill="url(#gr-road-${prefix})"/>
   <path d="M314 237L40 532M387 237l355 296" stroke="#e1e6df" stroke-width="5"/>
   <path d="M350 244l-1 13m-1 16-2 21m-2 21-3 34m-3 33-4 51m-4 40-5 56" stroke="#eeeede" stroke-width="5"/>
   ${cross ? `<path d="M0 285h800v55H0z" fill="#819398"/><path d="M0 280h284m169 0h347M0 343h224m328 0h248" stroke="#dce3db" stroke-width="6"/>` : ''}
@@ -36,7 +37,7 @@ export function illustration(scene) {
   <g data-reveal="" visibility="hidden"><circle r="53" fill="none" stroke="#08374c" stroke-width="12"/><circle r="53" fill="none" stroke="#fff4bc" stroke-width="5"/><path d="M-10 0l8 9 17-22" fill="none" stroke="#fff4bc" stroke-width="6"/></g>
   <g data-cursor="" visibility="hidden" fill="none"><circle r="23" stroke="#102f43" stroke-width="7"/><circle r="23" stroke="#fff" stroke-width="3"/><path d="M-33 0h16m16 0h16M0-33v16m0 16v16" stroke="#fff" stroke-width="3"/></g>
   <path d="M0 0h17l37 441-31 57H0zM800 0h-17l-37 441 31 57h23z" fill="#183e50" opacity=".95"/>
-  <path d="M0 523q400-94 800 0v37H0z" fill="url(#gr-dash)"/><path d="M100 538q305-64 600 0" fill="none" stroke="#52717b" stroke-width="2"/>
+  <path d="M0 523q400-94 800 0v37H0z" fill="url(#gr-dash-${prefix})"/><path d="M100 538q305-64 600 0" fill="none" stroke="#52717b" stroke-width="2"/>
   <path d="M305 560a104 104 0 0 1 201 0" fill="none" stroke="#0b2535" stroke-width="25"/><path d="M311 559a98 98 0 0 1 189 0" fill="none" stroke="#45616e" stroke-width="3"/>
   ${scene.id==='cycle' ? '<path d="M455 519h30m-10-8 10 8-10 8" stroke="#64e3c6" stroke-width="5" fill="none"/>' : ''}
   </svg>`;
