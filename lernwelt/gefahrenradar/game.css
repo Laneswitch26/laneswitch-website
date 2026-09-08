@@ -10,3 +10,5 @@ html[data-theme="dark"] .gr-start h1 span,html[data-theme="dark"] .gr-feedback-p
 .gr-round-top>div{min-width:0}.gr-main :where(h1,h2,h3,p,button){overflow-wrap:anywhere}
 @media(max-width:620px){.gr-round-top{display:grid;grid-template-columns:minmax(0,1fr);gap:0}.gr-round-top .gr-quiet{justify-self:end;max-width:none;min-height:40px;padding:8px 12px;margin-bottom:6px}.gr-round-top h1{margin-bottom:8px}}
 @media(max-width:380px){.gr-start h1{font-size:39px}.gr-start h1 span{display:block}}
+/* Leave room for the shared sticky navigation when starting or advancing. */
+.gr-page #game,.gr-page .gr-panel{scroll-margin-top:130px;scroll-margin-bottom:20px}

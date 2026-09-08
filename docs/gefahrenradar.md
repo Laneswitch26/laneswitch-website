@@ -15,6 +15,7 @@ Eigenständiges Browser-Minispiel in der bestehenden statischen Website unter `/
 - `sitemap.xml`: neue Route ergänzt.
 - `tests/gefahrenradar-core.test.mjs`: ausführbare Node-Tests ohne Dependencies.
 - `tests/gefahrenradar-browser.cjs`: vorbereitete Playwright-End-to-End-Prüfung; Playwright ist nur ein Testwerkzeug.
+- `tests/gefahrenradar-responsive.html`: nicht indexierte Testansicht für definierte Browserfenstergrößen.
 
 ## Fünf Szenen und fachliche Grundlagen
 
@@ -71,3 +72,20 @@ Quelle: https://www.gesetze-im-internet.de/ttdsg/__25.html
 `node --test tests/gefahrenradar-core.test.mjs`: fünf Testgruppen bestanden (Datenintegrität, zeitlich/räumlich korrekte mobile Treffer, Punktelogik einschließlich Fehlklicklimit, Gesamtwerte/Abzeichen, Zufallsreihenfolge).
 
 Die fünf eigenen SVG-Szenen wurden vor Veröffentlichung gerendert und visuell geprüft. JavaScript-Syntax wurde geprüft. Die vorbereitete Playwright-Testdatei setzt einen lokal installierten Browser voraus; dessen Download war in der Arbeitsumgebung nicht verfügbar. Browserprüfungen werden separat dokumentiert und nicht aus der bloßen Existenz dieses Tests abgeleitet.
+
+## Tatsächliche Browserprüfung am 08.09.2026
+
+Die Website wurde über den bereits bestehenden GitHub-Pages-Workflow veröffentlicht und anschließend im Cloud-Chrome interaktiv geprüft. Der Cloud-Browser konnte die lokale Arbeitskopie nicht öffnen; die folgenden Prüfungen fanden deshalb auf der bereitgestellten Website statt.
+
+- Alle fünf visuellen Szenen vollständig durchgespielt, jeweils Gefahr per Klick erkannt und passende Antwort gewählt: 90/90 Punkte im Modus ohne Zeitdruck, 5/5 erkannte Gefahren, 5/5 passende Entscheidungen, 0 verpasst und Abzeichen Gefahrenprofi.
+- Vollständige Textalternative mit Tastaturantworten: 60/60 Punkte und gesondert ausgewiesenes Textmodus-Abzeichen.
+- Zeitgesteuerter Modus: Pause/Fortsetzen, sichtbare Animation, Frühbonus (8 Erkennungspunkte), passende Entscheidung (20/20 Punkte), automatisches Übersehen nach Ablauf sowie weitere 12 Entscheidungspunkte nach einer verpassten Gefahr.
+- Falsche Entscheidung nach nicht erkannter Gefahr: 0 Punkte, richtige Reaktion und Erklärung sichtbar.
+- Wiederholte Fehlklicks: Limit-Meldung, keine negativen Punkte, anschließend richtige Erkennung und Antwort mit 14/18 Punkten nach genau vier Abzügen. Das 650-ms-Eingabefenster wurde im Code geprüft; eine zeitpräzise Touch-Automation stand nicht zur Verfügung.
+- Visuelle Suche zusätzlich mit Pfeiltasten und Eingabe erfolgreich bedient.
+- Neustart setzt Punkte und Szenenzähler zurück; Neuladen führt zum Startbildschirm. Unterschiedliche Reihenfolge der Szenen und Antworten beobachtet.
+- Bestehende Lernwelt: Spiel-Einstieg vorhanden, gemeinsame Navigation geladen und Prüfungssimulation mit Frage und Antwortauswahl erfolgreich gestartet.
+- Layoutgrößen 320×740, 390×844, 844×390, 768×1024 und 1280×900: kein horizontaler Dokumentüberlauf in der Antwortansicht. Helle und dunkle Oberflächen visuell geprüft. Der Rahmen prüft tatsächliche CSS-Media-Queries, simuliert jedoch weder echte Touch-Ereignisse noch Smartphone-Hardware.
+- Zwei gefundene Layoutfehler behoben: doppelte SVG-Verlaufs-IDs und überlaufender Beenden-Button bei langen Szenentiteln auf schmalen Geräten. Zusätzlicher Scrollabstand hält Inhalte unterhalb der bestehenden festen Navigation.
+
+Kein Test auf einem physischen Smartphone oder in Safari/Firefox durchgeführt. Der vorbereitete komplette Playwright-Testlauf wurde nicht als bestanden ausgegeben. Die Quellenprüfung ersetzt keine didaktische Freigabe durch eine Fahrlehrkraft.
