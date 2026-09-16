@@ -16,4 +16,5 @@ const mobile=document.createElement('nav');mobile.className='bottom-nav';mobile.
 const toggle=document.querySelector('#detail-theme');const render=()=>{const dark=root.dataset.theme==='dark';toggle.innerHTML=icon(dark?'sun':'moon');toggle.setAttribute('aria-label',dark?'Hellen Modus aktivieren':'Dunklen Modus aktivieren');toggle.setAttribute('aria-pressed',String(dark));};toggle.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';write('laneswitch-theme-v1',root.dataset.theme);render()});render();
 document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));
 
-const footer=main.querySelector('.site-footer');if(footer)layout.after(footer);
+const footer=document.querySelector('.site-footer');
+if(footer){footer.className='ls-footer';footer.innerHTML='<div class="ls-footer-inner"><span>LANE SWITCH · Herne & Umgebung</span><nav aria-label="Rechtliches und Kontakt"><a href="/#kontakt">Kontakt</a><a href="/konzept/impressum/">Impressum</a><a href="/konzept/datenschutz/">Datenschutz</a></nav></div>';layout.after(footer);}
