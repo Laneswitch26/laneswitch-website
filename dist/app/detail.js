@@ -1,0 +1,19 @@
+import {icon,navigation} from '/app/shell.js?v=4';
+const read=k=>{try{return localStorage.getItem(k)}catch{return null}};
+const write=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
+const root=document.documentElement;
+root.dataset.theme=read('laneswitch-theme-v1')==='dark'?'dark':'light';
+const path=location.pathname;
+const group=/\/(cockpit|fahrschul-check|vorlagen|notfallcenter|fahrschulen-informationen)\//.test(path)?'school':/\/(fahrzeugkosten|lernwelt|easi-drive|unfallhelfer|fahrschueler-informationen)\//.test(path)?'learner':read('ls-audience-v2')||'learner';
+write('ls-audience-v2',group);
+const view=path.includes('/kooperationen/')?'netzwerk':/\/(impressum|datenschutz)\//.test(path)?'':'werkzeuge';
+const header=document.createElement('div');header.innerHTML="<header class=\"topbar\"><a href=\"/#entdecken\" class=\"brand\" aria-label=\"LANE SWITCH Startseite\"><img class=\"logo-light\" src=\"/konzept/assets/logo-primary.svg\" width=\"1400\" height=\"360\" alt=\"LANE SWITCH\"><img class=\"logo-dark\" src=\"/konzept/assets/logo-primary-dark.svg\" width=\"1400\" height=\"360\" alt=\"LANE SWITCH\"></a><span class=\"brand-context\">Wissen. Werkzeuge. Weiterkommen.</span><div class=\"header-actions\"><button class=\"icon-button\" id=\"detail-theme\" aria-label=\"Dunklen Modus aktivieren\"></button><a class=\"recommend-top\" href=\"/#empfehlen\" aria-label=\"LANE SWITCH empfehlen\"><span class=\"recommend-long\">LANE SWITCH </span>empfehlen</a><a class=\"contact-top\" href=\"/#kontakt\">Kontakt <span data-icon=\"message\"></span></a></div></header>";
+const existing=document.querySelector('.site-header');if(existing)existing.remove();document.body.prepend(header.firstElementChild);
+const sidebar=document.createElement('aside');sidebar.className='sidebar';sidebar.innerHTML=`<nav class="nav-list" aria-label="Hauptnavigation">${navigation(view,'/')}</nav><p class="side-label">Mehr LANE SWITCH</p><div class="side-links"><a href="https://www.instagram.com/laneswitch.de/" target="_blank" rel="noopener noreferrer">${icon('instagram')} Auf Instagram</a><a href="/konzept/${group==='school'?'notfallcenter':'unfallhelfer'}/">${icon('shield')}${group==='school'?'Notfallcenter':'Unfallhelfer'}</a></div><div class="side-foot"><p>LANE SWITCH · Herne & Umgebung</p><a href="/konzept/impressum/">Impressum</a><a href="/konzept/datenschutz/">Datenschutz</a><p>Private Gestaltungsvorschau</p></div>`;
+const main=document.querySelector('main');const layout=document.createElement('div');layout.className='detail-layout';main.before(layout);layout.append(sidebar,main);main.classList.add('detail-main');if(!main.id)main.id='main';
+const context=document.createElement('div');context.className='detail-context';context.innerHTML=`<a href="/#${view||'entdecken'}">← ${view==='netzwerk'?'Zum Netzwerk':'Zur Übersicht'}</a><a href="/konzept/${group==='school'?'fahrschueler':'fahrschulen'}/">${group==='school'?'Zu Fahrschüler:innen':'Zu Fahrschulen'} ${icon('arrow')}</a>`;main.prepend(context);
+const mobile=document.createElement('nav');mobile.className='bottom-nav';mobile.setAttribute('aria-label','Mobile Hauptnavigation');mobile.innerHTML=navigation(view,'/');document.body.append(mobile);
+const toggle=document.querySelector('#detail-theme');const render=()=>{const dark=root.dataset.theme==='dark';toggle.innerHTML=icon(dark?'sun':'moon');toggle.setAttribute('aria-label',dark?'Hellen Modus aktivieren':'Dunklen Modus aktivieren');toggle.setAttribute('aria-pressed',String(dark));};toggle.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';write('laneswitch-theme-v1',root.dataset.theme);render()});render();
+document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.dataset.icon));
+
+const footer=main.querySelector('.site-footer');if(footer)layout.after(footer);

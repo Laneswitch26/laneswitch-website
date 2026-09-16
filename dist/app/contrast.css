@@ -1,0 +1,26 @@
+/* Theme-aware text on neutral cards, including cards previously styled as dark banners. */
+html body .detail-main :is(.learning-card,.cost-check-card,.benefit-card,.protection-card,.topic-grid article,.role-grid article,.student-tool-card,.legal-card,.info-card,.vehicle-card,.source-card,.card,.case,.privacy-card,.checklist-card,.progress-card){color:var(--ink)!important}
+html body .detail-main :is(.learning-card,.cost-check-card,.benefit-card,.protection-card,.topic-grid article,.role-grid article,.student-tool-card,.legal-card,.info-card,.vehicle-card,.source-card,.card,.case,.privacy-card,.checklist-card,.progress-card) :is(p,li,small,span,dt,dd){color:var(--muted)!important}
+html body .detail-main :is(.learning-card,.cost-check-card,.benefit-card,.protection-card,.topic-grid article,.role-grid article,.student-tool-card,.legal-card,.info-card,.vehicle-card,.source-card,.card,.case,.privacy-card,.checklist-card,.progress-card) :is(h2,h3,h4,strong,b){color:var(--ink)!important}
+html body .detail-main :is(.learning-facts,.cost-check-facts)>div{background:var(--bg)!important;border:1px solid var(--line)!important;border-radius:12px;padding:18px}
+html body .detail-main :is(.learning-facts,.cost-check-facts) strong{color:var(--teal)!important}html body .detail-main :is(.learning-facts,.cost-check-facts) span{font-size:14px!important;line-height:1.6}
+html body .detail-main :is(.card-label,.card-index,.num,.text-link,.light-link){color:var(--teal)!important}
+html body .detail-main :is(.button-primary,.primary) :is(span,strong,small){color:inherit!important}
+html body .detail-main :is(.button-secondary,.secondary) :is(span,strong,small){color:inherit!important}
+.detail-main .topic-grid article{min-height:0!important;padding:26px!important}.detail-main .topic-grid h3{margin:0 0 14px!important}.detail-main .protection-card h3{margin-top:0!important}.detail-main .role-grid article>h3{margin-top:0!important}.detail-main .benefit-card>h3:first-child{margin-top:0!important}.detail-main .case-head{gap:0!important}
+html:root{--teal:#006d79!important}html:root[data-theme=dark]{--teal:#76e5df!important}
+html body .detail-main .button.button-primary *,html body .detail-main button.primary *{color:inherit!important}
+html body .detail-main .button.button-secondary *,html body .detail-main button.secondary *{color:inherit!important}
+html body .detail-main :is(.section.dark,.section-dark,.cooperation-section,.student-cover-section,.cta-panel,.result-hero) .eyebrow{color:#76e5df!important}
+html body .detail-main .cta-panel{background:#062d47!important;color:#fff!important;border-radius:18px!important}html body .detail-main .cta-panel :is(h2,h3,p){color:#fff!important}.detail-main .cta-panel p:not(.eyebrow){color:#c6dce5!important}
+html body .detail-main .card>a:not(.button){color:var(--teal)!important}html body .detail-main .button:not(.button-primary):not(.button-secondary){background:var(--card)!important;color:var(--ink)!important;border:1px solid var(--line)!important}
+/* Switch text and surface colors together, without intermediate low-contrast states. */
+html body :is(.detail-main,.site-footer,.topbar,.sidebar,.bottom-nav) *{transition-property:transform,box-shadow,border-color!important}
+html body .detail-main .emergency-link{background:var(--card)!important;border:1px solid var(--line)!important;border-radius:12px!important}html body .detail-main .emergency-link strong{color:var(--ink)!important}html body .detail-main .emergency-link span{color:var(--muted)!important}
+html body .detail-main :is(.mode-card,.topic-button){background:var(--card)!important;color:var(--ink)!important}html body .detail-main :is(.mode-card,.topic-button) :is(h3,strong){color:var(--ink)!important}html body .detail-main :is(.mode-card,.topic-button) p{color:var(--muted)!important}html body .detail-main .mode-card span{color:var(--teal)!important}.detail-main .mode-card .mode-icon{background:var(--tint)!important}
+html body .detail-main .vehicle-card .badge,html body .detail-main .ranking-head>span{background:var(--tint)!important;color:var(--teal)!important}
+html body .detail-main a.partner-button.primary,html body .detail-main a.button.button-primary,html body .detail-main button.button.button-primary{background:#062d47!important;color:#fff!important;-webkit-text-fill-color:#fff!important}
+html[data-theme=dark] body .detail-main a.partner-button.primary,html[data-theme=dark] body .detail-main a.button.button-primary,html[data-theme=dark] body .detail-main button.button.button-primary{background:#65e5df!important;color:#062d47!important;-webkit-text-fill-color:#062d47!important}
+html body .detail-main .cta-panel a.button.button-primary{background:#65e5df!important;color:#062d47!important;-webkit-text-fill-color:#062d47!important}
+html body .site-footer .footer-links a{color:var(--muted)!important;opacity:1!important}
+html body .topbar a.contact-top{background:#062d47!important;color:#fff!important;-webkit-text-fill-color:#fff!important}
