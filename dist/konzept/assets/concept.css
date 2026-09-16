@@ -77,7 +77,7 @@ html body .detail-main .cooperation-grid>div{min-width:0}
  .detail-main .template-picker>*{min-width:0}
 }
 @media(max-width:420px){
- .detail-main .actions>.button{flex:1 1 100%;width:100%}
+ .detail-main :is(.actions,.result-actions)>.button{flex:1 1 100%;width:100%}
 }
 .detail-main .highlight-note{grid-template-columns:minmax(0,1fr);gap:8px}
 .detail-main .highlight-note>*{min-width:0;overflow-wrap:anywhere}
