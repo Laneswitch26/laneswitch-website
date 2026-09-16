@@ -33,3 +33,15 @@ html body .detail-main :is(.hero,.subpage-hero,.tool-hero) a:not(.button){color:
 /* Keep advisory content below its heading and constrain grid items to available space. */
 .detail-main .information-stack{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}.detail-main .information-stack h2{margin-bottom:0}.detail-main .information-stack .important-list{margin-top:0}.detail-main .calculation-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}.detail-main :is(.calculation-layout,.information-stack)>*{min-width:0}
 @media(max-width:1220px){.detail-main .calculation-layout{grid-template-columns:minmax(0,1fr);gap:24px}}
+
+/* A quiet hierarchy for the example: total first, assumptions on demand. */
+.detail-main .calculation-card .calculation-head{padding:20px 24px;background:var(--card);color:var(--ink);border-bottom:1px solid var(--line)}
+.detail-main .calculation-card .calculation-head p{color:var(--muted);font-size:14px}
+.detail-main .calculation-card .price-row{grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:18px 24px;align-items:baseline}
+.detail-main .calculation-card .price-row strong{font-size:18px}
+.detail-main .calculation-card .price-total{background:var(--tint)}
+.detail-main .calculation-card .price-total strong{font-size:20px;color:var(--ink)}
+.detail-main .calculation-card details.fine-print{margin:0;padding:16px 24px;border-top:1px solid var(--line)}
+.detail-main .calculation-card summary{cursor:pointer;min-height:44px;display:list-item;align-content:center;font-weight:600}
+.detail-main .calculation-card details p{margin:8px 0 0}
+@media(max-width:420px){.detail-main .calculation-card .price-row{grid-template-columns:minmax(0,1fr);gap:6px;padding:16px 20px}.detail-main .calculation-card :is(.calculation-head,details.fine-print){padding-inline:20px}}
