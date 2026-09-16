@@ -76,7 +76,47 @@ function showInquiry(form){
  form.after(panel);panel.querySelector('#inquiry-status').focus({preventScroll:true});
  try{window.location.href=message.href;}catch{panel.querySelector('#inquiry-status').textContent='Das E-Mail-Programm konnte nicht geöffnet werden. Kopiere die Anfrage und sende sie an kontakt@laneswitch.de.';}
 }
-function openRecommend(){let target=audience;document.getElementById('recommend-app')?.remove();const d=document.createElement('dialog');d.id='recommend-app';d.setAttribute('aria-labelledby','recommend-title');d.innerHTML=`<div class="dialog-head"><h2 id="recommend-title">LANE SWITCH empfehlen</h2><button class="icon-button" id="recommend-close" aria-label="Empfehlung schließen">×</button></div><div class="dialog-body"><p>Für wen ist deine Empfehlung?</p><div class="audience recommend-targets" role="group" aria-label="Zielgruppe der Empfehlung"><button data-recommend-target="learner">Fahrschüler:innen</button><button data-recommend-target="school">Fahrschulen</button></div><p id="share-preview" class="share-preview"></p><div class="share-actions"><button class="primary" id="share-native">Teilen</button><a class="secondary" id="share-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a><button class="secondary" id="share-copy">Link kopieren</button></div><p class="form-caption">Die Empfehlung führt zur bestehenden öffentlichen Website auf laneswitch.de. Erst die gewählte App übernimmt den Versand.</p></div>`;const shareData=()=>({title:'LANE SWITCH',url:'https://laneswitch.de/'+(target==='school'?'fahrschulen/':'fahrschueler/'),text:target==='school'?'Ich möchte Ihnen LANE SWITCH empfehlen: ein Partnerkonzept mit Versicherungscheck, Theoriebeitrag und praktischen Arbeitshilfen für Fahrschulen.':'Schau dir LANE SWITCH an: Gefahrenradar, Lernwelt und Fahrzeugkosten-Rechner für deinen Start in die eigene Mobilität.'});const update=()=>{const data=shareData();d.querySelector('#share-preview').textContent=data.text;d.querySelectorAll('[data-recommend-target]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.recommendTarget===target)));d.querySelector('#share-whatsapp').href='https://wa.me/?text='+encodeURIComponent(data.text+' '+data.url)};d.querySelectorAll('[data-recommend-target]').forEach(b=>b.onclick=()=>{target=b.dataset.recommendTarget;update()});d.querySelector('#recommend-close').onclick=()=>d.close();d.querySelector('#share-copy').onclick=async()=>{try{await navigator.clipboard.writeText(shareData().url);d.querySelector('#share-copy').textContent='Link kopiert';}catch{d.querySelector('#share-preview').textContent=shareData().text+' '+shareData().url;d.querySelector('#share-copy').textContent='Link oben markieren';}};d.querySelector('#share-native').onclick=async()=>{const data=shareData();if(navigator.share){try{await navigator.share(data)}catch(e){if(e.name!=='AbortError')d.querySelector('#share-preview').textContent=data.text+' '+data.url;}}else{try{await navigator.clipboard.writeText(data.text+' '+data.url);d.querySelector('#share-native').textContent='Empfehlung kopiert';}catch{d.querySelector('#share-preview').textContent=data.text+' '+data.url;}}};d.addEventListener('close',()=>d.remove());document.body.append(d);update();d.showModal();}
+function recommendationData(target){
+ const title='LANE SWITCH';
+ const url='https://laneswitch.online/?zielgruppe='+(target==='school'?'school':'learner');
+ const description=target==='school'?'Ich möchte Ihnen LANE SWITCH empfehlen: ein Partnerkonzept mit Versicherungscheck, Theoriebeitrag und praktischen Arbeitshilfen für Fahrschulen.':'Schau dir LANE SWITCH an: Gefahrenradar, Lernwelt und Fahrzeugkosten-Rechner für deinen Start in die eigene Mobilität.';
+ const text=description+'\n\n'+url;
+ return {title,url,text,email:'mailto:?subject='+encodeURIComponent('Empfehlung: '+title)+'&body='+encodeURIComponent(text),whatsapp:'https://wa.me/?text='+encodeURIComponent(text)};
+}
+function openRecommend(){
+ let target=audience;
+ document.getElementById('recommend-app')?.remove();
+ const d=document.createElement('dialog');d.id='recommend-app';d.setAttribute('aria-labelledby','recommend-title');
+ d.innerHTML='<div class="dialog-head"><h2 id="recommend-title">LANE SWITCH empfehlen</h2><button class="icon-button" id="recommend-close" aria-label="Empfehlung schließen">×</button></div><div class="dialog-body"><p>Für wen ist deine Empfehlung?</p><div class="audience recommend-targets" role="group" aria-label="Zielgruppe der Empfehlung"><button data-recommend-target="learner">Fahrschüler:innen</button><button data-recommend-target="school">Fahrschulen</button></div><p id="share-preview" class="share-preview" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><div class="share-actions"><button class="primary" id="share-native">Teilen</button><a class="secondary" id="share-email">Per E-Mail</a><a class="secondary" id="share-whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a><button class="secondary" id="share-copy">Text & Link kopieren</button></div><p id="share-status" class="form-caption" role="status"></p><p class="form-caption">Für Outlook oder andere Mailprogramme nutze „Per E-Mail“. Falls eine App den Inhalt nicht übernimmt, kannst du Text und Link kopieren und dort einfügen. Du sendest die Empfehlung selbst in der gewählten App.</p></div>';
+ const status=d.querySelector('#share-status');
+ const copy=async()=>{
+  const data=recommendationData(target);
+  try{await navigator.clipboard.writeText(data.text);status.textContent='Text und Link kopiert. Du kannst beides in deiner Nachricht einfügen.';}
+  catch{status.textContent='Kopieren war nicht möglich. Bitte den oben angezeigten Text samt Link markieren und kopieren.';}
+ };
+ const update=()=>{
+  const data=recommendationData(target);
+  d.querySelector('#share-preview').textContent=data.text;
+  d.querySelector('#share-email').href=data.email;
+  d.querySelector('#share-whatsapp').href=data.whatsapp;
+  d.querySelectorAll('[data-recommend-target]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.recommendTarget===target)));
+  status.textContent='';
+ };
+ d.querySelectorAll('[data-recommend-target]').forEach(b=>b.onclick=()=>{target=b.dataset.recommendTarget;update()});
+ d.querySelector('#recommend-close').onclick=()=>d.close();
+ d.querySelector('#share-copy').onclick=copy;
+ d.querySelector('#share-native').onclick=async()=>{
+  const data=recommendationData(target);
+  if(!navigator.share){await copy();return;}
+  try{
+   // Keep the URL inside the text so receiving apps need not combine two fields.
+   await navigator.share({title:data.title,text:data.text});
+  }catch(e){
+   if(e.name!=='AbortError')status.textContent='Teilen war nicht möglich. Nutze „Per E-Mail“, WhatsApp oder „Text & Link kopieren“.';
+  }
+ };
+ d.addEventListener('close',()=>d.remove());document.body.append(d);update();d.showModal();
+}
 function renderRail(){const list=tools.filter(t=>t.group===audience&&!['konzept','start'].includes(t.id)).slice(0,3);document.getElementById('rail').innerHTML=`<section class="rail-card"><p class="eyebrow">Deine Abkürzung</p><h2>Direkt zum Ziel</h2>${list.map(t=>`<a class="tool-short" href="${url(t.href)}">${icon(t.icon)}<span><strong>${t.title}</strong><small>${t.label}</small></span></a>`).join('')}<a class="small-link" href="#werkzeuge">Alle Werkzeuge ${icon('arrow')}</a></section><section class="rail-card rail-help"><h2>${audience==='school'?'Was bewegt Ihren Betrieb?':'Noch eine Frage offen?'}</h2><p>${audience==='school'?'Gemeinsam schauen, welche Unterstützung zu Ihrer Fahrschule passt.':'Von der Fahrschule zum ersten Auto. Steven hilft dir beim nächsten Schritt.'}</p>${action('#kontakt','Kontakt aufnehmen','primary accent')}</section><section class="rail-card"><h2>Einfach umschalten.</h2><p class="subtle">Fahrschule oder Fahrschüler:in? Oben kannst du jederzeit die Perspektive wechseln.</p></section>`;}
 function render(){const shortcut=document.getElementById('audience-shortcut');if(shortcut){shortcut.href=url(audience==='school'?'notfallcenter/':'unfallhelfer/');shortcut.innerHTML=icon('shield')+(audience==='school'?'Notfallcenter':'Unfallhelfer');}document.querySelectorAll('[data-audience]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.audience===audience)));document.querySelectorAll('[data-navigation]').forEach(n=>n.innerHTML=navigation(view));({entdecken:renderFeed,werkzeuge:renderTools,netzwerk:renderNetwork,kontakt:renderContact}[view]||renderFeed)();renderRail();document.title='LANE SWITCH · '+(nav.find(n=>n[0]===view)?.[2]||'Entdecken');}
 function route(){const id=location.hash.slice(1)||(location.pathname.includes('/kontakt/')?'kontakt':'');view=nav.some(n=>n[0]===id)?id:'entdecken';render();window.scrollTo({top:0,behavior:'instant'});if(id==='empfehlen')openRecommend();}
