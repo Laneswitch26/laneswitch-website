@@ -45,3 +45,14 @@ html body .detail-main :is(.hero,.subpage-hero,.tool-hero) a:not(.button){color:
 .detail-main .calculation-card summary{cursor:pointer;min-height:44px;display:list-item;align-content:center;font-weight:600}
 .detail-main .calculation-card details p{margin:8px 0 0}
 @media(max-width:420px){.detail-main .calculation-card .price-row{grid-template-columns:minmax(0,1fr);gap:6px;padding:16px 20px}.detail-main .calculation-card :is(.calculation-head,details.fine-print){padding-inline:20px}}
+
+/* Role descriptions no longer have a numbered marker column. */
+html body .detail-main .role-steps{min-width:0;width:100%;display:grid;gap:24px}
+html body .detail-main .role-steps::before{content:none;display:none}
+html body .detail-main .role-steps article{display:block;width:100%;min-width:0;margin:0}
+html body .detail-main .role-steps article>div{width:100%;min-width:0}
+html body .detail-main .role-steps h3{margin:0 0 8px;hyphens:none!important;overflow-wrap:normal!important}
+html body .detail-main .role-steps p{margin:0;color:#d5e5ed;font-size:16px;line-height:1.65}
+html body .detail-main .cooperation-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:36px;align-items:start}
+html body .detail-main .cooperation-grid>div{min-width:0}
+@media(max-width:1100px){html body .detail-main .cooperation-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
