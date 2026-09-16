@@ -1,5 +1,5 @@
 /* Online content stays on the network; only the neutral offline page is cached. */
-const CACHE = 'ls-pwa-offline-v1';
+const CACHE = 'ls-pwa-offline-v2';
 const OFFLINE = '/offline.html';
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.add(new Request(OFFLINE, {cache:'reload'}))));

@@ -56,3 +56,23 @@ html body .detail-main .role-steps p{margin:0;color:#d5e5ed;font-size:16px;line-
 html body .detail-main .cooperation-grid{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:36px;align-items:start}
 html body .detail-main .cooperation-grid>div{min-width:0}
 @media(max-width:1100px){html body .detail-main .cooperation-grid{grid-template-columns:minmax(0,1fr);gap:28px}}
+
+/* Respond to the content column, including the space taken by the sidebar. */
+.detail-main{container-type:inline-size;container-name:detail-content}
+.detail-main .cta-panel{grid-template-columns:minmax(0,1fr) auto;min-height:0}
+.detail-main .cta-panel>div{min-width:0}
+.detail-main .cta-panel .button{white-space:normal;text-align:center}
+@container detail-content (max-width:760px){
+ .detail-main .cta-panel{grid-template-columns:minmax(0,1fr);gap:24px;padding:28px}
+ .detail-main .cta-panel>.button{justify-self:start;max-width:100%}
+ .detail-main .role-grid{grid-template-columns:minmax(0,1fr);gap:16px}
+ .detail-main .role-grid article{text-align:left;padding:24px}
+}
+/* The decorative case icon was removed: its former 70px column must go too. */
+.detail-main .case-head{display:block}
+.detail-main .case-head>div{min-width:0;width:100%}
+.detail-main :is(p,li){overflow-wrap:anywhere}
+@container detail-content (max-width:650px){
+ .detail-main :is(.template-picker,.source-grid,.partner-grid,.steps,.fields){grid-template-columns:minmax(0,1fr)!important}
+ .detail-main .template-picker>*{min-width:0}
+}
