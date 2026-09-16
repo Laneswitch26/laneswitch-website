@@ -1,0 +1,32 @@
+{
+  "id": "/",
+  "name": "LANE SWITCH",
+  "short_name": "LANE SWITCH",
+  "description": "Wissen, Werkzeuge und Netzwerk für deinen mobilen Alltag.",
+  "lang": "de",
+  "start_url": "/?source=app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#062d47",
+  "theme_color": "#062d47",
+  "icons": [
+    {
+      "src": "/app/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/app/icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
