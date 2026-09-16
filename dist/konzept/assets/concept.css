@@ -76,3 +76,6 @@ html body .detail-main .cooperation-grid>div{min-width:0}
  .detail-main :is(.template-picker,.source-grid,.partner-grid,.steps,.fields){grid-template-columns:minmax(0,1fr)!important}
  .detail-main .template-picker>*{min-width:0}
 }
+@media(max-width:420px){
+ .detail-main .actions>.button{flex:1 1 100%;width:100%}
+}
