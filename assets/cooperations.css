@@ -30,3 +30,4 @@ html[data-theme="dark"] .partner-share-dialog .eyebrow{color:#65e3e8!important}
 .partner-logo img{display:block;width:100%;height:auto;object-fit:contain;border-radius:12px}
 .partner-logo figcaption{font-size:13px;color:var(--partner-muted);margin-top:12px}
 .partner-directory-list{display:grid;gap:22px}
+html[data-theme="dark"] .partner-share-dialog .recommend-preview{color:#f7fcfd!important;background:#0d3d58;border-left-color:#65e3e8}
