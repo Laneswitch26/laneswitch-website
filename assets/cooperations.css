@@ -24,3 +24,10 @@ html[data-theme="dark"] .partner-share-dialog .dialog-lead,
 html[data-theme="dark"] .partner-share-dialog .recommend-note{color:#c8dbe1!important}
 html[data-theme="dark"] .partner-share-dialog .eyebrow{color:#65e3e8!important}
 @media(max-width:480px){.partner-share-preview{align-items:flex-start;gap:12px}.partner-share-preview img{width:64px;flex-basis:64px}.partner-share-dialog .recommend-preview{padding:12px}}
+
+/* Logo profile variant and directory spacing for additional partners. */
+.partner-logo{width:min(100%,304px);margin:0 auto;padding:14px;border:1px solid var(--partner-line);border-radius:18px;background:var(--partner-surface);min-width:0}
+.partner-logo img{display:block;width:100%;height:auto;object-fit:contain;border-radius:12px}
+.partner-logo figcaption{font-size:13px;color:var(--partner-muted);margin-top:12px}
+.partner-directory-list{display:grid;gap:22px}
+html[data-theme="dark"] .partner-share-dialog .recommend-preview{color:#f7fcfd!important;background:#0d3d58;border-left-color:#65e3e8}
