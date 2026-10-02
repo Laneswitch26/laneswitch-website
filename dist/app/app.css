@@ -275,3 +275,5 @@ h1,h2,h3,.eyebrow,.post-meta,.update strong,.welcome-choice strong,.welcome-choi
 @media(max-width:760px){.form-grid{grid-template-columns:minmax(0,1fr)}
 .inquiry-form{padding:22px 19px}}
 @media(max-width:370px){.inquiry-form{padding:20px 17px}}
+
+.a1-network-card{margin-top:22px}.a1-network-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:20px}.a1-network-heading>div{min-width:0}.a1-network-heading img{width:72px;height:auto;flex:0 0 72px;object-fit:contain}.a1-network-heading h2{overflow-wrap:anywhere}@media(max-width:480px){.a1-network-heading img{width:56px;flex-basis:56px}}

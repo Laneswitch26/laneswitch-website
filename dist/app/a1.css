@@ -1,0 +1,7 @@
+/* A1 uses the existing app shell and content-container breakpoints. */
+.partner-hero--a1{grid-template-columns:minmax(0,1fr) 112px;align-items:start;gap:28px}
+.partner-hero--a1 .partner-logo{width:96px;margin:6px 0 0 auto;padding:0;border:0;background:transparent}
+.partner-hero--a1 .partner-logo img{display:block;width:100%;height:auto}
+@container detail-content (max-width:650px){.partner-hero--a1{grid-template-columns:minmax(0,1fr)}.partner-hero--a1 .partner-logo{order:-1;width:72px;margin:0}}
+@media(max-width:760px){.partner-hero--a1{grid-template-columns:minmax(0,1fr);gap:20px}.partner-hero--a1 .partner-logo{order:-1;width:72px;margin:0}}
+html[data-theme=dark] .partner-share-dialog .recommend-preview{color:#f7fcfd!important;background:#0d3d58;border-left-color:#65e3e8}
