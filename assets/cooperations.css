@@ -31,3 +31,9 @@ html[data-theme="dark"] .partner-share-dialog .eyebrow{color:#65e3e8!important}
 .partner-logo figcaption{font-size:13px;color:var(--partner-muted);margin-top:12px}
 .partner-directory-list{display:grid;gap:22px}
 html[data-theme="dark"] .partner-share-dialog .recommend-preview{color:#f7fcfd!important;background:#0d3d58;border-left-color:#65e3e8}
+
+/* Restrained partner branding: original mark without an extra display card. */
+.partner-hero--a1{grid-template-columns:minmax(0,1fr) 144px;align-items:start;gap:48px}
+.partner-hero--a1 .partner-logo{width:128px;margin:8px 0 0 auto;padding:0;border:0;border-radius:0;background:transparent}
+.partner-hero--a1 .partner-logo img{border-radius:0}
+@media(max-width:760px){.partner-hero--a1{grid-template-columns:1fr;gap:22px}.partner-hero--a1 .partner-logo{order:-1;width:80px;margin:0}}
