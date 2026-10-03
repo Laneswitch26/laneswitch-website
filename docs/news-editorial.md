@@ -25,3 +25,36 @@
 ## Checks
 
 `node tests/news.test.mjs` checks input validity, dates, expiry, stale status and source URL safety. News loads same-origin with `cache: no-store`; no external network call is made by visitors until they choose a source link. Online SW caches only the offline page. UI failures do not erase other site content.
+
+## Themenvielfalt und Bezug zum LANESWITCH-Konzept
+
+Bei jeder Recherche mehrere Themenfelder abdecken und über die Woche eine ausgewogene Auswahl anstreben:
+- Ausbildung & Prüfung: Führerscheinreform, Fahrsimulatoren, digitales Lernen, Prüfungsorganisation und Fahrlehrerqualifikation.
+- Kosten & Mobilität: Kraftstoff, Förderung, Fahrzeugkosten, E-Mobilität und relevante Fristen.
+- Sicherheit & Unfallprävention: Fahranfänger, Ablenkung, Wetter, Fahrzeugmängel, Arbeits- und Wegeunfälle.
+- Cyber & Datenschutz: Phishing, Ransomware, Schülerdaten, Terminverwaltung, Lernsoftware und Zahlungsverkehr.
+- Betrieb & Haftung: Unterricht, Räume, Schlüssel, Fuhrpark, Schäden gegenüber Dritten.
+- Recht & Personal: relevante Entscheidungen zu Verkehr, Verträgen, Arbeitsrecht und Fahrschulbetrieb.
+- Betriebsfortführung: Krankheit/Unfall zentraler Personen, Vertretung und organisatorischer Betriebsausfall.
+- Regionale Entwicklungen mit konkretem Nutzen für die Zielgruppe.
+
+Das veröffentlichte SIGNAL-IDUNA-Konzept für Fahrschulen umfasst Betriebshaftpflicht, Cyberversicherung, Gruppen-Unfall, Firmenrechtsschutz und Inhaber-Ausfall. Für Lernende kommen persönliche Unfallrisiken, Kfz-Haftpflicht/Kasko und die Nutzung des Elternautos in Betracht. Eine relevante Meldung darf diese Risiken erklären, ist aber kein Nachweis einer Versicherungsdeckung. Keine pauschalen Leistungszusagen, Tarifdetails, erfundenen Angebote oder Angstmache. Prävention und praktische Folgen zuerst; kommerzielle Servicehinweise klar getrennt als LANESWITCH-Service kennzeichnen und anhand aktueller Website-Angebote prüfen.
+
+Für Cyberthemen beispielsweise BSI, für Arbeitssicherheit die zuständige Berufsgenossenschaft/DGUV und für Rechtsfragen amtliche Entscheidungen/Gesetzestexte nutzen. Hersteller- und Versichererbeiträge als solche kennzeichnen; Produktbehauptungen nicht als unabhängige Nachricht behandeln.
+
+Bei Simulatoren immer unterscheiden: ergänzendes freiwilliges Üben, anrechenbare Ausbildung, Ersatz verpflichtender Fahrstunden und Prüfungsanforderungen. Zuständige Quelle, konkreten Regelungsstand und Inkrafttreten prüfen. Regierungsentwürfe, parlamentarische Anträge, Verbandsforderungen und geltendes Recht nicht vermischen. Keine angekündigten Kostenersparnisse garantieren.
+
+Keine thematische Quote mit alten oder unbelegten Meldungen erfüllen. Bei vergleichbarer Aktualität und Relevanz unterschiedliche Themen bevorzugen; nicht mehrere Varianten desselben Ereignisses veröffentlichen.
+
+## Tägliche Instagram-Story für den Eigentümer
+
+Nach der Ticker-Recherche genau ein fertiges Story-Bild erstellen und im Aufgaben-Ergebnis bereitstellen; kein automatisches Posten bei Instagram.
+- Wichtigste bestätigte, aktive Ticker-Meldung anhand konkreter Auswirkungen, betroffener Zielgruppe, Handlungsbedarf und Aktualität auswählen. Nicht nach Werbepotenzial auswählen.
+- Keine neue Nachricht erfinden: an ruhigen Tagen die relevanteste weiterhin gültige Meldung erneut prüfen und mit ehrlichem Stand verwenden. Falls keine verifizierbare aktive Meldung vorliegt, eine schlichte Karte „Heute keine neuen bestätigten Meldungen“ statt einer erfundenen Tagesnews erstellen. Scheitert die Recherche, stattdessen „Aktualitätsprüfung derzeit nicht möglich“ melden.
+- Bildgenerierungs-Skill und verfügbares eingebautes Bildwerkzeug verwenden; keine neue kostenpflichtige API, Abos oder lizenzierten Bilder. Bei Tool-/Kontingentfehler den Ausfall melden, nicht behaupten, ein Bild sei erstellt.
+- Format 9:16, Ziel 1080 × 1920 Pixel, mobil gut lesbar. Oben/unten jeweils etwa 250 Pixel Sicherheitsabstand, seitlich mindestens 80 Pixel. Sehr schlicht, klare Sans-Serif, viel Freiraum, keine Stockfotos oder Zeitungsausschnitte.
+- Bestehende LS-Farben anhand aktueller Gestaltungsdateien übernehmen. Aktuelle Basis: Dunkelblau #062d47, Türkis #65e5df bzw. #007c89, Weiß #ffffff. Keine erfundenen Logos oder SIGNAL-IDUNA-Logos.
+- Fester Absender „LANESWITCH informiert:“; kurze eigene Überschrift und höchstens zwei knappe Sätze zur News. Vorschlag/Entwurf/Prognose sichtbar kennzeichnen, wenn zutreffend. Datum/Stand und Quelle als Institution klein, aber lesbar.
+- CTA: „Mehr im Newsticker“ und „laneswitch.online · Werkzeuge → Newsticker“. Den passenden vollständigen Link separat zum Bild liefern: https://laneswitch.online/konzept/fahrschulen/#news oder https://laneswitch.online/konzept/fahrschueler/#news. Ein Bild enthält keinen anklickbaren Link: diese URL ist für den Instagram-Link-Sticker bestimmt; keine falschen „Link in Bio“-Behauptungen.
+- Nur bei einem tatsächlich vorhandenen und inhaltlich passenden Angebot eine dezente getrennte Zeile „LANESWITCH-Service: …“ ergänzen. Zielseite vorher prüfen und deren Link neben dem Bild liefern. Sonst Servicezeile weglassen. Keine Verknüpfung konstruieren, keine Deckungszusage.
+- Rechtschreibung, Fakten, Kontrast, Textumbruch und Ränder kontrollieren. Bild im Aufgaben-Ergebnis ausgeben; zusätzlich gewählte Meldung, Ticker-Link und ggf. Service-Link kurz nennen. Nicht nur einen Bildprompt liefern. Die tägliche Bildausgabe ersetzt die sonst stille Rückmeldung bei ereignisarmen Tagen.
