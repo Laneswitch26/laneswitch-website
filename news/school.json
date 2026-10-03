@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "audience": "school",
+  "checkedAt": "2026-10-03T11:37:01+00:00",
+  "items": [
+    {
+      "id": "tankrabatt-2026-q4",
+      "category": "Tanken & Kosten",
+      "status": "in_force",
+      "publishedAt": "2026-10-01T00:00:00+02:00",
+      "checkedAt": "2026-10-03T11:37:01+00:00",
+      "expiresAt": "2027-01-01T00:00:00+01:00",
+      "title": "Tankrabatt: Entlastung für den Fuhrpark einordnen.",
+      "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
+      "impact": "Auch Fahrschulfahrzeuge können über niedrigere Tankpreise profitieren. Die tatsächliche Entlastung lässt sich erst an den bezahlten Kraftstoffpreisen erkennen.",
+      "action": "Vergleichen Sie Tankstellenpreise und dokumentieren Sie die tatsächlichen Fuhrparkkosten. Kalkulieren Sie keine garantierte Preissenkung ein.",
+      "sources": [
+        {
+          "name": "Bundesfinanzministerium · Energiesteuersenkung",
+          "url": "https://www.bundesfinanzministerium.de/Content/DE/FAQ/energiesteuersenkung.html"
+        },
+        {
+          "name": "Bundesregierung · Stand 01.10.2026",
+          "url": "https://www.bundesregierung.de/breg-de/aktuelles/entlastung-spritpreise-2453192"
+        }
+      ]
+    },
+    {
+      "id": "herbstverkehr-2026-10-03",
+      "category": "Unterwegs · NRW",
+      "status": "forecast",
+      "publishedAt": "2026-10-02T10:20:00+02:00",
+      "checkedAt": "2026-10-03T11:37:01+00:00",
+      "expiresAt": "2026-10-05T05:00:00+02:00",
+      "title": "Wochenendverkehr bei Ausbildungsfahrten einplanen.",
+      "summary": "Der ADAC erwartet am Wochenende 3./4. Oktober erhöhtes Staurisiko. Ferienbeginn in drei Bundesländern und Baustellen belasten den Verkehr; auch auf Strecken in NRW sind Einschränkungen angekündigt.",
+      "impact": "Autobahnfahrten und Anfahrtszeiten können betroffen sein. Eine Prognose ist keine Bestätigung der Verkehrslage zum Unterrichtsbeginn.",
+      "action": "Prüfen Sie die Route vor Fahrtbeginn und berücksichtigen Sie Sperrungen bei der Unterrichtsplanung.",
+      "sources": [
+        {
+          "name": "ADAC · Stauprognose, Stand 02.10.2026",
+          "url": "https://www.adac.de/verkehr/verkehrsinformationen/stauprognose/"
+        }
+      ]
+    }
+  ]
+}
