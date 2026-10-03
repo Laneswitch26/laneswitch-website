@@ -4,7 +4,7 @@
 
 - Repository: `Laneswitch26/laneswitch-website`.
 - `main`: laneswitch.de; data `news/learner.json`, `news/school.json`; UI `assets/news/news.mjs` and `news.css`; audience entrypoints `/fahrschueler/`, `/fahrschulen/`.
-- `cloudflare-online`: laneswitch.online; data `dist/news/learner.json`, `dist/news/school.json`; UI `dist/app/news.mjs` and `news.css`; app feed entrypoints `/konzept/fahrschueler/`, `/konzept/fahrschulen/` and root selected audience. Pages deploy output is `dist`.
+- `cloudflare-online`: laneswitch.online; data `dist/news/learner.json`, `dist/news/school.json`; UI `dist/app/news.mjs` and `news.css`; app entrypoints `/konzept/fahrschueler/`, `/konzept/fahrschulen/` and root selected audience. The ticker is a dedicated `#news` view under Werkzeuge, accessible through the Newsticker tool card for both audiences; it must not render on the Entdecken/start feed. Pages deploy output is `dist`.
 - Never merge the two production branches into each other. Maintain existing typography, color tokens, light/dark themes, navigation, footers and PWA behavior. Routine editorial updates change the four JSON feeds; on main also run `node scripts/render-news.mjs` and include the two generated audience HTML sections. Preserve every byte outside the marked news regions.
 - No paid news API, external widget, runtime AI API, tracking, image license or new hosting product. Scheduled research uses the user's existing ChatGPT automation and GitHub connection. No guarantee of unlimited free third-party services or unattended success.
 
