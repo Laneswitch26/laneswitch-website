@@ -26,3 +26,12 @@
 html[data-theme=dark] .ls-news{--news-bg:var(--card,#0d3d58);--news-accent:var(--teal,#65e3e8)}
 html[data-theme=dark] .ls-news-badge{background:var(--tint,#17566f)}
 @media(max-width:600px){.ls-news-heading{display:block}.ls-news-frequency{display:inline-block;margin-top:12px}.ls-news-card{padding:18px}.ls-news-section{padding:36px 0}.ls-news h3{font-size:18px}}
+
+.ls-news-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:14px}
+.ls-news .ls-news-share{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border:1px solid var(--line,#d7e5e8);border-radius:8px;color:var(--news-accent);font-size:14px;font-weight:700;text-decoration:none;box-sizing:border-box}
+.ls-news-share svg{width:18px;height:18px;flex:none}
+.ls-news-share:hover{background:var(--tint,#e2f5f3)}
+.ls-news .ls-news-share-status{font-size:14px;color:var(--muted,#526879);max-width:100%}
+.ls-news-share-status input{display:block;width:100%;max-width:100%;box-sizing:border-box;color:inherit;background:var(--news-bg);padding:8px;border:1px solid var(--line,#d7e5e8)}
+.ls-news-card{scroll-margin-top:110px}
+.ls-news-shared{outline:2px solid var(--news-accent);outline-offset:3px}
