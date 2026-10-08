@@ -64,6 +64,24 @@
           "url": "https://www.gesetze-im-internet.de/energiestg/__68.html"
         }
       ]
+    },
+    {
+      "id": "kfz-typklassen-2027",
+      "category": "Auto & Versicherung",
+      "status": "report",
+      "publishedAt": "2026-09-30T00:00:00+02:00",
+      "checkedAt": "2026-10-08T08:19:39+00:00",
+      "expiresAt": "2026-10-15T00:00:00+02:00",
+      "title": "Typklassen 2027: Vor dem ersten Auto Kosten prüfen.",
+      "summary": "Die neue GDV-Statistik ordnet in der Kfz-Haftpflicht rund 7,4 Millionen Autofahrende höher und 5,1 Millionen niedriger ein. Die Einstufungen sind für Versicherer unverbindlich und können bei Neuverträgen bereits jetzt, bei bestehenden Verträgen ab dem nächsten Versicherungsjahr berücksichtigt werden.",
+      "impact": "Die Typklasse allein entscheidet nicht über deinen Beitrag. Auch Jahresfahrleistung und weitere persönliche Angaben zählen.",
+      "action": "Prüfe vor dem Autokauf die Typklasse auf typklasse.de und lass dir ein konkretes Versicherungsangebot berechnen. LANESWITCH unterstützt dich beim Versicherungscheck.",
+      "sources": [
+        {
+          "name": "GDV · Typklassenstatistik, Stand 30.09.2026",
+          "url": "https://www.gdv.de/gdv/medien/medieninformationen/typklassen-kfz-versicherung-medieninformation-147618"
+        }
+      ]
     }
   ]
 }
