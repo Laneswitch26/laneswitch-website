@@ -1,14 +1,36 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-09T06:36:06Z",
+  "checkedAt": "2026-10-10T06:19:02.987Z",
   "items": [
+    {
+      "id": "a40-bochum-sperrung-2026-10-09",
+      "status": "report",
+      "publishedAt": "2026-10-08T09:55:00+02:00",
+      "checkedAt": "2026-10-10T06:19:02.987Z",
+      "expiresAt": "2026-10-12T05:00:00+02:00",
+      "sources": [
+        {
+          "name": "Autobahn GmbH · Sperrung bei Bochum-Zentrum",
+          "url": "https://www.autobahn.de/betrieb-verkehr/verkehrsmeldung/a40-vollsperrungen-bei-bochum-zentrum-wegen-umbau-der-anschlussstelle"
+        },
+        {
+          "name": "WDR · aktualisierter Überblick vom 08.10.2026",
+          "url": "https://www1.wdr.de/nrw/verkehr/verkehrsthemen/sperrungen-am-wochenende-102.html"
+        }
+      ],
+      "category": "Region & Verkehr",
+      "title": "A40 bei Bochum bis Montagmorgen gesperrt.",
+      "summary": "Die A40 ist seit Freitag, 9. Oktober, 21 Uhr, bis Montag, 12. Oktober, 5 Uhr, in Richtung Essen zwischen dem Kreuz Bochum und Bochum-Zentrum vollständig gesperrt. Die Umleitung führt über A43 und A448.",
+      "impact": "Fahrten aus Bochum, Herne und dem östlichen Ruhrgebiet können länger dauern. Auch Fahrstunden auf den Ausweichstrecken können betroffen sein.",
+      "action": "Plane zusätzliche Zeit ein und prüfe die aktuelle Route vor der Abfahrt. Für Fahrstunden solltest du dich bei Verspätungen frühzeitig bei deiner Fahrschule melden."
+    },
     {
       "id": "bsi-ghost-pairing-2026-10-07",
       "category": "Cyber & Datenschutz",
       "status": "report",
       "publishedAt": "2026-10-07T00:00:00+02:00",
-      "checkedAt": "2026-10-09T06:36:06Z",
+      "checkedAt": "2026-10-10T06:19:02.987Z",
       "expiresAt": "2026-10-22T00:00:00+02:00",
       "title": "BSI warnt: Messenger-Konten durch falsche Abstimmungen gefährdet.",
       "summary": "Das BSI greift in seinem Newsletter vom 7. Oktober die Betrugsmasche Ghost Pairing auf: Gefälschte Abstimmungslinks sollen dazu verleiten, ein fremdes Gerät mit dem eigenen Messenger-Konto zu verbinden. Dadurch können Kriminelle Chats mitlesen und Nachrichten im Namen Betroffener versenden.",
@@ -30,7 +52,7 @@
       "category": "Tanken & Kosten",
       "status": "report",
       "publishedAt": "2026-10-07T17:14:00+02:00",
-      "checkedAt": "2026-10-09T06:36:06Z",
+      "checkedAt": "2026-10-10T06:19:02.987Z",
       "expiresAt": "2026-10-12T00:00:00+02:00",
       "title": "Vereinzelt leere Zapfsäulen in NRW.",
       "summary": "Der WDR berichtet seit dem 7. Oktober über einzelne Tankstellen in NRW, an denen Kraftstoff zeitweise ausverkauft war. Betroffen war häufig Diesel; als Ursache nennt der Tankstellen-Interessenverband die ungewöhnlich hohe Nachfrage nach Beginn des Tankrabatts.",
@@ -48,16 +70,20 @@
       "category": "Ausbildung & Prüfung",
       "status": "proposal",
       "publishedAt": "2026-10-05T00:00:00+02:00",
-      "checkedAt": "2026-10-09T06:36:06Z",
+      "checkedAt": "2026-10-10T06:19:02.987Z",
       "expiresAt": "2026-10-20T00:00:00+02:00",
-      "title": "Führerscheinreform: Nach der Anhörung bleiben Streitpunkte.",
-      "summary": "Update zur Anhörung vom 5. Oktober: Der Regierungsentwurf sieht unter anderem vollständig digitales Theorielernen und begleitete Übungsfahrten vor der Prüfung vor. In der Anhörung unterstützte der ADAC die Reform; Vertreter der Fahrschulbranche äußerten Sicherheitsbedenken.",
-      "impact": "Die Anhörung setzt keine neuen Regeln in Kraft. Die diskutierten Erleichterungen bleiben Vorschläge.",
-      "action": "Plane deine Ausbildung nach den geltenden Vorgaben. Aus der Anhörung folgt keine Erlaubnis, ohne Fahrerlaubnis mit Angehörigen auf öffentlichen Straßen zu üben.",
+      "title": "Update zur Führerscheinreform: Bis zu 1.000 Euro sind nur eine Erwartung.",
+      "summary": "Verkehrsminister Steffen Bilger erwartet laut ADAC vom 9. Oktober Einsparungen von mehreren hundert Euro, im besten Fall bis zu 1.000 Euro. Der Gesetzentwurf sieht unter anderem digitales Theorielernen und begleitete Übungsfahrten vor; eine garantierte Ersparnis oder geltende Neuregelung folgt daraus nicht.",
+      "impact": "Die genannte Summe ist eine politische Erwartung, kein fester Rabatt. Die Reform muss noch Bundestag und Bundesrat passieren.",
+      "action": "Plane deine Ausbildung weiterhin nach den geltenden Regeln und mit den tatsächlichen Preisen deiner Fahrschule. Rechne nicht fest mit 1.000 Euro Ersparnis.",
       "sources": [
         {
           "name": "Deutscher Bundestag · Bericht zur Anhörung vom 05.10.2026",
           "url": "https://www.bundestag.de/ausschuesse/verkehr/sitzungen/1215508-1215508"
+        },
+        {
+          "name": "ADAC · Update vom 09.10.2026",
+          "url": "https://www.adac.de/news/verkehr-wie-der-fuehrerschein-guenstiger-werden-soll/"
         }
       ]
     },
@@ -66,7 +92,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-09T06:36:06Z",
+      "checkedAt": "2026-10-10T06:19:02.987Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt bis Jahresende: Was beim Tanken zählt.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
@@ -92,7 +118,7 @@
       "category": "Auto & Versicherung",
       "status": "report",
       "publishedAt": "2026-09-30T00:00:00+02:00",
-      "checkedAt": "2026-10-09T06:36:06Z",
+      "checkedAt": "2026-10-10T06:19:02.987Z",
       "expiresAt": "2026-10-15T00:00:00+02:00",
       "title": "Typklassen 2027: Vor dem ersten Auto Kosten prüfen.",
       "summary": "Die neue GDV-Statistik ordnet in der Kfz-Haftpflicht rund 7,4 Millionen Autofahrende höher und 5,1 Millionen niedriger ein. Die Einstufungen sind für Versicherer unverbindlich und können bei Neuverträgen bereits jetzt, bei bestehenden Verträgen ab dem nächsten Versicherungsjahr berücksichtigt werden.",
