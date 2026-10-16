@@ -1,13 +1,13 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-15T06:47:07Z",
+  "checkedAt": "2026-10-16T06:23:38Z",
   "items": [
     {
       "id": "a43-bochum-herne-sperrungen-2026-10-16",
       "status": "report",
       "publishedAt": "2026-10-12T00:00:00+02:00",
-      "checkedAt": "2026-10-15T06:47:07Z",
+      "checkedAt": "2026-10-16T06:23:38Z",
       "expiresAt": "2026-10-26T05:00:00+01:00",
       "sources": [
         {
@@ -26,22 +26,26 @@
       "category": "Sicherheit & Prävention",
       "status": "report",
       "publishedAt": "2026-10-06T00:00:00+02:00",
-      "checkedAt": "2026-10-14T06:41:22Z",
+      "checkedAt": "2026-10-16T06:23:38Z",
       "expiresAt": "2026-10-21T00:00:00+02:00",
-      "summary": "Der ADAC meldet erhebliche Mängel bei Frontalaufpralltests des Britax Römer Baby-Safe Pro mit Vario Base 5Z sowie des Axkid Minikid Core, jeweils in Liegeposition. Axkid bestätigt einen freiwilligen Rückruf bestimmter Produktionschargen und bietet betroffenen Besitzern einen kostenlosen Austausch an.",
+      "summary": "Update vom 16. Oktober: Nach der ADAC-Testwarnung bestätigt auch Britax Römer einen freiwilligen Rückruf. Betroffen sind BABY-SAFE-PRO-Babyschalen mit Herstellungsdatum vom 26. Dezember 2025 bis 30. September 2026. Für bestimmte Chargen des Axkid Minikid Core besteht ebenfalls ein freiwilliger Rückruf.",
       "sources": [
         {
-          "name": "ADAC · Testwarnung vom 06.10.2026",
-          "url": "https://presse.adac.de/meldungen/adac-ev/tests/adac-warnt-vor-zwei-kindersitzen.html"
+          "name": "ADAC · aktualisierte Testwarnung vom 13.10.2026",
+          "url": "https://www.adac.de/news/kindersitztest-herbst-2026-warnung-vor-kindersitzen/"
+        },
+        {
+          "name": "Britax Römer · Herstellerinformation zum freiwilligen Rückruf",
+          "url": "https://www.britax-roemer.de/sicherheitshinweise-1?article=SafetyNotice-BabySafePro"
         },
         {
           "name": "Axkid · Herstellerinformation zum freiwilligen Rückruf",
           "url": "https://axkid.com/de/axkid-news/axkid-initiates-voluntary-recall-of-minikid-core/"
         }
       ],
-      "title": "Kindersitz-Warnung als konkretes Thema für die Ausbildung.",
-      "impact": "Die Testwarnung eignet sich für den Unterricht zur sicheren Kinderbeförderung. Ein pauschaler Hinweis auf die Marke reicht dabei nicht aus.",
-      "action": "Besprechen Sie Modell, Einbau und Sitzposition anhand der Originalquelle. Verweisen Sie beim Minikid Core auf die Seriennummernprüfung beim Hersteller."
+      "title": "Update zur Kindersitzwarnung: Auch Britax Römer bestätigt Rückruf.",
+      "impact": "Prüfen Sie vorhandene Kindersitze und aktualisieren Sie Ihre Unterrichtshinweise zur Kinderbeförderung. Entscheidend sind Modell und Herstellungsdatum, nicht allein die Marke.",
+      "action": "Verweisen Sie bei betroffenen BABY-SAFE PRO auf die Herstelleranweisung: vorerst aufrecht auf der VARIO BASE 5Z oder ohne Basis mit Fahrzeuggurt gemäß Anleitung. Ersatz oder kostenloses Produkt-Update sind angekündigt; die Abwicklungsseite folgt noch. Für Minikid Core gilt die Seriennummernprüfung bei Axkid."
     },
     {
       "id": "ki-cyberangriffe-studie-2026-10-07",
@@ -159,3 +163,4 @@
     }
   ]
 }
+
