@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-16T06:23:38Z",
+  "checkedAt": "2026-10-17T06:51:44Z",
   "items": [
+    {
+      "id": "herner-strasse-bochum-2026-10-21",
+      "category": "Betrieb & Verkehr",
+      "status": "report",
+      "title": "Herner Straße: Sperrung und Einbahnregelung ab 21. Oktober.",
+      "summary": "Die Stadt Bochum kündigt für den 21. Oktober, 21 Uhr, bis 22. Oktober, 5 Uhr, eine Vollsperrung am Dorneburger Mühlenbach an. Danach ist die Herner Straße bis 30. Oktober, 5 Uhr, dort nur Richtung Herne befahrbar. Anschließend bleibt die A43-Auffahrt Richtung Wuppertal bis zum geplanten Bauabschnittsende am 6. November gesperrt.",
+      "impact": "Die wechselnden Bauphasen betreffen Ausbildungsrouten, Abholungen und die Erreichbarkeit zwischen Bochum und Herne.",
+      "action": "Berücksichtigen Sie die Bauphasen in der Routen- und Terminplanung und informieren Sie Lernende über geänderte Abholwege.",
+      "publishedAt": "2026-10-14T00:00:00+02:00",
+      "checkedAt": "2026-10-17T06:51:44Z",
+      "expiresAt": "2026-11-07T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Bochum · Verkehrsmeldung vom 14.10.2026",
+          "url": "https://www.bochum.de/Pressemeldungen/14-Oktober-2026/Abbau-der-Baustelle-auf-der-Herner-Strasse-erfordert-Sperrungen"
+        }
+      ]
+    },
     {
       "id": "a43-bochum-herne-sperrungen-2026-10-16",
       "status": "report",
@@ -26,9 +44,9 @@
       "category": "Sicherheit & Prävention",
       "status": "report",
       "publishedAt": "2026-10-06T00:00:00+02:00",
-      "checkedAt": "2026-10-16T06:23:38Z",
+      "checkedAt": "2026-10-17T06:51:44Z",
       "expiresAt": "2026-10-21T00:00:00+02:00",
-      "summary": "Update vom 16. Oktober: Nach der ADAC-Testwarnung bestätigt auch Britax Römer einen freiwilligen Rückruf. Betroffen sind BABY-SAFE-PRO-Babyschalen mit Herstellungsdatum vom 26. Dezember 2025 bis 30. September 2026. Für bestimmte Chargen des Axkid Minikid Core besteht ebenfalls ein freiwilliger Rückruf.",
+      "summary": "Präzisierung vom 17. Oktober: Britax Römer grenzt den Rückruf auf Babyschalen mit Gurtschlössern aus einer bestimmten Produktionscharge ein. Bei Herstellungsdatum vom 26. Dezember 2025 bis 30. September 2026 lässt sich die Betroffenheit jetzt online prüfen. Der freiwillige Rückruf bestimmter Axkid-Minikid-Core-Chargen besteht ebenfalls.",
       "sources": [
         {
           "name": "ADAC · aktualisierte Testwarnung vom 13.10.2026",
@@ -41,11 +59,15 @@
         {
           "name": "Axkid · Herstellerinformation zum freiwilligen Rückruf",
           "url": "https://axkid.com/de/axkid-news/axkid-initiates-voluntary-recall-of-minikid-core/"
+        },
+        {
+          "name": "Britax Römer · Online-Prüfung und Rückrufabwicklung",
+          "url": "https://www.baby-safe-check.com/"
         }
       ],
-      "title": "Update zur Kindersitzwarnung: Auch Britax Römer bestätigt Rückruf.",
-      "impact": "Prüfen Sie vorhandene Kindersitze und aktualisieren Sie Ihre Unterrichtshinweise zur Kinderbeförderung. Entscheidend sind Modell und Herstellungsdatum, nicht allein die Marke.",
-      "action": "Verweisen Sie bei betroffenen BABY-SAFE PRO auf die Herstelleranweisung: vorerst aufrecht auf der VARIO BASE 5Z oder ohne Basis mit Fahrzeuggurt gemäß Anleitung. Ersatz oder kostenloses Produkt-Update sind angekündigt; die Abwicklungsseite folgt noch. Für Minikid Core gilt die Seriennummernprüfung bei Axkid."
+      "title": "Update: BABY-SAFE-PRO-Rückruf jetzt online prüfen.",
+      "impact": "Aktualisieren Sie Ihre Hinweise zur Kinderbeförderung: Das Herstellungsdatum grenzt die Prüfung ein, bestätigt allein aber noch keine Rückrufbetroffenheit.",
+      "action": "Verweisen Sie auf baby-safe-check.com zur Prüfung und gegebenenfalls Registrierung für die kostenlose Abhilfe. Bis dahin nennt Britax die aufrechte Nutzung auf der VARIO BASE 5Z oder den Fahrzeuggurt ohne Basis, jeweils gemäß Anleitung. Für Minikid Core gilt die Prüfung über Axkid."
     },
     {
       "id": "ki-cyberangriffe-studie-2026-10-07",
@@ -74,10 +96,10 @@
       "category": "Recht & Fuhrpark",
       "status": "proposal",
       "publishedAt": "2026-10-07T00:00:00+02:00",
-      "checkedAt": "2026-10-15T06:47:07Z",
+      "checkedAt": "2026-10-17T06:51:44Z",
       "expiresAt": "2026-10-29T00:00:00+01:00",
-      "title": "Korrektur: Fuhrpark-Kontrollen bleiben Entwurf; Beratungstermin unklar.",
-      "summary": "Der Regierungsentwurf sieht vor, Führerscheine bei Fahrzeugüberlassung in der Regel zunächst einmal und danach bei konkretem Anlass erneut einzusehen. Korrektur vom 15. Oktober: Die Bundestagsseite nennt widersprüchliche Beratungsdaten. Der zuvor genannte 16. Oktober ist damit nicht eindeutig bestätigt; die Vorlage bleibt ein Entwurf.",
+      "title": "Update: Entwurf zu Fuhrpark-Kontrollen an Ausschüsse überwiesen.",
+      "summary": "Update vom 17. Oktober: Der Bundestag bestätigt nun die Ausschussüberweisung des Entwurfs zum Bürokratierückbau. Vorgesehen bleibt eine Führerscheineinsicht vor der ersten Fahrzeugüberlassung und danach bei begründeten Zweifeln. Die zuvor widersprüchlichen Terminangaben ersetzen wir durch diesen bestätigten Verfahrensstand; geltendes Recht ist die geplante Regelung noch nicht.",
       "impact": "Für Ihren Betrieb betrifft das die Überlassung von Fahrzeugen an bereits fahrberechtigte Personen. Daraus folgt keine Änderung der Ausbildungsregeln für Fahrschülerinnen und Fahrschüler.",
       "action": "Ändern Sie Ihre Kontrollabläufe noch nicht aufgrund der Ankündigung. Verfolgen Sie das Gesetzgebungsverfahren und prüfen Sie Anpassungen erst bei einer tatsächlich geltenden Neuregelung.",
       "sources": [
@@ -86,7 +108,7 @@
           "url": "https://dserver.bundestag.de/btd/21/084/2108404.pdf"
         },
         {
-          "name": "Deutscher Bundestag · Terminseite mit widersprüchlichen Datumsangaben, geprüft am 15.10.2026",
+          "name": "Deutscher Bundestag · Bericht und Beschluss zur Ausschussüberweisung, geprüft am 17.10.2026",
           "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw42-de-buerokratierueckbau-verkehr-1223628"
         }
       ]
@@ -163,4 +185,3 @@
     }
   ]
 }
-

@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-16T06:23:38Z",
+  "checkedAt": "2026-10-17T06:51:44Z",
   "items": [
+    {
+      "id": "herner-strasse-bochum-2026-10-21",
+      "category": "Region & Verkehr",
+      "status": "report",
+      "title": "Herner Straße: Sperrung und Einbahnregelung ab 21. Oktober.",
+      "summary": "Die Stadt Bochum kündigt für den 21. Oktober, 21 Uhr, bis 22. Oktober, 5 Uhr, eine Vollsperrung am Dorneburger Mühlenbach an. Danach ist die Herner Straße bis 30. Oktober, 5 Uhr, dort nur Richtung Herne befahrbar. Anschließend bleibt die A43-Auffahrt Richtung Wuppertal bis zum geplanten Bauabschnittsende am 6. November gesperrt.",
+      "impact": "Deine Wege zwischen Bochum und Herne sowie Fahrstunden können durch wechselnde Verkehrsführungen länger dauern.",
+      "action": "Prüfe vor der Fahrt die aktuelle Bauphase und die ausgeschilderte Umleitung. Plane für Termine zusätzliche Zeit ein.",
+      "publishedAt": "2026-10-14T00:00:00+02:00",
+      "checkedAt": "2026-10-17T06:51:44Z",
+      "expiresAt": "2026-11-07T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Bochum · Verkehrsmeldung vom 14.10.2026",
+          "url": "https://www.bochum.de/Pressemeldungen/14-Oktober-2026/Abbau-der-Baustelle-auf-der-Herner-Strasse-erfordert-Sperrungen"
+        }
+      ]
+    },
     {
       "id": "a43-bochum-herne-sperrungen-2026-10-16",
       "status": "report",
@@ -26,9 +44,9 @@
       "category": "Sicherheit & Prävention",
       "status": "report",
       "publishedAt": "2026-10-06T00:00:00+02:00",
-      "checkedAt": "2026-10-16T06:23:38Z",
+      "checkedAt": "2026-10-17T06:51:44Z",
       "expiresAt": "2026-10-21T00:00:00+02:00",
-      "summary": "Update vom 16. Oktober: Nach der ADAC-Testwarnung bestätigt auch Britax Römer einen freiwilligen Rückruf. Betroffen sind BABY-SAFE-PRO-Babyschalen mit Herstellungsdatum vom 26. Dezember 2025 bis 30. September 2026. Für bestimmte Chargen des Axkid Minikid Core besteht ebenfalls ein freiwilliger Rückruf.",
+      "summary": "Präzisierung vom 17. Oktober: Britax Römer grenzt den Rückruf auf Babyschalen mit Gurtschlössern aus einer bestimmten Produktionscharge ein. Bei Herstellungsdatum vom 26. Dezember 2025 bis 30. September 2026 lässt sich die Betroffenheit jetzt online prüfen. Der freiwillige Rückruf bestimmter Axkid-Minikid-Core-Chargen besteht ebenfalls.",
       "sources": [
         {
           "name": "ADAC · aktualisierte Testwarnung vom 13.10.2026",
@@ -41,11 +59,15 @@
         {
           "name": "Axkid · Herstellerinformation zum freiwilligen Rückruf",
           "url": "https://axkid.com/de/axkid-news/axkid-initiates-voluntary-recall-of-minikid-core/"
+        },
+        {
+          "name": "Britax Römer · Online-Prüfung und Rückrufabwicklung",
+          "url": "https://www.baby-safe-check.com/"
         }
       ],
-      "title": "Update zur Kindersitzwarnung: Auch Britax Römer bestätigt Rückruf.",
-      "impact": "Wenn du Kinder mitnimmst, prüfe das genaue Modell und das Herstellungsdatum. Bei Britax Römer steht es auf dem Etikett unter der Babyschale; nicht alle Sitze der Marke sind betroffen.",
-      "action": "Nutze einen betroffenen BABY-SAFE PRO laut Hersteller vorerst aufrecht auf der VARIO BASE 5Z oder ohne Basis mit Fahrzeuggurt gemäß Anleitung. Britax kündigt Ersatz oder ein kostenloses Produkt-Update an; die Abwicklungsseite folgt noch. Prüfe beim Minikid Core die Seriennummer über Axkid."
+      "title": "Update: BABY-SAFE-PRO-Rückruf jetzt online prüfen.",
+      "impact": "Das Herstellungsdatum allein bedeutet noch nicht, dass deine Babyschale betroffen ist. Prüfe zusätzlich die Seriennummer über die vom Hersteller verlinkte Rückrufseite.",
+      "action": "Nutze baby-safe-check.com zur Prüfung und gegebenenfalls Registrierung für die kostenlose Abhilfe. Bis dahin gilt laut Hersteller: aufrecht auf der VARIO BASE 5Z oder ohne Basis mit Fahrzeuggurt, jeweils gemäß Anleitung. Beim Minikid Core erfolgt die Seriennummernprüfung über Axkid."
     },
     {
       "id": "bsi-ghost-pairing-2026-10-07",
@@ -119,4 +141,3 @@
     }
   ]
 }
-
