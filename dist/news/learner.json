@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-18T06:29:26Z",
+  "checkedAt": "2026-10-19T06:31:55Z",
   "items": [
     {
       "id": "herner-strasse-bochum-2026-10-21",
@@ -25,7 +25,7 @@
       "id": "a43-bochum-herne-sperrungen-2026-10-16",
       "status": "report",
       "publishedAt": "2026-10-12T00:00:00+02:00",
-      "checkedAt": "2026-10-16T06:23:38Z",
+      "checkedAt": "2026-10-19T06:31:55Z",
       "expiresAt": "2026-10-26T05:00:00+01:00",
       "sources": [
         {
@@ -34,8 +34,8 @@
         }
       ],
       "category": "Region & Verkehr",
-      "title": "A43 bei Bochum an zwei Wochenenden gesperrt.",
-      "summary": "Die A43 wird vom 16. Oktober, 21 Uhr, bis 19. Oktober, 5 Uhr, und erneut vom 23. Oktober, 21 Uhr, bis 26. Oktober, 5 Uhr, zwischen Kreuz Bochum und Bochum-Riemke in beiden Richtungen gesperrt. Am ersten Wochenende reicht die Sperrung Richtung Münster bis Herne-Eickel.",
+      "title": "A43: Nächste Vollsperrung vom 23. bis 26. Oktober.",
+      "summary": "Aktualisiert am 19. Oktober: Der erste angekündigte Sperrzeitraum liegt zurück. Für den 23. Oktober, 21 Uhr, bis 26. Oktober, 5 Uhr, bleibt eine Vollsperrung zwischen Kreuz Bochum und Bochum-Riemke in beiden Fahrtrichtungen angekündigt.",
       "impact": "Fahrten und Fahrstunden zwischen Bochum, Herne und den Ausweichrouten können deutlich länger dauern.",
       "action": "Prüfe deine Route vor der Abfahrt und plane zusätzliche Zeit ein. Melde dich bei absehbarer Verspätung frühzeitig bei deiner Fahrschule."
     },
