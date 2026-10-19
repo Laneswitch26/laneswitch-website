@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-18T06:29:26Z",
+  "checkedAt": "2026-10-19T06:31:55Z",
   "items": [
     {
       "id": "herner-strasse-bochum-2026-10-21",
@@ -25,7 +25,7 @@
       "id": "a43-bochum-herne-sperrungen-2026-10-16",
       "status": "report",
       "publishedAt": "2026-10-12T00:00:00+02:00",
-      "checkedAt": "2026-10-16T06:23:38Z",
+      "checkedAt": "2026-10-19T06:31:55Z",
       "expiresAt": "2026-10-26T05:00:00+01:00",
       "sources": [
         {
@@ -34,8 +34,8 @@
         }
       ],
       "category": "Betrieb & Verkehr",
-      "title": "A43-Wochenendsperrungen: Ausbildungsrouten anpassen.",
-      "summary": "Die A43 wird vom 16. Oktober, 21 Uhr, bis 19. Oktober, 5 Uhr, und erneut vom 23. Oktober, 21 Uhr, bis 26. Oktober, 5 Uhr, zwischen Kreuz Bochum und Bochum-Riemke in beiden Richtungen gesperrt. Am ersten Wochenende reicht die Sperrung Richtung Münster bis Herne-Eickel.",
+      "title": "A43: Ausbildungsrouten für 23. bis 26. Oktober anpassen.",
+      "summary": "Aktualisiert am 19. Oktober: Der erste angekündigte Sperrzeitraum liegt zurück. Für den 23. Oktober, 21 Uhr, bis 26. Oktober, 5 Uhr, bleibt eine Vollsperrung zwischen Kreuz Bochum und Bochum-Riemke in beiden Fahrtrichtungen angekündigt.",
       "impact": "Ausbildungsfahrten, Abholungen und Terminpläne im Raum Bochum und Herne können durch Umleitungen und zusätzlichen Verkehr beeinträchtigt werden.",
       "action": "Passen Sie Routen und Zeitpuffer für die betroffenen Zeiträume an und informieren Sie Fahrschülerinnen und Fahrschüler frühzeitig über mögliche Verspätungen."
     },
@@ -74,7 +74,7 @@
       "category": "Cyber & Datenschutz",
       "status": "report",
       "publishedAt": "2026-10-07T00:00:00+02:00",
-      "checkedAt": "2026-10-14T06:41:22Z",
+      "checkedAt": "2026-10-19T06:31:55Z",
       "expiresAt": "2026-10-22T00:00:00+02:00",
       "title": "KI-Cyberangriffe: Viele Betriebe haben noch keinen speziellen Ablauf.",
       "summary": "In einer gemeinsamen Studie von BSI und TÜV-Verband berichten 17 Prozent der mehr als 500 befragten Unternehmen ab 20 Beschäftigten von bestätigten oder vermuteten Cyberangriffen beziehungsweise Betrugsversuchen mit KI-Bezug. Nur 11 Prozent der Unternehmen mit bestehender oder geplanter KI-Nutzung haben dafür spezielle Vorfallprozesse.",
