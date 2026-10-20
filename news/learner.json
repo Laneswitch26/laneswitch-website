@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-19T06:31:55Z",
+  "checkedAt": "2026-10-20T06:06:33Z",
   "items": [
     {
       "id": "herner-strasse-bochum-2026-10-21",
@@ -74,7 +74,7 @@
       "category": "Cyber & Datenschutz",
       "status": "report",
       "publishedAt": "2026-10-07T00:00:00+02:00",
-      "checkedAt": "2026-10-15T06:47:07Z",
+      "checkedAt": "2026-10-20T06:06:33Z",
       "expiresAt": "2026-10-22T00:00:00+02:00",
       "title": "BSI warnt: Messenger-Konten durch falsche Abstimmungen gefährdet.",
       "summary": "Das BSI greift in seinem Newsletter vom 7. Oktober die Betrugsmasche Ghost Pairing auf: Gefälschte Abstimmungslinks sollen dazu verleiten, ein fremdes Gerät mit dem eigenen Messenger-Konto zu verbinden. Dadurch können Kriminelle Chats mitlesen und Nachrichten im Namen Betroffener versenden.",
@@ -90,28 +90,6 @@
       ],
       "impact": "Wenn du Fahrstunden über Messenger abstimmst, können auch diese Gespräche betroffen sein. Eine Nachricht von einem bekannten Kontakt ist allein kein Echtheitsnachweis.",
       "action": "Gib keine Bestätigungs- oder Kopplungscodes weiter. Kontrolliere die verknüpften Geräte in deiner App und bestätige nur selbst gestartete Verknüpfungen."
-    },
-    {
-      "id": "fuehrerscheinreform-anhoerung-2026-10-05",
-      "category": "Ausbildung & Prüfung",
-      "status": "proposal",
-      "publishedAt": "2026-10-05T00:00:00+02:00",
-      "checkedAt": "2026-10-18T06:29:26Z",
-      "expiresAt": "2026-10-20T00:00:00+02:00",
-      "title": "Update zur Führerscheinreform: Bis zu 1.000 Euro sind nur eine Erwartung.",
-      "summary": "Verkehrsminister Steffen Bilger erwartet laut ADAC vom 9. Oktober Einsparungen von mehreren hundert Euro, im besten Fall bis zu 1.000 Euro. Der Gesetzentwurf sieht unter anderem digitales Theorielernen und begleitete Übungsfahrten vor; eine garantierte Ersparnis oder geltende Neuregelung folgt daraus nicht.",
-      "impact": "Die genannte Summe ist eine politische Erwartung, kein fester Rabatt. Die Reform muss noch Bundestag und Bundesrat passieren.",
-      "action": "Plane deine Ausbildung weiterhin nach den geltenden Regeln und mit den tatsächlichen Preisen deiner Fahrschule. Rechne nicht fest mit 1.000 Euro Ersparnis.",
-      "sources": [
-        {
-          "name": "Deutscher Bundestag · Bericht zur Anhörung vom 05.10.2026",
-          "url": "https://www.bundestag.de/ausschuesse/verkehr/sitzungen/1215508-1215508"
-        },
-        {
-          "name": "ADAC · Update vom 09.10.2026",
-          "url": "https://www.adac.de/news/verkehr-wie-der-fuehrerschein-guenstiger-werden-soll/"
-        }
-      ]
     },
     {
       "id": "tankrabatt-2026-q4",
