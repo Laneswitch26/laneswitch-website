@@ -1,0 +1,16 @@
+{
+  "name": "laneswitch-partnerportal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "dev": "wrangler pages dev public --d1 DB --compatibility-date=2026-08-23",
+    "generate-code": "node scripts/generate-code.mjs"
+  },
+  "dependencies": {
+    "@cloudflare/pages-plugin-cloudflare-access": "^1.0.5"
+  },
+  "devDependencies": {
+    "wrangler": "^4.125.0"
+  }
+}
