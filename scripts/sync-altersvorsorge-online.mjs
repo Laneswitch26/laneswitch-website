@@ -4,7 +4,7 @@ import {readFile,writeFile,mkdir,copyFile} from 'node:fs/promises';import {resol
 const source=resolve(fileURLToPath(new URL('..',import.meta.url))),target=process.argv[2];
 if(!target)throw new Error('Pass the cloudflare-online worktree path.');
 const dist=join(target,'dist');await mkdir(join(dist,'konzept/assets/altersvorsorge'),{recursive:true});await mkdir(join(dist,'konzept/altersvorsorge'),{recursive:true});
-for(const f of ['rules.mjs','engine.mjs','ui.mjs','calculator.css'])await copyFile(join(source,'assets/altersvorsorge',f),join(dist,'konzept/assets/altersvorsorge',f));
+for(const f of ['rules.mjs','engine.mjs','ui.mjs','share.mjs','calculator.css'])await copyFile(join(source,'assets/altersvorsorge',f),join(dist,'konzept/assets/altersvorsorge',f));
 let html=await readFile(join(source,'altersvorsorge/index.html'),'utf8');
 html=html.replaceAll('href="/','href="/konzept/').replaceAll('src="/assets/','src="/konzept/assets/');
 html=html.replace(/<script src="\/konzept\/assets\/theme\.js[^>]*><\/script>/,'<script type="module" src="/app/detail.js?v=7-altersvorsorge"></script>');
