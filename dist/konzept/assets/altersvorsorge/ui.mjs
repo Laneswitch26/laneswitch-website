@@ -1,3 +1,4 @@
+import {setupShare} from './share.mjs';
 import {RULES as R} from './rules.mjs';
 import {calculate,parseContribution,euros,amountQ,emailDraft,mailto} from './engine.mjs';
 const $=id=>document.getElementById(id), form=$('av-form');
@@ -58,3 +59,5 @@ form.addEventListener('submit',e=>{e.preventDefault();update();$('result-title')
 $('inquiry-name').addEventListener('input',updateDraft);
 $('prepare-email').addEventListener('click',()=>{update();if(result.status!=='invalid')location.href=mailto(input,result,{audience,name:$('inquiry-name').value});});
 update();
+
+setupShare(document, navigator, location.href);

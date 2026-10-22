@@ -10,3 +10,5 @@ html[data-theme=dark] .av-page{background:var(--dark-page);color:var(--dark-text
 .av-shell{overflow-wrap:anywhere}
 .av-contribution>label{min-width:0}
 @media(max-width:400px){.av-contribution{grid-template-columns:minmax(0,1fr)}.av-rows>div{flex-wrap:wrap}.av-rows dd{margin-left:auto}}
+
+.av-share{margin-top:16px}.av-share #share-status:empty{display:none}.av-share input{width:100%;min-height:48px}.av-share [hidden]{display:none!important}
