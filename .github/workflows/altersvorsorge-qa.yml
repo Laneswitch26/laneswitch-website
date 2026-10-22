@@ -1,0 +1,47 @@
+name: Altersvorsorge calculation and browser QA
+on:
+  push:
+    branches: [feature/altersvorsorge-2027]
+  pull_request:
+    branches: [main]
+    paths: ['assets/altersvorsorge/**', 'altersvorsorge/**', 'tests/altersvorsorge*', 'scripts/sync-altersvorsorge-online.mjs', '.github/workflows/altersvorsorge-qa.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Mathematical fixtures
+        run: node --test tests/altersvorsorge.test.mjs
+      - name: Install isolated browser tools
+        run: |
+          npm install --prefix /tmp/av-browser playwright --fetch-timeout=60000 --fetch-retries=1
+          google-chrome --version
+      - name: Check online integration
+        uses: actions/checkout@v4
+        with:
+          ref: feature/altersvorsorge-2027-online
+          path: online-target
+      - name: Verify identical generated engine and UI
+        run: |
+          for f in rules.mjs engine.mjs ui.mjs calculator.css; do cmp "assets/altersvorsorge/$f" "online-target/dist/konzept/assets/altersvorsorge/$f"; done
+      - name: Browser checks for both sites
+        env:
+          CODEX_PRIMARY_RUNTIME_NODE_MODULES: /tmp/av-browser/node_modules
+          AV_CHROME: /usr/bin/google-chrome
+        run: |
+          mkdir -p /tmp/av-shots
+          python3 -m http.server 8080 > /tmp/de-server.log 2>&1 &
+          python3 -m http.server 8081 --directory online-target/dist > /tmp/online-server.log 2>&1 &
+          node tests/altersvorsorge-browser.cjs
+          AV_BASE=http://localhost:8081 AV_ONLINE=1 node tests/altersvorsorge-browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: altersvorsorge-browser-screenshots
+          path: /tmp/av-shots/
