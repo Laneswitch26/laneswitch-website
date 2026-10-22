@@ -10,6 +10,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,8 +20,8 @@ jobs:
         run: node --test tests/altersvorsorge.test.mjs
       - name: Install isolated browser tools
         run: |
-          npm install --prefix /tmp/av-browser playwright
-          node /tmp/av-browser/node_modules/playwright/cli.js install --with-deps chromium
+          npm install --prefix /tmp/av-browser playwright --fetch-timeout=60000 --fetch-retries=1
+          google-chrome --version
       - name: Check online integration
         uses: actions/checkout@v4
         with:
@@ -32,6 +33,7 @@ jobs:
       - name: Browser checks for both sites
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: /tmp/av-browser/node_modules
+          AV_CHROME: /usr/bin/google-chrome
         run: |
           mkdir -p /tmp/av-shots
           python3 -m http.server 8080 > /tmp/de-server.log 2>&1 &
