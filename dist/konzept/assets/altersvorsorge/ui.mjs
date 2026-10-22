@@ -19,7 +19,7 @@ if(today>=R.effectiveFrom)$('effective').textContent='Förderung nach der seit 0
 let override=null,lastPeriod='month',result=null,input=null;
 function integer(id){const value=$(id).value;return /^\d+$/.test(value)?Number(value):NaN;}
 function collect(){return {year:R.year,annualCents:override??parseContribution($('contribution').value,$('period').value),age:integer('age'),children:integer('children'),status:$('status').value,scope:$('scope').value,domestic:$('domestic').value==='yes',selfConditions:$('self-conditions').value==='yes',childrenAssigned:$('assigned').value==='yes',bonus:$('bonus').value};}
-const say=text=>audience==='school'?text.replace(/\bdeinen\b/g,'Ihren').replace(/\bdeine\b/g,'Ihre').replace(/\bDein\b/g,'Ihr').replace(/\bdu\b/g,'Sie'):text;
+const say=text=>audience==='school'?text.replace(/\bdeiner\b/g,'Ihrer').replace(/\bdeinem\b/g,'Ihrem').replace(/\bdir\b/g,'Ihnen').replace(/\bdeinen\b/g,'Ihren').replace(/\bdeine\b/g,'Ihre').replace(/\bDein\b/g,'Ihr').replace(/\bdu\b/g,'Sie'):text;
 function paragraph(text,className=''){const p=document.createElement('p');p.textContent=say(text);p.className=className;return p;}
 function rows(entries){const dl=document.createElement('dl');dl.className='av-rows';for(const [label,value] of entries){const d=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;d.append(dt,dd);dl.append(d);}return dl;}
 function update(){
