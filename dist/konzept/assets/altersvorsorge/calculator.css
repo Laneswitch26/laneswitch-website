@@ -6,3 +6,7 @@
 html[data-theme=dark] .av-page{background:var(--dark-page);color:var(--dark-text)}html[data-theme=dark] .av-card{background:var(--dark-surface);border-color:var(--dark-line)}html[data-theme=dark] .av-page input,html[data-theme=dark] .av-page select,html[data-theme=dark] .av-page textarea{background:var(--dark-field);color:var(--dark-text);border-color:var(--dark-line)}html[data-theme=dark] .av-presets button{background:var(--dark-surface-2);color:var(--dark-text);border-color:var(--dark-line)}html[data-theme=dark] .av-small{color:var(--dark-muted)}html[data-theme=dark] .av-rows>div{border-color:var(--dark-line)}html[data-theme=dark] .av-page legend span{color:var(--cyan-400)}
 @media(max-width:760px){.av-layout{grid-template-columns:1fr}.av-shell{width:calc(100% - 28px);padding-top:22px}.av-card{padding:20px}.av-intro{padding:32px 0 20px}.av-contribution{grid-template-columns:minmax(0,1fr) 124px}.av-page .button{width:100%}.av-rows>div{font-size:.95rem}.av-total strong{font-size:2rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+/* Long legal terms and contact labels must wrap on narrow screens. */
+.av-shell{overflow-wrap:anywhere}
+.av-contribution>label{min-width:0}
+@media(max-width:400px){.av-contribution{grid-template-columns:minmax(0,1fr)}.av-rows>div{flex-wrap:wrap}.av-rows dd{margin-left:auto}}
