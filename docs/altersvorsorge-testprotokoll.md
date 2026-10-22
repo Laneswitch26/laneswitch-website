@@ -55,5 +55,25 @@ Zusätzlich bestanden: deutsche Dezimaleingabe und Monats-/Jahresumrechnung, Ein
 ## Manuelle Vorschauprüfung
 Cloudflare-Vorschau am 22.10.2026: 360 Euro Jahresbeitrag, Alter 24, Bonus noch nicht genutzt: 180 Euro Grundzulage + 200 Euro Bonus = 380 Euro. Mit zwei bestätigten Kinderzuordnungen: 600 Euro Kinderzulage, insgesamt 980 Euro, Summe 1.340 Euro. Erwartete und angezeigte Werte stimmen überein. Wechsel auf Selbstständigkeit mit ungeklärten Voraussetzungen entfernt die Förderhöhe einschließlich des Mailentwurfs korrekt. Entwurf übernimmt Beitrag, Status, Alter, Kinder, Zielgruppe und optionalen Namen; kein Versand. Desktopdarstellung der vorhandenen Online-App-Shell visuell geprüft.
 
-## Noch separat zu bestätigen
-Browsermatrix und visuelle Kontrolle in GitHub Actions; Live-Abrufe beider Domains nach Veröffentlichung. Lokaler Browserstart war wegen gesperrter Unix-Sockets nicht möglich. Ein Testversand wurde nicht vorgenommen und ist nicht Teil des Mailto-Workflows.
+## Abschließende Browserprüfung bestanden
+GitHub Actions: https://github.com/Laneswitch26/laneswitch-website/actions/runs/39800466180
+Geprüfter .de-Commit: 9878af9fd935ef984e39265b19224427b6551c8c; .online: c5f1441f86711b20103a791cc5f2987215354ab5.
+
+| Prüfung | Erwartet | Tatsächlich | Status |
+|---|---|---|---|
+| Beide Websites, beide Zielgruppen, 320/390/768/1280 px, Hell/Dunkel | Kein horizontaler Überlauf | Alle 32 Kombinationen ohne Überlauf | bestanden |
+| Bonus + zwei Kinder, 360 Euro Beitrag | 980 Euro Zulagen | 980 Euro | bestanden |
+| Jahresbetrag 121 Euro, zweimaliger Einheitenwechsel | Genau 121 Euro erhalten | Genau 121 Euro | bestanden |
+| Beitrag 119,99 Euro | 0 Euro Zulagen | 0 Euro | bestanden |
+| Selbstständig, Voraussetzungen unklar | Individuelle Prüfung ohne Förderbetrag | Wie erwartet, auch Mailentwurf | bestanden |
+| Selbstständig, Alter40, bestätigt, 1800 Euro, zwei Kinder | 1140 Euro Zulagen | 1140 Euro | bestanden |
+| Ungültiger negativer Beitrag | Keine Anfrage mit falschem Ergebnis | Anfrage ausgeblendet | bestanden |
+| Tastatur Enter | Ergebnisüberschrift fokussiert | Fokus korrekt | bestanden |
+| Neuladen | Rechnerdaten zurückgesetzt | Alter leer | bestanden |
+| Datenverarbeitung | Keine Rechnerdaten in Cookies/Storage, keine externen Requests | Keine festgestellt; bestehende App-Theme/Zielgruppenpräferenz ausgenommen | bestanden |
+| Beide Zielgruppeneinstiege | Rechnerlink vorhanden | Vorhanden auf beiden Anwendungen | bestanden |
+| Mailentwurf | UTF-8, Beitrag, Name, Zielgruppe übernommen | Korrekt | bestanden |
+
+32 Screenshots erzeugt und in der Layoutübersicht visuell kontrolliert. Anfangs gefundener Überlauf bei 320 px durch Umbruch langer Texte behoben; Beitrag und Zeitraum dort untereinander. Alle Browserfälle danach erfolgreich. Ein tatsächlicher E-Mail-Versand ist weder erforderlich noch vorgenommen worden. Der Mailto-Aufruf öffnet einen lokalen E-Mail-Client; dessen Einrichtung liegt außerhalb der Website.
+
+Live-Prüfung beider Domains folgt nach dem Merge; deren Ergebnis wird im Pull Request dokumentiert. Interne produktbezogene SIGNAL-IDUNA-Freigaben sind keine technisch prüfbare Eigenschaft des Rechners.
