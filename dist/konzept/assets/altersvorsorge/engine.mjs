@@ -52,7 +52,7 @@ export function emailDraft(i,r,{audience='student',name=''}={}) {
  'Zulagen 2027 insgesamt: '+amountQ(r.totalQ),'Vergleich ohne Einmalbonus bei gleichen Voraussetzungen: '+amountQ(r.recurringQ));
  else lines.push('Keine Förderhöhe berechnet. Individuelle Prüfung erforderlich: '+r.reason);
  lines.push('','Kein zusätzlicher Steuervorteil enthalten. Rechtsstand: '+R.reviewedAt+'.',
- 'Ich möchte klären, welche Lösung über deine Tätigkeit bei SIGNAL IDUNA für mich passend und verfügbar ist. Bitte teile mir mit, welche weiteren Angaben für ein konkretes Angebot benötigt werden.','','Viele Grüße',name.trim().slice(0,120)||'[Name]');
+ 'Ich interessiere mich für eine persönliche Produktberatung über deine Tätigkeit bei SIGNAL IDUNA nach individueller Bedarfsanalyse. Bitte melde dich bei mir zur Terminvereinbarung.','','Viele Grüße',name.trim().slice(0,120)||'[Name]');
  return {subject:'LANE SWITCH – Anfrage zur geförderten Altersvorsorge ab 2027',body:lines.join('\n')};
 }
 export function mailto(i,r,options){const d=emailDraft(i,r,options);return 'mailto:'+CONTACT.email+'?subject='+encodeURIComponent(d.subject)+'&body='+encodeURIComponent(d.body);}
