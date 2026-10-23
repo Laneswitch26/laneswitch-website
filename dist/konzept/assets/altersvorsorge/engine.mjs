@@ -35,7 +35,7 @@ export function calculate(i) {
 }
 export const euros=cents=>new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(cents/100);
 export const amountQ=q=>euros(q/4);
-export function emailDraft(i,r,{audience='student',name=''}={}) {
+export function emailDraft(i,r,{audience='student',name='',phone=''}={}) {
  const statusNames={'pension-insured':'Gesetzlich rentenversicherungspflichtig','self-employed':'Selbstständig / Gewerbe','indirect':'Möglicherweise mittelbar über Ehepartner:in','professional':'Berufsständische Versorgung','civil':'Beamtin / Beamter','other':'Sonstiger / unklarer Status'};
  const lines=['Hallo Steven,','','ich habe den LANE-SWITCH-Förderrechner genutzt und möchte meine Möglichkeiten für eine geförderte Altersvorsorge prüfen lassen.','','Beitragsjahr: '+R.year,
  'Gewünschter eigener Beitrag: '+euros(i.annualCents/12)+' monatlich (Jahresdurchschnitt) / '+euros(i.annualCents)+' jährlich',
@@ -51,8 +51,11 @@ export function emailDraft(i,r,{audience='student',name=''}={}) {
  'Grundzulage: '+amountQ(r.basicQ),'Kinderzulage: '+amountQ(r.childQ),'Einmaliger Berufseinsteigerbonus: '+amountQ(r.bonusQ),
  'Zulagen 2027 insgesamt: '+amountQ(r.totalQ),'Vergleich ohne Einmalbonus bei gleichen Voraussetzungen: '+amountQ(r.recurringQ));
  else lines.push('Keine Förderhöhe berechnet. Individuelle Prüfung erforderlich: '+r.reason);
+ const contactName=String(name).replace(/[\r\n]+/g,' ').trim().slice(0,120);
+ const contactPhone=String(phone).replace(/[\r\n]+/g,' ').trim().slice(0,50);
+ if(contactPhone) lines.push('','Bitte rufe mich zu dieser Anfrage zurück.','Rufnummer: '+contactPhone);
  lines.push('','Kein zusätzlicher Steuervorteil enthalten. Rechtsstand: '+R.reviewedAt+'.',
- 'Ich interessiere mich für eine persönliche Produktberatung über deine Tätigkeit bei SIGNAL IDUNA nach individueller Bedarfsanalyse. Bitte melde dich bei mir zur Terminvereinbarung.','','Viele Grüße',name.trim().slice(0,120)||'[Name]');
+ 'Ich interessiere mich für eine persönliche Produktberatung über deine Tätigkeit bei SIGNAL IDUNA nach individueller Bedarfsanalyse. Bitte melde dich bei mir zur Terminvereinbarung.','','Viele Grüße',contactName||'[Name]');
  return {subject:'LANE SWITCH – Anfrage zur geförderten Altersvorsorge ab 2027',body:lines.join('\n')};
 }
 export function mailto(i,r,options){const d=emailDraft(i,r,options);return 'mailto:'+CONTACT.email+'?subject='+encodeURIComponent(d.subject)+'&body='+encodeURIComponent(d.body);}

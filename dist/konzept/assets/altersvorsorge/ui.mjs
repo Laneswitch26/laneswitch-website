@@ -50,14 +50,15 @@ function update(){
  }
  updateDraft();
 }
-function updateDraft(){if(input&&result&&result.status!=='invalid'){const draft=emailDraft(input,result,{audience,name:$('inquiry-name').value});$('email-preview').value='Betreff: '+draft.subject+'\n\n'+draft.body;}}
+function updateDraft(){if(input&&result&&result.status!=='invalid'){const draft=emailDraft(input,result,{audience,name:$('inquiry-name').value,phone:$('inquiry-phone').value});$('email-preview').value='Betreff: '+draft.subject+'\n\n'+draft.body;}}
 form.addEventListener('input',e=>{if(e.target.id==='contribution')override=null;update();});
 $('period').addEventListener('change',()=>{const current=override??parseContribution($('contribution').value,lastPeriod);lastPeriod=$('period').value;if(current!==null){override=current;$('contribution').value=(current/(lastPeriod==='month'?1200:100)).toFixed(2).replace('.',',');}update();});
 form.addEventListener('change',e=>{if(e.target.id!=='period')update();});
 for(const b of document.querySelectorAll('[data-preset]')){const cents=R[b.dataset.preset];b.textContent=euros(cents/12)+' / Monat';b.addEventListener('click',()=>{override=null;$('contribution').value=String(cents/($('period').value==='month'?1200:100));update();});}
 form.addEventListener('submit',e=>{e.preventDefault();update();$('result-title').tabIndex=-1;$('result-title').focus();});
 $('inquiry-name').addEventListener('input',updateDraft);
-$('prepare-email').addEventListener('click',()=>{update();if(result.status!=='invalid')location.href=mailto(input,result,{audience,name:$('inquiry-name').value});});
+$('inquiry-phone').addEventListener('input',updateDraft);
+$('prepare-email').addEventListener('click',()=>{update();if(result.status!=='invalid')location.href=mailto(input,result,{audience,name:$('inquiry-name').value,phone:$('inquiry-phone').value});});
 update();
 
 setupShare(document, navigator, location.href);
