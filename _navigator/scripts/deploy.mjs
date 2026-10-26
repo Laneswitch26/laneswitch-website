@@ -5,7 +5,7 @@ import {withSecretsFile} from './secrets-file.mjs';
 
 // No login automation, DNS changes, paid-plan activation or credential logging.
 const expectedAccount='565efa139d3990e026b8bcf6a8c8963e';
-const token=process.env.CLOUDFLARE_API_TOKEN;
+const token=process.env.CLOUDFLARE_API_TOKEN?.trim();
 const registry=makeAccounts(process.env);
 if(!token)throw new Error('GitHub-Secret CLOUDFLARE_API_TOKEN fehlt.');
 if(process.env.CLOUDFLARE_ACCOUNT_ID!==expectedAccount)throw new Error('Cloudflare-Konto stimmt nicht mit der bestehenden GitHub-Verknüpfung überein.');
@@ -13,7 +13,10 @@ const apiBase=`https://api.cloudflare.com/client/v4/accounts/${expectedAccount}`
 async function api(path,options={}){
   const r=await fetch(apiBase+path,{...options,headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},signal:AbortSignal.timeout(30000)});
   const body=await r.json();
-  if(!r.ok||!body.success)throw new Error(`Cloudflare ${r.status}; Fehlercodes: ${(body.errors||[]).map(x=>x.code).join(',')}. Berechtigungen prüfen.`);
+  if(!r.ok||!body.success){
+    if(r.status===401||r.status===403)await diagnoseAccess();
+    throw new Error(`Cloudflare ${r.status}; Fehlercodes: ${(body.errors||[]).map(x=>x.code).join(',')}. Berechtigungen prüfen.`);
+  }
   return body.result;
 }
 // Domain routes stay empty until their DNS/zone configuration has been inspected.
@@ -34,7 +37,7 @@ config.d1_databases[0].database_id=db.uuid;
 
 await writeFile('.deploy.json',JSON.stringify(config));
 function wrangler(args,input){
-  const childEnv={...process.env,CI:'true',WRANGLER_SEND_METRICS:'false'};
+  const childEnv={...process.env,CLOUDFLARE_API_TOKEN:token,CI:'true',WRANGLER_SEND_METRICS:'false'};
   delete childEnv.NAV_A1_PASSWORD;delete childEnv.NAV_EMRE_PASSWORD;
   const result=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js',...args,'--config','.deploy.json'],{input,encoding:'utf8',env:childEnv,maxBuffer:4*1024*1024});
   if(result.status!==0){
@@ -84,4 +87,20 @@ async function inspectDomains(){
       console.log(JSON.stringify({domain:name,routes:routes.map(r=>({pattern:r.pattern,script:r.script}))}));
     }catch(e){console.log('Domainprüfung '+name+' noch nicht möglich: '+e.message);}
   }
+}
+async function diagnoseAccess(){
+  // Read-only diagnostics. Never print token IDs, token values, account contents or policies.
+  const root='https://api.cloudflare.com/client/v4';
+  async function status(label,path){
+    try{
+      const r=await fetch(root+path,{headers:{Authorization:'Bearer '+token},signal:AbortSignal.timeout(15000)});
+      const body=await r.json();
+      console.log(JSON.stringify({check:label,http:r.status,success:body.success===true,codes:(body.errors||[]).map(e=>e.code),...(label.includes('token')&&body.success?{status:body.result?.status}:{})}));
+      return r.ok&&body.success;
+    }catch{console.log(JSON.stringify({check:label,error:'Keine auswertbare Antwort'}));return false;}
+  }
+  const userToken=await status('user-token-validity','/user/tokens/verify');
+  if(!userToken)await status('account-token-validity','/accounts/'+expectedAccount+'/tokens/verify');
+  await status('target-account-access','/accounts/'+expectedAccount);
+  await status('workers-read-access','/accounts/'+expectedAccount+'/workers/scripts');
 }
