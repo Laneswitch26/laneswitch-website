@@ -1,0 +1,62 @@
+name: Navigator · Cloudflare
+on:
+  pull_request:
+    paths: ['_navigator/**', '.github/workflows/navigator-cloudflare.yml']
+  push:
+    branches: [main]
+    paths: ['_navigator/**', '.github/workflows/navigator-cloudflare.yml']
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Navigator bei Cloudflare bereitstellen (benötigt Secrets)'
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: navigator-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: _navigator
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: _navigator/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+  deploy:
+    needs: check
+    if: github.ref == 'refs/heads/main' && ((github.event_name == 'workflow_dispatch' && inputs.deploy) || (github.event_name == 'push' && vars.NAVIGATOR_DEPLOY_ENABLED == 'true'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: _navigator
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: _navigator/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+      - name: EU-Datenbank, Anwendung und Anmeldeprüfung
+        run: npm run deploy:ci
+        env:
+          CLOUDFLARE_ACCOUNT_ID: '565efa139d3990e026b8bcf6a8c8963e'
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          NAV_A1_PASSWORD: ${{ secrets.NAV_A1_PASSWORD }}
+          NAV_EMRE_PASSWORD: ${{ secrets.NAV_EMRE_PASSWORD }}
+          WRANGLER_SEND_METRICS: 'false'

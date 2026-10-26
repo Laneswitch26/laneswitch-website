@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.wrangler/
+.deploy.json
+.dev.vars*
+.env*
+.nav-test-bundle.mjs
