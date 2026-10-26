@@ -37,7 +37,7 @@ jobs:
           WRANGLER_SEND_METRICS: 'false'
   deploy:
     needs: check
-    if: github.ref == 'refs/heads/main' && ((github.event_name == 'workflow_dispatch' && inputs.deploy) || (github.event_name == 'push' && vars.NAVIGATOR_DEPLOY_ENABLED == 'true'))
+    if: github.ref == 'refs/heads/main' && ((github.event_name == 'workflow_dispatch' && inputs.deploy) || (github.event_name == 'push' && (vars.NAVIGATOR_DEPLOY_ENABLED == 'true' || contains(github.event.head_commit.message, '[deploy navigator]'))))
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:

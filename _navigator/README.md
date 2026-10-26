@@ -20,9 +20,11 @@ API-Token im eigenen Cloudflare-Browser anlegen. Diese lokale Anmeldung übertr�
 
 GitHub → Actions → **Navigator · Cloudflare** → Run workflow → Branch `main` → `deploy` aktivieren.
 
-Der Workflow prüft und baut zunächst ohne Secrets. Nur nach erfolgreichen Tests werden die Secrets an den separaten Deployment-Job übergeben. Pull Requests können keinen Deployment-Job starten. Das Skript prüft das Konto, erstellt bzw. verwendet ausschließlich `laneswitch-navigator-eu` mit Jurisdiktion `eu`, wendet versionierte Migrationen an und veröffentlicht Code plus gehashte Konten in einem Schritt. Abschließend werden die Anmeldung, die richtige Kontozuordnung und die Abmeldung aller drei Zugänge am echten Server geprüft. Die technische Testadresse erscheint im Workflow-Ergebnis.
+Der Workflow prüft und baut zunächst ohne Secrets. Nur nach erfolgreichen Tests werden die Secrets an den separaten Deployment-Job übergeben. Pull Requests können keinen Deployment-Job starten. Das Skript prüft das Konto, erstellt bzw. verwendet ausschließlich `laneswitch-navigator-eu` mit Jurisdiktion `eu`, wendet versionierte Migrationen an und veröffentlicht Code plus gehashte Konten in einem Schritt. Die Hash-Registry wird kurzzeitig in einer Datei mit Modus 0600 außerhalb des Repositorys auf dem temporären GitHub-Runner abgelegt und auch bei Fehlern gelöscht. Klartextpasswörter werden nicht in diese Datei geschrieben. Abschließend werden die Anmeldung, die richtige Kontozuordnung und die Abmeldung aller drei Zugänge am echten Server geprüft. Die technische Testadresse erscheint im Workflow-Ergebnis.
 
 Der Vorgang aktiviert keinen kostenpflichtigen Tarif. Bereits vorhandene Konto-/Tarifbedingungen müssen vor dem ersten Lauf geprüft werden; das Skript kann den Abrechnungsstatus mit dem eingeschränkten Token nicht bestätigen. Free-Tarife haben Nutzungsgrenzen und sind kein unbegrenztes Verfügbarkeitsversprechen.
+
+Ein gezielt autorisierter Commit mit `[deploy navigator]` in der Commit-Nachricht kann ebenfalls einmalig veröffentlichen. Normale Commits veröffentlichen standardmäßig nicht.
 
 Nach erfolgreicher Einrichtung optional Repository-Variable `NAVIGATOR_DEPLOY_ENABLED=true` setzen, um Änderungen auf `main` automatisch zu veröffentlichen. Bei jeder Veröffentlichung werden neue Salts erzeugt; bestehende Anmeldesitzungen werden dadurch ungültig. Inhalte und Uploads bleiben in D1 erhalten. Die alten Daten aus der ChatGPT-gehosteten Version werden nicht automatisch übertragen.
 
