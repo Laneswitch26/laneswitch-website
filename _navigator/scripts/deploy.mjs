@@ -56,8 +56,8 @@ try{
   const origin=`https://laneswitch-navigator.${subdomain}.workers.dev`;
   console.log('Technische Prüfadresse: '+origin+'/navigator/zugang');
   await inspectDomains();
-  await smoke(origin);
-  if(routes.length)for(const host of new Set(routes.map(r=>r.zone_name)))await smoke('https://'+host);
+  await verifyDeployment(origin);
+  if(routes.length)for(const host of new Set(routes.map(r=>r.zone_name)))await verifyDeployment('https://'+host);
   const note=`Navigator erfolgreich bereitgestellt und Anmeldung aller drei Konten geprüft: ${origin}/navigator/zugang\n${routes.length?'Konfigurierte eigene Domains zusätzlich geprüft.':'Noch nicht auf laneswitch.de / laneswitch.online geschaltet. DNS und Pfadrouten separat prüfen.'}\n`;
   console.log(note);
   if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,note);
@@ -71,7 +71,18 @@ async function smoke(origin){
     const data=await r.json(),cookie=r.headers.get('set-cookie')?.split(';')[0];
     if(data.school!==school||!cookie||!data.csrf)throw new Error('Kontozuordnung nicht bestätigt: '+school);
     const out=await fetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json',cookie,'x-csrf-token':data.csrf},body:'{"action":"logout"}',signal:AbortSignal.timeout(30000)});
-    if(!out.ok)throw new Error('Abmeldeprüfung fehlgeschlagen: '+school);
+    if(!out.ok)throw new Error('Abmeldeprüfung fehlgeschlagen: '+school+' HTTP '+out.status);
+  }
+}
+async function verifyDeployment(origin){
+  // During propagation, successive requests can briefly reach different secret versions.
+  // Retry the complete login/logout sequence, never accept a failed security check.
+  for(let attempt=1;attempt<=3;attempt++){
+    try{await smoke(origin);return;}catch(error){
+      if(attempt===3||!/HTTP (401|502|503|504)/.test(error.message))throw error;
+      console.log('Bereitstellung noch nicht durchgehend bestätigt: '+error.message+'; erneute Prüfung '+(attempt+1)+'/3.');
+      await new Promise(resolve=>setTimeout(resolve,5000));
+    }
   }
 }
 async function inspectDomains(){

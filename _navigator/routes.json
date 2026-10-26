@@ -1,1 +1,4 @@
-[]
+[
+  {"pattern":"laneswitch.online/navigator/*","zone_name":"laneswitch.online"},
+  {"pattern":"laneswitch.online/api/navigator*","zone_name":"laneswitch.online"}
+]
