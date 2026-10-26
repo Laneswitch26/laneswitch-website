@@ -50,6 +50,20 @@ test('Built Worker uses its actual D1 binding and hashed registry for login',asy
   try{
     const db=await mf.getD1Database('DB');for(const q of (await readFile('drizzle/0001_navigator.sql','utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
     const origin='https://laneswitch.online';
+    const publicResult=await mf.dispatchFetch(origin+'/api/navigator?action=public&school=a1',{headers:{origin:'https://laneswitch.de'}});
+    assert.equal(publicResult.status,404);
+    assert.equal(publicResult.headers.get('access-control-allow-origin'),'https://laneswitch.de');
+    assert.equal(publicResult.headers.get('access-control-allow-credentials'),null);
+    for(const path of ['?action=me','?action=file&id=anything']){
+      const privateResult=await mf.dispatchFetch(origin+'/api/navigator'+path,{headers:{origin:'https://laneswitch.de'}});
+      assert.equal(privateResult.status,401);
+      assert.equal(privateResult.headers.get('access-control-allow-origin'),null);
+    }
+    const foreign=await mf.dispatchFetch(origin+'/api/navigator?action=public&school=a1',{headers:{origin:'https://example.org'}});
+    assert.equal(foreign.headers.get('access-control-allow-origin'),null);
+    const crossWrite=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin:'https://laneswitch.de','Content-Type':'application/json'},body:JSON.stringify({action:'login',username:'test',password:'lane switch'})});
+    assert.equal(crossWrite.status,403);
+    assert.equal(crossWrite.headers.get('access-control-allow-origin'),null);
     const r=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'login',username:'test',password:'lane switch'})});
     assert.equal(r.status,200);const data=await r.json();assert.equal(data.school,'test');
     assert.match(r.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Strict/);

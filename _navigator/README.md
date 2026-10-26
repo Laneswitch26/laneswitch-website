@@ -2,13 +2,15 @@
 
 ## Status
 
-Diese Anwendung verwendet das vorhandene Navigator-Frontend und den geprüften Servercode als eigenständigen Cloudflare Worker. Sie veröffentlicht **nicht** bei ChatGPT. Der Worker heißt `laneswitch-navigator`; die bestehende Website und die Pages-Projekte werden nicht überschrieben. Die erste Bereitstellung erfolgt auf einer technischen Cloudflare-Testadresse. Die beiden eigenen Domains folgen erst nach Prüfung ihrer DNS- und Routing-Konfiguration.
+Der eigenständige Worker `laneswitch-navigator` ist über `https://laneswitch.online/navigator/zugang` erreichbar. Nur `/navigator/*` und `/api/navigator*` werden dem Worker zugeordnet. Die Hauptwebsite bleibt Cloudflare Pages auf dem Branch `cloudflare-online`. `laneswitch.de` wird über GitHub Pages auf `main` bereitgestellt; dessen separater Zugang leitet auf die eigene Domain `laneswitch.online` weiter. Eine direkte Worker-Route für `.de` ist nicht eingerichtet, da die Zone im zugänglichen Cloudflare-Konto nicht sichtbar ist.
+
+Die öffentliche Profilerkennung darf ausschließlich für `GET action=public` von `https://laneswitch.de` gelesen werden. Anmelde-Cookies werden dabei nicht übertragen; private API-Abfragen und Schreibaktionen erhalten keine domainübergreifende Freigabe. Beide Fahrschulprofile verwenden denselben Navigator-Datenbestand. Der Editor ist in keiner Hauptnavigation verlinkt.
 
 ## Einmalig: drei GitHub-Secrets hinterlegen
 
 Repository → Settings → Secrets and variables → Actions → New repository secret:
 
-1. `CLOUDFLARE_API_TOKEN`: Cloudflare-API-Token, beschränkt auf das bestehende Konto. Konto-Berechtigungen: **Workers Scripts: Edit**, **D1: Edit**, **Account Settings: Read**. Zunächst keine DNS-, Abrechnungs- oder zusätzlichen Zonenberechtigungen. Die Konto-ID ist bereits aus den bestehenden Cloudflare-GitHub-Prüfergebnissen übernommen. Ein Token ist ein geheimer technischer Zugang, kein Cloudflare-Passwort.
+1. `CLOUDFLARE_API_TOKEN`: Cloudflare-API-Token, beschränkt auf das bestehende Konto. Konto-Berechtigungen: **Workers Scripts: Edit**, **D1: Edit**, **Account Settings: Read**. Für die Domain-Zuordnung zusätzlich Zone Read, DNS Read und Workers Routes Edit, auf die betreffende Domain beschränkt. Keine DNS-Schreib- oder Abrechnungsrechte erforderlich. Die Konto-ID ist bereits aus den bestehenden Cloudflare-GitHub-Prüfergebnissen übernommen. Ein Token ist ein geheimer technischer Zugang, kein Cloudflare-Passwort.
 2. `NAV_A1_PASSWORD`: eigenes Passwort für A1, 16–200 Zeichen.
 3. `NAV_EMRE_PASSWORD`: anderes Passwort für Emre, 16–200 Zeichen.
 
@@ -30,7 +32,7 @@ Nach erfolgreicher Einrichtung optional Repository-Variable `NAVIGATOR_DEPLOY_EN
 
 ## Eigene Domains aktivieren
 
-`routes.json` ist zunächst leer. Vor Änderungen an den Domains müssen die aktiven Cloudflare-Zonen, der Proxy-Status, bestehende Worker-Routen und die bestehende Website-Zustellung geprüft werden. Eine Route funktioniert nur mit einer passenden aktiven Cloudflare-Zone und vorgeschaltetem Cloudflare-Proxy. Keine vorhandenen DNS-Ziele blind ersetzen.
+`routes.json` enthält die beiden geprüften Pfade für `laneswitch.online`. Vor Änderungen an den Domains müssen die aktiven Cloudflare-Zonen, der Proxy-Status, bestehende Worker-Routen und die bestehende Website-Zustellung geprüft werden. Eine Route funktioniert nur mit einer passenden aktiven Cloudflare-Zone und vorgeschaltetem Cloudflare-Proxy. Keine vorhandenen DNS-Ziele blind ersetzen.
 
 Nach bestätigter Konfiguration nur diese Pfade dem Navigator zuweisen (jeweils mit `zone_name` der entsprechenden Domain in `routes.json`):
 
@@ -39,7 +41,7 @@ Nach bestätigter Konfiguration nur diese Pfade dem Navigator zuweisen (jeweils 
 - `laneswitch.online/navigator/*`
 - `laneswitch.online/api/navigator*`
 
-Hierfür kann der Token anschließend gezielt **Zone: Zone Read** und **Zone: Workers Routes Edit** für genau diese beiden Zonen benötigen. DNS-Bearbeitung ist kein Bestandteil dieses Workflows. Routen im Repository pflegen, nicht ausschließlich im Dashboard, da der nächste Deploy die Konfiguration aus `routes.json` verwendet.
+Hierfür benötigt der Token gezielt **Zone: Zone Read**, **Zone: DNS Read** und **Zone: Workers Routes Edit** für genau diese beiden Zonen benötigen. DNS-Bearbeitung ist kein Bestandteil dieses Workflows. Routen im Repository pflegen, nicht ausschließlich im Dashboard, da der nächste Deploy die Konfiguration aus `routes.json` verwendet.
 
 Anschließend `assets/partner-navigator.js` auf gleichursprüngliche `/api/navigator`- und `/navigator/…`-Pfade umstellen. Die alte Weiterleitung in `navigator/zugang/index.html` kann entfernt werden, sobald beide Worker-Routen nachweislich antworten. Im Hauptmenü und in der Sitemap wird kein Editorlink ergänzt.
 

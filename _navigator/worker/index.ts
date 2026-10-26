@@ -16,6 +16,13 @@ export default {
     if(path==='/api/navigator'){
       if(!env.DB||!env.NAV_ACCOUNTS)return protect(Response.json({error:'Der Navigator wird eingerichtet. Bitte später erneut versuchen.'},{status:503}));
       response=req.method==='GET'?await GET(req):req.method==='POST'?await POST(req):new Response(null,{status:405,headers:{Allow:'GET, POST'}});
+      // Only public profile availability can be read from the sister domain.
+      // Private sessions, files and all writes remain same-origin.
+      if(req.method==='GET'&&u.searchParams.get('action')==='public'&&req.headers.get('origin')==='https://laneswitch.de'){
+        response=new Response(response.body,response);
+        response.headers.set('Access-Control-Allow-Origin','https://laneswitch.de');
+        response.headers.set('Vary','Origin');
+      }
     }else if(req.method!=='GET'&&req.method!=='HEAD')response=new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
     else if(/^\/navigator\/(zugang|a1|emre|test)$/.test(path)){
       u.pathname='/navigator/app.html';u.search='';

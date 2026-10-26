@@ -7,7 +7,8 @@
   if (!main || document.getElementById("fahrschul-navigator")) return;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
-  fetch("https://lane-switch.greeniemusicx.chatgpt.site/api/navigator?action=public&school=" + school, {
+  const origin = location.hostname === "laneswitch.online" ? "" : "https://laneswitch.online";
+  fetch(origin + "/api/navigator?action=public&school=" + school, {
     credentials: "omit", cache: "no-store", referrerPolicy: "no-referrer", signal: controller.signal
   }).then(response => response.ok ? response.json() : null).then(result => {
     if (!result || result.school !== school || result.listed !== true) return;
@@ -22,7 +23,7 @@
     text.textContent = "Die veröffentlichten Informationen deiner Fahrschule zu Anmeldung, Ausbildung und Preisen. Auch als PDF verfügbar.";
     const link = document.createElement("a");
     link.className = "partner-button primary";
-    link.href = "https://lane-switch.greeniemusicx.chatgpt.site/navigator/" + school;
+    link.href = origin + "/navigator/" + school;
     link.textContent = "Fahrschul-Navigator öffnen";
     section.append(title, text, link);
     main.append(section);
