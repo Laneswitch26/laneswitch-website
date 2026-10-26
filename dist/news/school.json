@@ -1,93 +1,63 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-20T06:06:33Z",
+  "checkedAt": "2026-10-26T07:52:06Z",
   "items": [
+    {
+      "id": "bochum-kabeisemannsweg-2026-10-26",
+      "category": "Betrieb & Verkehr",
+      "status": "report",
+      "title": "Kabeisemannsweg: Umleitung ab 26. Oktober.",
+      "summary": "Die Stadt Bochum erneuert am Knoten Kabeisemannsweg/Erzbahntrasse Fahrbahn sowie Geh- und Radweg. Vom 26. Oktober bis voraussichtlich 20. November wird der motorisierte Verkehr umgeleitet. Zu Fuß und mit dem Rad bleibt der Bereich passierbar.",
+      "impact": "Ausbildungsfahrten über diesen Knoten benötigen eine andere Route. Der weiter mögliche Fuß- und Radverkehr ist bei der Planung zu berücksichtigen.",
+      "action": "Prüfen Sie Ausbildungsrouten und Abholpunkte und berücksichtigen Sie die Beschilderung vor Ort.",
+      "publishedAt": "2026-10-23T00:00:00+02:00",
+      "checkedAt": "2026-10-26T07:52:06Z",
+      "expiresAt": "2026-11-21T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Bochum · Meldung vom 23.10.2026",
+          "url": "https://www.bochum.de/Pressemeldungen/23-Oktober-2026/Arbeiten-im-Kreuzungsbereich-Kabeisemannsweg-/-Erzbahntrasse"
+        }
+      ]
+    },
+    {
+      "id": "php-sicherheitsupdates-2026-10-22",
+      "category": "Cyber & Datenschutz",
+      "status": "report",
+      "title": "PHP-Sicherheitslücken: Hosting und Schülerportale prüfen.",
+      "summary": "Der LfDI Mecklenburg-Vorpommern warnt am 22. Oktober vor zwei kritischen PHP-Schwachstellen. Für Webserver stehen seit 21. Oktober korrigierte Versionen 8.5.12, 8.4.27, 8.3.36 und 8.2.35 bereit. Anbieter können auch gleichwertige Sicherheitskorrekturen in ihre Pakete übernehmen. Ein Update allein schließt einen früheren Angriff nicht aus.",
+      "impact": "Wenn Ihre Website, Terminverwaltung oder Ihr Schülerportal PHP nutzt, muss der technische Betreiber den Schutz prüfen. Die Warnung betrifft nicht automatisch jede Fahrschule und belegt keinen Angriff auf Ihren Betrieb.",
+      "action": "Lassen Sie sich vom Hoster die eingesetzte PHP-Version und den Patchstand bestätigen. Beauftragen Sie zusätzlich die Prüfung auffälliger Serveraktivitäten und kontrollieren Sie aktuelle, getrennt aufbewahrte und getestete Backups.",
+      "publishedAt": "2026-10-22T00:00:00+02:00",
+      "checkedAt": "2026-10-26T07:52:06Z",
+      "expiresAt": "2026-11-06T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "LfDI Mecklenburg-Vorpommern · Warnung vom 22.10.2026",
+          "url": "https://www.datenschutz-mv.de/presse/?id=224390&processor=processor.sa.pressemitteilung"
+        },
+        {
+          "name": "PHP-Projekt · Sicherheitsupdates vom 21.10.2026",
+          "url": "https://www.php.net/archive/2026.php#2026-10-21-5"
+        }
+      ]
+    },
     {
       "id": "herner-strasse-bochum-2026-10-21",
       "category": "Betrieb & Verkehr",
       "status": "report",
-      "title": "Herner Straße: Sperrung und Einbahnregelung ab 21. Oktober.",
-      "summary": "Die Stadt Bochum kündigt für den 21. Oktober, 21 Uhr, bis 22. Oktober, 5 Uhr, eine Vollsperrung am Dorneburger Mühlenbach an. Danach ist die Herner Straße bis 30. Oktober, 5 Uhr, dort nur Richtung Herne befahrbar. Anschließend bleibt die A43-Auffahrt Richtung Wuppertal bis zum geplanten Bauabschnittsende am 6. November gesperrt.",
+      "title": "Update: Herner Straße bis 30. Oktober nur Richtung Herne.",
+      "summary": "Stand 26. Oktober: Laut Stadt Bochum gilt am Dorneburger Mühlenbach bis 30. Oktober, 5 Uhr, Einbahnverkehr Richtung Herne. Danach ist bis zum geplanten Abschluss am 6. November je eine Spur in beide Richtungen vorgesehen; die A43-Auffahrt Richtung Wuppertal bleibt in dieser Phase gesperrt. Radverkehr wird je nach Bauphase über Oberscheidstraße und Cruismannstraße umgeleitet.",
       "impact": "Die wechselnden Bauphasen betreffen Ausbildungsrouten, Abholungen und die Erreichbarkeit zwischen Bochum und Herne.",
       "action": "Berücksichtigen Sie die Bauphasen in der Routen- und Terminplanung und informieren Sie Lernende über geänderte Abholwege.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-17T06:51:44Z",
+      "checkedAt": "2026-10-26T07:52:06Z",
       "expiresAt": "2026-11-07T00:00:00+01:00",
       "sources": [
         {
           "name": "Stadt Bochum · Verkehrsmeldung vom 14.10.2026",
           "url": "https://www.bochum.de/Pressemeldungen/14-Oktober-2026/Abbau-der-Baustelle-auf-der-Herner-Strasse-erfordert-Sperrungen"
-        }
-      ]
-    },
-    {
-      "id": "a43-bochum-herne-sperrungen-2026-10-16",
-      "status": "report",
-      "publishedAt": "2026-10-12T00:00:00+02:00",
-      "checkedAt": "2026-10-19T06:31:55Z",
-      "expiresAt": "2026-10-26T05:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Herne · Verkehrsmeldung vom 12.10.2026",
-          "url": "https://www.herne.de/Meldungen/News-Detailansicht_301568.html"
-        }
-      ],
-      "category": "Betrieb & Verkehr",
-      "title": "A43: Ausbildungsrouten für 23. bis 26. Oktober anpassen.",
-      "summary": "Aktualisiert am 19. Oktober: Der erste angekündigte Sperrzeitraum liegt zurück. Für den 23. Oktober, 21 Uhr, bis 26. Oktober, 5 Uhr, bleibt eine Vollsperrung zwischen Kreuz Bochum und Bochum-Riemke in beiden Fahrtrichtungen angekündigt.",
-      "impact": "Ausbildungsfahrten, Abholungen und Terminpläne im Raum Bochum und Herne können durch Umleitungen und zusätzlichen Verkehr beeinträchtigt werden.",
-      "action": "Passen Sie Routen und Zeitpuffer für die betroffenen Zeiträume an und informieren Sie Fahrschülerinnen und Fahrschüler frühzeitig über mögliche Verspätungen."
-    },
-    {
-      "id": "adac-kindersitzwarnung-2026-10-06",
-      "category": "Sicherheit & Prävention",
-      "status": "report",
-      "publishedAt": "2026-10-06T00:00:00+02:00",
-      "checkedAt": "2026-10-17T06:51:44Z",
-      "expiresAt": "2026-10-21T00:00:00+02:00",
-      "summary": "Präzisierung vom 17. Oktober: Britax Römer grenzt den Rückruf auf Babyschalen mit Gurtschlössern aus einer bestimmten Produktionscharge ein. Bei Herstellungsdatum vom 26. Dezember 2025 bis 30. September 2026 lässt sich die Betroffenheit jetzt online prüfen. Der freiwillige Rückruf bestimmter Axkid-Minikid-Core-Chargen besteht ebenfalls.",
-      "sources": [
-        {
-          "name": "ADAC · aktualisierte Testwarnung vom 13.10.2026",
-          "url": "https://www.adac.de/news/kindersitztest-herbst-2026-warnung-vor-kindersitzen/"
-        },
-        {
-          "name": "Britax Römer · Herstellerinformation zum freiwilligen Rückruf",
-          "url": "https://www.britax-roemer.de/sicherheitshinweise-1?article=SafetyNotice-BabySafePro"
-        },
-        {
-          "name": "Axkid · Herstellerinformation zum freiwilligen Rückruf",
-          "url": "https://axkid.com/de/axkid-news/axkid-initiates-voluntary-recall-of-minikid-core/"
-        },
-        {
-          "name": "Britax Römer · Online-Prüfung und Rückrufabwicklung",
-          "url": "https://www.baby-safe-check.com/"
-        }
-      ],
-      "title": "Update: BABY-SAFE-PRO-Rückruf jetzt online prüfen.",
-      "impact": "Aktualisieren Sie Ihre Hinweise zur Kinderbeförderung: Das Herstellungsdatum grenzt die Prüfung ein, bestätigt allein aber noch keine Rückrufbetroffenheit.",
-      "action": "Verweisen Sie auf baby-safe-check.com zur Prüfung und gegebenenfalls Registrierung für die kostenlose Abhilfe. Bis dahin nennt Britax die aufrechte Nutzung auf der VARIO BASE 5Z oder den Fahrzeuggurt ohne Basis, jeweils gemäß Anleitung. Für Minikid Core gilt die Prüfung über Axkid."
-    },
-    {
-      "id": "ki-cyberangriffe-studie-2026-10-07",
-      "category": "Cyber & Datenschutz",
-      "status": "report",
-      "publishedAt": "2026-10-07T00:00:00+02:00",
-      "checkedAt": "2026-10-19T06:31:55Z",
-      "expiresAt": "2026-10-22T00:00:00+02:00",
-      "title": "KI-Cyberangriffe: Viele Betriebe haben noch keinen speziellen Ablauf.",
-      "summary": "In einer gemeinsamen Studie von BSI und TÜV-Verband berichten 17 Prozent der mehr als 500 befragten Unternehmen ab 20 Beschäftigten von bestätigten oder vermuteten Cyberangriffen beziehungsweise Betrugsversuchen mit KI-Bezug. Nur 11 Prozent der Unternehmen mit bestehender oder geplanter KI-Nutzung haben dafür spezielle Vorfallprozesse.",
-      "impact": "Täuschend echte Phishing-Nachrichten und nachgeahmte Stimmen können auch Terminverwaltung, Schülerdaten und Zahlungsverkehr einer Fahrschule treffen. Die Studienwerte beschreiben die befragten Unternehmen und keinen konkreten Angriff auf Fahrschulen.",
-      "action": "Ergänzen Sie Ihren Notfallplan um KI-gestützte Täuschungsversuche: Zahlungs- und Datenanfragen über einen zweiten Kanal bestätigen, Zuständigkeiten festlegen und Mitarbeitende regelmäßig sensibilisieren.",
-      "sources": [
-        {
-          "name": "TÜV-Verband und BSI · KI-Sicherheitsstudie vom 07.10.2026",
-          "url": "https://www.tuev-verband.de/studien/ki-sicherheitsstudie-2026"
-        },
-        {
-          "name": "TÜV-Verband · gemeinsame Pressemitteilung mit dem BSI vom 07.10.2026",
-          "url": "https://www.tuev-verband.de/pressemitteilungen/nur-jedes-zehnte-unternehmen-gegen-ki-gestuetzte-angriffe-geruestet-jedes-sechste-unternehmen-berichtet-von-vorfaellen"
         }
       ]
     },
@@ -114,33 +84,11 @@
       ]
     },
     {
-      "id": "bsi-ghost-pairing-2026-10-07",
-      "category": "Cyber & Datenschutz",
-      "status": "report",
-      "publishedAt": "2026-10-07T00:00:00+02:00",
-      "checkedAt": "2026-10-20T06:06:33Z",
-      "expiresAt": "2026-10-22T00:00:00+02:00",
-      "title": "BSI warnt: Messenger-Konten durch falsche Abstimmungen gefährdet.",
-      "summary": "Das BSI greift in seinem Newsletter vom 7. Oktober die Betrugsmasche Ghost Pairing auf: Gefälschte Abstimmungslinks sollen dazu verleiten, ein fremdes Gerät mit dem eigenen Messenger-Konto zu verbinden. Dadurch können Kriminelle Chats mitlesen und Nachrichten im Namen Betroffener versenden.",
-      "sources": [
-        {
-          "name": "BSI · Newsletter vom 07.10.2026 auf LinkedIn",
-          "url": "https://de.linkedin.com/pulse/102026-botnetz-nach-23-jahren-zerschlagen-phishing-masche-missbraucht-tujae"
-        },
-        {
-          "name": "BSI · Warnung zu Ghost Pairing auf LinkedIn",
-          "url": "https://de.linkedin.com/posts/bsibund_bsi-cybernationdeutschland-cybernation-activity-7510692468397432832-R_NP"
-        }
-      ],
-      "impact": "Wenn Ihr Team Termine über Messenger abstimmt, können Schülerkontakte und betriebliche Chats betroffen sein. Das ist eine Einordnung des Risikos, keine Meldung über einen Angriff auf eine bestimmte Fahrschule.",
-      "action": "Informieren Sie Ihr Team über die Masche. Prüfen Sie verknüpfte Geräte und geben Sie keine Bestätigungs- oder Kopplungscodes weiter; unerwartete Anfragen sollten über einen zweiten Kontaktweg geprüft werden."
-    },
-    {
       "id": "tankrabatt-2026-q4",
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-18T06:29:26Z",
+      "checkedAt": "2026-10-26T07:52:06Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt: Entlastung für den Fuhrpark einordnen.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
@@ -148,16 +96,16 @@
       "action": "Vergleichen Sie Tankstellenpreise und dokumentieren Sie die tatsächlichen Fuhrparkkosten. Kalkulieren Sie keine garantierte Preissenkung ein.",
       "sources": [
         {
-          "name": "Bundesfinanzministerium · Energiesteuersenkung",
-          "url": "https://www.bundesfinanzministerium.de/Content/DE/FAQ/energiesteuersenkung.html"
-        },
-        {
           "name": "Bundesregierung · Stand 01.10.2026",
           "url": "https://www.bundesregierung.de/breg-de/aktuelles/entlastung-spritpreise-2453192"
         },
         {
           "name": "Gesetze im Internet · § 68 Energiesteuergesetz",
           "url": "https://www.gesetze-im-internet.de/energiestg/__68.html"
+        },
+        {
+          "name": "Bundesregierung · Neuregelungen Oktober, 29.09.2026",
+          "url": "https://www.bundesregierung.de/breg-de/suche/gesetzliche-neuregelungen-oktober-2026-2454624"
         }
       ]
     }
