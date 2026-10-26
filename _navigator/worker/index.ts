@@ -8,7 +8,7 @@ const security={
   'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
   'Permissions-Policy':'camera=(), microphone=(), geolocation=()'
 };
-function protect(response:Response){const result=new Response(response.body,response);for(const [key,value] of Object.entries(security))if(!result.headers.has(key))result.headers.set(key,value);return result;}
+function protect(response:Response){const result=new Response(response.body,response);for(const [key,value] of Object.entries(security))if(key==='Cache-Control'||!result.headers.has(key))result.headers.set(key,value);return result;}
 export default {
   async fetch(req:Request,env:any){
     const u=new URL(req.url),path=u.pathname.replace(/\/$/,'');

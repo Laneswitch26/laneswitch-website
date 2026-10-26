@@ -54,16 +54,17 @@ try{
   const {subdomain}=await api('/workers/subdomain');
   if(!/^[a-z0-9-]+$/.test(subdomain))throw new Error('Workers-Testadresse nicht verifiziert.');
   const origin=`https://laneswitch-navigator.${subdomain}.workers.dev`;
+  console.log('Technische Prüfadresse: '+origin+'/navigator/zugang');
+  await inspectDomains();
   await smoke(origin);
   if(routes.length)for(const host of new Set(routes.map(r=>r.zone_name)))await smoke('https://'+host);
   const note=`Navigator erfolgreich bereitgestellt und Anmeldung aller drei Konten geprüft: ${origin}/navigator/zugang\n${routes.length?'Konfigurierte eigene Domains zusätzlich geprüft.':'Noch nicht auf laneswitch.de / laneswitch.online geschaltet. DNS und Pfadrouten separat prüfen.'}\n`;
   console.log(note);
   if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,note);
-  await inspectDomains();
 }finally{await rm('.deploy.json',{force:true});}
 async function smoke(origin){
-  const page=await fetch(origin+'/navigator/zugang',{redirect:'error',signal:AbortSignal.timeout(30000)});
-  if(!page.ok||!page.headers.get('x-robots-tag')?.includes('noindex'))throw new Error('Prüfung der Zugangsseite fehlgeschlagen.');
+  const page=await fetch(origin+'/navigator/zugang',{redirect:'manual',signal:AbortSignal.timeout(30000)});
+  if(!page.ok||!page.headers.get('x-robots-tag')?.includes('noindex'))throw new Error('Prüfung der Zugangsseite fehlgeschlagen: '+origin+' HTTP '+page.status+'; noindex='+Boolean(page.headers.get('x-robots-tag')?.includes('noindex')));
   for(const [school,password] of Object.entries({a1:process.env.NAV_A1_PASSWORD,emre:process.env.NAV_EMRE_PASSWORD,test:'lane switch'})){
     const r=await fetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'login',username:school,password}),signal:AbortSignal.timeout(30000)});
     if(!r.ok)throw new Error('Anmeldeprüfung fehlgeschlagen: '+school+' HTTP '+r.status);

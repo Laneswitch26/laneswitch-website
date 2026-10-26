@@ -5,6 +5,22 @@ import {Miniflare} from 'miniflare';
 import {pbkdf2Sync} from 'node:crypto';
 import {makeAccounts} from '../scripts/accounts.mjs';
 
+test('Actual static assets serve the editor shell without canonical redirects',async()=>{
+  const config=JSON.parse(await readFile('wrangler.json','utf8'));
+  const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:config.compatibility_date,assets:{directory:config.assets.directory,binding:config.assets.binding,routerConfig:{has_user_worker:true,invoke_user_worker_ahead_of_assets:config.assets.run_worker_first},assetConfig:{html_handling:config.assets.html_handling}}});
+  try{
+    for(const path of ['/navigator/zugang','/navigator/zugang/','/navigator/a1','/navigator/emre','/navigator/test']){
+      const r=await mf.dispatchFetch('https://laneswitch.de'+path,{redirect:'manual'});
+      assert.equal(r.status,200,`${path}: ${r.headers.get('location')}`);
+      assert.match(await r.text(),/<div id="root"><\/div>/);
+      assert.match(r.headers.get('x-robots-tag'),/noindex/);
+      assert.equal(r.headers.get('cache-control'),'no-store');
+    }
+    assert.equal((await mf.dispatchFetch('https://laneswitch.de/navigator/assets/app.js')).status,200);
+    assert.equal((await mf.dispatchFetch('https://laneswitch.de/navigator/app.html')).status,404);
+  }finally{await mf.dispose();}
+});
+
 test('Provisioning requires distinct strong school passwords; test has no school credentials',()=>{
   assert.throws(()=>makeAccounts({}));
   assert.throws(()=>makeAccounts({NAV_A1_PASSWORD:'same password long',NAV_EMRE_PASSWORD:'same password long'}));
