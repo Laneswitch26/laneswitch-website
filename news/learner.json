@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-26T07:52:06Z",
+  "checkedAt": "2026-10-27T07:11:00Z",
   "items": [
+    {
+      "id": "bochum-wittener-strasse-2026-10-28",
+      "category": "Region & Verkehr",
+      "status": "report",
+      "title": "Wittener Straße: Ab 28. Oktober nur Richtung Innenstadt.",
+      "summary": "In Bochum-Laer wird die Wittener Straße zwischen Alter Wittener Straße und Werner Hellweg ab 28. Oktober zur Einbahnstraße Richtung Innenstadt. Die Stadt erwartet diese Verkehrsführung bis Ende November. Umleitungen verlaufen unter anderem über Nordhausen-Ring, Tsukuba-Ring und Suttner-Nobel-Allee sowie Werner Hellweg, Industriestraße und Am Vorort.",
+      "impact": "Fährst du hier stadtauswärts zur Fahrschule oder während einer Fahrstunde, brauchst du eine andere Route. Die Gegenrichtung bleibt auf der nördlichen Seite befahrbar.",
+      "action": "Prüfe deinen Weg vor der Abfahrt und folge den ausgeschilderten Umleitungen.",
+      "publishedAt": "2026-10-26T00:00:00+01:00",
+      "checkedAt": "2026-10-27T07:11:00Z",
+      "expiresAt": "2026-12-01T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Bochum · Meldung vom 26.10.2026",
+          "url": "https://www.bochum.de/Pressemeldungen/26-Oktober-2026/Wittener-Strasse-Einbahnstrasse-zwischen-Alter-Wittener-Strasse-und-Werner-Hellweg"
+        }
+      ]
+    },
     {
       "id": "bochum-kabeisemannsweg-2026-10-26",
       "category": "Region & Verkehr",
@@ -12,7 +30,7 @@
       "impact": "Wenn dein Weg zur Fahrschule oder deine Fahrstunde über diesen Knoten führt, musst du mit dem Auto der ausgeschilderten Umleitung folgen.",
       "action": "Prüfe vor deiner Fahrt die Route und beachte die ausgeschilderte Umleitung.",
       "publishedAt": "2026-10-23T00:00:00+02:00",
-      "checkedAt": "2026-10-26T07:52:06Z",
+      "checkedAt": "2026-10-27T07:11:00Z",
       "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
@@ -30,7 +48,7 @@
       "impact": "Auch Konten für Lernangebote oder Terminbuchungen können Ziel solcher Täuschungsversuche sein. Eine dringend formulierte Sicherheitsmail beweist weder ihre Echtheit noch einen Angriff auf dein Konto.",
       "action": "Öffne die bekannte Anbieteradresse oder App selbst. Gib keine Zugangsdaten über einen verdächtigen Mail-Link ein und lade dort kein Update herunter. Frage bei Unsicherheit über einen bereits bekannten Kontakt nach.",
       "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-26T07:52:06Z",
+      "checkedAt": "2026-10-27T07:11:00Z",
       "expiresAt": "2026-11-06T00:00:00+01:00",
       "sources": [
         {
@@ -43,13 +61,13 @@
       "id": "herner-strasse-bochum-2026-10-21",
       "category": "Region & Verkehr",
       "status": "report",
-      "title": "Update: Herner Straße bis 30. Oktober nur Richtung Herne.",
-      "summary": "Stand 26. Oktober: Laut Stadt Bochum gilt am Dorneburger Mühlenbach bis 30. Oktober, 5 Uhr, Einbahnverkehr Richtung Herne. Danach ist bis zum geplanten Abschluss am 6. November je eine Spur in beide Richtungen vorgesehen; die A43-Auffahrt Richtung Wuppertal bleibt in dieser Phase gesperrt. Radverkehr wird je nach Bauphase über Oberscheidstraße und Cruismannstraße umgeleitet.",
+      "title": "Korrektur: Herner Straße – Arbeiten dauern bis 13. November.",
+      "summary": "Korrektur vom 27. Oktober: Der 6. November ist nur das Ende einer Bauphase, nicht aller Arbeiten. Bis 30. Oktober, 5 Uhr, gilt am Dorneburger Mühlenbach Einbahnverkehr Richtung Herne. Danach ist bis 6. November je eine Spur pro Richtung vorgesehen; die A43-Auffahrt Richtung Wuppertal bleibt gesperrt. Vom 6. bis 13. November folgen Arbeiten auf der Westseite; die A43-Anschlüsse sind dann wieder in beide Richtungen frei.",
       "impact": "Deine Wege zwischen Bochum und Herne sowie Fahrstunden können durch wechselnde Verkehrsführungen länger dauern.",
       "action": "Prüfe vor der Fahrt die aktuelle Bauphase und die ausgeschilderte Umleitung. Plane für Termine zusätzliche Zeit ein.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-26T07:52:06Z",
-      "expiresAt": "2026-11-07T00:00:00+01:00",
+      "checkedAt": "2026-10-27T07:11:00Z",
+      "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
           "name": "Stadt Bochum · Verkehrsmeldung vom 14.10.2026",
@@ -62,7 +80,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-26T07:52:06Z",
+      "checkedAt": "2026-10-27T07:11:00Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt bis Jahresende: Was beim Tanken zählt.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
