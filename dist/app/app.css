@@ -340,3 +340,9 @@ html[data-theme=dark] .home-hero{border:1px solid #ffffff1f}
 
 @media(max-width:760px){.home-hero{padding:34px 24px 30px;border-radius:16px}.hero-lanes{right:-30px;width:160px;opacity:.2}.home-hero h1{font-size:31px}.home-hero p{font-size:16px}.hero-actions{flex-direction:column;align-items:stretch}.hero-actions .primary{width:100%}.hero-secondary{justify-content:center}.home-section{margin-top:36px}.home-head h2{font-size:20px}.home-now{grid-template-columns:minmax(0,1fr)}.home-person{grid-template-columns:auto minmax(0,1fr)}.home-person .primary{grid-column:1/-1;width:100%}}
 @media(max-width:370px){.home-hero{padding:28px 18px 24px}.home-hero h1{font-size:28px}}
+
+/* Portrait of the personal contact */
+.portrait{display:block;width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;background:var(--tint)}
+.home-person .portrait{width:76px;height:76px}
+.contact-card .portrait{width:72px;height:72px}
+@media(max-width:760px){.home-person .portrait{width:64px;height:64px}}
