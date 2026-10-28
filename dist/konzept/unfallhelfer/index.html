@@ -43,56 +43,97 @@
     ]
   }
   </script>
-<script type="module" src="/app/detail.js?v=6-footer"></script><link rel="stylesheet" href="../assets/student-tools.css?v=20260907"><link rel="stylesheet" href="../assets/theme.css?v=20260916-5"><link rel="stylesheet" href="/konzept/assets/concept.css?v=11-audit"><link rel="stylesheet" href="/app/shell.css?v=6-footer"><link rel="stylesheet" href="/app/contrast.css?v=5d"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LANE SWITCH"><link rel="stylesheet" href="/app/pwa.css?v=2-safe-area"><script defer src="/app/pwa.js?v=1"></script></head>
+<script type="module" src="/app/detail.js?v=6-footer"></script>
+  <link rel="stylesheet" href="/konzept/assets/concept.css?v=11-audit">
+  <link rel="stylesheet" href="/app/shell.css?v=6-footer">
+  <link rel="stylesheet" href="/konzept/assets/subpage.css?v=1">
+  <style id="unfallhelfer-styles">
+    /* Unfallhelfer · Makeover 2026-10. Colors only via shell.css variables. */
+    .uh-calls{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:16px}
+    .uh-call{display:flex;align-items:center;gap:14px;min-height:72px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:var(--ink);text-decoration:none}
+    .uh-call:hover{border-color:var(--teal)}
+    .uh-call .sp-row-icon{width:44px;height:44px}
+    .uh-call span:last-child{display:grid;min-width:0}
+    .uh-call strong{font-size:21px;line-height:1.2;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--ink)}
+    .uh-call small{font-size:14px;line-height:1.4;color:var(--muted)}
+    html body .detail-main .uh-call-main{background:var(--navy);border-color:var(--navy)}
+    html body .detail-main .uh-call-main strong{color:#fff}
+    html body .detail-main .uh-call-main small{color:#c9dde6}
+    html body .detail-main .uh-call-main .sp-row-icon{background:#65e5df;color:#062d47}
+    html[data-theme=dark] body .detail-main .uh-call-main{border-color:#ffffff2e}
+    .uh-progress{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+    .uh-track{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+    .uh-track>div{width:0;height:100%;background:var(--teal);border-radius:99px;transition:width .3s}
+    .uh-progress span{flex:none;font-size:14px;font-weight:700;color:var(--teal);font-variant-numeric:tabular-nums}
+    .uh-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+    .uh-item label{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;padding:16px 18px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;cursor:pointer}
+    .uh-item label:hover{border-color:var(--teal)}
+    .uh-item input{position:absolute;opacity:0;width:1px;height:1px}
+    .uh-box{display:grid;place-items:center;width:28px;height:28px;margin-top:1px;border:2px solid var(--muted);border-radius:8px;background:var(--card);color:var(--card);font-size:13px;font-weight:800}
+    .uh-box::before{content:attr(data-n);color:var(--muted)}
+    .uh-text{display:grid;gap:2px;min-width:0}
+    .uh-text strong{font-size:17px;line-height:1.35;color:var(--ink)}
+    .uh-text span{font-size:15px;line-height:1.55;color:var(--muted)}
+    .uh-item input:checked+.uh-box{background:var(--teal);border-color:var(--teal)}
+    .uh-item input:checked+.uh-box::before{content:"✓";color:var(--card);font-size:15px}
+    .uh-item label:has(input:checked){background:var(--tint);border-color:var(--teal)}
+    .uh-item input:focus-visible+.uh-box{outline:3px solid var(--teal);outline-offset:3px}
+    .uh-reset{margin-top:14px}
+    .uh-privacy{margin-top:16px}
+    .uh-sources{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+    .uh-sources .sp-panel{display:flex;flex-direction:column;gap:8px}
+    html body .detail-main .uh-sources h3{font-size:17px!important}
+    .uh-sources p{font-size:14px;line-height:1.6;color:var(--muted)}
+    .uh-sources .sp-link{margin-top:auto}
+    .uh-sources .sp-link svg.icon{width:16px;height:16px}
+    .uh-fine{margin-top:14px;font-size:13px;line-height:1.6;color:var(--muted)}
+    .uh-keep{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;padding:22px;background:var(--tint);border-radius:16px}
+    html body .detail-main .uh-keep h2{font-size:19px!important;line-height:1.3!important;margin:0!important}
+    .uh-keep p{font-size:15px;color:var(--muted);margin-top:2px}
+    .uh-keep .sp-btn{grid-column:1/-1;justify-self:start}
+    @container detail-content (min-width:620px){.uh-calls{grid-template-columns:repeat(3,minmax(0,1fr))}.uh-sources{grid-template-columns:repeat(2,minmax(0,1fr))}.uh-keep{grid-template-columns:auto minmax(0,1fr) auto}.uh-keep .sp-btn{grid-column:auto}}
+    @media(max-width:760px){.uh-item label{padding:14px}.uh-keep .sp-btn,.uh-reset{width:100%}}
+  </style>
+  <link rel="stylesheet" href="/app/contrast.css?v=5d"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/app/icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="LANE SWITCH"><link rel="stylesheet" href="/app/pwa.css?v=2-safe-area"><script defer src="/app/pwa.js?v=1"></script></head>
 <body data-detail="true">
 <main>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="../" aria-label="LANE SWITCH Startseite"><img src="../assets/logo-primary-dark.svg" alt="LANE SWITCH: Fahrschul-Partnerkonzept" width="1400" height="360"></a><nav class="main-nav" aria-label="Hauptnavigation"><a href="../fahrschulen/">Für Fahrschulen</a><a href="../fahrschueler/">Für Fahrschüler:innen</a><a href="../cockpit/">Cockpit</a></nav><a class="header-cta" href="../kontakt/">20 Minuten kennenlernen</a></div></header>
+  <header class="site-header"></header>
+  <div class="sp-page uh-page">
+    <section class="sp-head" aria-labelledby="uh-title"><svg class="hero-lanes" viewBox="0 0 240 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" d="M24 0V400M216 0V400" stroke-dasharray="26 22"/><path class="lane-move" vector-effect="non-scaling-stroke" d="M168 400V250C168 190 72 200 72 140V0"/></svg><div class="sp-head-copy"><h1 id="uh-title">Unfallhelfer für unterwegs</h1><p>Ruhe bewahren, Gefahren absichern und die wichtigsten Informationen vollständig festhalten.</p></div></section>
 
-  <section class="tool-hero">
-    <div class="container tool-hero-grid">
-      <div><p class="eyebrow light">Für den Ernstfall</p><h1>Unfallhelfer für unterwegs.</h1></div>
-      <div class="tool-hero-copy">
-        <p>Ruhe bewahren, Gefahren absichern und die wichtigsten Informationen vollständig festhalten.</p>
-        <div class="emergency-bar" aria-label="Wichtige Telefonnummern">
-          <a class="emergency-link" href="tel:112"><strong>112</strong><span>Verletzte oder akute Gefahr</span></a>
-          <a class="emergency-link" href="tel:110"><strong>110</strong><span>Polizei, wenn erforderlich</span></a>
-          <a class="emergency-link" href="tel:08002502600"><strong>0800 250 260 0</strong><span>Zentralruf der Autoversicherer</span></a>
-        </div>
+    <nav class="uh-calls" aria-label="Wichtige Telefonnummern">
+      <a class="uh-call uh-call-main" href="tel:112"><span class="sp-row-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3h3l1.6 4.2-2 1.4a12 12 0 0 0 6.2 6.2l1.4-2 4.2 1.6v3a2 2 0 0 0-.1.6A18 18 0 0 1 3 5.1 2 2 0 0 1 5 3Z"/></svg></span><span><strong>112</strong><small>Verletzte oder akute Gefahr</small></span></a>
+      <a class="uh-call" href="tel:110"><span class="sp-row-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3h3l1.6 4.2-2 1.4a12 12 0 0 0 6.2 6.2l1.4-2 4.2 1.6v3a2 2 0 0 0-.1.6A18 18 0 0 1 3 5.1 2 2 0 0 1 5 3Z"/></svg></span><span><strong>110</strong><small>Polizei, wenn erforderlich</small></span></a>
+      <a class="uh-call" href="tel:08002502600"><span class="sp-row-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3h3l1.6 4.2-2 1.4a12 12 0 0 0 6.2 6.2l1.4-2 4.2 1.6v3a2 2 0 0 0-.1.6A18 18 0 0 1 3 5.1 2 2 0 0 1 5 3Z"/></svg></span><span><strong>0800 250 260 0</strong><small>Zentralruf der Autoversicherer</small></span></a>
+    </nav>
+
+    <section class="sp-section" aria-labelledby="steps-title">
+      <div class="sp-section-head"><h2 id="steps-title">Schritt für Schritt</h2><p>Arbeite die Punkte der Reihe nach ab. Bei Verletzten oder akuter Gefahr hat der Notruf immer Vorrang.</p></div>
+      <div class="uh-progress" aria-live="polite"><div class="uh-track" aria-hidden="true"><div data-accident-progress></div></div><span data-accident-progress-text>0 von 6</span></div>
+      <ol class="uh-list">
+          <li class="uh-item"><label><input type="checkbox" data-accident-step autocomplete="off"><span class="uh-box" data-n="1" aria-hidden="true"></span><span class="uh-text"><strong>Unfallstelle absichern</strong><span>Warnblinkanlage einschalten, Warnweste anziehen, Warndreieck aufstellen und selbst einen sicheren Ort aufsuchen.</span></span></label></li>
+          <li class="uh-item"><label><input type="checkbox" data-accident-step autocomplete="off"><span class="uh-box" data-n="2" aria-hidden="true"></span><span class="uh-text"><strong>Verletzten helfen und Notruf wählen</strong><span>Erste Hilfe leisten. Bei Verletzten, Feuer oder akuter Gefahr 112 anrufen und den Anweisungen folgen.</span></span></label></li>
+          <li class="uh-item"><label><input type="checkbox" data-accident-step autocomplete="off"><span class="uh-box" data-n="3" aria-hidden="true"></span><span class="uh-text"><strong>Beteiligte und Zeug:innen erfassen</strong><span>Namen, Anschriften, Kontaktdaten und Kennzeichen notieren. Auch mögliche Zeug:innen festhalten.</span></span></label></li>
+          <li class="uh-item"><label><input type="checkbox" data-accident-step autocomplete="off"><span class="uh-box" data-n="4" aria-hidden="true"></span><span class="uh-text"><strong>Unfall dokumentieren</strong><span>Ort, Datum, Uhrzeit, Schäden und Straßenverlauf fotografieren. Eine Skizze und den Europäischen Unfallbericht nutzen.</span></span></label></li>
+          <li class="uh-item"><label><input type="checkbox" data-accident-step autocomplete="off"><span class="uh-box" data-n="5" aria-hidden="true"></span><span class="uh-text"><strong>Kein Schuldanerkenntnis abgeben</strong><span>Bleibe bei den beobachtbaren Tatsachen. Unterschreibe kein pauschales Anerkenntnis der Schuld.</span></span></label></li>
+          <li class="uh-item"><label><input type="checkbox" data-accident-step autocomplete="off"><span class="uh-box" data-n="6" aria-hidden="true"></span><span class="uh-text"><strong>Versicherung informieren</strong><span>Den Schaden möglichst zeitnah dem eigenen Versicherer melden. Der Zentralruf ermittelt bei Bedarf die gegnerische Kfz-Haftpflichtversicherung.</span></span></label></li>
+      </ol>
+      <button class="sp-btn sp-btn-secondary uh-reset" type="button" data-accident-reset><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/></svg>Checkliste zurücksetzen</button>
+      <div class="sp-note uh-privacy"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><p><strong>Datenschutz:</strong> LANE SWITCH fragt hier keine Namen, Kennzeichen, Fotos oder Unfalldaten ab. Die gesetzten Häkchen werden nicht an einen Server übertragen und nicht dauerhaft gespeichert. Beim Öffnen externer Seiten gelten deren Datenschutzbestimmungen.</p></div>
+    </section>
+
+    <section class="sp-section" aria-labelledby="sources-title">
+      <div class="sp-section-head"><h2 id="sources-title">Formulare und Versichererauskunft</h2><p>Offizielle Anlaufstellen nach einem Verkehrsunfall.</p></div>
+      <div class="uh-sources">
+        <article class="sp-panel"><h3>Europäischer Unfallbericht</h3><p>Einheitliches Formular zur strukturierten Dokumentation eines Verkehrsunfalls.</p><a class="sp-link" href="https://www.dieversicherer.de/versicherer/auto/news/europaeischer-unfallbericht-142322" target="_blank" rel="noopener noreferrer">Unfallbericht öffnen<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7m0-7L10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg></a></article>
+        <article class="sp-panel"><h3>Zentralruf der Autoversicherer</h3><p>Ermittelt nach einem Unfall die gegnerische Kfz-Haftpflichtversicherung.</p><a class="sp-link" href="https://www.zentralruf.de/online-anfrage/anfrageformular" target="_blank" rel="noopener noreferrer">Online-Anfrage öffnen<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3h7v7m0-7L10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/></svg></a></article>
       </div>
-    </div>
-  </section>
+      <p class="uh-fine">Der Unfallhelfer gibt eine allgemeine Orientierung und ersetzt keine Anweisung von Rettungsdienst oder Polizei sowie keine rechtliche oder individuelle Schadenberatung.</p>
+    </section>
 
-  <section class="section section-soft">
-    <div class="container">
-      <div class="section-heading"><p class="eyebrow">Schritt für Schritt</p><h2>Arbeite die Punkte der Reihe nach ab.</h2><p>Bei Verletzten oder akuter Gefahr hat der Notruf immer Vorrang.</p></div>
-      <div class="progress-wrap" aria-live="polite"><div class="progress-track" aria-hidden="true"><div class="progress-bar" data-accident-progress></div></div><span class="progress-text" data-accident-progress-text>0 von 6</span></div>
-      <div class="checklist">
-        <article class="checklist-card"><label><input type="checkbox" data-accident-step autocomplete="off"><span><strong>1. Unfallstelle absichern</strong><p>Warnblinkanlage einschalten, Warnweste anziehen, Warndreieck aufstellen und selbst einen sicheren Ort aufsuchen.</p></span></label></article>
-        <article class="checklist-card"><label><input type="checkbox" data-accident-step autocomplete="off"><span><strong>2. Verletzten helfen und Notruf wählen</strong><p>Erste Hilfe leisten. Bei Verletzten, Feuer oder akuter Gefahr 112 anrufen und den Anweisungen folgen.</p></span></label></article>
-        <article class="checklist-card"><label><input type="checkbox" data-accident-step autocomplete="off"><span><strong>3. Beteiligte und Zeug:innen erfassen</strong><p>Namen, Anschriften, Kontaktdaten und Kennzeichen notieren. Auch mögliche Zeug:innen festhalten.</p></span></label></article>
-        <article class="checklist-card"><label><input type="checkbox" data-accident-step autocomplete="off"><span><strong>4. Unfall dokumentieren</strong><p>Ort, Datum, Uhrzeit, Schäden und Straßenverlauf fotografieren. Eine Skizze und den Europäischen Unfallbericht nutzen.</p></span></label></article>
-        <article class="checklist-card"><label><input type="checkbox" data-accident-step autocomplete="off"><span><strong>5. Kein Schuldanerkenntnis abgeben</strong><p>Bleibe bei den beobachtbaren Tatsachen. Unterschreibe kein pauschales Anerkenntnis der Schuld.</p></span></label></article>
-        <article class="checklist-card"><label><input type="checkbox" data-accident-step autocomplete="off"><span><strong>6. Versicherung informieren</strong><p>Den Schaden möglichst zeitnah dem eigenen Versicherer melden. Der Zentralruf ermittelt bei Bedarf die gegnerische Kfz-Haftpflichtversicherung.</p></span></label></article>
-      </div>
-      <div class="button-row button-row-spaced"><button class="button" type="button" data-accident-reset>Checkliste zurücksetzen</button></div>
-      <div class="privacy-card"><h3>Datenschutz</h3><p>LANE SWITCH fragt hier keine Namen, Kennzeichen, Fotos oder Unfalldaten ab. Die gesetzten Häkchen werden nicht an einen Server übertragen und nicht dauerhaft gespeichert. Beim Öffnen externer Seiten gelten deren Datenschutzbestimmungen.</p></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="section-heading"><p class="eyebrow">Offizielle Anlaufstellen</p><h2>Formulare und Versichererauskunft.</h2></div>
-      <div class="source-grid">
-        <article class="source-card"><h3>Europäischer Unfallbericht</h3><p>Einheitliches Formular zur strukturierten Dokumentation eines Verkehrsunfalls.</p><a href="https://www.dieversicherer.de/versicherer/auto/news/europaeischer-unfallbericht-142322" target="_blank" rel="noopener noreferrer">Unfallbericht öffnen <span aria-hidden="true">↗</span></a></article>
-        <article class="source-card"><h3>Zentralruf der Autoversicherer</h3><p>Ermittelt nach einem Unfall die gegnerische Kfz-Haftpflichtversicherung.</p><a href="https://www.zentralruf.de/online-anfrage/anfrageformular" target="_blank" rel="noopener noreferrer">Online-Anfrage öffnen <span aria-hidden="true">↗</span></a></article>
-      </div>
-      <p class="fine-print">Der Unfallhelfer gibt eine allgemeine Orientierung und ersetzt keine Anweisung von Rettungsdienst oder Polizei sowie keine rechtliche oder individuelle Schadenberatung.</p>
-    </div>
-  </section>
-
-  <section class="section cta-section"><div class="container cta-panel"><div><p class="eyebrow light">Für später merken</p><h2>Im Ernstfall direkt griffbereit.</h2><p>Speichere diese Seite als Lesezeichen auf deinem Smartphone.</p></div><a class="button button-primary" href="../fahrschueler/">Zurück zu den Fahrschüler:innen</a></div></section>
-
-  <footer class="site-footer"><div class="container footer-grid"><a class="footer-brand" href="../" aria-label="LANE SWITCH Startseite"><img src="../assets/logo-primary-dark.svg" alt="LANE SWITCH: Fahrschul-Partnerkonzept" width="1400" height="360"></a><div class="footer-links"><a href="/konzept/kooperationen/">Kooperationen</a><a href="../fahrschulen/">Für Fahrschulen</a><a href="../fahrschueler/">Für Fahrschüler:innen</a><a href="../kontakt/">Kontakt</a><a href="../impressum/">Impressum</a><a href="../datenschutz/">Datenschutz</a></div><p>Ein modulares Partnerkonzept von Steven Dragojevic.</p></div></footer>
+    <section class="sp-section"><div class="uh-keep"><span class="sp-row-icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z"/></svg></span><div><h2>Im Ernstfall direkt griffbereit</h2><p>Speichere diese Seite als Lesezeichen auf deinem Smartphone.</p></div><a class="sp-btn sp-btn-primary" href="../fahrschueler/">Zurück zu den Fahrschüler:innen</a></div></section>
+  </div>
+  <footer class="site-footer"></footer>
 </main>
 <script src="/konzept/preview-guard.js"></script></body>
 </html>
