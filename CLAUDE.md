@@ -12,7 +12,7 @@ Diese Datei ist die Kurzfassung. Bei Widerspruch gilt die neuere ausdrückliche 
 1. Neuen Branch von aktuellem `origin/cloudflare-online` erstellen (z. B. `claude/<thema>`).
 2. Ändern, lokal prüfen (siehe unten), committen, Branch pushen.
 3. Pull Request gegen `cloudflare-online` öffnen. Cloudflare erzeugt eine Vorschau-Adresse.
-4. **Nie direkt auf `cloudflare-online` pushen.** Live geht nur, was der Eigentümer im PR mergt.
+4. **Nie direkt auf `cloudflare-online` pushen.** Live geht nur über einen PR. Der Eigentümer hat erlaubt, dass Claude PRs für laneswitch.online nach bestandener Prüfung und erfolgreicher Cloudflare-Vorschau selbst mergt; danach den Live-Stand prüfen und berichten. Änderungen an Navigator, Secrets, `main` oder Rechtstexten weiterhin nur nach ausdrücklicher Freigabe.
 5. Rückweg: PR in GitHub per „Revert“ zurücknehmen oder in Cloudflare Pages → Deployments die vorherige Version wiederherstellen.
 
 ## Nicht ohne ausdrückliche Freigabe ändern
@@ -29,6 +29,8 @@ Diese Datei ist die Kurzfassung. Bei Widerspruch gilt die neuere ausdrückliche 
 - Logo (seit 28.10.2026 eigenes Rebranding für .online, vom Eigentümer freigegeben): Signet = Navy-Quadrat mit Mittelmarkierung und Spurwechsel-Linie von rechts nach links, Wortmarke „LANE SWITCH“ in Inter Bold. Nur die SVGs aus `dist/konzept/assets/` verwenden (`logo-primary.svg` für helle, `logo-primary-dark.svg` für dunkle Flächen, `logo-ls.svg` kompakt, `logo-symbol.svg` Signet), nicht nachzeichnen oder umfärben. laneswitch.de behält das alte Logo.
 - Schrift Inter mit Systemfallback; keine externen Fonts, CDNs, Tracker, Analytics, Embeds oder Backends.
 - Layout: Desktop Sidebar + Inhalt + Rail; unter ~1220 px ohne Rail, unter 760 px mobile Unternavigation.
+
+- Laufendes Makeover: Stand, Gestaltungssystem und nächste Schritte stehen in `docs/makeover.md`. Vor Gestaltungsarbeit lesen und nach jedem gemergten Schritt aktualisieren.
 
 ## Inhalt und Ton
 - Fahrschulen „Sie“, Fahrschüler:innen „du“; Zielgruppe innerhalb einer Ansicht nicht wechseln.
