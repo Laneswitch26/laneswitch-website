@@ -13,8 +13,9 @@ Repository → Settings → Secrets and variables → Actions → New repository
 1. `CLOUDFLARE_API_TOKEN`: Cloudflare-API-Token, beschränkt auf das bestehende Konto. Konto-Berechtigungen: **Workers Scripts: Edit**, **D1: Edit**, **Account Settings: Read**. Für die Domain-Zuordnung zusätzlich Zone Read, DNS Read und Workers Routes Edit, auf die betreffende Domain beschränkt. Keine DNS-Schreib- oder Abrechnungsrechte erforderlich. Die Konto-ID ist bereits aus den bestehenden Cloudflare-GitHub-Prüfergebnissen übernommen. Ein Token ist ein geheimer technischer Zugang, kein Cloudflare-Passwort.
 2. `NAV_A1_PASSWORD`: eigenes Passwort für A1, 16–200 Zeichen.
 3. `NAV_EMRE_PASSWORD`: anderes Passwort für Emre, 16–200 Zeichen.
+4. `NAV_TEST_PASSWORD` (optional): eigenes Passwort für das Testkonto `test`, 16–200 Zeichen. Ohne dieses Secret wird kein Testkonto angelegt.
 
-Für die bestehenden Fahrschulkonten können dieselben zuvor vergebenen Passwörter verwendet werden, sofern sie die Länge erfüllen. Passwörter und Token niemals in Issues, Pull Requests, Chat oder Dateien eintragen. Das Testkonto wird automatisch mit Benutzername `test` und dem ausdrücklich gewünschten Passwort `lane switch` angelegt. Es darf keine Inhalte veröffentlichen.
+Für die bestehenden Fahrschulkonten können dieselben zuvor vergebenen Passwörter verwendet werden, sofern sie die Länge erfüllen. Passwörter und Token niemals in Issues, Pull Requests, Chat oder Dateien eintragen. Das Testkonto mit Benutzername `test` wird nur angelegt, wenn `NAV_TEST_PASSWORD` gesetzt ist. Es darf keine Inhalte veröffentlichen.
 
 API-Token im eigenen Cloudflare-Browser anlegen. Diese lokale Anmeldung überträgt keine Sitzung an ChatGPT. Der Token wird direkt bei GitHub hinterlegt; ChatGPT braucht seinen Wert nicht.
 
@@ -22,7 +23,7 @@ API-Token im eigenen Cloudflare-Browser anlegen. Diese lokale Anmeldung übertr�
 
 GitHub → Actions → **Navigator · Cloudflare** → Run workflow → Branch `main` → `deploy` aktivieren.
 
-Der Workflow prüft und baut zunächst ohne Secrets. Nur nach erfolgreichen Tests werden die Secrets an den separaten Deployment-Job übergeben. Pull Requests können keinen Deployment-Job starten. Das Skript prüft das Konto, erstellt bzw. verwendet ausschließlich `laneswitch-navigator-eu` mit Jurisdiktion `eu`, wendet versionierte Migrationen an und veröffentlicht Code plus gehashte Konten in einem Schritt. Die Hash-Registry wird kurzzeitig in einer Datei mit Modus 0600 außerhalb des Repositorys auf dem temporären GitHub-Runner abgelegt und auch bei Fehlern gelöscht. Klartextpasswörter werden nicht in diese Datei geschrieben. Abschließend werden die Anmeldung, die richtige Kontozuordnung und die Abmeldung aller drei Zugänge am echten Server geprüft. Die technische Testadresse erscheint im Workflow-Ergebnis.
+Der Workflow prüft und baut zunächst ohne Secrets. Nur nach erfolgreichen Tests werden die Secrets an den separaten Deployment-Job übergeben. Pull Requests können keinen Deployment-Job starten. Das Skript prüft das Konto, erstellt bzw. verwendet ausschließlich `laneswitch-navigator-eu` mit Jurisdiktion `eu`, wendet versionierte Migrationen an und veröffentlicht Code plus gehashte Konten in einem Schritt. Die Hash-Registry wird kurzzeitig in einer Datei mit Modus 0600 außerhalb des Repositorys auf dem temporären GitHub-Runner abgelegt und auch bei Fehlern gelöscht. Klartextpasswörter werden nicht in diese Datei geschrieben. Abschließend werden die Anmeldung, die richtige Kontozuordnung und die Abmeldung aller eingerichteten Zugänge am echten Server geprüft. Die technische Testadresse erscheint im Workflow-Ergebnis.
 
 Der Vorgang aktiviert keinen kostenpflichtigen Tarif. Bereits vorhandene Konto-/Tarifbedingungen müssen vor dem ersten Lauf geprüft werden; das Skript kann den Abrechnungsstatus mit dem eingeschränkten Token nicht bestätigen. Free-Tarife haben Nutzungsgrenzen und sind kein unbegrenztes Verfügbarkeitsversprechen.
 

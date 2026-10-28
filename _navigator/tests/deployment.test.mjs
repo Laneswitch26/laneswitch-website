@@ -21,12 +21,15 @@ test('Actual static assets serve the editor shell without canonical redirects',a
   }finally{await mf.dispose();}
 });
 
-test('Provisioning requires distinct strong school passwords; test has no school credentials',()=>{
+test('Provisioning requires distinct strong passwords; test account only with its own secret',()=>{
   assert.throws(()=>makeAccounts({}));
   assert.throws(()=>makeAccounts({NAV_A1_PASSWORD:'same password long',NAV_EMRE_PASSWORD:'same password long'}));
-  const rows=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456'});
+  assert.deepEqual(makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456'}).map(x=>x.school),['a1','emre']);
+  assert.throws(()=>makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'short'}));
+  assert.throws(()=>makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'A1 fixture password 123'}));
+  const rows=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789'});
   assert.deepEqual(rows.map(x=>x.school),['a1','emre','test']);
-  const t=rows[2];assert.equal(t.hash,pbkdf2Sync('lane switch',Buffer.from(t.salt,'hex'),100000,32,'sha256').toString('hex'));
+  const t=rows[2];assert.equal(t.hash,pbkdf2Sync('Test fixture password 789',Buffer.from(t.salt,'hex'),100000,32,'sha256').toString('hex'));
   assert.ok(!JSON.stringify(rows).includes('fixture password'));
 });
 
@@ -45,7 +48,7 @@ test('Production bundle isolates Navigator routes, rejects missing configuration
 });
 
 test('Built Worker uses its actual D1 binding and hashed registry for login',async()=>{
-  const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456'});
+  const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789'});
   const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',d1Databases:['DB'],bindings:{NAV_ACCOUNTS:JSON.stringify(accounts)},serviceBindings:{ASSETS:async()=>new Response('app')}});
   try{
     const db=await mf.getD1Database('DB');for(const q of (await readFile('drizzle/0001_navigator.sql','utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
@@ -61,10 +64,10 @@ test('Built Worker uses its actual D1 binding and hashed registry for login',asy
     }
     const foreign=await mf.dispatchFetch(origin+'/api/navigator?action=public&school=a1',{headers:{origin:'https://example.org'}});
     assert.equal(foreign.headers.get('access-control-allow-origin'),null);
-    const crossWrite=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin:'https://laneswitch.de','Content-Type':'application/json'},body:JSON.stringify({action:'login',username:'test',password:'lane switch'})});
+    const crossWrite=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin:'https://laneswitch.de','Content-Type':'application/json'},body:JSON.stringify({action:'login',username:'test',password:'Test fixture password 789'})});
     assert.equal(crossWrite.status,403);
     assert.equal(crossWrite.headers.get('access-control-allow-origin'),null);
-    const r=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'login',username:'test',password:'lane switch'})});
+    const r=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'login',username:'test',password:'Test fixture password 789'})});
     assert.equal(r.status,200);const data=await r.json();assert.equal(data.school,'test');
     assert.match(r.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Strict/);
     const publish=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json',cookie:r.headers.get('set-cookie').split(';')[0],'x-csrf-token':data.csrf},body:JSON.stringify({action:'publish',data:{name:'Test'}})});
