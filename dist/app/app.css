@@ -342,7 +342,7 @@ html[data-theme=dark] .home-hero{border:1px solid #ffffff1f}
 @media(max-width:370px){.home-hero{padding:28px 18px 24px}.home-hero h1{font-size:28px}}
 
 /* Portrait of the personal contact */
-.portrait{display:block;width:64px;height:64px;border-radius:50%;object-fit:cover;flex:none;background:var(--tint)}
-.home-person .portrait{width:76px;height:76px}
-.contact-card .portrait{width:72px;height:72px}
-@media(max-width:760px){.home-person .portrait{width:64px;height:64px}}
+.portrait{display:block;width:72px;height:72px;border-radius:14px;object-fit:cover;object-position:center;flex:none;background:var(--tint)}
+.home-person .portrait{width:96px;height:96px;border-radius:16px}
+.contact-person-inline .portrait{width:72px;height:72px}
+@media(max-width:760px){.home-person .portrait{width:80px;height:80px;border-radius:14px}}
