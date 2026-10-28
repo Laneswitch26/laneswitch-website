@@ -22,7 +22,7 @@ kurz berichten, was sich geändert hat.
 | #55 | Lernwelt im neuen Design; gemeinsame Bausteine für Unterseiten in `konzept/assets/subpage.css` |
 | #56 | Fahrzeugkosten im neuen Design (Schrittanzeige mit Beschriftung, Auswahlkacheln, Ergebnis, Anfrage-Dialog) |
 | #57 | Unfallhelfer im neuen Design (Notrufnummern als Tipp-Kacheln, Checkliste mit großen Tippflächen) |
-| PR_EN | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
+| #58 | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
