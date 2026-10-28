@@ -25,6 +25,7 @@ kurz berichten, was sich geändert hat.
 | #57 | Unfallhelfer im neuen Design (Notrufnummern als Tipp-Kacheln, Checkliste mit großen Tippflächen) |
 | #58 | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
 | #60 | Förderrechner Altersvorsorge im neuen Design (beide Zielgruppen; `calculator.css` neu, Rechenlogik unverändert) |
+| PR_FS | Fahrschul-Seiten: Fahrschul-Check, Cockpit, Notfallcenter, Vorlagen (inkl. Druckansicht), Informationen für Fahrschulen; `subpage.css` v3 (FAQ, Kartenlabels, Kopf-Links) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -59,6 +60,7 @@ Seit der Lernwelt. Umgestaltete Unterseiten laden `concept.css` (Rahmen, Seitenl
 - Native `<dialog>` liegt in der obersten Ebene und kann innerhalb von `<main>` bleiben.
 - Rechtstexte (Erstinformation, Vermittlerangaben, Datenschutzhinweise) wörtlich übernehmen, nur neu einbetten.
 - Raster `.sp-grid.sp-grid-2/3` mit Karten `.sp-cards`, Hakenliste `.sp-checks`, Aktionen im Kopf `.sp-head-actions`, Kleingedrucktes `.sp-fine`, Abschlussfläche `.sp-cta`.
+- FAQ `.sp-faq`, Kartenlabel `.sp-card-tag`, Textlink im Kopf `.sp-head-link`, Knopfreihe `.sp-actions`.
 - Icons als Inline-SVG `class="icon"` im Strichstil von `app/shell.js`.
 
 ## Nächster Schritt: Unterseiten unter `dist/konzept/`
@@ -79,7 +81,7 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
 3. ~~**Unfallhelfer**~~ erledigt.
 4. ~~**EaSI Drive** und **Nach dem Führerschein**~~ erledigt (dort „75 Lernfragen“ auf die tatsächlichen 225 korrigiert).
 5. ~~**Förderrechner**~~ erledigt (nur Markup-Hülle und `calculator.css`; `engine.mjs`, `rules.mjs`, `ui.mjs`, `share.mjs` unverändert).
-6. Fahrschul-Seiten: `fahrschul-check/`, `cockpit/`, `notfallcenter/`, `vorlagen/`, `fahrschulen-informationen/`
+6. ~~Fahrschul-Seiten~~ erledigt. Fahrschul-Check: `qa/check-handoff.cjs` liest Skript und `<fieldset class="question" data-lane=…><legend>` per Regex – diese Struktur beibehalten. Vorlagen: Druckregeln setzen die Farbvariablen im Druck auf hell.
 7. Kooperationsprofile `kooperationen/fahrschulen/fahrschule-a1/`, `fahrschule-emre/`
 8. **Gefahrenradar** `konzept/lernwelt/gefahrenradar/` (eigenes Spiel-Layout; im Textmodus bleibt links eine leere Fläche)
 9. Rechtliches (Impressum, Datenschutz) nur optisch angleichen, Inhalte nicht ändern.
