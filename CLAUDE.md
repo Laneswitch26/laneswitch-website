@@ -26,7 +26,7 @@ Diese Datei ist die Kurzfassung. Bei Widerspruch gilt die neuere ausdrückliche 
 - Hell/Dunkel über `html[data-theme]`, gespeichert als `laneswitch-theme-v1`, Standard hell. Keine automatische Übernahme des Systemmodus.
 - Nur die Farbvariablen aus `dist/app/shell.css` verwenden (`--bg --card --ink --muted --line --teal --tint --accent --navy`); `contrast.css` wird zuletzt geladen. Keine festen Farbwerte in neuen Bausteinen.
 - Türkis nicht als kleinen Text auf Weiß; dafür `--teal` (Kontrastwert).
-- Logos nur als freigegebene SVGs aus `dist/konzept/assets/`, Spurwechsel rechts → links, nicht verändern.
+- Logo (seit 28.10.2026 eigenes Rebranding für .online, vom Eigentümer freigegeben): Signet = Navy-Quadrat mit Mittelmarkierung und Spurwechsel-Linie von rechts nach links, Wortmarke „LANE SWITCH“ in Inter Bold. Nur die SVGs aus `dist/konzept/assets/` verwenden (`logo-primary.svg` für helle, `logo-primary-dark.svg` für dunkle Flächen, `logo-ls.svg` kompakt, `logo-symbol.svg` Signet), nicht nachzeichnen oder umfärben. laneswitch.de behält das alte Logo.
 - Schrift Inter mit Systemfallback; keine externen Fonts, CDNs, Tracker, Analytics, Embeds oder Backends.
 - Layout: Desktop Sidebar + Inhalt + Rail; unter ~1220 px ohne Rail, unter 760 px mobile Unternavigation.
 
