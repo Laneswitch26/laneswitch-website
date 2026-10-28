@@ -19,6 +19,7 @@ kurz berichten, was sich geändert hat.
 | #50, #52 | Porträt von Steven (`dist/konzept/assets/steven-portrait.jpg`, quadratisch, abgerundet) |
 | #51 | Rebranding: neues Logo (Spurwechsel-Signet), Favicon, PWA-Icons |
 | #53 | Einheitlicher Kopfbereich für Werkzeuge, Netzwerk, Kontakt, Newsticker; Lernwelt-Lernstand im hellen Modus sichtbar |
+| PR_LW | Lernwelt im neuen Design; gemeinsame Bausteine für Unterseiten in `konzept/assets/subpage.css` |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -34,6 +35,24 @@ kurz berichten, was sich geändert hat.
 - Radien: Karten 14–16 px, Kopfbereiche 20 px (mobil 16 px). Keine Schatten auf Karten.
 - Hell/Dunkel ausschließlich über die Variablen aus `dist/app/shell.css`.
 
+## Bausteine für Unterseiten (`dist/konzept/assets/subpage.css`)
+
+Seit der Lernwelt. Umgestaltete Unterseiten laden `concept.css` (Rahmen, Seitenleiste),
+`shell.css`, `subpage.css`, dann ihre eigenen Seitenstile und zuletzt `contrast.css`.
+`theme.css` (altes Design) wird auf umgestalteten Seiten nicht mehr geladen.
+
+- Inhalt in `<div class="sp-page">` legen. Eigene Seitenklassen mit Präfix (z. B. `lw-`),
+  damit alte Regeln aus `concept.css`/`contrast.css` (`.primary`, `.mode-card`, `.section` …) nicht greifen.
+- `.sp-head` Kopfbereich (wie `.page-head`), `.sp-facts` Kennzahlen-Chips darin.
+- `.sp-section` + `.sp-section-head h2/p`, `.sp-panel` Karte, `.sp-label` kleines Label.
+- `.sp-rows` / `.sp-row` Einstiegsliste (Icon `.sp-row-icon`, `.sp-row-text`, `.sp-row-action`, Pfeil).
+- Buttons `.sp-btn.sp-btn-primary` / `.sp-btn-secondary`, Textlink `.sp-link`, `.sp-pill`, Hinweisfläche `.sp-note`.
+- Zustände richtig/falsch: `--sp-good(-bg)`, `--sp-bad(-bg)` (einzige Farbwerte außerhalb von shell.css, für hell und dunkel definiert).
+- Breitenabhängiges Layout per `@container detail-content (...)` (der Inhaltsbereich ist der Container),
+  diese Regeln nach den Grundregeln notieren.
+- Vollbild-Dialoge außerhalb von `<main>` platzieren: `.detail-main` ist ein Container und würde `position:fixed` einfangen.
+- Icons als Inline-SVG `class="icon"` im Strichstil von `app/shell.js`.
+
 ## Nächster Schritt: Unterseiten unter `dist/konzept/`
 
 Diese Seiten haben noch ihr älteres eigenes Design (`konzept/assets/theme.css`,
@@ -42,7 +61,7 @@ Sie laden zusätzlich `/app/shell.css` und `/app/contrast.css`.
 
 Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
 
-1. **Lernwelt** `konzept/lernwelt/` – Beispiel vom Eigentümer: Die Modus-Karten zeigen
+1. ~~**Lernwelt**~~ erledigt. Ursprünglicher Auftrag: Beispiel vom Eigentümer: Die Modus-Karten zeigen
    große Zahlen/Symbole („30“, „9“, „↺“) als Icons; die „9“ wirkt zufällig.
    Durch echte Icons oder klare Beschriftung ersetzen. Lernstand, Fragen,
    Antwortauswahl, Feedback, Auswertung, Speicherdialog im neuen Stil.
