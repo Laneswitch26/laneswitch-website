@@ -26,7 +26,7 @@ kurz berichten, was sich geändert hat.
 | #58 | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
 | #60 | Förderrechner Altersvorsorge im neuen Design (beide Zielgruppen; `calculator.css` neu, Rechenlogik unverändert) |
 | #62 | Fahrschul-Seiten: Fahrschul-Check, Cockpit, Notfallcenter, Vorlagen (inkl. Druckansicht), Informationen für Fahrschulen; `subpage.css` v3 (FAQ, Kartenlabels, Kopf-Links) |
-| PR_CO | Kooperationsseiten (Übersicht, Fahrschulen, A1, Emre) im neuen Design; `cooperations.css` und `a1.css` nur noch mit Theme-Variablen |
+| #63 | Kooperationsseiten (Übersicht, Fahrschulen, A1, Emre) im neuen Design; `cooperations.css` und `a1.css` nur noch mit Theme-Variablen |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
