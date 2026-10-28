@@ -346,3 +346,42 @@ html[data-theme=dark] .home-hero{border:1px solid #ffffff1f}
 .home-person .portrait{width:96px;height:96px;border-radius:16px}
 .contact-person-inline .portrait{width:72px;height:72px}
 @media(max-width:760px){.home-person .portrait{width:80px;height:80px;border-radius:14px}}
+/* ===== Makeover 2026-10, part 2: sub views ===== */
+.page-head{position:relative;isolation:isolate;overflow:hidden;background:var(--navy);color:#fff;border-radius:20px;padding:36px 40px;margin-bottom:8px}
+.page-head .hero-lanes{width:140px;right:16px}
+.page-head .hero-copy{max-width:420px}
+.page-head h1{color:#fff;font-size:clamp(30px,3vw,40px);line-height:1.1;letter-spacing:-.035em;hyphens:manual}
+.page-head p{color:#c9dde6;font-size:16px;line-height:1.6;margin-top:12px;max-width:48ch}
+html[data-theme=dark] .page-head{border:1px solid #ffffff1f}
+.back-link{margin-bottom:8px}
+.main .search{margin:28px 0 8px}
+.search-count{font-size:14px;color:var(--muted);margin:0 0 4px}
+.tool-section{margin-top:32px;margin-bottom:0}
+.tool-section-head h2{font-size:20px}
+.tool-row .tool-action{flex:none;font-size:14px;font-weight:700;color:var(--teal)}
+.tool-row .update-icon{width:42px;height:42px}
+.partner-list{display:grid;gap:14px}
+.partner{display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:24px;align-items:center;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.partner-media{min-width:0}
+.partner-video video{width:100%;aspect-ratio:9/16;max-height:340px;border-radius:12px;background:var(--navy);object-fit:cover}
+.partner-logo .partner-media{display:grid;place-items:center;aspect-ratio:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
+.partner-logo img{width:100%;max-width:150px;height:auto}
+.partner-copy{min-width:0}
+.partner-copy h3{font-size:24px;letter-spacing:-.025em}
+.partner-place{font-size:14px;font-weight:600;color:var(--teal);margin-top:4px}
+.partner-copy p:not(.partner-place){font-size:15px;color:var(--muted);line-height:1.6;margin:12px 0 20px}
+.network-cta{grid-template-columns:minmax(0,1fr) auto}
+.contact-person{display:flex;align-items:center;gap:20px;margin:28px 0 8px;padding:22px;background:var(--card);border:1px solid var(--line);border-radius:16px}
+.contact-person .portrait{width:96px;height:96px;border-radius:16px}
+.contact-person-copy{min-width:0}
+.contact-person-copy h2{font-size:21px;letter-spacing:-.02em}
+.contact-person-copy p{font-size:14px;color:var(--muted);margin-top:2px}
+.contact-links{display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:8px}
+.contact-links a{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:15px;font-weight:600;color:var(--ink);overflow-wrap:anywhere}
+.contact-links .icon{width:19px;height:19px;color:var(--teal)}
+.form-title{font-size:20px;letter-spacing:-.02em;margin:32px 0 14px}
+@media(max-width:760px){.page-head{padding:28px 22px;border-radius:16px}.page-head .hero-lanes{right:-24px;width:110px;opacity:.2}.page-head h1{font-size:30px}.page-head p{font-size:15px}
+.tool-row .tool-action{display:none}
+.partner{grid-template-columns:minmax(0,1fr);gap:16px;padding:16px}.partner-video video{max-height:none;aspect-ratio:9/16}.partner-logo .partner-media{aspect-ratio:auto;padding:24px}
+.network-cta{grid-template-columns:minmax(0,1fr)}.network-cta .primary{width:100%}
+.contact-person{align-items:flex-start;gap:16px;padding:18px}.contact-person .portrait{width:72px;height:72px;border-radius:14px}.contact-links{flex-direction:column;gap:0}}
