@@ -26,6 +26,7 @@ kurz berichten, was sich geändert hat.
 | #58 | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
 | #60 | Förderrechner Altersvorsorge im neuen Design (beide Zielgruppen; `calculator.css` neu, Rechenlogik unverändert) |
 | #62 | Fahrschul-Seiten: Fahrschul-Check, Cockpit, Notfallcenter, Vorlagen (inkl. Druckansicht), Informationen für Fahrschulen; `subpage.css` v3 (FAQ, Kartenlabels, Kopf-Links) |
+| PR_CO | Kooperationsseiten (Übersicht, Fahrschulen, A1, Emre) im neuen Design; `cooperations.css` und `a1.css` nur noch mit Theme-Variablen |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -82,7 +83,7 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
 4. ~~**EaSI Drive** und **Nach dem Führerschein**~~ erledigt (dort „75 Lernfragen“ auf die tatsächlichen 225 korrigiert).
 5. ~~**Förderrechner**~~ erledigt (nur Markup-Hülle und `calculator.css`; `engine.mjs`, `rules.mjs`, `ui.mjs`, `share.mjs` unverändert).
 6. ~~Fahrschul-Seiten~~ erledigt. Fahrschul-Check: `qa/check-handoff.cjs` liest Skript und `<fieldset class="question" data-lane=…><legend>` per Regex – diese Struktur beibehalten. Vorlagen: Druckregeln setzen die Farbvariablen im Druck auf hell.
-7. Kooperationsprofile `kooperationen/fahrschulen/fahrschule-a1/`, `fahrschule-emre/`
+7. ~~Kooperationsprofile~~ erledigt (Markup unverändert, nur Stylesheets; `partner-navigator.js` fügt bei Freigabe einen Block `.partner-section.partner-card` an – Stil berücksichtigt).
 8. **Gefahrenradar** `konzept/lernwelt/gefahrenradar/` (eigenes Spiel-Layout; im Textmodus bleibt links eine leere Fläche)
 9. Rechtliches (Impressum, Datenschutz) nur optisch angleichen, Inhalte nicht ändern.
 
