@@ -22,6 +22,7 @@ kurz berichten, was sich geändert hat.
 | #55 | Lernwelt im neuen Design; gemeinsame Bausteine für Unterseiten in `konzept/assets/subpage.css` |
 | #56 | Fahrzeugkosten im neuen Design (Schrittanzeige mit Beschriftung, Auswahlkacheln, Ergebnis, Anfrage-Dialog) |
 | #57 | Unfallhelfer im neuen Design (Notrufnummern als Tipp-Kacheln, Checkliste mit großen Tippflächen) |
+| PR_EN | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -55,6 +56,7 @@ Seit der Lernwelt. Umgestaltete Unterseiten laden `concept.css` (Rahmen, Seitenl
 - Vollbild-Dialoge außerhalb von `<main>` platzieren: `.detail-main` ist ein Container und würde `position:fixed` einfangen.
 - Native `<dialog>` liegt in der obersten Ebene und kann innerhalb von `<main>` bleiben.
 - Rechtstexte (Erstinformation, Vermittlerangaben, Datenschutzhinweise) wörtlich übernehmen, nur neu einbetten.
+- Raster `.sp-grid.sp-grid-2/3` mit Karten `.sp-cards`, Hakenliste `.sp-checks`, Aktionen im Kopf `.sp-head-actions`, Kleingedrucktes `.sp-fine`, Abschlussfläche `.sp-cta`.
 - Icons als Inline-SVG `class="icon"` im Strichstil von `app/shell.js`.
 
 ## Nächster Schritt: Unterseiten unter `dist/konzept/`
@@ -73,7 +75,7 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
    (`laneswitch-lernwelt-v1`, Einwilligung) nicht verändern.
 2. ~~**Fahrzeugkosten**~~ erledigt.
 3. ~~**Unfallhelfer**~~ erledigt.
-4. **EaSI Drive** `konzept/easi-drive/` und **Nach dem Führerschein** `konzept/fahrschueler-informationen/`
+4. ~~**EaSI Drive** und **Nach dem Führerschein**~~ erledigt (dort „75 Lernfragen“ auf die tatsächlichen 225 korrigiert).
 5. **Förderrechner** `konzept/altersvorsorge/` (Rechenlogik unverändert lassen, Tests in `docs`/Workflow auf main beachten)
 6. Fahrschul-Seiten: `fahrschul-check/`, `cockpit/`, `notfallcenter/`, `vorlagen/`, `fahrschulen-informationen/`
 7. Kooperationsprofile `kooperationen/fahrschulen/fahrschule-a1/`, `fahrschule-emre/`
