@@ -18,6 +18,7 @@ kurz berichten, was sich geändert hat.
 | #49 | Neue Startseite (Hero, drei Einstiege, Aktuell, Fokus, Ansprechpartner, Beiträge) |
 | #50, #52 | Porträt von Steven (`dist/konzept/assets/steven-portrait.jpg`, quadratisch, abgerundet) |
 | #51 | Rebranding: neues Logo (Spurwechsel-Signet), Favicon, PWA-Icons |
+| #59 | Startklar-Check (`#startklar`, Kurzadresse `/startklar/` für den QR-Code auf dem Fahrschul-Aushang) |
 | #53 | Einheitlicher Kopfbereich für Werkzeuge, Netzwerk, Kontakt, Newsticker; Lernwelt-Lernstand im hellen Modus sichtbar |
 | #55 | Lernwelt im neuen Design; gemeinsame Bausteine für Unterseiten in `konzept/assets/subpage.css` |
 | #56 | Fahrzeugkosten im neuen Design (Schrittanzeige mit Beschriftung, Auswahlkacheln, Ergebnis, Anfrage-Dialog) |
