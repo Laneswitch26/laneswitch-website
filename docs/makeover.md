@@ -20,6 +20,7 @@ kurz berichten, was sich geändert hat.
 | #51 | Rebranding: neues Logo (Spurwechsel-Signet), Favicon, PWA-Icons |
 | #53 | Einheitlicher Kopfbereich für Werkzeuge, Netzwerk, Kontakt, Newsticker; Lernwelt-Lernstand im hellen Modus sichtbar |
 | #55 | Lernwelt im neuen Design; gemeinsame Bausteine für Unterseiten in `konzept/assets/subpage.css` |
+| PR_FK | Fahrzeugkosten im neuen Design (Schrittanzeige mit Beschriftung, Auswahlkacheln, Ergebnis, Anfrage-Dialog) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -51,6 +52,8 @@ Seit der Lernwelt. Umgestaltete Unterseiten laden `concept.css` (Rahmen, Seitenl
 - Breitenabhängiges Layout per `@container detail-content (...)` (der Inhaltsbereich ist der Container),
   diese Regeln nach den Grundregeln notieren.
 - Vollbild-Dialoge außerhalb von `<main>` platzieren: `.detail-main` ist ein Container und würde `position:fixed` einfangen.
+- Native `<dialog>` liegt in der obersten Ebene und kann innerhalb von `<main>` bleiben.
+- Rechtstexte (Erstinformation, Vermittlerangaben, Datenschutzhinweise) wörtlich übernehmen, nur neu einbetten.
 - Icons als Inline-SVG `class="icon"` im Strichstil von `app/shell.js`.
 
 ## Nächster Schritt: Unterseiten unter `dist/konzept/`
@@ -67,7 +70,7 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
    Antwortauswahl, Feedback, Auswertung, Speicherdialog im neuen Stil.
    Lernlogik, Fragenkatalog (`fragen-erweiterung.js`) und Speicherentscheidung
    (`laneswitch-lernwelt-v1`, Einwilligung) nicht verändern.
-2. **Fahrzeugkosten** `konzept/fahrzeugkosten/`
+2. ~~**Fahrzeugkosten**~~ erledigt.
 3. **Unfallhelfer** `konzept/unfallhelfer/`
 4. **EaSI Drive** `konzept/easi-drive/` und **Nach dem Führerschein** `konzept/fahrschueler-informationen/`
 5. **Förderrechner** `konzept/altersvorsorge/` (Rechenlogik unverändert lassen, Tests in `docs`/Workflow auf main beachten)
