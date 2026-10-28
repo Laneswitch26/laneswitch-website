@@ -25,7 +25,7 @@ kurz berichten, was sich geändert hat.
 | #57 | Unfallhelfer im neuen Design (Notrufnummern als Tipp-Kacheln, Checkliste mit großen Tippflächen) |
 | #58 | EaSI Drive und Nach dem Führerschein im neuen Design; weitere Bausteine in `subpage.css` (v2) |
 | #60 | Förderrechner Altersvorsorge im neuen Design (beide Zielgruppen; `calculator.css` neu, Rechenlogik unverändert) |
-| PR_FS | Fahrschul-Seiten: Fahrschul-Check, Cockpit, Notfallcenter, Vorlagen (inkl. Druckansicht), Informationen für Fahrschulen; `subpage.css` v3 (FAQ, Kartenlabels, Kopf-Links) |
+| #62 | Fahrschul-Seiten: Fahrschul-Check, Cockpit, Notfallcenter, Vorlagen (inkl. Druckansicht), Informationen für Fahrschulen; `subpage.css` v3 (FAQ, Kartenlabels, Kopf-Links) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
