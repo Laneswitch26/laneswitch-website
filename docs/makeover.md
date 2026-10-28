@@ -21,6 +21,7 @@ kurz berichten, was sich geändert hat.
 | #53 | Einheitlicher Kopfbereich für Werkzeuge, Netzwerk, Kontakt, Newsticker; Lernwelt-Lernstand im hellen Modus sichtbar |
 | #55 | Lernwelt im neuen Design; gemeinsame Bausteine für Unterseiten in `konzept/assets/subpage.css` |
 | #56 | Fahrzeugkosten im neuen Design (Schrittanzeige mit Beschriftung, Auswahlkacheln, Ergebnis, Anfrage-Dialog) |
+| PR_UH | Unfallhelfer im neuen Design (Notrufnummern als Tipp-Kacheln, Checkliste mit großen Tippflächen) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -71,7 +72,7 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
    Lernlogik, Fragenkatalog (`fragen-erweiterung.js`) und Speicherentscheidung
    (`laneswitch-lernwelt-v1`, Einwilligung) nicht verändern.
 2. ~~**Fahrzeugkosten**~~ erledigt.
-3. **Unfallhelfer** `konzept/unfallhelfer/`
+3. ~~**Unfallhelfer**~~ erledigt.
 4. **EaSI Drive** `konzept/easi-drive/` und **Nach dem Führerschein** `konzept/fahrschueler-informationen/`
 5. **Förderrechner** `konzept/altersvorsorge/` (Rechenlogik unverändert lassen, Tests in `docs`/Workflow auf main beachten)
 6. Fahrschul-Seiten: `fahrschul-check/`, `cockpit/`, `notfallcenter/`, `vorlagen/`, `fahrschulen-informationen/`
