@@ -57,3 +57,26 @@ export function fileSlug(name:string,fallback:string){
  const s=name.replace(/ä/g,'ae').replace(/Ä/g,'Ae').replace(/ö/g,'oe').replace(/Ö/g,'Oe').replace(/ü/g,'ue').replace(/Ü/g,'Ue').replace(/ß/g,'ss').normalize('NFKD').replace(/[^A-Za-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);
  return s||fallback;
 }
+
+// Öffentliche Demo (/navigator/demo): erkennbar fiktive Musterfahrschule, keine echten Preise.
+// Der Schritt „Profil“ startet leer, damit „Daten übernehmen“ ausprobiert werden kann.
+knownProfiles.demo={source:'den Beispielangaben der Demo',values:{
+ name:'Musterfahrschule (Demo)',
+ address:'Musterstraße 1, 12345 Musterstadt',
+ classes:'B, BF17, B197, BE, A1, A2, A',
+ phone:'01234 567890',
+ email:'info@example.com',
+ website:'https://example.com/',
+ hours:'Büro: Mo. bis Do. 15:00 bis 18:00 Uhr · Theorie: Di. und Do. 18:30 bis 20:00 Uhr'
+}};
+export const demoData={
+ name:'',tagline:'Gut vorbereitet. Schritt für Schritt.',address:'',email:'',phone:'',website:'',hours:'',classes:'',
+ registration:'Vereinbare ein kurzes Erstgespräch im Büro.\nBringe deinen Personalausweis mit.\nSehtest und Erste-Hilfe-Kurs kannst du schon vor der Anmeldung machen.\nWir helfen dir beim Antrag auf den Führerschein bei der Fahrerlaubnisbehörde.',
+ training:'Theorieunterricht findet zweimal pro Woche statt.\nFahrstunden vereinbarst du direkt mit deinem Fahrlehrer.\nSage Termine bitte mindestens 24 Stunden vorher ab.\nFür Fragen erreichst du das Büro zu den Öffnungszeiten.',
+ exam:'Wir melden dich zur Prüfung an, sobald du bereit bist.\nBringe zur Prüfung deinen Personalausweis mit.\nTreffpunkt ist die Fahrschule, 30 Minuten vor Beginn.',
+ after:'Deinen Führerschein erhältst du direkt nach der bestandenen Prüfung.\nIn der Probezeit begleiten wir dich gern mit Auffrischungsstunden.',
+ notice:'Dies ist eine Demo mit Beispielinhalten. Mit deinem Partnerzugang trägst du hier die echten Angaben deiner Fahrschule ein.',
+ priceDate:'Beispiel',
+ prices:[{label:'Grundbetrag',amount:'auf Anfrage',unit:''},{label:'Fahrstunde',amount:'auf Anfrage',unit:'45 Minuten'},{label:'Vorstellung zur praktischen Prüfung',amount:'auf Anfrage',unit:''}],
+ logo:'',documents:[] as {id:string,name:string}[]
+};
