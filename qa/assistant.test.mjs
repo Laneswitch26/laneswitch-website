@@ -18,7 +18,7 @@ test('private identifiers are not retained as displayed questions',()=>{
 test('knowledge links are own-site paths and each answer has provenance',()=>{
  for(const [id,f] of Object.entries(FAQ)){assert.match(f.href,/^\/(?!\/)/,id);assert.ok(f.source);assert.ok(f.text);for(const q of f.questions)assert.equal(classifyLocal(q).id,id);}
 });
-const req=(body,origin='https://laneswitch.online')=>new Request('https://laneswitch.online/api/assistent',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({consent:true,...body})});
+const req=(body,origin='https://laneswitch.online')=>new Request('https://laneswitch.online/api/assistent',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({consent:true,version:2,...body})});
 test('cost gates default closed and never invoke AI',async()=>{
  assert.equal(AI_AVAILABLE,true);let calls=0;
  for(const flags of [{},{AI_ENABLED:'true'},{FREE_PLAN_CONFIRMED:'true'}]){const r=await worker.fetch(req({question:'Hallo'}),{...flags,AI:{run(){calls++;}}});assert.equal(r.status,503);}
@@ -29,8 +29,8 @@ test('origin and size are enforced before inference',async()=>{
  assert.equal((await worker.fetch(req({question:'Hallo'},'https://evil.example'),enabled)).status,403);
  assert.equal((await worker.fetch(req({question:'x'.repeat(4000)}),{...enabled,AI:{}})).status,413);
 });
-test('AI output can only propose whitelisted topic IDs',async()=>{
- for(const [output,ids] of [['["navigator","unknown","kosten","kontakt"]',['navigator','kosten']],['Die Versicherung kostet nichts',[]],['{"text":"kostenlos"}',[]]]){const r=await worker.fetch(req({question:'Erzähl mir über die Angebote'}),{...enabled,AI:{run:async()=>({response:output})}});assert.deepEqual((await r.json()).ids,ids);}
+test('ungrounded or malformed model drafts fail closed',async()=>{
+ for(const output of ['Die Versicherung kostet nichts','{"answer":"Alles gratis","sources":["invented"],"unknown":false}','{"answer":"Kein Beleg","sources":[],"unknown":false}']){let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>{calls++;return {response:output};}}});assert.equal((await r.json()).mode,'contact');assert.equal(calls,1);}
 });
 test('rate limit and provider errors fail safely',async()=>{
  const limit=await worker.fetch(req({question:'Hallo'}),{...enabled,RATE_LIMITER:{limit:async()=>({success:false})},AI:{run(){throw Error('must not run');}}});assert.equal(limit.status,429);
@@ -48,6 +48,13 @@ test('consent required and sensitive topics bypass inference',async()=>{
  assert.equal(calls,0);
 });
 
-test('provider response formats remain whitelisted',async()=>{
- for(const value of [{response:['zugang','bad']},{choices:[{message:{content:'["partner"]'}}]}]){const r=await worker.fetch(req({question:'Wie komme ich mit euch zusammen?'}),{...enabled,AI:{run:async()=>value}});assert.ok((await r.json()).ids.length);}
+test('all general free-text questions are eligible for AI, even local matches',()=>{
+ for(const q of ['Wie funktioniert die Kooperation?','Wie läuft das mit der Zusammenarbeit ab?','Was kostet die Kooperation?','Wie komme ich mit euch zusammen?'])assert.equal(canUseAI(q),true,q);
+ assert.equal(canUseAI('Was kostet das?'),false);
+});
+test('grounded draft requires an affirmative evidence check',async()=>{
+ for(const supported of [true,false]){let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>({response:++calls===1?{answer:'Zuerst findet ein Gespräch mit Steven statt. Danach wird die Kooperation vereinbart.',sources:['partner'],unknown:false}:{supported}})}});const data=await r.json();assert.equal(calls,2);assert.equal(data.mode,supported?'answer':'contact');}
+});
+test('OpenAI-style provider response and fenced JSON are parsed',async()=>{
+ let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>({choices:[{message:{content:++calls===1?'```json\n{"answer":"Zuerst ein Gespräch mit Steven.","sources":["partner"],"unknown":false}\n```':'{"supported":true}'}}]})}});assert.equal((await r.json()).mode,'answer');
 });

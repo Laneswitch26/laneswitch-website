@@ -11,8 +11,7 @@ Kontaktseite und Vermittlerhinweise. Keine Zusagen zu individuellen Produkten.
 Nur exakt hinterlegte, normalisierte Fragen erhalten sofort eine Antwort.
 Andere Formulierungen können passende Themen zur ausdrücklichen Auswahl anbieten.
 Unbekannte oder individuelle Anliegen führen zum Kontaktformular. Preisfragen ohne
-Bezug werden geklärt. Keine Modelltexte werden als Antworten ausgegeben. Auch eine
-falsche Themenzuordnung erzeugt damit keine neue Preis- oder Leistungsbehauptung.
+Bezug werden geklärt. Mit Einwilligung formuliert die KI auf Grundlage der hinterlegten Texte Antworten und kombiniert passende Quellen. Eine zweite Inferenz prüft den Entwurf gegen die angegebenen Quellen. Beide Prüfungen sind probabilistisch: Fehler sind nicht vollständig ausgeschlossen.
 Das ersetzt keine redaktionelle Pflege: geänderte Leistungen müssen hier nachgeführt
 und mit `qa/assistant.test.mjs` geprüft werden.
 
@@ -39,11 +38,9 @@ AI-Binding direkt, kein AI Gateway, keine Inhaltslogs, keine Datenbank.
 Rate-Limit: 5 Aufrufe/Minute pro täglich gehashter IP, kein globales Tagesbudget.
 Die Kostenbegrenzung beruht auf Workers Free; Rate-Limiting dient Missbrauchsschutz.
 
-Die KI wird ausschließlich nach freiwilliger Zustimmung pro Frage verwendet, wenn
-lokale Regeln keine Zuordnung finden. Persönliche/spezielle Anliegen werden soweit
+Die KI wird ausschließlich nach freiwilliger Zustimmung pro Frage verwendet, für allgemeine Freitextfragen, auch bei lokalen FAQ-Treffern. Persönliche/spezielle Anliegen werden soweit
 regelbasiert erkennbar direkt an Kontakt verwiesen. Erkennung ist nicht vollständig.
-Nur einzelne Frage, kein Verlauf. Ausgaben werden auf erlaubte Themen-IDs begrenzt;
-Nutzer wählen ein Thema, bevor der fest hinterlegte FAQ-Text angezeigt wird.
+Nur einzelne Frage, kein Verlauf. Antworten müssen bekannte Quellen-IDs angeben und die zusätzliche Quellenprüfung bestehen. Ausgabe als Text, keine Modell-Links oder HTML. Zwei Modellaufrufe pro erfolgreicher KI-Antwort. Technische Fehler werden als solche bezeichnet. Browser-Timeout 25 Sekunden.
 Die Datenschutzseite beschreibt die optionale Verarbeitung und internationale
 Übermittlungen. Die rechtliche Prüfung der Betreiberhinweise bleibt erforderlich.
 
