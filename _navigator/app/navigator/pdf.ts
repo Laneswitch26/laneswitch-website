@@ -17,3 +17,19 @@ const {jsPDF}=await import('jspdf');const doc=new jsPDF({unit:'mm',format:'a4'})
  for(let p=1;p<=doc.getNumberOfPages();p++){doc.setPage(p);doc.setFontSize(8);doc.setTextColor('#60798a');doc.text('LANE SWITCH · '+(data.name||'Fahrschul-Navigator'),margin,286);doc.text(p+' / '+doc.getNumberOfPages(),188,286,{align:'right'})}
 return doc;
 }
+
+// Demo-Ausgabe: auf jeder Seite ein deutliches Wasserzeichen und ein Hinweis, dass es sich um ein Muster handelt.
+export function watermark(doc:any){
+ const pages=doc.getNumberOfPages();
+ for(let p=1;p<=pages;p++){
+  doc.setPage(p);
+  let faded=false;try{doc.saveGraphicsState();doc.setGState(new doc.GState({opacity:0.13}));faded=true;}catch{}
+  doc.setFont('Navigator','bold');doc.setTextColor(faded?'#06496f':'#dbe7eb');
+  doc.setFontSize(96);doc.text('MUSTER',38,215,{angle:35});
+  doc.setFontSize(20);doc.text('LANE SWITCH Demo · nur zur Ansicht',62,236,{angle:35});
+  if(faded){try{doc.restoreGraphicsState();}catch{}}
+  doc.setFont('Navigator','bold');doc.setFontSize(8);doc.setTextColor('#b4233c');
+  doc.text('MUSTER aus der Demo – nicht zur Weitergabe. Die eigene PDF-Ausgabe gibt es mit dem Partnerzugang.',105,293,{align:'center'});
+ }
+ return doc;
+}
