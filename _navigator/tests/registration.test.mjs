@@ -107,6 +107,23 @@ try{
  eq((await get('action=public&school=fahrschule-mueller-soehne')).status,404,'disabled: not public');
  eq((await (await get('action=directory')).json()).schools.length,0,'disabled: not in directory');
 
+ // Endgültig löschen (nur registrierte Fahrschulen, mit Namensbestätigung)
+ r=await post({action:'createInvite',name:'Fahrschule Löschtest'},admin);const del=await r.json();
+ r=await post({action:'register',token:del.link.split('#')[1],username:'loeschtest',password:'long enough password',consent:true});eq(r.status,200);
+ const lt={cookie:r.headers.get('set-cookie').split(';')[0],csrf:(await r.json()).csrf};
+ const delForm=new FormData();delForm.set('file',new File(['%PDF-1.4\n%%EOF'],'info.pdf',{type:'application/pdf'}));
+ eq((await POST(new Request(origin+'/api/navigator?action=upload',{method:'POST',headers:{origin,cookie:lt.cookie,'x-csrf-token':lt.csrf},body:delForm}))).status,200);
+ eq((await post({action:'publish',data:{name:'Fahrschule Löschtest'},listed:true},lt)).status,200);
+ await post({action:'setSchool',school:del.school,approved:true},admin);eq((await get('action=public&school='+del.school)).status,200);
+ eq((await post({action:'deleteSchool',school:del.school,confirm:'falsch'},admin)).status,400,'delete needs exact name');
+ eq((await post({action:'deleteSchool',school:del.school,confirm:'Fahrschule Löschtest'},lt)).status,400,'school cannot delete');
+ eq((await post({action:'deleteSchool',school:'a1',confirm:'A1 Fahrschule'},admin)).status,404,'fixed schools cannot be deleted');
+ r=await post({action:'deleteSchool',school:del.school,confirm:'Fahrschule Löschtest'},admin);eq(r.status,200);ok(!(await r.json()).schools.some(s=>s.school===del.school),'gone from overview');
+ eq((await get('action=me',lt)).status,401,'deleted: session ended');eq((await login('loeschtest','long enough password')).status,401,'deleted: no login');
+ eq((await get('action=public&school='+del.school)).status,404,'deleted: not public');
+ for(const t of ['nav_schools','nav_accounts','nav_documents','nav_files','nav_invites','nav_sessions'])eq((await db.prepare(`SELECT COUNT(*) AS n FROM ${t} WHERE school=?`).bind(del.school).first()).n,0,'deleted rows in '+t);
+ r=await post({action:'createInvite',name:'Fahrschule Löschtest'},admin);eq((await r.json()).school,del.school,'address reusable after delete');
+ eq((await get('action=me',a1)).status,200,'other schools untouched');
  // Bremse gegen Durchprobieren von Einladungslinks
  let last=0;for(let i=0;i<32;i++)last=(await POST(new Request(origin+'/api/navigator',{method:'POST',headers:{origin,'content-type':'application/json','cf-connecting-ip':'192.0.2.1'},body:JSON.stringify({action:'inviteInfo',token:'1'.repeat(64)})}))).status;
  eq(last,429,'invite lookup throttled');
