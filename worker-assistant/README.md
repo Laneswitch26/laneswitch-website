@@ -6,7 +6,8 @@
 - Mit KI: Llama 3.3 70B (Workers AI), nur die passenden Einträge als Kontext, Antwort in Sie/du je Zielgruppe.
   Harte Prüfung: jede Zahl, E-Mail-Adresse und Telefonnummer muss wörtlich in den zitierten Quellen stehen, keine Links;
   danach unabhängige KI-Belegprüfung (unlesbar = abgelehnt). Ohne Beleg: „keine gesicherte Antwort“ + Kontakt.
-- KI-Angebot direkt unter offenen Antworten (Kontrollkästchen + Absenden je Frage, wie in den Datenschutzhinweisen).
+- Chat-Oberfläche (29.10.2026): festes Chatfenster, Eingabe unten, automatisches Mitscrollen, Tipp-Anzeige.
+- KI standardmäßig angeboten: einmalige Zustimmung vor der ersten freien Frage, gültig bis zum Neuladen (nur im Arbeitsspeicher), Schalter „KI an/aus“; Datenschutz entsprechend angepasst (vom Eigentümer freigegeben).
 - Veröffentlichung: Workflow „Assistent · Cloudflare“ nach Merge auf cloudflare-online (Tests vorher).
 - Kosten: etwa 2 Aufrufe des 70B-Modells je KI-Antwort; das tägliche Free-Kontingent reicht für eine begrenzte Zahl
   KI-Antworten pro Tag, danach meldet der Assistent „nicht erreichbar“ und die geprüften Texte bleiben nutzbar.
