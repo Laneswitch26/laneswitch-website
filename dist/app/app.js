@@ -1,4 +1,4 @@
-import {mountAssistant} from '/app/assistant.mjs?v=5';
+import {mountAssistant} from '/app/assistant.mjs?v=6';
 import {mountNews} from '/app/news.mjs?v=3-share';
 import {icon,navigation,nav} from '/app/shell.js?v=6-assistent';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
