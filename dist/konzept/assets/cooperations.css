@@ -58,6 +58,7 @@ section.partner-card{padding:24px}
 .partner-directory{display:grid;gap:12px;margin-top:24px}
 .partner-directory .partner-card{display:flex;flex-direction:column;align-items:flex-start;margin:0!important}
 .partner-directory .partner-tags{margin-bottom:16px}
+.partner-page ul.partner-tags{padding:0}.partner-page .partner-tags li{margin:0}
 
 @container detail-content (min-width:620px){.partner-grid,.partner-directory{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @container detail-content (min-width:860px){.partner-hero{grid-template-columns:minmax(0,1.5fr) minmax(220px,1fr)}.partner-locations{grid-template-columns:repeat(3,minmax(0,1fr))}}
