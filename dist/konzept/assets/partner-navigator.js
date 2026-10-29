@@ -25,7 +25,16 @@
     link.className = "partner-button primary";
     link.href = origin + "/navigator/" + school;
     link.textContent = "Fahrschul-Navigator öffnen";
-    section.append(title, text, link);
+    // Direkter PDF-Download der veröffentlichten Ausgabe, benannt nach der Fahrschule.
+    const name = result.data && typeof result.data.name === "string" ? result.data.name.trim().slice(0, 80) : "";
+    const download = document.createElement("a");
+    download.className = "partner-button";
+    download.href = origin + "/navigator/" + school + "?download=pdf";
+    download.textContent = name ? "Navigator der " + name + " herunterladen (PDF)" : "Navigator als PDF herunterladen";
+    const actions = document.createElement("div");
+    actions.className = "partner-actions";
+    actions.append(link, download);
+    section.append(title, text, actions);
     main.append(section);
   }).catch(() => {}).finally(() => clearTimeout(timeout));
 })();
