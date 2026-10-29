@@ -195,7 +195,8 @@
       ['fahrschulen/', 'Für Fahrschulen'],
       ['fahrschueler/', 'Für Fahrschüler:innen'],
       ['kooperationen/', 'Kooperationen'],
-      ['cockpit/', 'Cockpit']
+      ['cockpit/', 'Cockpit'],
+      ['https://laneswitch.online/#assistent', 'Assistent']
     ];
     navItems.forEach(([path, label]) => {
       const link = document.createElement('a');
