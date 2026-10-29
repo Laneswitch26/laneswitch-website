@@ -38,11 +38,11 @@ config.d1_databases[0].database_id=db.uuid;
 await writeFile('.deploy.json',JSON.stringify(config));
 function wrangler(args,input){
   const childEnv={...process.env,CLOUDFLARE_API_TOKEN:token,CI:'true',WRANGLER_SEND_METRICS:'false'};
-  delete childEnv.NAV_A1_PASSWORD;delete childEnv.NAV_EMRE_PASSWORD;delete childEnv.NAV_TEST_PASSWORD;
+  delete childEnv.NAV_A1_PASSWORD;delete childEnv.NAV_EMRE_PASSWORD;delete childEnv.NAV_TEST_PASSWORD;delete childEnv.NAV_ADMIN_PASSWORD;
   const result=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js',...args,'--config','.deploy.json'],{input,encoding:'utf8',env:childEnv,maxBuffer:4*1024*1024});
   if(result.status!==0){
     let details=(result.stdout||'')+'\n'+(result.stderr||'');
-    for(const secret of [token,process.env.NAV_A1_PASSWORD,process.env.NAV_EMRE_PASSWORD,process.env.NAV_TEST_PASSWORD,...registry.flatMap(a=>[a.hash,a.salt])])if(secret)details=details.split(secret).join('[REDACTED]');
+    for(const secret of [token,process.env.NAV_A1_PASSWORD,process.env.NAV_EMRE_PASSWORD,process.env.NAV_TEST_PASSWORD,process.env.NAV_ADMIN_PASSWORD,...registry.flatMap(a=>[a.hash,a.salt])])if(secret)details=details.split(secret).join('[REDACTED]');
     console.error(details.slice(-5000));
     throw new Error('Wrangler-Schritt '+args[0]+' fehlgeschlagen.');
   }
@@ -65,9 +65,10 @@ try{
 async function smoke(origin){
   const page=await fetch(origin+'/navigator/zugang',{redirect:'manual',signal:AbortSignal.timeout(30000)});
   if(!page.ok||!page.headers.get('x-robots-tag')?.includes('noindex'))throw new Error('Prüfung der Zugangsseite fehlgeschlagen: '+origin+' HTTP '+page.status+'; noindex='+Boolean(page.headers.get('x-robots-tag')?.includes('noindex')));
-  const logins={a1:process.env.NAV_A1_PASSWORD,emre:process.env.NAV_EMRE_PASSWORD};if(process.env.NAV_TEST_PASSWORD)logins.test=process.env.NAV_TEST_PASSWORD;
-  for(const [school,password] of Object.entries(logins)){
-    const r=await fetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'login',username:school,password}),signal:AbortSignal.timeout(30000)});
+  const logins=[['a1','a1',process.env.NAV_A1_PASSWORD],['emre','emre',process.env.NAV_EMRE_PASSWORD]];if(process.env.NAV_TEST_PASSWORD)logins.push(['test','test',process.env.NAV_TEST_PASSWORD]);
+  if(process.env.NAV_ADMIN_PASSWORD)logins.push([(process.env.NAV_ADMIN_USER||'admin').trim().toLowerCase(),'_admin',process.env.NAV_ADMIN_PASSWORD]);
+  for(const [username,school,password] of logins){
+    const r=await fetch(origin+'/api/navigator',{method:'POST',headers:{origin,'Content-Type':'application/json'},body:JSON.stringify({action:'login',username,password}),signal:AbortSignal.timeout(30000)});
     if(!r.ok)throw new Error('Anmeldeprüfung fehlgeschlagen: '+school+' HTTP '+r.status);
     const data=await r.json(),cookie=r.headers.get('set-cookie')?.split(';')[0];
     if(data.school!==school||!cookie||!data.csrf)throw new Error('Kontozuordnung nicht bestätigt: '+school);

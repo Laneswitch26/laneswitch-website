@@ -61,6 +61,26 @@ Vor Abschluss: beide URLs ohne Weiterleitung auf Fremdhosts, drei Anmeldungen, A
 - „Bekannte Angaben übernehmen“ (Schritt Profil) nutzt `app/navigator/known.ts`: öffentliche Grunddaten aus den Partnerprofilen auf laneswitch.online. Leere Felder werden gefüllt; bei abweichenden eigenen Einträgen wird gefragt. Alles bleibt editierbar. **Bei Änderungen an den Partnerprofilen `known.ts` mitpflegen.** Der Testzugang erhält erkennbar fiktive Beispielwerte.
 - `/navigator/<schule>?download=pdf` startet den PDF-Download der veröffentlichten Ausgabe direkt (Link auf den Partnerprofilen). Dateiname: `Fahrschul-Navigator-<Name>.pdf`.
 
+## Admin, Einladungen, Registrierung und Partner-Vorteile
+
+**Einrichtung (einmalig):** GitHub → Settings → Secrets → Actions:
+- `NAV_ADMIN_PASSWORD`: eigenes Admin-Passwort, 16–200 Zeichen, anders als alle Fahrschul-Passwörter.
+- `NAV_ADMIN_USER` (optional): Admin-Benutzername, Standard `admin`.
+Danach „Navigator · Cloudflare“ mit `deploy` ausführen. Ohne `NAV_ADMIN_PASSWORD` gibt es keinen Admin-Zugang; alles andere läuft wie bisher.
+
+**Admin-Bereich:** `/navigator/admin` (Anmeldung mit dem Admin-Zugang; meldet sich der Admin unter `/navigator/zugang` an, wird er dorthin weitergeleitet).
+- *Einladungen:* Name der Fahrschule und Kürzel für Rabattcodes eingeben → Einmal-Link (Standard 14 Tage). Der Schlüssel steht hinter `#` und erreicht so keine Server-Protokolle; gespeichert wird nur sein Hash. Je Fahrschule ist nur ein Link offen; widerrufbar.
+- *Fahrschulen:* registrierte Fahrschulen freigeben (erst dann öffentlich unter `/navigator/<adresse>` und im Verzeichnis), Freigabe entziehen, sperren (beendet Sitzungen, nicht mehr öffentlich) oder einen neuen Zugangslink erzeugen (z. B. Passwort vergessen; Inhalte bleiben, alte Zugangsdaten und Sitzungen werden ungültig). A1, Emre und Test bleiben feste Konten über die bisherigen Secrets.
+- *Partnerfirmen:* Name, Kürzel, Rabatt, Leistungen, Vorteile, Bedingungen, Kontakt, Logo, aktiv/inaktiv. Codes entstehen automatisch: `FIRMENKÜRZEL-FAHRSCHULKÜRZEL-RABATT`, z. B. `EINGEPRAEGT-A1-5`. Je Firma lässt sich die Codeliste kopieren und an die Firma weitergeben.
+
+**Registrierung:** `/navigator/registrierung#<schlüssel>` – Benutzername (3–40 Zeichen) und Passwort (mind. 12 Zeichen) wählt die Fahrschule selbst; Passwörter werden mit PBKDF2 gehasht in D1 gespeichert. Danach landet sie im Editor; der Name ist vorausgefüllt.
+
+**Vorteile für Fahrschulen:** Menüpunkt „Deine Vorteile“ im Editor zeigt aktive Partnerfirmen mit dem eigenen Code.
+
+**Öffentliches Verzeichnis:** `GET /api/navigator?action=directory` liefert freigegebene, veröffentlichte und im Profil verlinkte registrierte Fahrschulen (für die Fahrschul-Übersicht auf laneswitch.online).
+
+**Daten:** Migration `drizzle/0002_registrierung.sql` (`nav_schools`, `nav_accounts`, `nav_invites`, `nav_partners`), wird beim Deploy automatisch angewendet. Tests: `tests/registration.test.mjs`.
+
 ## Sicherheit und Datenschutz
 
 Kein Schülerdatenschema. Ausschließlich allgemeine Fahrschulinformationen; keine Schülerlisten oder Verträge mit personenbezogenen Schülerangaben hochladen. Uploadinhalte werden nicht automatisch auf personenbezogene Angaben oder Schadsoftware untersucht. Öffentliche Geschäftskontaktdaten können trotzdem personenbezogen sein. Eine EU-Datenbank allein bestätigt daher keine vollständige DSGVO-Konformität; Betreiberhinweise, Auftragsverarbeitung und Löschprozesse bleiben zu prüfen. EU-Jurisdiktion bindet die Datenbank, nicht die gesamte weltweite Request-Verarbeitung.

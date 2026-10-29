@@ -8,6 +8,8 @@ const security={
   'Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
   'Permissions-Policy':'camera=(), microphone=(), geolocation=()'
 };
+// Registrierte Fahrschulen erhalten /navigator/<adresse>, sofern sie existieren und nicht gesperrt sind.
+async function registeredSchool(env:any,path:string){const m=/^\/navigator\/([a-z0-9][a-z0-9-]{1,39})$/.exec(path);if(!m||!env.DB)return false;try{return !!await env.DB.prepare('SELECT 1 FROM nav_schools WHERE school=? AND disabled=0').bind(m[1]).first();}catch{return false;}}
 function protect(response:Response){const result=new Response(response.body,response);for(const [key,value] of Object.entries(security))if(key==='Cache-Control'||!result.headers.has(key))result.headers.set(key,value);return result;}
 export default {
   async fetch(req:Request,env:any){
@@ -24,7 +26,7 @@ export default {
         response.headers.set('Vary','Origin');
       }
     }else if(req.method!=='GET'&&req.method!=='HEAD')response=new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
-    else if(/^\/navigator\/(zugang|demo|a1|emre|test)$/.test(path)){
+    else if(/^\/navigator\/(zugang|demo|admin|registrierung|a1|emre|test)$/.test(path)||await registeredSchool(env,path)){
       u.pathname='/navigator/app.html';u.search='';
       response=await env.ASSETS.fetch(new Request(u,{method:req.method}));
     }else if(/^\/navigator\/assets\/[A-Za-z0-9._-]+$/.test(path))response=await env.ASSETS.fetch(req);

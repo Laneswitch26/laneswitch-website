@@ -1,13 +1,13 @@
 import {build} from 'esbuild';
 import {Miniflare} from 'miniflare';
-import {readFile,writeFile,rm} from 'node:fs/promises';
+import {readFile,writeFile,rm,readdir} from 'node:fs/promises';
 import {pbkdf2Sync,randomBytes} from 'node:crypto';
 import assert from 'node:assert/strict';
 const path=new URL('../.nav-test-bundle.mjs',import.meta.url);
 await build({entryPoints:['app/api/navigator/route.ts'],bundle:true,format:'esm',platform:'node',outfile:path.pathname,plugins:[{name:'env',setup(b){b.onResolve({filter:/^cloudflare:workers$/},()=>({path:'env',namespace:'test'}));b.onLoad({filter:/.*/,namespace:'test'},()=>({contents:'export const env=globalThis.__navEnv;',loader:'js'}));}}]});
 const mf=new Miniflare({modules:true,script:'export default {fetch(){return new Response("ok")}}',d1Databases:['DB']});
 try{
- const db=await mf.getD1Database('DB');const sql=await readFile('drizzle/0001_navigator.sql','utf8');for(const q of sql.split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
+ const db=await mf.getD1Database('DB');for(const file of (await readdir('drizzle')).filter(f=>f.endsWith('.sql')).sort())for(const q of (await readFile('drizzle/'+file,'utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
  const credentials=['a1','emre','test'].map(s=>{const salt=randomBytes(16).toString('hex');return {username:s,school:s,salt,hash:pbkdf2Sync('test password',Buffer.from(salt,'hex'),100000,32,'sha256').toString('hex')};});
  globalThis.__navEnv={DB:db,NAV_ACCOUNTS:JSON.stringify(credentials)};
  const {GET,POST}=await import(path.href);
