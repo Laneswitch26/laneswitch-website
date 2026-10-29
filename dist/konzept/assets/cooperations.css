@@ -83,3 +83,6 @@ section.partner-card{padding:24px}
 html[data-theme=dark] .partner-share-dialog .recommend-action-primary{background:var(--accent);color:var(--navy);border-color:var(--accent)}
 .partner-share-dialog .recommend-note{margin:12px 0 0;font-size:13px;color:var(--muted)!important}
 @media(max-width:480px){.partner-share-dialog .recommend-dialog-inner{padding:22px 18px}.partner-share-preview{align-items:flex-start}.partner-share-preview img{flex-basis:56px;width:56px}}
+
+/* Automatisch ergänzte, freigegebene Partnerfahrschulen. Logo-Fläche bewusst weiß (Logos sind für Weiß freigegeben, wie im Navigator). */
+.partner-directory-logo{display:block;max-width:140px;max-height:56px;object-fit:contain;margin:4px 0 14px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:10px}
