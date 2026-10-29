@@ -3,6 +3,18 @@ import { shuffle, createSceneDeck, isHit, scoreScene, summarize } from './core.m
 import { illustration, paint } from './illustrations.mjs?v=5';
 
 const $ = id => document.getElementById(id);
+// Presentation only: stroke icons in the style of /app/shell.js.
+const svg = path => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${path}</svg>`;
+const ICON = {
+  radar: svg('<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="m12 12 7-7"/><circle cx="12" cy="12" r="1"/>'),
+  check: svg('<path d="m5 12 4 4L19 6"/>'),
+  alert: svg('<path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>'),
+  eye: svg('<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>'),
+  text: svg('<path d="M4 6h16M4 12h16M4 18h10"/>'),
+  arrow: svg('<path d="M5 12h14m-6-6 6 6-6 6"/>'),
+  external: svg('<path d="M14 3h7v7m0-7L10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/>'),
+  award: svg('<circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"/>')
+};
 const stage = $('gr-stage');
 const panel = $('gr-panel');
 const deck = createSceneDeck(SCENES);
@@ -51,7 +63,7 @@ function nextScene() {
   $('gr-time').hidden = calm || textMode; $('gr-time').value = 1;
   $('gr-instruction').hidden = textMode;
   panel.className = 'gr-panel gr-wait-panel';
-  panel.innerHTML = '<div class="gr-wait-icon" aria-hidden="true">◎</div><h2>Was könnte passieren?</h2><p>Beobachte die ganze Szene. Tippe auf einen möglichen Gefahrenbereich, sobald du ihn erkennst.</p><p class="gr-small">Die Szene pausiert nach einem Treffer. Dann zählt deine Entscheidung.</p>';
+  panel.innerHTML = `<div class="gr-wait-icon" aria-hidden="true">${ICON.radar}</div><h2>Was könnte passieren?</h2><p>Beobachte die ganze Szene. Tippe auf einen möglichen Gefahrenbereich, sobald du ihn erkennst.</p><p class="gr-small">Die Szene pausiert nach einem Treffer. Dann zählt deine Entscheidung.</p>`;
   if (calm && !textMode) panel.innerHTML += '<button type="button" class="gr-button" id="gr-show">Gefahr zeigen</button>';
   $('gr-show')?.addEventListener('click',() => ask(false));
   // The untimed reveal option must remain reachable on small screens as well.
@@ -94,8 +106,10 @@ function ask(detected) {
   paint(stage,scene,elapsed,true);
   panel.className = 'gr-panel';
   const heading = textMode ? 'Situation lesen, Entscheidung treffen' : detected ? (record.early ? 'Früh erkannt · +8 Erkennungspunkte' : 'Gefahr erkannt · +6 Erkennungspunkte') : 'Gefahr übersehen · jetzt dazulernen';
+  const headingState = textMode ? 'is-info' : detected ? 'is-good' : 'is-miss';
+  const headingIcon = textMode ? ICON.text : detected ? ICON.check : ICON.eye;
   $('gr-instruction').textContent = detected ? 'Gefahr erkannt. Die Szene ist angehalten.' : 'Die Markierung zeigt dir den Gefahrenbereich.';
-  panel.innerHTML = `<span class="gr-feedback-heading">${heading}</span>${textMode?`<p class="gr-text-scene">${escape(scene.description)}</p>`:''}<h2 id="gr-question" tabindex="-1">${escape(scene.question)}</h2><div class="gr-answer-list">${scene.options.map(option=>`<button type="button" class="gr-button gr-answer" data-answer="${option.id}">${escape(option.text)}</button>`).join('')}</div><p class="gr-small">Eine Antwort passt. Nimm dir Zeit.</p>`;
+  panel.innerHTML = `<span class="gr-feedback-heading ${headingState}">${headingIcon}${heading}</span>${textMode?`<p class="gr-text-scene">${escape(scene.description)}</p>`:''}<h2 id="gr-question" tabindex="-1">${escape(scene.question)}</h2><div class="gr-answer-list">${scene.options.map(option=>`<button type="button" class="gr-button gr-answer" data-answer="${option.id}">${escape(option.text)}</button>`).join('')}</div><p class="gr-small">Eine Antwort passt. Nimm dir Zeit.</p>`;
   panel.querySelectorAll('[data-answer]').forEach(button=>button.addEventListener('click',()=>answer(button.dataset.answer)));
   updatePoints(); announce(textMode ? 'Lies die beschriebene Situation und wähle eine Antwort.' : `${detected?'Gefahr erkannt.':'Gefahr übersehen.'} Wähle jetzt deine Reaktion.`);
   focus('gr-question'); panel.scrollIntoView({block:'nearest',behavior:'instant'});
@@ -106,7 +120,7 @@ function answer(id) {
   if (!choice) return;
   setPhase('feedback'); record.selected=id; record.correct=choice.correct;
   const correct = scene.options.find(item=>item.correct);
-  panel.innerHTML = `<span class="gr-feedback-heading">${choice.correct?'✓ Passend entschieden · +12 Punkte':'↗ Diese Entscheidung wäre riskant'}</span><h2 id="gr-feedback-title" tabindex="-1">${choice.correct?'Vorausschauend gehandelt.':'Das nimmst du mit.'}</h2>${!choice.correct?`<p><strong>Passende Reaktion:</strong> ${escape(correct.text)}</p>`:''}<p>${escape(scene.feedback)}</p><p class="gr-principle">${escape(scene.principle)}</p><div class="gr-feedback-points">${scoreScene(record)} / ${textMode?12:calm?18:20} Punkte</div><p class="gr-small">${textMode?'Entscheidung':`${record.detected?6:0} Erkennung + ${record.early?2:0} Frühbonus + ${record.correct?12:0} Entscheidung − ${Math.min(record.misclicks,RULES.maxPenalty)} Fehlklicks (mindestens 0 Punkte)`}</p><a class="gr-source" href="${scene.source.url}" target="_blank" rel="noopener noreferrer">Grundlage: ${escape(scene.source.label)} ↗</a><button type="button" class="gr-button gr-primary" id="gr-next">${index===scenes.length-1?'Auswertung ansehen':'Nächste Szene →'}</button>`;
+  panel.innerHTML = `<span class="gr-feedback-heading ${choice.correct?'is-good':'is-bad'}">${choice.correct?ICON.check+'Passend entschieden · +12 Punkte':ICON.alert+'Diese Entscheidung wäre riskant'}</span><h2 id="gr-feedback-title" tabindex="-1">${choice.correct?'Vorausschauend gehandelt.':'Das nimmst du mit.'}</h2>${!choice.correct?`<p><strong>Passende Reaktion:</strong> ${escape(correct.text)}</p>`:''}<p>${escape(scene.feedback)}</p><p class="gr-principle">${escape(scene.principle)}</p><div class="gr-feedback-points">${scoreScene(record)} / ${textMode?12:calm?18:20} Punkte</div><p class="gr-small">${textMode?'Entscheidung':`${record.detected?6:0} Erkennung + ${record.early?2:0} Frühbonus + ${record.correct?12:0} Entscheidung − ${Math.min(record.misclicks,RULES.maxPenalty)} Fehlklicks (mindestens 0 Punkte)`}</p><a class="gr-source" href="${scene.source.url}" target="_blank" rel="noopener noreferrer">Grundlage: ${escape(scene.source.label)}${ICON.external}</a><button type="button" class="gr-button gr-primary" id="gr-next">${index===scenes.length-1?'Auswertung ansehen':'Nächste Szene'}${ICON.arrow}</button>`;
   $('gr-next').addEventListener('click',()=>{
     if(phase!=='feedback') return;
     records.push({...record}); record=null; index++;
@@ -119,7 +133,7 @@ function finish() {
   const result=summarize(records);
   const badge=textMode ? (result.correct>=5?BADGES[0]:result.correct>=4?BADGES[1]:result.correct>=3?BADGES[2]:null) : result.badge;
   const max=textMode?60:calm?90:100;
-  $('gr-result').innerHTML=`<p class="gr-kicker">Deine Runde · ${textMode?'Textalternative':calm?'Radar ohne Zeitdruck':'Gefahrenradar'}</p><h1 id="gr-result-title" tabindex="-1">${badge?'Gut hingeschaut. Weitergedacht.':'Jede Runde schärft deinen Blick.'}</h1><div class="gr-result-score">${result.points}<span> / ${max} Punkte</span></div>${badge?`<div class="gr-badge">◎ ${badge.name}${textMode?' · Textmodus':''}</div>`:'<p>Das nächste Abzeichen wartet. Schau dir die Erklärungen an und probiere es erneut.</p>'}<div class="gr-result-grid"><div><strong>${textMode?'—':result.detected+'/5'}</strong><span>Gefahren erkannt</span></div><div><strong>${result.correct}/5</strong><span>passend entschieden</span></div><div><strong>${textMode?'—':result.missed}</strong><span>Gefahren verpasst</span></div><div><strong>${result.penalty}</strong><span>Fehlklick-Abzüge</span></div></div><p class="gr-small">${textMode?'Die visuelle Gefahrensuche wurde nicht bewertet.':`Früh erkannt: ${result.early} von 5. ${calm?'In diesem Modus gibt es keinen Frühbonus.':''}`} Die nächste Runde bringt andere Situationen. Die Auswahl merkt sich gespielte Szenen bis zum Neuladen dieser Seite.</p><div class="gr-result-actions"><button type="button" class="gr-button gr-primary" id="gr-again">Erneut spielen</button><button type="button" class="gr-button" id="gr-settings-back">Modus ändern</button><a class="gr-button" href="/konzept/lernwelt/">Zur Lernwelt</a></div><div class="gr-review"><h2>Deine fünf Situationen</h2>${records.map(item=>{const original=SCENES.find(s=>s.id===item.id);return `<details class="gr-review-item"><summary>${escape(original.title)} · ${scoreScene(item)} Punkte · ${item.correct?'✓ passend entschieden':'↗ noch einmal ansehen'}</summary><small>${textMode?'Textalternative':item.detected?'Gefahr erkannt':'Gefahr übersehen'}</small><p><strong>Passende Reaktion:</strong> ${escape(original.options.find(o=>o.correct).text)}</p><p>${escape(original.feedback)}</p><a class="gr-source" href="${original.source.url}" target="_blank" rel="noopener noreferrer">${escape(original.source.label)} ↗</a></details>`;}).join('')}</div>`;
+  $('gr-result').innerHTML=`<p class="gr-kicker">Deine Runde · ${textMode?'Textalternative':calm?'Radar ohne Zeitdruck':'Gefahrenradar'}</p><h1 id="gr-result-title" tabindex="-1">${badge?'Gut hingeschaut. Weitergedacht.':'Jede Runde schärft deinen Blick.'}</h1><div class="gr-result-score">${result.points}<span> / ${max} Punkte</span></div>${badge?`<div class="gr-badge">${ICON.award}${badge.name}${textMode?' · Textmodus':''}</div>`:'<p>Das nächste Abzeichen wartet. Schau dir die Erklärungen an und probiere es erneut.</p>'}<div class="gr-result-grid"><div><strong>${textMode?'—':result.detected+'/5'}</strong><span>Gefahren erkannt</span></div><div><strong>${result.correct}/5</strong><span>passend entschieden</span></div><div><strong>${textMode?'—':result.missed}</strong><span>Gefahren verpasst</span></div><div><strong>${result.penalty}</strong><span>Fehlklick-Abzüge</span></div></div><p class="gr-small">${textMode?'Die visuelle Gefahrensuche wurde nicht bewertet.':`Früh erkannt: ${result.early} von 5. ${calm?'In diesem Modus gibt es keinen Frühbonus.':''}`} Die nächste Runde bringt andere Situationen. Die Auswahl merkt sich gespielte Szenen bis zum Neuladen dieser Seite.</p><div class="gr-result-actions"><button type="button" class="gr-button gr-primary" id="gr-again">Erneut spielen</button><button type="button" class="gr-button" id="gr-settings-back">Modus ändern</button><a class="gr-button" href="/konzept/lernwelt/">Zur Lernwelt</a></div><div class="gr-review"><h2>Deine fünf Situationen</h2>${records.map(item=>{const original=SCENES.find(s=>s.id===item.id);return `<details class="gr-review-item"><summary><span class="gr-review-title">${escape(original.title)}</span><span class="gr-review-points">${scoreScene(item)} Punkte</span><span class="gr-state ${item.correct?'is-good':'is-bad'}">${item.correct?ICON.check+'passend entschieden':ICON.alert+'noch einmal ansehen'}</span></summary><small>${textMode?'Textalternative':item.detected?'Gefahr erkannt':'Gefahr übersehen'}</small><p><strong>Passende Reaktion:</strong> ${escape(original.options.find(o=>o.correct).text)}</p><p>${escape(original.feedback)}</p><a class="gr-source" href="${original.source.url}" target="_blank" rel="noopener noreferrer">${escape(original.source.label)}${ICON.external}</a></details>`;}).join('')}</div>`;
   $('gr-again').addEventListener('click',start); $('gr-settings-back').addEventListener('click',home);
   focus('gr-result-title'); $('game').scrollIntoView({block:'start',behavior:'instant'});
 }
@@ -160,4 +174,4 @@ $('gr-play').addEventListener('click',start); $('gr-exit').addEventListener('cli
 $('gr-calm').checked=matchMedia('(prefers-reduced-motion: reduce)').matches;
 $('gr-preview').innerHTML=illustration(SCENES[0],'preview');
 paint($('gr-preview'),SCENES[0],SCENES[0].cueMs+3200);
-$('gr-play').disabled=false; $('gr-play').textContent='Gefahrenradar starten →';
+$('gr-play').disabled=false; $('gr-play').innerHTML=`Gefahrenradar starten${ICON.arrow}`;
