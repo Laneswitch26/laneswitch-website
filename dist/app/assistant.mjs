@@ -1,74 +1,127 @@
-import {FAQ,REVIEWED,AI_AVAILABLE,classifyLocal,canUseAI} from './assistant-knowledge.mjs?v=4';
+import {FAQ,REVIEWED,AI_AVAILABLE,classifyLocal,canUseAI} from './assistant-knowledge.mjs?v=5';
+// Chat-style assistant (2026-10-29). Curated answers first; free questions go to grounded AI after a
+// one-time confirmation that lasts until the page is reloaded (kept only in memory) and can be switched off.
+let aiConsent; // undefined = not asked yet, true = agreed, false = declined/switched off
 const states={school:{messages:[],draft:''},learner:{messages:[],draft:''}};
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
+const icon=d=>{const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('viewBox','0 0 24 24');s.setAttribute('aria-hidden','true');s.setAttribute('class','icon');s.innerHTML=d;return s;};
+const SEND='<path d="M5 12h14m-6-6 6 6-6 6"/>';
+
 export function mountAssistant(root,audience){
-  const school=audience==='school',state=states[school?'school':'learner'];
+  const school=audience==='school',state=states[school?'school':'learner'],you=school?'Sie':'du';
   const contact=school?'#kontakt':'/?zielgruppe=learner#kontakt';
   root.replaceChildren();root.className='ls-assistant';
-  const intro=el('section',undefined,'ls-assistant-intro');intro.append(el('p','LANE SWITCH Assistent · mit optionaler KI','eyebrow'),el('h1','Fragen zu LANE SWITCH?'),el('p',school?'Antworten zu Kooperation, Kosten und Partnerzugang. Für individuelle Anliegen ist Steven persönlich da.':'Antworten zu Lernangeboten und LANE SWITCH. Für persönliche Fragen ist Steven da.'));root.append(intro);
-  const prompts=el('div',undefined,'ls-assistant-prompts');prompts.setAttribute('aria-label','Häufige Fragen');
-  const log=el('div',undefined,'ls-assistant-log');log.setAttribute('role','log');log.setAttribute('aria-label','Fragen und Antworten');log.setAttribute('aria-live','polite');log.setAttribute('aria-relevant','additions');
-  const form=el('form',undefined,'ls-assistant-form'),label=el('label',school?'Ihre Frage':'Deine Frage');label.htmlFor='assistant-question';
-  const input=el('input');input.id='assistant-question';input.name='question';input.maxLength=300;input.required=true;input.autocomplete='off';input.value=state.draft;input.placeholder=school?'Zum Beispiel: Was kostet die Kooperation?':'Zum Beispiel: Was bietet die Lernwelt?';input.setAttribute('aria-describedby','assistant-privacy');
-  const row=el('div',undefined,'ls-assistant-inputrow'),send=el('button','Frage stellen','primary');send.type='submit';row.append(input,send);form.append(label,row);
-  const note=el('p','Bitte keine persönlichen, Gesundheits-, Vertrags- oder Zugangsdaten eingeben. Ohne KI-Zustimmung bleiben Fragen auf dieser Seite. Der lokale Verlauf wird beim Neuladen gelöscht.','ls-assistant-note');note.id='assistant-privacy';
-  const privacy=el('a','Datenschutz');privacy.href='/konzept/datenschutz/#assistent';note.append(' ',privacy);
-  const reset=el('button','Verlauf löschen','ls-assistant-reset');reset.type='button';
-  const status=el('p','', 'ls-assistant-note');status.setAttribute('role','status');
-  let consent;
-  if(AI_AVAILABLE){const l=el('label',undefined,'ls-assistant-optin');consent=el('input');consent.type='checkbox';l.append(consent,document.createTextNode('Optional: Ich willige ein, diese Frage zur KI-Beantwortung an Cloudflare zu senden. Verarbeitung auch außerhalb der EU möglich. Nur diese Frage, kein Chatverlauf. Bis zum Absenden durch Abwählen widerrufbar; FAQ bleiben ohne KI nutzbar. Details im Datenschutz.'));form.append(l);}
-  function button(id){const b=el('button',FAQ[id].title,'ls-assistant-topic');b.type='button';b.onclick=()=>ask(FAQ[id].title,id);return b;}
-  (school?['kosten','kooperation','partner','navigator']:['lernwelt','navigator','versicherung','kontakt']).forEach(id=>prompts.append(button(id)));
-  function draw(m){
-    const article=el('article',undefined,'ls-assistant-exchange');article.append(el('p',m.question,'ls-assistant-question'));
-    const answer=el('div',undefined,'ls-assistant-answer');
-    if(m.result.kind==='ai'){
-      answer.append(el('p',m.result.text),el('p','KI-Antwort auf Grundlage der hinterlegten Informationen.','ls-assistant-note'));
-      for(const id of m.result.sources){const f=FAQ[id];if(!f)continue;const a=el('a',f.label,'ls-assistant-action');a.href=f.href;answer.append(a);}
-    }else if(m.result.kind==='answer'){
-      const f=FAQ[m.result.id];if(m.result.matched)answer.append(el('p','Das passt am besten zu deiner Frage:'.replace('deiner',school?'Ihrer':'deiner'),'ls-assistant-note'));answer.append(el('h2',f.title),el('p',f.text));
-      const a=el('a',f.label,'ls-assistant-action');a.href=m.result.id==='kontakt'||m.result.id==='versicherung'?contact:f.href;answer.append(a,el('p','Grundlage: '+f.source+' · geprüft am '+REVIEWED,'ls-assistant-note'));
-    }else{
-      const type=m.result.kind;
-      const text=type==='unknown'?'Dazu habe ich in den Informationen von LANE SWITCH keine gesicherte Antwort gefunden. Lieber nichts Falsches sagen: Steven klärt das gern persönlich.':type==='unavailable'?'Die KI ist gerade nicht erreichbar oder ihr Kontingent ist ausgeschöpft. Die häufigen Fragen oben und der Kontaktbereich bleiben verfügbar.':type==='clarify'?'Worauf bezieht sich die Kostenfrage? Die kostenfreie Kooperation und kostenpflichtige Versicherungen sind unterschiedliche Angebote.':type==='suggest'?'Dazu gibt es folgende geprüfte Informationen. Welches Thema ist gemeint?':type==='private'?'Bitte keine persönlichen oder vertraulichen Angaben in den Assistenten eingeben. Für dieses Anliegen bitte direkt mit Steven Kontakt aufnehmen.':'Dazu liegt keine ausreichend gesicherte Standardantwort vor. Diese konkrete Frage klärt Steven persönlich.';
-      answer.append(el('p',text));if(m.result.ids){const choices=el('div',undefined,'ls-assistant-prompts');m.result.ids.filter(id=>FAQ[id]).forEach(id=>choices.append(button(id)));answer.append(choices);}
+  const chat=el('section',undefined,'ls-chat');chat.setAttribute('aria-labelledby','ls-chat-title');
+  // Header
+  const head=el('header',undefined,'ls-chat-head');const titles=el('div');
+  titles.append(el('h1','LANE SWITCH Assistent','ls-chat-title'),el('p',school?'Fragen zu Kooperation, Navigator und Werkzeugen':'Fragen zu Lernwelt, Werkzeugen und LANE SWITCH','ls-chat-sub'));titles.firstChild.id='ls-chat-title';
+  const tools=el('div',undefined,'ls-chat-tools');
+  const aiBtn=el('button','', 'ls-chat-chip');aiBtn.type='button';
+  const reset=el('button','Neuer Chat','ls-chat-chip');reset.type='button';
+  tools.append(aiBtn,reset);head.append(titles,tools);
+  // Log
+  const log=el('div',undefined,'ls-chat-log');log.setAttribute('role','log');log.setAttribute('aria-live','polite');log.setAttribute('aria-label','Chatverlauf');
+  // Input
+  const form=el('form',undefined,'ls-chat-form');const label=el('label',school?'Ihre Frage':'Deine Frage','ls-sr');label.htmlFor='assistant-question';
+  const input=el('input');input.id='assistant-question';input.name='question';input.maxLength=300;input.required=true;input.autocomplete='off';input.enterKeyHint='send';input.value=state.draft;
+  input.placeholder=school?'Ihre Frage an den Assistenten …':'Deine Frage an den Assistenten …';input.setAttribute('aria-describedby','assistant-privacy');
+  const send=el('button',undefined,'ls-chat-send');send.type='submit';send.setAttribute('aria-label','Frage senden');send.append(icon(SEND));
+  form.append(label,input,send);
+  const note=el('p',undefined,'ls-chat-note');note.id='assistant-privacy';
+  chat.append(head,log,form,note);root.append(chat);
+
+  function drawNote(){note.replaceChildren(document.createTextNode(aiConsent?'KI-Antworten aktiv: Fragen werden zur Beantwortung an Cloudflare Workers AI übermittelt. Bitte keine persönlichen Daten eingeben. ':'Bitte keine persönlichen, Gesundheits-, Vertrags- oder Zugangsdaten eingeben. '));const a=el('a','Datenschutz');a.href='/konzept/datenschutz/#assistent';note.append(a);
+    aiBtn.textContent=aiConsent?'KI an':'KI aus';aiBtn.setAttribute('aria-pressed',String(!!aiConsent));aiBtn.title=aiConsent?'KI-Antworten ausschalten':'KI-Antworten einschalten';aiBtn.hidden=!AI_AVAILABLE;}
+  const scroll=()=>requestAnimationFrame(()=>{log.scrollTop=log.scrollHeight;});
+  function topics(ids){const wrap=el('div',undefined,'ls-chat-topics');ids.filter(id=>FAQ[id]).forEach(id=>{const b=el('button',FAQ[id].title,'ls-chat-chip');b.type='button';b.onclick=()=>submit(FAQ[id].title,id);wrap.append(b);});return wrap;}
+  function bubble(role,...nodes){const b=el('div',undefined,'ls-msg ls-msg-'+role);b.append(...nodes);return b;}
+  function link(id,text){const f=FAQ[id];const a=el('a',text||f.label,'ls-chat-action');a.href=id==='kontakt'||id==='versicherung'?contact:f.href;return a;}
+  function contactLink(){const a=el('a','Steven direkt kontaktieren','ls-chat-contact');a.href=contact;return a;}
+  // Render one stored message to DOM
+  function render(m){
+    if(m.role==='user')return bubble('user',el('p',m.text));
+    const r=m.result,body=[];
+    if(r.kind==='answer'){const f=FAQ[r.id];body.push(el('p',f.title,'ls-msg-title'),el('p',f.text),link(r.id),el('p','Geprüfte Information · Stand '+REVIEWED,'ls-msg-meta'));}
+    else if(r.kind==='ai'){body.push(el('p',r.text));const links=el('div',undefined,'ls-chat-links');r.sources.filter(id=>FAQ[id]).forEach(id=>links.append(link(id)));body.push(links,el('p','KI-Antwort aus geprüften LANE-SWITCH-Informationen','ls-msg-meta'));}
+    else if(r.kind==='consent'){
+      body.push(el('p','Für freie Fragen nutze ich KI. Dazu wird '+(school?'Ihre':'deine')+' Frage an Cloudflare Workers AI übermittelt, auch außerhalb der EU möglich, ohne Chatverlauf. Antworten stützen sich nur auf geprüfte LANE-SWITCH-Informationen.'));
+      const row=el('div',undefined,'ls-chat-topics');
+      const yes=el('button','Zustimmen & fragen','ls-chat-chip ls-chat-primary');yes.type='button';const no=el('button','Ohne KI fragen','ls-chat-chip');no.type='button';
+      const a=el('a','Datenschutz','ls-chat-contact');a.href='/konzept/datenschutz/#assistent';
+      if(m.done){row.append(el('span',m.done,'ls-msg-meta'));}else{yes.onclick=()=>decide(m,true);no.onclick=()=>decide(m,false);row.append(yes,no,a);}
+      body.push(row);
     }
-    // Offer grounded AI for open questions, with explicit per-question consent (checkbox + send).
-    if(AI_AVAILABLE&&m.raw&&['suggest','contact'].includes(m.result.kind)&&canUseAI(m.raw)&&!m.aiTried){
-      const box=el('form',undefined,'ls-assistant-aioffer');const l=el('label',undefined,'ls-assistant-optin');const cb=el('input');cb.type='checkbox';cb.required=true;
-      l.append(cb,document.createTextNode('Ich willige ein, diese Frage zur KI-Beantwortung an Cloudflare zu senden (auch außerhalb der EU möglich, nur diese Frage). Details im Datenschutz.'));
-      const go=el('button',school?'Mit KI beantworten lassen':'Mit KI beantworten lassen','ls-assistant-topic');go.type='submit';
-      box.append(el('p',school?'Keine passende Standardantwort? Die KI kann Ihre Frage aus den geprüften LANE-SWITCH-Informationen beantworten.':'Keine passende Standardantwort? Die KI kann deine Frage aus den geprüften LANE-SWITCH-Informationen beantworten.'),l,go);
-      box.onsubmit=async e=>{e.preventDefault();if(!cb.checked)return;cb.checked=false;m.aiTried=true;go.disabled=true;const ai=await askAI(m.raw);record(m.raw,ai);};
-      answer.append(box);
+    else if(r.kind==='info')body.push(el('p',r.text));
+    else if(r.kind==='typing'){const t=el('span',undefined,'ls-typing');t.setAttribute('aria-label','Antwort wird geschrieben');t.append(el('i'),el('i'),el('i'));body.push(t);}
+    else{
+      const text=r.kind==='private'?'Bitte keine persönlichen oder vertraulichen Angaben in den Chat schreiben. Für dieses Anliegen hilft Steven direkt.':
+        r.kind==='clarify'?'Worauf bezieht sich die Kostenfrage? Die Kooperation ist kostenfrei; Versicherungen sind ein eigenes, freiwilliges Angebot.':
+        r.kind==='unavailable'?'Die KI ist gerade nicht erreichbar oder ihr Tageskontingent ist ausgeschöpft. Diese geprüften Themen helfen vielleicht weiter:':
+        r.kind==='suggest'?'Dazu habe ich diese geprüften Themen:':
+        r.kind==='unknown'?'Dazu habe ich keine gesicherte Information gefunden, und raten möchte ich nicht. Steven klärt das gern persönlich.':
+        'Das klärt Steven am besten persönlich.';
+      body.push(el('p',text));if(r.ids?.length)body.push(topics(r.ids));
+      if(r.offerAI&&AI_AVAILABLE){const b=el('button','Mit KI beantworten','ls-chat-chip ls-chat-primary');b.type='button';b.onclick=()=>{b.disabled=true;askWithConsent(r.question);};body.push(b);}
+      body.push(contactLink());
     }
-    const c=el('a','Zum Kontaktformular','ls-assistant-contact');c.href=contact;answer.append(c);article.append(answer);log.append(article);
+    return bubble('bot',...body);
   }
-  // One AI request for exactly one question (consent given right before sending).
+  function draw(){log.replaceChildren();
+    log.append(bubble('bot',el('p',school?'Hallo! Ich beantworte Fragen rund um LANE SWITCH. Womit kann ich helfen?':'Hallo! Ich beantworte Fragen rund um LANE SWITCH. Womit kann ich dir helfen?'),topics(school?['kosten','kooperation','partner','navigator']:['lernwelt','unfallhelfer','fahrzeugkosten','nachfuehrerschein'])));
+    state.messages.forEach(m=>log.append(render(m)));scroll();}
+  function push(m){state.messages.push(m);while(state.messages.length>40)state.messages.shift();draw();return m;}
+  function replace(m,next){Object.keys(m).forEach(k=>delete m[k]);Object.assign(m,next);draw();}
+
   async function askAI(question){
-    send.disabled=true;status.textContent='Die KI formuliert und prüft eine Antwort …';
+    const pending=push({role:'bot',result:{kind:'typing'}});send.disabled=true;
+    let result;
     try{
       const response=await fetch('/api/assistent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,consent:true,version:3,audience:school?'school':'learner'}),credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(25000)});
-      if(!response.ok)return {kind:'unavailable'};
-      const data=await response.json();
-      if(data.mode==='answer'&&typeof data.answer==='string'&&data.answer.length<=1200&&Array.isArray(data.sources)&&data.sources.length&&data.sources.every(id=>Object.hasOwn(FAQ,id)))return {kind:'ai',text:data.answer,sources:data.sources};
-      if(data.mode==='clarify')return {kind:'clarify',ids:['kosten','versicherung']};
-      return {kind:'unknown'};
-    }catch{return {kind:'unavailable'};}finally{send.disabled=false;status.textContent='';}
+      const data=response.ok?await response.json():null;
+      if(data?.mode==='answer'&&typeof data.answer==='string'&&data.answer.length<=1200&&Array.isArray(data.sources)&&data.sources.length&&data.sources.every(id=>Object.hasOwn(FAQ,id)))result={kind:'ai',text:data.answer,sources:data.sources};
+      else if(data?.mode==='clarify')result={kind:'clarify',ids:['kosten','versicherung']};
+      else{const local=classifyLocal(question);result={kind:data?'unknown':'unavailable',ids:local.ids||[]};}
+    }catch{const local=classifyLocal(question);result={kind:'unavailable',ids:local.ids||[]};}
+    finally{send.disabled=false;}
+    replace(pending,{role:'bot',result});
   }
-  function record(question,result){
-    const safeQuestion=result.kind==='private'?'[Vertrauliche Eingabe nicht im Verlauf übernommen]':question;
-    state.messages.push({question:safeQuestion,result,raw:result.kind==='private'?'':question});if(state.messages.length>12)state.messages.shift();log.replaceChildren();state.messages.forEach(draw);
+  function localOnly(question,local){
+    if(local.kind==='suggest')return {kind:'suggest',ids:local.ids,offerAI:canUseAI(question),question};
+    return {kind:'contact',offerAI:canUseAI(question),question};
   }
-  async function ask(question,id){
-    let result=id?{kind:'answer',id}:classifyLocal(question);if(result.kind==='empty')return;
-    // Checkbox ticked before sending: grounded AI for this one eligible free-text question.
-    if(AI_AVAILABLE&&consent?.checked&&!id&&canUseAI(question)){consent.checked=false;const ai=await askAI(question);if(ai.kind!=='unavailable'||result.kind==='contact')result=ai;}
-    if(consent)consent.checked=false;
-    record(question,result);state.draft='';input.value='';input.focus({preventScroll:true});
+  function decide(m,agree){aiConsent=agree;m.done=agree?'KI-Antworten eingeschaltet.':'Ohne KI weiter.';drawNote();const q=m.question;
+    if(!q){draw();return;}const local=classifyLocal(q);if(agree)askAI(q);else push({role:'bot',result:localOnly(q,local)});}
+  function askWithConsent(question){
+    if(aiConsent===true)return askAI(question);
+    push({role:'bot',result:{kind:'consent'},question});
   }
+  function submit(question,id){
+    question=question.trim();if(!question)return;
+    push({role:'user',text:classifyLocal(question).kind==='private'?'[Vertrauliche Eingabe nicht übernommen]':question});
+    state.draft='';input.value='';
+    if(id)return push({role:'bot',result:{kind:'answer',id}});
+    const local=classifyLocal(question);
+    if(['private','clarify','answer'].includes(local.kind))return push({role:'bot',result:local});
+    if(AI_AVAILABLE&&canUseAI(question)){
+      if(aiConsent===true)return askAI(question);
+      if(aiConsent===undefined)return push({role:'bot',result:{kind:'consent'},question});
+    }
+    push({role:'bot',result:localOnly(question,local)});
+  }
+  aiBtn.onclick=()=>{
+    if(aiConsent){aiConsent=false;drawNote();push({role:'bot',result:{kind:'info',text:'KI-Antworten sind ausgeschaltet. Ich antworte jetzt nur noch mit geprüften Standardtexten.'}});}
+    else push({role:'bot',result:{kind:'consent'},question:''});
+  };
   input.addEventListener('input',()=>state.draft=input.value);
-  form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)ask(q);});
-  reset.onclick=()=>{state.messages=[];state.draft='';input.value='';log.replaceChildren();status.textContent='Verlauf gelöscht.';input.focus();};
-  root.append(prompts,log,form,note,reset,status);state.messages.forEach(draw);
+  form.addEventListener('submit',e=>{e.preventDefault();submit(input.value);input.focus({preventScroll:true});});
+  reset.onclick=()=>{state.messages=[];state.draft='';input.value='';draw();input.focus();};
+  drawNote();draw();
+  // Fit the chat to the visible area so the page itself does not scroll; the log scrolls inside.
+  if(window.scrollY>0)window.scrollTo({top:0});
+  fit=()=>{if(!chat.isConnected){removeEventListener('resize',fit);return}
+    const nav=document.querySelector('.bottom-nav');const navH=nav&&getComputedStyle(nav).display!=='none'?nav.offsetHeight:0;
+    const top=chat.getBoundingClientRect().top+window.scrollY;chat.style.height=Math.max(380,Math.min(900,innerHeight-top-navH-16))+'px';
+    const extra=document.documentElement.scrollHeight-innerHeight;if(extra>0&&chat.offsetHeight-extra>=380)chat.style.height=(chat.offsetHeight-extra)+'px';scroll();};
+  removeEventListener('resize',lastFit||(()=>{}));lastFit=fit;addEventListener('resize',fit);requestAnimationFrame(fit);
 }
+let fit,lastFit;
