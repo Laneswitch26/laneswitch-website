@@ -83,6 +83,12 @@ async function adminAction(action:string,body:Record<string,unknown>,origin:stri
  if(action==='savePartner'){const p=validPartner(body.data);const id=typeof body.id==='string'&&/^[-a-f0-9]{36}$/.test(body.id)?body.id:crypto.randomUUID();
   if((await partners(false)).some(x=>x.id!==id&&x.code===p.code))throw new PublicError('Dieses Firmenkürzel ist bereits vergeben.');
   await db().prepare('INSERT INTO nav_partners (id,data,active,updated) VALUES (?,?,?,?) ON CONFLICT(id) DO UPDATE SET data=excluded.data,active=excluded.active,updated=excluded.updated').bind(id,JSON.stringify(p),body.active===false?0:1,Date.now()).run();return adminOverview();}
+ // Registrierte Fahrschule endgültig löschen: Zugang, Sitzungen, Navigator-Inhalte, Unterlagen, Einladungen, Profil.
+ // Zur Sicherheit muss der Name der Fahrschule exakt mitgeschickt werden. Feste Konten (A1, Emre, Test) sind ausgenommen.
+ if(action==='deleteSchool'){const school=String(body.school||'');const row=await schoolRow(school);if(!row)throw new PublicError('Nur registrierte Fahrschulen können gelöscht werden.',404);
+  if(String(body.confirm||'').trim()!==row.name)throw new PublicError('Zum Löschen bitte den Namen der Fahrschule exakt eingeben.');
+  await db().batch(['nav_sessions','nav_files','nav_documents','nav_accounts','nav_invites','nav_schools'].map(t=>db().prepare(`DELETE FROM ${t} WHERE school=?`).bind(school)));
+  return adminOverview();}
  if(action==='deletePartner'){await db().prepare('DELETE FROM nav_partners WHERE id=?').bind(String(body.id||'')).run();return adminOverview();}
  throw new PublicError('Unbekannte Aktion.');
 }

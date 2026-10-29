@@ -36,3 +36,7 @@
 @media(max-width:720px){.nv-admin{padding:20px 16px 45px}.nv-admin-item .nv-actions{width:100%}.nv-benefit-grid{grid-template-columns:1fr}.nv-code button{width:100%}.nv-header-actions{flex-direction:row!important}.nv-header-actions button{width:auto!important}}
 
 .nv-dark .nv-alert{background:#173e46;color:#e5f1f4}.nv-dark .nv-alert-warn{background:#3a2e14;color:#f8e4bd}
+
+/* Fahrschule löschen */
+.nv-app .nv-danger{color:#b4233c;border-color:#f3c3cc}.nv-dark .nv-danger{color:#ffa3b1;border-color:#6a2f3d}.nv-app .nv-danger-solid{background:#b4233c;color:#fff}.nv-app .nv-danger-solid:hover{background:#951c31}
+.nv-delete{flex:1 1 100%;margin-top:6px;padding:16px 18px;border:1px solid #f3c3cc;background:#fcecef;border-radius:10px;color:#5c1220}.nv-delete h4{margin:0 0 6px;font-size:16px}.nv-delete p{margin:0 0 12px;font-size:14px;color:inherit}.nv-delete .nv-field{margin-bottom:12px}.nv-delete .nv-actions{margin:0}.nv-dark .nv-delete{background:#3c1d26;border-color:#6a2f3d;color:#ffd9df}
