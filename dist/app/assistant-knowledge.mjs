@@ -1,7 +1,7 @@
 // Reviewed 2026-10-29. No model-written text is ever displayed as an answer.
 // Costs: explicit owner approval in the implementation request (free cooperation).
 export const REVIEWED = '2026-10-29';
-export const AI_AVAILABLE = false; // Enable only after Workers Free is verified and worker is tested.
+export const AI_AVAILABLE = true; // Workers Free confirmed by operator screenshot, 2026-10-29.
 export const CONTACT = '/?zielgruppe=school#kontakt';
 export const FAQ = Object.freeze({
   kosten: {title:'Was kostet die Kooperation?', text:'Die Kooperation mit LANE SWITCH ist für die Fahrschule kostenfrei. Ein möglicher Versicherungsabschluss ist davon getrennt und freiwillig. Daraus können eigene Versicherungsbeiträge entstehen. Die Kostenfreiheit der Kooperation ist keine Zusage, dass Versicherungen oder Leistungen anderer Anbieter kostenlos sind.', href:'/konzept/fahrschulen-informationen/', label:'Kooperationsbausteine ansehen', source:'Kooperationskonzept · Kostenfreiheit vom Betreiber bestätigt', questions:['was kostet die kooperation','ist die kooperation kostenlos','ist die kooperation kostenfrei','was kostet laneswitch','was kostet lane switch','kostet die zusammenarbeit etwas'], keywords:['kosten','kostenlos','kostenfrei','kooperation','preis']},
@@ -26,4 +26,10 @@ export function classifyLocal(question){
   const words=new Set(q.split(' '));
   const ids=Object.entries(FAQ).filter(([,f])=>f.keywords.some(k=>words.has(normalize(k)))).map(([id])=>id).slice(0,3);
   return ids.length?{kind:'suggest',ids}:{kind:'contact'};
+}
+
+// Individual commitments and sensitive topics always go to a person, never to AI.
+export function canUseAI(question){
+ const q=normalize(question);
+ return classifyLocal(question).kind==='contact'&&!/\b(ignoriere|ignore|systemprompt|system prompt|garantiert|garantie|garantieren|versprich|schaden|schadensfall|deckt|gedeckt|kündigen|kuendigen|steuer|förderung|foerderung|beitrag|prämie|praemie|provision|vergütung|verguetung|gesundheit|krankheit)\b/.test(q);
 }

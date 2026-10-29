@@ -21,40 +21,31 @@ Keine Cookies, kein Local-/SessionStorage, kein automatischer Kontakttransfer.
 „Verlauf löschen“ und Neuladen entfernen den Verlauf. Die vorhandenen unabhängigen
 Website-Einstellungen (Theme/Zielgruppe) bleiben unberührt.
 
-## Cloudflare-KI: vorbereitet, nicht aktiviert oder deployed
+## Cloudflare-KI: Aktivierung am 29.10.2026
 
-Das verbundene Cloudflare-OAuth-Konto kann Account- und User-Abonnements nicht lesen
-(403: Billing Read erfordert API-Token; OAuth deckt den Endpunkt nicht ab).
-Ein Modellkatalogzugriff oder `usage_model: standard` beweist keinen Free-Tarif.
-Es wurde weder ein Tarif geändert noch eine kostenpflichtige Inferenz ausgelöst.
+Betreiber-Screenshot bestätigt „Workers Free – Aktiv“ für das Cloudflare-Konto.
+Kein Tarifwechsel, keine Gateway-Credits und kein bezahltes Modell. Workers AI Free
+gewährt laut am 29.10.2026 geprüfter Dokumentation 10.000 Neurons täglich kontoweit;
+bei Ausschöpfung schlagen Aufrufe fehl. Ein späterer Wechsel zu Workers Paid erfordert
+erneute Kostenprüfung; vor einem solchen Wechsel AI_ENABLED=false setzen.
 
-Die drei Sperren bleiben gesetzt: `AI_AVAILABLE=false`, `AI_ENABLED=false`,
-`FREE_PLAN_CONFIRMED=false`. Keine automatische Aktivierung durch normale Deployments.
+Quellen:
+- https://developers.cloudflare.com/workers-ai/platform/pricing/
+- https://developers.cloudflare.com/workers-ai/platform/data-usage/
 
-Vor Freigabe erforderlich:
+Die drei Schalter AI_AVAILABLE, AI_ENABLED und FREE_PLAN_CONFIRMED sind aktiviert.
+Getrennter Worker laneswitch-assistent, nur Route laneswitch.online/api/assistent.
+AI-Binding direkt, kein AI Gateway, keine Inhaltslogs, keine Datenbank.
+Rate-Limit: 5 Aufrufe/Minute pro täglich gehashter IP, kein globales Tagesbudget.
+Die Kostenbegrenzung beruht auf Workers Free; Rate-Limiting dient Missbrauchsschutz.
 
-1. Aktuellen **Workers Free**-Tarif des Kontos nachweisen (nicht den DNS-Zonentarif).
-   Bei Workers Paid keine kostenlose Überlaufgarantie; dann Sperre beibehalten.
-2. Aktuelle Workers-AI-Preise, Modellverfügbarkeit und Datenschutz prüfen.
-   Quellen: https://developers.cloudflare.com/workers-ai/platform/pricing/
-   und https://developers.cloudflare.com/workers-ai/platform/data-usage/
-   Free hat derzeit 10.000 Neurons pro Tag kontoweit; danach Fehler statt Paid-Upgrade.
-3. Neue, getrennte Worker-Route `/api/assistent` prüfen. Bestehende Navigator-Routen,
-   D1-Daten und Secrets nicht ändern. `wrangler.json` ist nur Vorbereitung.
-4. Datenschutz vor Aktivierung um Cloudflare-Inferenz, Verbindungsdaten,
-   Übermittlungsgrundlage, Drittlandverarbeitung und Anbieterbedingungen ergänzen;
-   bitte rechtlich prüfen. Aktuelle öffentliche Hinweise beschreiben nur lokale FAQ.
-5. Erst nach diesen Prüfungen Worker und Rate-Limit-Binding deployen und per
-   erlaubten Testfragen prüfen. 5 Aufrufe/Minute je täglich gehashter IP ist ein
-   Missbrauchsschutz, KEIN kontoweites Tagesbudget. Die Kostensperre beruht auf dem
-   bestätigten Free-Tarif, dessen spätere Änderung erneute Prüfung verlangt.
-6. Anschließend Frontend freigeben. Jede KI-Frage verlangt die optionale Zustimmung
-   innerhalb der geöffneten Ansicht. Nur die einzelne Frage wird gesendet, keine
-   Historie oder Accountdaten. Das Modell liefert ausschließlich Themen-IDs;
-   ungültige Antworten/Timeouts/Quota-Fehler führen zum Kontakt-/FAQ-Fallback.
+Die KI wird ausschließlich nach freiwilliger Zustimmung pro Frage verwendet, wenn
+lokale Regeln keine Zuordnung finden. Persönliche/spezielle Anliegen werden soweit
+regelbasiert erkennbar direkt an Kontakt verwiesen. Erkennung ist nicht vollständig.
+Nur einzelne Frage, kein Verlauf. Ausgaben werden auf erlaubte Themen-IDs begrenzt;
+Nutzer wählen ein Thema, bevor der fest hinterlegte FAQ-Text angezeigt wird.
+Die Datenschutzseite beschreibt die optionale Verarbeitung und internationale
+Übermittlungen. Die rechtliche Prüfung der Betreiberhinweise bleibt erforderlich.
 
-Keine Logging-Aufrufe, kein AI Gateway, keine eigene persistente Datenhaltung.
-Worker-Code und Sicherheitstests sind mit KI-Stubs geprüft; echte Inferenz ist noch
-nicht getestet. Die Anbindung ist daher nicht als produktiv funktionsfähig behauptet.
-
-Rücknahme: Website-PR revertieren. Aktuell wurde kein Worker angelegt.
+Rücknahme: AI_ENABLED=false im Worker und AI_AVAILABLE=false im Frontend; lokale
+FAQ bleiben aktiv. Keine Navigator-Routen, D1-Daten oder Secrets ändern.

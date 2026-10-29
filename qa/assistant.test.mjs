@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {FAQ,classifyLocal,AI_AVAILABLE} from '../dist/app/assistant-knowledge.mjs';
+import {FAQ,classifyLocal,AI_AVAILABLE,canUseAI} from '../dist/app/assistant-knowledge.mjs';
 import worker from '../worker-assistant/worker.mjs';
 test('approved questions only: cost is scoped to cooperation',()=>{
  assert.deepEqual(classifyLocal('Was kostet die Kooperation?'),{kind:'answer',id:'kosten'});
@@ -18,9 +18,9 @@ test('private identifiers are not retained as displayed questions',()=>{
 test('knowledge links are own-site paths and each answer has provenance',()=>{
  for(const [id,f] of Object.entries(FAQ)){assert.match(f.href,/^\/(?!\/)/,id);assert.ok(f.source);assert.ok(f.text);for(const q of f.questions)assert.equal(classifyLocal(q).id,id);}
 });
-const req=(body,origin='https://laneswitch.online')=>new Request('https://laneswitch.online/api/assistent',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(body)});
+const req=(body,origin='https://laneswitch.online')=>new Request('https://laneswitch.online/api/assistent',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({consent:true,...body})});
 test('cost gates default closed and never invoke AI',async()=>{
- assert.equal(AI_AVAILABLE,false);let calls=0;
+ assert.equal(AI_AVAILABLE,true);let calls=0;
  for(const flags of [{},{AI_ENABLED:'true'},{FREE_PLAN_CONFIRMED:'true'}]){const r=await worker.fetch(req({question:'Hallo'}),{...flags,AI:{run(){calls++;}}});assert.equal(r.status,503);}
  assert.equal(calls,0);
 });
@@ -35,4 +35,19 @@ test('AI output can only propose whitelisted topic IDs',async()=>{
 test('rate limit and provider errors fail safely',async()=>{
  const limit=await worker.fetch(req({question:'Hallo'}),{...enabled,RATE_LIMITER:{limit:async()=>({success:false})},AI:{run(){throw Error('must not run');}}});assert.equal(limit.status,429);
  const failure=await worker.fetch(req({question:'Hallo'}),{...enabled,AI:{run:async()=>{throw Error('quota');}}});assert.equal(failure.status,503);assert.deepEqual((await failure.json()).ids,[]);
+});
+
+test('specific questions cannot invoke AI in the frontend',()=>{
+ for(const q of ['Ist mein Schaden gedeckt?','Welche Provision bekomme ich?','Ist die Förderung garantiert?','Meine Mail ist test@example.com'])assert.equal(canUseAI(q),false);
+ assert.equal(canUseAI('Wie komme ich mit euch zusammen?'),true);
+});
+test('consent required and sensitive topics bypass inference',async()=>{
+ let calls=0;const env={...enabled,AI:{run:async()=>{calls++;return {response:'[]'};}}};
+ assert.equal((await worker.fetch(req({question:'Hallo',consent:false}),env)).status,400);
+ for(const question of ['Ist mein Schaden gedeckt?','Meine Diagnose ist privat']){const r=await worker.fetch(req({question}),env);assert.deepEqual((await r.json()).ids,[]);}
+ assert.equal(calls,0);
+});
+
+test('provider response formats remain whitelisted',async()=>{
+ for(const value of [{response:['zugang','bad']},{choices:[{message:{content:'["partner"]'}}]}]){const r=await worker.fetch(req({question:'Wie komme ich mit euch zusammen?'}),{...enabled,AI:{run:async()=>value}});assert.ok((await r.json()).ids.length);}
 });
