@@ -14,6 +14,7 @@ kurz berichten, was sich geändert hat.
 | PR | Inhalt |
 | --- | --- |
 | #47 | Werkzeuge nach Themen gruppiert, Cookie-Hinweis im Datenschutz präzisiert, CLAUDE.md |
+| (dieser PR) | Abzeichen „LANE SWITCH Partnerfahrschule“ auf Netzwerk-Ansicht, Fahrschul-Übersicht und Partnerprofilen (passend zum Schaufenster-Sticker; bewusst nicht „zertifiziert/geprüft“) |
 | #48 (main) | Navigator: Testkonto-Passwort nur noch als Secret `NAV_TEST_PASSWORD` |
 | #49 | Neue Startseite (Hero, drei Einstiege, Aktuell, Fokus, Ansprechpartner, Beiträge) |
 | #50, #52 | Porträt von Steven (`dist/konzept/assets/steven-portrait.jpg`, quadratisch, abgerundet) |
