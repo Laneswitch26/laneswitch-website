@@ -1,0 +1,21 @@
+<!doctype html><html lang="de"><meta charset="utf-8"><title>Assistent Layout-Prüfung</title><style>body{font:15px system-ui;margin:20px}iframe{height:900px;border:1px solid #888;display:block}pre{white-space:pre-wrap}button{padding:12px}</style><h1>Assistent Layout-Prüfung</h1><button id="run">Prüfung starten</button><pre id="result" role="status">Bereit</pre><div id="host"></div><script>
+const results=[];const wait=()=>new Promise(r=>setTimeout(r,150));
+document.querySelector('#run').onclick=async()=>{
+ const button=document.querySelector('#run');button.disabled=true;results.length=0;
+ try{for(const width of [390,768,1280])for(const group of ['learner','school'])for(const theme of ['light','dark']){
+  const frame=document.createElement('iframe');frame.style.width=width+'px';frame.title='Assistent '+width+' '+group+' '+theme;frame.src='/?zielgruppe='+group+'#assistent';
+  const loaded=new Promise((resolve,reject)=>{frame.onload=resolve;setTimeout(()=>reject(Error('Ladezeit überschritten')),10000)});document.querySelector('#host').replaceChildren(frame);await loaded;await wait();
+  const d=frame.contentDocument;d.documentElement.dataset.theme=theme;await wait();
+  const form=d.querySelector('.ls-assistant-form');if(!form)throw Error('Assistent fehlt');
+  const input=d.querySelector('#assistant-question');input.value='Was kostet das?';form.requestSubmit();await wait();
+  const costs=d.querySelector('.ls-assistant-log [type=button]');if(!costs)throw Error('Kostenklärung fehlt');costs.click();await wait();
+  const overflow=d.documentElement.scrollWidth>frame.contentWindow.innerWidth+1;
+  const bottom=d.querySelector('.bottom-nav');const mobile=width<760;
+  const links=[...bottom.querySelectorAll('a')];const validNav=!mobile||(getComputedStyle(bottom).display!=='none'&&links.length===5&&links.every(a=>a.getBoundingClientRect().width>=44));
+  const answer=d.querySelector('.ls-assistant-log').textContent.includes('für die Fahrschule kostenfrei');
+  const text=d.querySelector('.ls-assistant-answer');const style=frame.contentWindow.getComputedStyle(text);const pass=!overflow&&validNav&&answer&&style.color!==style.backgroundColor;
+  results.push({width,group,theme,overflow,validNav,answer,pass});document.querySelector('#result').textContent=JSON.stringify(results,null,2);
+ }document.querySelector('#result').textContent=results.every(r=>r.pass)?'PASS: 12 Kombinationen, kein horizontaler Überlauf, Kostenklärung und fünf mobile Navigationsziele.\n'+JSON.stringify(results,null,2):'FAIL\n'+JSON.stringify(results,null,2);
+ }catch(e){document.querySelector('#result').textContent='FAIL: '+e.message;}finally{button.disabled=false;}
+};
+</script></html>
