@@ -1,0 +1,36 @@
+/* ===== Rechtliches (Impressum, Datenschutz) · Makeover 2026-10 =====
+   Nur Darstellung: Markup und Wortlaut der Rechtstexte bleiben unverändert.
+   Farben ausschließlich über die Variablen aus /app/shell.css.
+   Laden nach concept.css, shell.css, subpage.css und vor contrast.css. */
+
+html body .legal-page{background:transparent;min-height:0;padding:0;font-size:16px;line-height:1.65;color:var(--ink)}
+.legal-page *{box-sizing:border-box}
+.legal-shell{width:100%;max-width:780px;margin:0}
+/* Kopfzeile der Detailansicht bietet bereits „Zur Übersicht“. */
+.legal-back{display:none!important}
+
+html body .detail-main .legal-card{margin:0;padding:clamp(24px,4.4vw,44px)!important;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:none}
+html body .detail-main .legal-card .eyebrow{margin:0 0 8px!important;font-size:13px!important;font-weight:650!important;letter-spacing:0!important;text-transform:none!important;color:var(--teal)!important}
+html body .detail-main .legal-card h1{margin:0 0 8px!important;font-size:clamp(30px,3.4vw,40px)!important;line-height:1.1!important;letter-spacing:-.035em!important;font-weight:770!important;hyphens:manual!important;color:var(--ink)!important}
+html body .detail-main .legal-card h2{margin:32px 0 10px!important;padding-top:28px;border-top:1px solid var(--line);font-size:20px!important;line-height:1.3!important;letter-spacing:-.02em!important;font-weight:750!important;hyphens:manual!important;text-wrap:balance}
+html body .detail-main .legal-card h1+h2{margin-top:24px!important}
+html body .detail-main .legal-card h3{margin:24px 0 8px!important;font-size:17px!important;line-height:1.35!important;letter-spacing:-.01em!important;font-weight:720!important;hyphens:manual!important}
+html body .detail-main .legal-card :is(p,li){margin:0;font-size:15.5px;line-height:1.7;hyphens:manual!important;overflow-wrap:break-word}
+html body .detail-main .legal-card p+p{margin-top:12px}
+html body .detail-main .legal-card ul{margin:12px 0;padding-left:22px;list-style:disc}
+html body .detail-main .legal-card li{padding-left:2px}
+html body .detail-main .legal-card li+li{margin-top:6px}
+html body .detail-main .legal-card li::marker{color:var(--teal)}
+html body .detail-main .legal-card a{color:var(--teal)!important;font-weight:650;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;overflow-wrap:anywhere}
+html body .detail-main .legal-card a:hover{text-decoration-thickness:2px}
+html body .detail-main .legal-card code{padding:1px 6px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--ink)!important;font-size:.88em;overflow-wrap:anywhere}
+html body .detail-main .legal-card small{display:block;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;line-height:1.6}
+html body .detail-main .legal-card [id]{scroll-margin-top:110px}
+
+@media(max-width:760px){
+  html body .detail-main .legal-card{padding:22px 18px!important;border-radius:14px}
+  html body .detail-main .legal-card h1{font-size:30px!important}
+  html body .detail-main .legal-card h2{margin-top:26px!important;padding-top:22px;font-size:19px!important}
+  html body .detail-main .legal-card :is(p,li){font-size:15px}
+}
+@media print{html body .detail-main .legal-card{border:0;padding:0!important}}
