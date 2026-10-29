@@ -27,6 +27,8 @@ kurz berichten, was sich geändert hat.
 | #60 | Förderrechner Altersvorsorge im neuen Design (beide Zielgruppen; `calculator.css` neu, Rechenlogik unverändert) |
 | #62 | Fahrschul-Seiten: Fahrschul-Check, Cockpit, Notfallcenter, Vorlagen (inkl. Druckansicht), Informationen für Fahrschulen; `subpage.css` v3 (FAQ, Kartenlabels, Kopf-Links) |
 | #63 | Kooperationsseiten (Übersicht, Fahrschulen, A1, Emre) im neuen Design; `cooperations.css` und `a1.css` nur noch mit Theme-Variablen |
+| #64 | Seitenleisten-Links (Instagram, Unfallhelfer, Impressum, Datenschutz) auf Unterseiten in Theme-Farben statt Browser-Blau (`shell.css` v7); Ortsschilder Fahrschul-Übersicht bündig |
+| #65 | Gefahrenradar im neuen Design (`radar.css` ersetzt `game.css`/`immersive.css`; Textmodus ohne leere Spalte) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -84,10 +86,17 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
 5. ~~**Förderrechner**~~ erledigt (nur Markup-Hülle und `calculator.css`; `engine.mjs`, `rules.mjs`, `ui.mjs`, `share.mjs` unverändert).
 6. ~~Fahrschul-Seiten~~ erledigt. Fahrschul-Check: `qa/check-handoff.cjs` liest Skript und `<fieldset class="question" data-lane=…><legend>` per Regex – diese Struktur beibehalten. Vorlagen: Druckregeln setzen die Farbvariablen im Druck auf hell.
 7. ~~Kooperationsprofile~~ erledigt (Markup unverändert, nur Stylesheets; `partner-navigator.js` fügt bei Freigabe einen Block `.partner-section.partner-card` an – Stil berücksichtigt).
-8. **Gefahrenradar** `konzept/lernwelt/gefahrenradar/` (eigenes Spiel-Layout; im Textmodus bleibt links eine leere Fläche)
+8. ~~**Gefahrenradar**~~ erledigt. Bleibt ein Vollbild-Spiel mit eigener Kopfleiste (Signet, Zurück, Vollbild), ohne Seitenleiste.
+   `radar.css` nutzt nur Variablen aus `shell.css` (plus `--sp-good/-bad`); Szenenillustrationen behalten ihre Farben.
+   In `game.mjs`/`immersive.mjs` nur Darstellung geändert (Zeichen-Icons → SVG, Zustandsklassen `is-good/is-bad/is-miss/is-info`);
+   Szenen, Punkte, Abläufe, IDs unverändert. Bühnengröße hängt an `calc(100dvh - …)` – bei Änderungen an Kopf/Meta-Zeilen mitprüfen, auch Handy quer.
 9. Rechtliches (Impressum, Datenschutz) nur optisch angleichen, Inhalte nicht ändern.
 
 ## Prüfen (zusätzlich zu CLAUDE.md)
+
+- Die Cloudflare-Vorschau ist aus der Cloud-Arbeitsumgebung nicht erreichbar. Geprüft wird deshalb lokal
+  (`dist/` per `python3 -m http.server`, Playwright-Bildschirmfotos) – Pages baut nicht, der Inhalt ist identisch –
+  plus der Status „Deploy successful“ der Vorschau.
 
 - Nicht nur Textkontrast prüfen, sondern auch **Flächen, Balken, Rahmen, Checkboxen**:
   Der Lernstand-Fehler (#53) war weiß auf weiß, ohne dass ein Text betroffen war.
@@ -99,5 +108,5 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
 
 - Markenrecherche zum neuen Logo (z. B. DPMA) vor Druck/Fahrzeugbeschriftung.
 - laneswitch.de: Datenschutz enthält vermutlich noch „setzt keine eigenen Cookies“.
-- Cloudflare-Pages-Projekt `laneswitch-partnerportal-test` schlägt bei jedem Push fehl
-  (nicht von uns verursacht); Eigentümer entscheidet, ob es gelöscht wird.
+- Cloudflare-Pages-Projekte `laneswitch-partnerportal-test` und (seit 29.10.) `laneswitch-landing-test` schlagen bei jedem Push fehl
+  (nicht von uns verursacht); Eigentümer entscheidet, ob sie gelöscht werden.
