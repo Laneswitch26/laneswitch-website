@@ -24,7 +24,7 @@ export default {
         response.headers.set('Vary','Origin');
       }
     }else if(req.method!=='GET'&&req.method!=='HEAD')response=new Response(null,{status:405,headers:{Allow:'GET, HEAD'}});
-    else if(/^\/navigator\/(zugang|a1|emre|test)$/.test(path)){
+    else if(/^\/navigator\/(zugang|demo|a1|emre|test)$/.test(path)){
       u.pathname='/navigator/app.html';u.search='';
       response=await env.ASSETS.fetch(new Request(u,{method:req.method}));
     }else if(/^\/navigator\/assets\/[A-Za-z0-9._-]+$/.test(path))response=await env.ASSETS.fetch(req);

@@ -36,7 +36,7 @@ test('Provisioning requires distinct strong passwords; test account only with it
 test('Production bundle isolates Navigator routes, rejects missing configuration, and secures responses',async()=>{
   const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',serviceBindings:{ASSETS:async req=>new Response(new URL(req.url).pathname,{headers:{'Content-Type':'text/html'}})}});
   try{
-    for(const p of ['/navigator/zugang','/navigator/zugang/','/navigator/a1','/navigator/emre']){
+    for(const p of ['/navigator/zugang','/navigator/zugang/','/navigator/demo','/navigator/a1','/navigator/emre']){
       const r=await mf.dispatchFetch('https://laneswitch.de'+p);
       assert.equal(r.status,200);assert.equal(await r.text(),'/navigator/app.html');
       assert.match(r.headers.get('x-robots-tag'),/noindex/);assert.equal(r.headers.get('cache-control'),'no-store');assert.equal(r.headers.get('x-frame-options'),'DENY');
