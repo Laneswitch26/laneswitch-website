@@ -114,3 +114,11 @@ Alle Unterseiten der Liste sind damit umgestaltet. Weitere Gestaltungsarbeit nur
 - laneswitch.de: Datenschutz enthält vermutlich noch „setzt keine eigenen Cookies“.
 - Cloudflare-Pages-Projekte `laneswitch-partnerportal-test` und `laneswitch-landing-test` schlagen bei jedem Push fehl.
   Eigene Experimente des Eigentümers: ignorieren, nicht anfassen, nicht als Fehler melden.
+
+## FAQ-Assistent (29.10.2026)
+
+Eigener Menüpunkt zwischen Werkzeuge und Netzwerk, mobil fünf gleich große Ziele,
+Desktop-Seitenleiste ebenfalls ergänzt. Kein schwebender Button oder automatisches
+Öffnen. Fest hinterlegte Antworten, Kostenklärung und Kontakt-Fallback.
+Cloudflare-KI vorbereitet, bis zum Nachweis des Workers-Free-Tarifs gesperrt.
+Details und Freigabeschritte: `worker-assistant/README.md`.

@@ -33,7 +33,7 @@ html[data-theme=dark] .logo-dark{display:block}
 .contact-top{min-height:40px;padding:9px 14px;font-size:14px}
 .contact-top .icon{display:none}
 .sidebar{display:none}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:7px 8px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 24px #09263806}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--card);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:7px 8px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 24px #09263806}
 .bottom-nav .nav-link{display:flex;flex-direction:column;gap:3px;min-height:54px;padding:7px 2px;font-size:12px;font-weight:700;border-radius:11px}
 .bottom-nav .nav-link[aria-current=page]{background:var(--tint);color:var(--teal)}
 .bottom-nav .icon{width:23px;height:23px}}

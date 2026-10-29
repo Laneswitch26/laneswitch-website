@@ -1,4 +1,4 @@
-import {icon,navigation} from '/app/shell.js?v=5';
+import {icon,navigation} from '/app/shell.js?v=6-assistent';
 const read=k=>{try{return localStorage.getItem(k)}catch{return null}};
 const write=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
 const root=document.documentElement;
