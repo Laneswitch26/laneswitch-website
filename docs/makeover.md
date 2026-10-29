@@ -29,6 +29,7 @@ kurz berichten, was sich geändert hat.
 | #63 | Kooperationsseiten (Übersicht, Fahrschulen, A1, Emre) im neuen Design; `cooperations.css` und `a1.css` nur noch mit Theme-Variablen |
 | #64 | Seitenleisten-Links (Instagram, Unfallhelfer, Impressum, Datenschutz) auf Unterseiten in Theme-Farben statt Browser-Blau (`shell.css` v7); Ortsschilder Fahrschul-Übersicht bündig |
 | #65 | Gefahrenradar im neuen Design (`radar.css` ersetzt `game.css`/`immersive.css`; Textmodus ohne leere Spalte) |
+| #66 | Impressum und Datenschutz optisch angeglichen (`legal.css`; nur `<head>` geändert, `<body>` byte-identisch; vom Eigentümer freigegeben) |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
@@ -90,7 +91,9 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
    `radar.css` nutzt nur Variablen aus `shell.css` (plus `--sp-good/-bad`); Szenenillustrationen behalten ihre Farben.
    In `game.mjs`/`immersive.mjs` nur Darstellung geändert (Zeichen-Icons → SVG, Zustandsklassen `is-good/is-bad/is-miss/is-info`);
    Szenen, Punkte, Abläufe, IDs unverändert. Bühnengröße hängt an `calc(100dvh - …)` – bei Änderungen an Kopf/Meta-Zeilen mitprüfen, auch Handy quer.
-9. Rechtliches (Impressum, Datenschutz) nur optisch angleichen, Inhalte nicht ändern.
+9. ~~Rechtliches (Impressum, Datenschutz)~~ erledigt. Nur optisch, Inhalte unverändert. Künftige Textänderungen weiterhin nur mit Freigabe.
+
+Alle Unterseiten der Liste sind damit umgestaltet. Weitere Gestaltungsarbeit nur nach neuem Auftrag.
 
 ## Prüfen (zusätzlich zu CLAUDE.md)
 
@@ -108,5 +111,5 @@ Reihenfolge (Seite für Seite, je ein PR mit Vorschau):
 
 - Markenrecherche zum neuen Logo (z. B. DPMA) vor Druck/Fahrzeugbeschriftung.
 - laneswitch.de: Datenschutz enthält vermutlich noch „setzt keine eigenen Cookies“.
-- Cloudflare-Pages-Projekte `laneswitch-partnerportal-test` und (seit 29.10.) `laneswitch-landing-test` schlagen bei jedem Push fehl
-  (nicht von uns verursacht); Eigentümer entscheidet, ob sie gelöscht werden.
+- Cloudflare-Pages-Projekte `laneswitch-partnerportal-test` und `laneswitch-landing-test` schlagen bei jedem Push fehl.
+  Eigene Experimente des Eigentümers: ignorieren, nicht anfassen, nicht als Fehler melden.
