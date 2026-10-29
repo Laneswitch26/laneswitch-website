@@ -14,7 +14,7 @@ export function mountAssistant(root,audience){
   const chat=el('section',undefined,'ls-chat');chat.setAttribute('aria-labelledby','ls-chat-title');
   // Header
   const head=el('header',undefined,'ls-chat-head');const titles=el('div');
-  titles.append(el('h1','LANE SWITCH Assistent','ls-chat-title'),el('p',school?'Fragen zu Kooperation, Navigator und Werkzeugen':'Fragen zu Lernwelt, Werkzeugen und LANE SWITCH','ls-chat-sub'));titles.firstChild.id='ls-chat-title';
+  titles.append(el('h1','Frag LANE SWITCH','ls-chat-title'),el('p',school?'Fragen zu Kooperation, Navigator und Werkzeugen':'Fragen zu Lernwelt, Werkzeugen und LANE SWITCH','ls-chat-sub'));titles.firstChild.id='ls-chat-title';
   const tools=el('div',undefined,'ls-chat-tools');
   const aiBtn=el('button','', 'ls-chat-chip');aiBtn.type='button';
   const reset=el('button','Neuer Chat','ls-chat-chip');reset.type='button';
@@ -24,7 +24,7 @@ export function mountAssistant(root,audience){
   // Input
   const form=el('form',undefined,'ls-chat-form');const label=el('label',school?'Ihre Frage':'Deine Frage','ls-sr');label.htmlFor='assistant-question';
   const input=el('input');input.id='assistant-question';input.name='question';input.maxLength=300;input.required=true;input.autocomplete='off';input.enterKeyHint='send';input.value=state.draft;
-  input.placeholder=school?'Ihre Frage an den Assistenten …':'Deine Frage an den Assistenten …';input.setAttribute('aria-describedby','assistant-privacy');
+  input.placeholder=school?'Ihre Frage …':'Deine Frage …';input.setAttribute('aria-describedby','assistant-privacy');
   const send=el('button',undefined,'ls-chat-send');send.type='submit';send.setAttribute('aria-label','Frage senden');send.append(icon(SEND));
   form.append(label,input,send);
   const note=el('p',undefined,'ls-chat-note');note.id='assistant-privacy';
