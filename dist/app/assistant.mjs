@@ -118,10 +118,20 @@ export function mountAssistant(root,audience){
   drawNote();draw();
   // Fit the chat to the visible area so the page itself does not scroll; the log scrolls inside.
   if(window.scrollY>0)window.scrollTo({top:0});
-  fit=()=>{if(!chat.isConnected){removeEventListener('resize',fit);return}
-    const nav=document.querySelector('.bottom-nav');const navH=nav&&getComputedStyle(nav).display!=='none'?nav.offsetHeight:0;
-    const top=chat.getBoundingClientRect().top+window.scrollY;chat.style.height=Math.max(380,Math.min(900,innerHeight-top-navH-16))+'px';
-    const extra=document.documentElement.scrollHeight-innerHeight;if(extra>0&&chat.offsetHeight-extra>=380)chat.style.height=(chat.offsetHeight-extra)+'px';scroll();};
-  removeEventListener('resize',lastFit||(()=>{}));lastFit=fit;addEventListener('resize',fit);requestAnimationFrame(fit);
+  fit=()=>{if(!chat.isConnected){removeEventListener('resize',fit);removeEventListener('hashchange',fit);visualViewport?.removeEventListener('resize',fit);document.documentElement.classList.remove('ls-chat-open');return}
+    const nav=document.querySelector('.bottom-nav'),bar=document.querySelector('.topbar');
+    const mobile=nav&&getComputedStyle(nav).display!=='none';
+    document.documentElement.classList.toggle('ls-chat-open',!!mobile);
+    if(mobile){
+      // Phone: fill the whole space between top bar and bottom navigation, like a chat app.
+      const top=Math.max(0,bar?bar.getBoundingClientRect().bottom:0),vh=window.visualViewport?.height||innerHeight;
+      const bottom=Math.max(0,innerHeight-nav.getBoundingClientRect().top);
+      chat.style.top=(top+8)+'px';chat.style.bottom=(vh<innerHeight-120?innerHeight-vh+8:bottom+8)+'px';chat.style.height='auto';
+    }else{
+      chat.style.top=chat.style.bottom='';
+      const top=chat.getBoundingClientRect().top+window.scrollY;chat.style.height=Math.max(480,Math.min(900,innerHeight-top-24))+'px';
+    }
+    scroll();};
+  if(lastFit){removeEventListener('resize',lastFit);visualViewport?.removeEventListener('resize',lastFit);}lastFit=fit;addEventListener('resize',fit);addEventListener('hashchange',()=>setTimeout(fit,50));visualViewport?.addEventListener('resize',fit);requestAnimationFrame(fit);setTimeout(fit,400);
 }
 let fit,lastFit;

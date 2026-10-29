@@ -41,7 +41,8 @@ html[data-theme=dark] .ls-chat-send{background:var(--accent);color:var(--navy)}
 @keyframes ls-dot{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
 .ls-assistant :focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 @media(max-width:760px){
-  .ls-chat{height:calc(100dvh - 69px - 84px - env(safe-area-inset-bottom) - 20px);min-height:420px;border-radius:16px}
+  .ls-chat{position:fixed;left:10px;right:10px;top:calc(77px + env(safe-area-inset-top));bottom:calc(92px + env(safe-area-inset-bottom));height:auto;min-height:0;max-height:none;z-index:35;border-radius:16px}
+  html.ls-chat-open,html.ls-chat-open body{overflow:hidden}
   .ls-chat-head{padding:12px 14px}.ls-chat-log{padding:14px}.ls-msg{max-width:92%}
   .ls-chat-sub{display:none}
 }
