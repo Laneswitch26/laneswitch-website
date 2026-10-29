@@ -1,6 +1,6 @@
-import {mountAssistant} from '/app/assistant.mjs?v=6';
+import {mountAssistant} from '/app/assistant.mjs?v=7';
 import {mountNews} from '/app/news.mjs?v=3-share';
-import {icon,navigation,nav} from '/app/shell.js?v=6-assistent';
+import {icon,navigation,nav} from '/app/shell.js?v=7-fragen';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storage={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v){try{localStorage.setItem(k,v);return true}catch{return false}}};
 const prior=storage.get('ls-audience-v2');
