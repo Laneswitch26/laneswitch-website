@@ -1,0 +1,41 @@
+name: Assistent · Cloudflare
+# Tests bei jedem PR; Veröffentlichung des Workers laneswitch-assistent nur nach Merge auf cloudflare-online.
+on:
+  pull_request:
+    branches: [cloudflare-online]
+    paths: ['worker-assistant/**', 'dist/app/assistant-knowledge.mjs', 'qa/assistant.test.mjs', '.github/workflows/assistent-cloudflare.yml']
+  push:
+    branches: [cloudflare-online]
+    paths: ['worker-assistant/**', 'dist/app/assistant-knowledge.mjs', '.github/workflows/assistent-cloudflare.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: assistent-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test qa/assistant.test.mjs
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/cloudflare-online' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Worker laneswitch-assistent bereitstellen
+        run: npx --yes wrangler@4.92.0 deploy --config worker-assistant/wrangler.json
+        env:
+          CLOUDFLARE_ACCOUNT_ID: '565efa139d3990e026b8bcf6a8c8963e'
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          WRANGLER_SEND_METRICS: 'false'
