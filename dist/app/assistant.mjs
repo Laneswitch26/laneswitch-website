@@ -1,4 +1,4 @@
-import {FAQ,REVIEWED,AI_AVAILABLE,classifyLocal,canUseAI} from './assistant-knowledge.mjs?v=3';
+import {FAQ,REVIEWED,AI_AVAILABLE,classifyLocal,canUseAI} from './assistant-knowledge.mjs?v=4';
 const states={school:{messages:[],draft:''},learner:{messages:[],draft:''}};
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
 export function mountAssistant(root,audience){
@@ -26,31 +26,46 @@ export function mountAssistant(root,audience){
       answer.append(el('p',m.result.text),el('p','KI-Antwort auf Grundlage der hinterlegten Informationen.','ls-assistant-note'));
       for(const id of m.result.sources){const f=FAQ[id];if(!f)continue;const a=el('a',f.label,'ls-assistant-action');a.href=f.href;answer.append(a);}
     }else if(m.result.kind==='answer'){
-      const f=FAQ[m.result.id];answer.append(el('h2',f.title),el('p',f.text));
+      const f=FAQ[m.result.id];if(m.result.matched)answer.append(el('p','Das passt am besten zu deiner Frage:'.replace('deiner',school?'Ihrer':'deiner'),'ls-assistant-note'));answer.append(el('h2',f.title),el('p',f.text));
       const a=el('a',f.label,'ls-assistant-action');a.href=m.result.id==='kontakt'||m.result.id==='versicherung'?contact:f.href;answer.append(a,el('p','Grundlage: '+f.source+' · geprüft am '+REVIEWED,'ls-assistant-note'));
     }else{
       const type=m.result.kind;
-      const text=type==='unavailable'?'Die KI ist gerade nicht erreichbar oder ihr Kontingent ist ausgeschöpft. Die häufigen Fragen oben und der Kontaktbereich bleiben verfügbar.':type==='clarify'?'Worauf bezieht sich die Kostenfrage? Die kostenfreie Kooperation und kostenpflichtige Versicherungen sind unterschiedliche Angebote.':type==='suggest'?'Dazu gibt es folgende geprüfte Informationen. Welches Thema ist gemeint?':type==='private'?'Bitte keine persönlichen oder vertraulichen Angaben in den Assistenten eingeben. Für dieses Anliegen bitte direkt mit Steven Kontakt aufnehmen.':'Dazu liegt keine ausreichend gesicherte Standardantwort vor. Diese konkrete Frage klärt Steven persönlich.';
+      const text=type==='unknown'?'Dazu habe ich in den Informationen von LANE SWITCH keine gesicherte Antwort gefunden. Lieber nichts Falsches sagen: Steven klärt das gern persönlich.':type==='unavailable'?'Die KI ist gerade nicht erreichbar oder ihr Kontingent ist ausgeschöpft. Die häufigen Fragen oben und der Kontaktbereich bleiben verfügbar.':type==='clarify'?'Worauf bezieht sich die Kostenfrage? Die kostenfreie Kooperation und kostenpflichtige Versicherungen sind unterschiedliche Angebote.':type==='suggest'?'Dazu gibt es folgende geprüfte Informationen. Welches Thema ist gemeint?':type==='private'?'Bitte keine persönlichen oder vertraulichen Angaben in den Assistenten eingeben. Für dieses Anliegen bitte direkt mit Steven Kontakt aufnehmen.':'Dazu liegt keine ausreichend gesicherte Standardantwort vor. Diese konkrete Frage klärt Steven persönlich.';
       answer.append(el('p',text));if(m.result.ids){const choices=el('div',undefined,'ls-assistant-prompts');m.result.ids.filter(id=>FAQ[id]).forEach(id=>choices.append(button(id)));answer.append(choices);}
+    }
+    // Offer grounded AI for open questions, with explicit per-question consent (checkbox + send).
+    if(AI_AVAILABLE&&m.raw&&['suggest','contact'].includes(m.result.kind)&&canUseAI(m.raw)&&!m.aiTried){
+      const box=el('form',undefined,'ls-assistant-aioffer');const l=el('label',undefined,'ls-assistant-optin');const cb=el('input');cb.type='checkbox';cb.required=true;
+      l.append(cb,document.createTextNode('Ich willige ein, diese Frage zur KI-Beantwortung an Cloudflare zu senden (auch außerhalb der EU möglich, nur diese Frage). Details im Datenschutz.'));
+      const go=el('button',school?'Mit KI beantworten lassen':'Mit KI beantworten lassen','ls-assistant-topic');go.type='submit';
+      box.append(el('p',school?'Keine passende Standardantwort? Die KI kann Ihre Frage aus den geprüften LANE-SWITCH-Informationen beantworten.':'Keine passende Standardantwort? Die KI kann deine Frage aus den geprüften LANE-SWITCH-Informationen beantworten.'),l,go);
+      box.onsubmit=async e=>{e.preventDefault();if(!cb.checked)return;cb.checked=false;m.aiTried=true;go.disabled=true;const ai=await askAI(m.raw);record(m.raw,ai);};
+      answer.append(box);
     }
     const c=el('a','Zum Kontaktformular','ls-assistant-contact');c.href=contact;answer.append(c);article.append(answer);log.append(article);
   }
+  // One AI request for exactly one question (consent given right before sending).
+  async function askAI(question){
+    send.disabled=true;status.textContent='Die KI formuliert und prüft eine Antwort …';
+    try{
+      const response=await fetch('/api/assistent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,consent:true,version:3,audience:school?'school':'learner'}),credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(25000)});
+      if(!response.ok)return {kind:'unavailable'};
+      const data=await response.json();
+      if(data.mode==='answer'&&typeof data.answer==='string'&&data.answer.length<=1200&&Array.isArray(data.sources)&&data.sources.length&&data.sources.every(id=>Object.hasOwn(FAQ,id)))return {kind:'ai',text:data.answer,sources:data.sources};
+      if(data.mode==='clarify')return {kind:'clarify',ids:['kosten','versicherung']};
+      return {kind:'unknown'};
+    }catch{return {kind:'unavailable'};}finally{send.disabled=false;status.textContent='';}
+  }
+  function record(question,result){
+    const safeQuestion=result.kind==='private'?'[Vertrauliche Eingabe nicht im Verlauf übernommen]':question;
+    state.messages.push({question:safeQuestion,result,raw:result.kind==='private'?'':question});if(state.messages.length>12)state.messages.shift();log.replaceChildren();state.messages.forEach(draw);
+  }
   async function ask(question,id){
     let result=id?{kind:'answer',id}:classifyLocal(question);if(result.kind==='empty')return;
-    // With consent, use grounded AI for all eligible free-text questions, including local matches.
-    if(AI_AVAILABLE&&consent?.checked&&!id&&canUseAI(question)){
-      consent.checked=false;send.disabled=true;status.textContent='Die KI formuliert und prüft eine Antwort …';
-      try{
-        const response=await fetch('/api/assistent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,consent:true,version:2}),credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(25000)});
-        if(response.ok){const data=await response.json();
-          if(data.mode==='answer'&&typeof data.answer==='string'&&data.answer.length<=1800&&Array.isArray(data.sources)&&data.sources.length&&data.sources.every(id=>Object.hasOwn(FAQ,id)))result={kind:'ai',text:data.answer,sources:data.sources};
-          else result={kind:'contact'};
-        }else if(result.kind==='contact')result={kind:'unavailable'};
-      }catch{if(result.kind==='contact')result={kind:'unavailable'};}finally{send.disabled=false;status.textContent='';}
-    }
+    // Checkbox ticked before sending: grounded AI for this one eligible free-text question.
+    if(AI_AVAILABLE&&consent?.checked&&!id&&canUseAI(question)){consent.checked=false;const ai=await askAI(question);if(ai.kind!=='unavailable'||result.kind==='contact')result=ai;}
     if(consent)consent.checked=false;
-    const safeQuestion=result.kind==='private'?'[Vertrauliche Eingabe nicht im Verlauf übernommen]':question;
-    const m={question:safeQuestion,result};state.messages.push(m);if(state.messages.length>12)state.messages.shift();log.replaceChildren();state.messages.forEach(draw);state.draft='';input.value='';input.focus({preventScroll:true});
+    record(question,result);state.draft='';input.value='';input.focus({preventScroll:true});
   }
   input.addEventListener('input',()=>state.draft=input.value);
   form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q)ask(q);});
