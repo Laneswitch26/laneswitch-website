@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFile} from 'node:fs/promises';
+import {readFile,readdir} from 'node:fs/promises';
 import {Miniflare} from 'miniflare';
 import {pbkdf2Sync} from 'node:crypto';
 import {makeAccounts} from '../scripts/accounts.mjs';
@@ -36,7 +36,7 @@ test('Provisioning requires distinct strong passwords; test account only with it
 test('Production bundle isolates Navigator routes, rejects missing configuration, and secures responses',async()=>{
   const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',serviceBindings:{ASSETS:async req=>new Response(new URL(req.url).pathname,{headers:{'Content-Type':'text/html'}})}});
   try{
-    for(const p of ['/navigator/zugang','/navigator/zugang/','/navigator/demo','/navigator/a1','/navigator/emre']){
+    for(const p of ['/navigator/zugang','/navigator/zugang/','/navigator/demo','/navigator/admin','/navigator/registrierung','/navigator/a1','/navigator/emre']){
       const r=await mf.dispatchFetch('https://laneswitch.de'+p);
       assert.equal(r.status,200);assert.equal(await r.text(),'/navigator/app.html');
       assert.match(r.headers.get('x-robots-tag'),/noindex/);assert.equal(r.headers.get('cache-control'),'no-store');assert.equal(r.headers.get('x-frame-options'),'DENY');
@@ -51,7 +51,7 @@ test('Built Worker uses its actual D1 binding and hashed registry for login',asy
   const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789'});
   const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',d1Databases:['DB'],bindings:{NAV_ACCOUNTS:JSON.stringify(accounts)},serviceBindings:{ASSETS:async()=>new Response('app')}});
   try{
-    const db=await mf.getD1Database('DB');for(const q of (await readFile('drizzle/0001_navigator.sql','utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
+    const db=await mf.getD1Database('DB');for(const file of (await readdir('drizzle')).filter(f=>f.endsWith('.sql')).sort())for(const q of (await readFile('drizzle/'+file,'utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
     const origin='https://laneswitch.online';
     const publicResult=await mf.dispatchFetch(origin+'/api/navigator?action=public&school=a1',{headers:{origin:'https://laneswitch.de'}});
     assert.equal(publicResult.status,404);

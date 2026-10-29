@@ -5,3 +5,4 @@ dist/
 .dev.vars*
 .env*
 .nav-test-bundle.mjs
+.nav-reg-bundle.mjs

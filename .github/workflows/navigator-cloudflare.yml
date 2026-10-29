@@ -60,4 +60,6 @@ jobs:
           NAV_A1_PASSWORD: ${{ secrets.NAV_A1_PASSWORD }}
           NAV_EMRE_PASSWORD: ${{ secrets.NAV_EMRE_PASSWORD }}
           NAV_TEST_PASSWORD: ${{ secrets.NAV_TEST_PASSWORD }}
+          NAV_ADMIN_PASSWORD: ${{ secrets.NAV_ADMIN_PASSWORD }}
+          NAV_ADMIN_USER: ${{ secrets.NAV_ADMIN_USER }}
           WRANGLER_SEND_METRICS: 'false'
