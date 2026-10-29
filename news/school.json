@@ -1,8 +1,30 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-28T07:26:51Z",
+  "checkedAt": "2026-10-29T07:22:14Z",
   "items": [
+    {
+      "id": "tuev-nullpromille-studie-2026-10-27",
+      "category": "Sicherheit & Prävention",
+      "status": "report",
+      "title": "TÜV-Umfrage: Mehrheit für null Promille – keine neue Vorschrift.",
+      "summary": "Der TÜV-Verband berichtet am 27. Oktober: 71 Prozent befürworten ein Alkoholverbot für Autofahrende. Forsa befragte dafür vom 19. März bis 10. April 2026 repräsentativ 2.504 Erwachsene im Auftrag des Verbands. Das Ergebnis beschreibt Einstellungen, nicht das tatsächliche Fahrverhalten. Der Verband fordert eine allgemeine Nullpromillegrenze; diese Forderung ist keine beschlossene Gesetzesänderung.",
+      "impact": "Für Ihren Unterricht bleibt die Trennung zwischen Verbandsforderung und geltendem Recht wichtig: In der Probezeit oder unter 21 Jahren gilt bereits das Alkoholverbot nach § 24c StVG für das Führen von Kraftfahrzeugen. Die Umfrage belegt keine Regelkenntnis Ihrer Lernenden.",
+      "action": "Nutzen Sie die Meldung als Unterrichtsanlass: Lassen Sie Lernende Probezeit und Altersgrenze unterscheiden und einen Heimweg ohne eigene Fahrt nach Alkoholkonsum planen.",
+      "publishedAt": "2026-10-27T00:00:00+01:00",
+      "checkedAt": "2026-10-29T07:22:14Z",
+      "expiresAt": "2026-11-11T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "TÜV-Verband · eigene Forsa-Studie, 27.10.2026",
+          "url": "https://www.tuev-verband.de/pressemitteilungen/tuev-mobility-studie-grosse-mehrheit-fuer-null-promille-am-steuer"
+        },
+        {
+          "name": "Gesetze im Internet · § 24c Straßenverkehrsgesetz",
+          "url": "https://www.gesetze-im-internet.de/stvg/__24c.html"
+        }
+      ]
+    },
     {
       "id": "recklinghausen-clausius-schubert-2026-10-28",
       "category": "Region & Verkehr",
@@ -12,7 +34,7 @@
       "impact": "Prüfen Sie Unterrichtsrouten und Abholpunkte im Bereich der beiden Einmündungen. Die abschnittsweise Sperrung kann andere Zufahrten für Fahrstunden und Terminwege erfordern.",
       "action": "Gleichen Sie betroffene Abholpunkte mit der aktuellen Beschilderung ab und informieren Sie Ihre Lernenden bei Änderungen.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-18T00:00:00+01:00",
       "sources": [
         {
@@ -30,7 +52,7 @@
       "impact": "Stadtauswärts führen Ausbildungsfahrten und Abholwege in diesem Abschnitt über Umleitungen. Das kann die Zeitplanung für aufeinanderfolgende Fahrstunden verändern.",
       "action": "Prüfen Sie Ausbildungsrouten und Abholzeiten ab Mittwoch und teilen Sie betroffenen Lernenden geänderte Treffpunkte mit.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-12-01T00:00:00+01:00",
       "sources": [
         {
@@ -48,7 +70,7 @@
       "impact": "Ausbildungsfahrten über diesen Knoten benötigen eine andere Route. Der weiter mögliche Fuß- und Radverkehr ist bei der Planung zu berücksichtigen.",
       "action": "Prüfen Sie Ausbildungsrouten und Abholpunkte und berücksichtigen Sie die Beschilderung vor Ort.",
       "publishedAt": "2026-10-23T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
@@ -66,7 +88,7 @@
       "impact": "Relevant ist dies für Ihre Website oder Schülerverwaltung, wenn der Dienstleister PHP unter Windows einsetzt. Ein Windows-Bürorechner allein macht Ihren Betrieb nicht betroffen. Die PHP-Versionsnummer genügt nicht als Nachweis des neuen Windows-Paketstands.",
       "action": "Lassen Sie den Betreiber Betriebssystem, PHP-Paketstand und die cURL-Konfiguration prüfen. Bei den offiziellen Windows-Paketen kennzeichnet die Endung -1 die Nachbesserung. Lassen Sie zudem die PHP-Hinweise vom 23. Oktober zur Session-Konfiguration und mögliche frühere Angriffe prüfen; sichern und testen Sie Backups.",
       "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-06T00:00:00+01:00",
       "sources": [
         {
@@ -88,7 +110,7 @@
       "impact": "Die wechselnden Bauphasen betreffen Ausbildungsrouten, Abholungen und die Erreichbarkeit zwischen Bochum und Herne.",
       "action": "Berücksichtigen Sie die Bauphasen in der Routen- und Terminplanung und informieren Sie Lernende über geänderte Abholwege.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
@@ -102,7 +124,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt: Entlastung für den Fuhrpark einordnen.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",

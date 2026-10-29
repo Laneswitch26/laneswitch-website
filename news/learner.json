@@ -1,8 +1,30 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-28T07:26:51Z",
+  "checkedAt": "2026-10-29T07:22:14Z",
   "items": [
+    {
+      "id": "tuev-nullpromille-studie-2026-10-27",
+      "category": "Sicherheit & Prävention",
+      "status": "report",
+      "title": "TÜV-Umfrage: Mehrheit für null Promille – keine neue Vorschrift.",
+      "summary": "Der TÜV-Verband berichtet am 27. Oktober: 71 Prozent befürworten ein Alkoholverbot für Autofahrende. Forsa befragte dafür vom 19. März bis 10. April 2026 repräsentativ 2.504 Erwachsene im Auftrag des Verbands. Das Ergebnis beschreibt Einstellungen, nicht das tatsächliche Fahrverhalten. Der Verband fordert eine allgemeine Nullpromillegrenze; diese Forderung ist keine beschlossene Gesetzesänderung.",
+      "impact": "Für dich gilt bereits: In der Probezeit oder unter 21 Jahren verbietet § 24c StVG Alkohol beim Führen eines Kraftfahrzeugs sowie den Fahrtantritt unter Alkoholwirkung. Die Umfrage ändert daran nichts.",
+      "action": "Plane vor dem Trinken einen Heimweg ohne eigene Fahrt, etwa mit einer nüchternen Person, Bus oder Taxi. Auch nach dem Ende der Probezeit ist alkoholfreies Fahren die sichere Entscheidung.",
+      "publishedAt": "2026-10-27T00:00:00+01:00",
+      "checkedAt": "2026-10-29T07:22:14Z",
+      "expiresAt": "2026-11-11T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "TÜV-Verband · eigene Forsa-Studie, 27.10.2026",
+          "url": "https://www.tuev-verband.de/pressemitteilungen/tuev-mobility-studie-grosse-mehrheit-fuer-null-promille-am-steuer"
+        },
+        {
+          "name": "Gesetze im Internet · § 24c Straßenverkehrsgesetz",
+          "url": "https://www.gesetze-im-internet.de/stvg/__24c.html"
+        }
+      ]
+    },
     {
       "id": "recklinghausen-clausius-schubert-2026-10-28",
       "category": "Region & Verkehr",
@@ -12,7 +34,7 @@
       "impact": "Führt dein Weg zur Fahrschule über eine dieser Einmündungen, brauchst du während der jeweiligen Sperrung eine andere Zufahrt. Auch vereinbarte Treffpunkte für Fahrstunden können betroffen sein.",
       "action": "Prüfe vor deiner Fahrt die ausgeschilderte Umleitung und kläre einen betroffenen Treffpunkt mit deiner Fahrschule.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-18T00:00:00+01:00",
       "sources": [
         {
@@ -30,7 +52,7 @@
       "impact": "Fährst du hier stadtauswärts zur Fahrschule oder während einer Fahrstunde, brauchst du eine andere Route. Die Gegenrichtung bleibt auf der nördlichen Seite befahrbar.",
       "action": "Prüfe deinen Weg vor der Abfahrt und folge den ausgeschilderten Umleitungen.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-12-01T00:00:00+01:00",
       "sources": [
         {
@@ -48,7 +70,7 @@
       "impact": "Wenn dein Weg zur Fahrschule oder deine Fahrstunde über diesen Knoten führt, musst du mit dem Auto der ausgeschilderten Umleitung folgen.",
       "action": "Prüfe vor deiner Fahrt die Route und beachte die ausgeschilderte Umleitung.",
       "publishedAt": "2026-10-23T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
@@ -66,7 +88,7 @@
       "impact": "Auch Konten für Lernangebote oder Terminbuchungen können Ziel solcher Täuschungsversuche sein. Eine dringend formulierte Sicherheitsmail beweist weder ihre Echtheit noch einen Angriff auf dein Konto.",
       "action": "Öffne die bekannte Anbieteradresse oder App selbst. Gib keine Zugangsdaten über einen verdächtigen Mail-Link ein und lade dort kein Update herunter. Frage bei Unsicherheit über einen bereits bekannten Kontakt nach.",
       "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-06T00:00:00+01:00",
       "sources": [
         {
@@ -84,7 +106,7 @@
       "impact": "Deine Wege zwischen Bochum und Herne sowie Fahrstunden können durch wechselnde Verkehrsführungen länger dauern.",
       "action": "Prüfe vor der Fahrt die aktuelle Bauphase und die ausgeschilderte Umleitung. Plane für Termine zusätzliche Zeit ein.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
@@ -98,7 +120,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-28T07:26:51Z",
+      "checkedAt": "2026-10-29T07:22:14Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt bis Jahresende: Was beim Tanken zählt.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
