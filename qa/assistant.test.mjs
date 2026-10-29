@@ -53,8 +53,8 @@ test('all general free-text questions are eligible for AI, even local matches',(
  assert.equal(canUseAI('Was kostet das?'),false);
 });
 test('grounded draft requires an affirmative evidence check',async()=>{
- for(const supported of [true,false]){let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>({response:++calls===1?{answer:'Zuerst findet ein Gespräch mit Steven statt. Danach wird die Kooperation vereinbart.',sources:['partner'],unknown:false}:{supported}})}});const data=await r.json();assert.equal(calls,2);assert.equal(data.mode,supported?'answer':'contact');}
+ for(const supported of [true,false]){let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>({response:++calls===1?{answer:'Zuerst findet ein Gespräch mit Steven statt. Danach wird die Kooperation vereinbart.',sources:['partner'],unknown:false}:{supported,sources:['partner']}})}});const data=await r.json();assert.equal(calls,2);assert.equal(data.mode,supported?'answer':'contact');}
 });
 test('OpenAI-style provider response and fenced JSON are parsed',async()=>{
- let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>({choices:[{message:{content:++calls===1?'```json\n{"answer":"Zuerst ein Gespräch mit Steven.","sources":["partner"],"unknown":false}\n```':'{"supported":true}'}}]})}});assert.equal((await r.json()).mode,'answer');
+ let calls=0;const r=await worker.fetch(req({question:'Wie funktioniert die Kooperation?'}),{...enabled,AI:{run:async()=>({choices:[{message:{content:++calls===1?'```json\n{"answer":"Zuerst ein Gespräch mit Steven.","sources":["partner"],"unknown":false}\n```':'{"supported":true,"sources":["partner"]}'}}]})}});assert.equal((await r.json()).mode,'answer');
 });
