@@ -53,6 +53,14 @@ Die beiden gewünschten Links sind erst nach dieser Prüfung produktiv:
 
 Vor Abschluss: beide URLs ohne Weiterleitung auf Fremdhosts, drei Anmeldungen, A1/Emre-Kontentrennung, Uploads, unveröffentlichte Entwürfe, Test-Publikationssperre, Profilzuordnung, PDF/QR sowie Mobil-/Desktopansicht prüfen. Bei Service-Workern dürfen `/navigator/` und `/api/navigator` nicht offline zwischengespeichert werden.
 
+## Editor: Zwischenspeichern und Datenübernahme
+
+- Der Entwurf wird 2,5 Sekunden nach der letzten Änderung automatisch über die bestehende Aktion `save` gespeichert (kein neuer Server-Endpunkt, keine Speicherung im Browser). Status oben rechts; bei ungültigen Angaben (z. B. Website ohne `https://`) erscheint ein Hinweis, ohne dass Eingaben verloren gehen. Ungespeicherte Änderungen lösen beim Verlassen der Seite eine Browser-Warnung aus.
+- Läuft die Anmeldung (8 Stunden) ab, bleiben die Eingaben im Editor; nach erneuter Anmeldung im selben Fahrschulzugang wird gespeichert. Ein anderer Zugang wird abgewiesen.
+- Beim Öffnen springt der Editor zum ersten noch offenen Schritt.
+- „Bekannte Angaben übernehmen“ (Schritt Profil) nutzt `app/navigator/known.ts`: öffentliche Grunddaten aus den Partnerprofilen auf laneswitch.online. Leere Felder werden gefüllt; bei abweichenden eigenen Einträgen wird gefragt. Alles bleibt editierbar. **Bei Änderungen an den Partnerprofilen `known.ts` mitpflegen.** Der Testzugang erhält erkennbar fiktive Beispielwerte.
+- `/navigator/<schule>?download=pdf` startet den PDF-Download der veröffentlichten Ausgabe direkt (Link auf den Partnerprofilen). Dateiname: `Fahrschul-Navigator-<Name>.pdf`.
+
 ## Sicherheit und Datenschutz
 
 Kein Schülerdatenschema. Ausschließlich allgemeine Fahrschulinformationen; keine Schülerlisten oder Verträge mit personenbezogenen Schülerangaben hochladen. Uploadinhalte werden nicht automatisch auf personenbezogene Angaben oder Schadsoftware untersucht. Öffentliche Geschäftskontaktdaten können trotzdem personenbezogen sein. Eine EU-Datenbank allein bestätigt daher keine vollständige DSGVO-Konformität; Betreiberhinweise, Auftragsverarbeitung und Löschprozesse bleiben zu prüfen. EU-Jurisdiktion bindet die Datenbank, nicht die gesamte weltweite Request-Verarbeitung.
