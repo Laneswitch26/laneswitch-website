@@ -1,5 +1,6 @@
 (() => {
   const THEME_KEY = 'laneswitch-theme-v1';
+  const PARTNER_LOGIN_URL = 'https://laneswitch.online/navigator/zugang';
   const INSTAGRAM_URL = 'https://www.instagram.com/laneswitch.de?igsi=MW53eTZrdzY0cmY2YQ==';
   const root = document.documentElement;
   const storage = {
@@ -226,6 +227,13 @@
     mobileRecommend.setAttribute('aria-haspopup', 'dialog');
     mobileRecommend.addEventListener('click', openRecommendation);
     nav.append(mobileRecommend);
+
+    // Fahrschul-Login: führt zum Partnerzugang des Navigators (dort auch „Kooperation anfragen“).
+    const mobileLogin = document.createElement('a');
+    mobileLogin.className = 'unified-mobile-recommend unified-mobile-login';
+    mobileLogin.href = PARTNER_LOGIN_URL;
+    mobileLogin.textContent = 'Fahrschul-Login';
+    nav.append(mobileLogin);
     nav.append(createInstagramLink('unified-mobile-instagram', 'Instagram'));
 
     const actions = document.createElement('div');
@@ -238,6 +246,13 @@
     recommend.setAttribute('aria-haspopup', 'dialog');
     recommend.addEventListener('click', openRecommendation);
 
+    const login = document.createElement('a');
+    login.className = 'header-recommend canonical-recommend header-login';
+    login.href = PARTNER_LOGIN_URL;
+    login.innerHTML = '<span class="header-login-prefix">Fahrschul-</span>Login';
+    login.setAttribute('aria-label', 'Fahrschul-Login');
+    login.title = 'Anmeldung für Partnerfahrschulen und Kooperationsanfrage';
+
     const instagram = createInstagramLink('instagram-header-link', 'Instagram');
 
     const cta = document.createElement('a');
@@ -245,7 +260,7 @@
     cta.href = new URL('kontakt/', siteRoot).href;
     cta.textContent = '20 Minuten kennenlernen';
 
-    actions.append(recommend, instagram, cta);
+    actions.append(recommend, login, instagram, cta);
 
     const panel = document.createElement('div');
     panel.className = 'global-services-panel';
