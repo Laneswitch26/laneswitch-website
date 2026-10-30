@@ -1,14 +1,11 @@
 import { writeFileSync } from 'node:fs';
-const H = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36 laneswitch-fahrzeugdaten', Accept: 'application/json,text/plain,*/*' };
-const get = async (u, n = 6000) => { try { const r = await fetch(u, { headers: H }); const t = await r.text(); return r.status + ' ' + r.headers.get('content-type') + '\n' + t.slice(0, n); } catch (e) { return 'ERR ' + e; } };
-const sql = s => 'https://discodata.eea.europa.eu/sql?query=' + encodeURIComponent(s) + '&p=1&nrOfHits=50';
+const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36';
 const out = [];
-for (const [label, u, n] of [
-  ['sql top', sql("SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2025Pv31] WHERE MS='DE'")],
-  ['sql simple', sql("SELECT TOP 1 year FROM [CO2Emission].[latest].[co2cars_2025Pv31]")],
-  ['sql info', 'https://discodata.eea.europa.eu/sql?query=' + encodeURIComponent('SELECT TOP 5 * FROM [CO2Emission].[latest].[co2cars_2025Pv31]')],
-  ['disco root', 'https://discodata.eea.europa.eu/'],
-  ['sdi 2024 final', 'https://sdi.eea.europa.eu/catalogue/datahub/api/records/5018ec17-2348-4c92-8761-6f2377bbd1c0/formatters/json?language=eng', 30000],
-  ['sdi 2024 prov', 'https://sdi.eea.europa.eu/catalogue/srv/api/records/5814203d-f36d-4fee-90d4-64bb348d15a6/formatters/json?language=eng', 30000],
-]) out.push('### ' + label + ' ' + u + '\n' + await get(u, n));
+const log = async (label, u, opt = {}) => { try { const r = await fetch(u, { headers: { 'User-Agent': UA, ...(opt.headers || {}) }, method: opt.method, body: opt.body }); const t = await r.text(); out.push(`### ${label} ${u}\n${r.status}\n${t.slice(0, opt.n || 4000)}`); } catch (e) { out.push(`### ${label} ERR ${e}`); } };
+await log('query.js', 'https://discodata.eea.europa.eu/query.js', { n: 12000 });
+await log('queryarea.js', 'https://discodata.eea.europa.eu/queryarea.js', { n: 6000 });
+const q = 'SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2025Pv31]';
+await log('get-noenc', 'https://discodata.eea.europa.eu/sql?query=' + q.replace(/ /g, '%20') + '&p=1&nrOfHits=2');
+await log('post-json', 'https://discodata.eea.europa.eu/sql', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query: q, p: 1, nrOfHits: 2 }) });
+await log('post-form', 'https://discodata.eea.europa.eu/sql', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'query=' + encodeURIComponent(q) + '&p=1&nrOfHits=2' });
 writeFileSync('tools/fahrzeugdaten/probe-out.txt', out.join('\n\n'));
