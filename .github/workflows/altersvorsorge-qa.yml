@@ -47,8 +47,9 @@ jobs:
           mkdir -p /tmp/av-shots
           python3 -m http.server 8080 > /tmp/de-server.log 2>&1 &
           python3 -m http.server 8081 --directory online-target/dist > /tmp/online-server.log 2>&1 &
-          node tests/altersvorsorge-browser.cjs
-          AV_BASE=http://localhost:8081 AV_ONLINE=1 node tests/altersvorsorge-browser.cjs
+          run_check() { if ! "$@" > /tmp/av-check.log 2>&1; then echo "::error title=Browser-Test $AV_LABEL::$(grep -v '^LAYOUT' /tmp/av-check.log | grep -E 'Error|Overflow|LAYOUT|right' | head -c 1500 | tr '\n' ' ')"; grep -A8 '^LAYOUT' /tmp/av-check.log | grep -B3 -A5 "tag:" | head -40; exit 1; fi; }
+          AV_LABEL=de run_check node tests/altersvorsorge-browser.cjs
+          AV_LABEL=online AV_BASE=http://localhost:8081 AV_ONLINE=1 run_check node tests/altersvorsorge-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
