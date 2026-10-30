@@ -137,17 +137,7 @@ function inquiryMessage(data,group){
  const body=lines.join('\r\n');
  return {subject,body,copy:'An: kontakt@laneswitch.de\nBetreff: '+subject+'\n\n'+body,href:'mailto:kontakt@laneswitch.de?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body)};
 }
-async function sendCooperation(data){
- const status=()=>document.getElementById('coop-status');
- const show=(text,ok)=>{let el=status();if(!el){el=document.createElement('p');el.id='coop-status';el.setAttribute('role','status');const host=document.getElementById('inquiry-handoff')||document.getElementById('inquiry-form');host.after(el);}el.className='coop-status'+(ok?' is-ok':' is-error');el.innerHTML=text;};
- const phone=String(data.get('phone')||'').trim();
- const body={action:'requestCooperation',school:String(data.get('school')||'').trim(),contact:String(data.get('name')||'').trim(),email:String(data.get('email')||'').trim(),phone:/^[+0-9 ()/-]{5,40}$/.test(phone)?phone:'',city:'',message:[String(data.get('topic')||''),String(data.get('message')||'').trim()].filter(Boolean).join(': ').slice(0,1500),consent:true};
- show('Kooperationsanfrage wird übermittelt …',true);
- try{const r=await fetch('/api/navigator',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'');
-  show('<strong>Kooperationsanfrage übermittelt.</strong> Steven meldet sich persönlich. Passt es, erhalten Sie einen Einladungslink für Ihren Zugang.',true);}
- catch(e){show(`Die Kooperationsanfrage konnte nicht übermittelt werden${e.message?' ('+esc(e.message)+')':''}. Sie können sie auch direkt <a href="/navigator/zugang#anfrage">auf der Anmeldeseite</a> stellen.`,false);}
-}
-async function showInquiry(form){
+function showInquiry(form){
  const name=form.elements.namedItem('name');
  name.setCustomValidity(name.value.trim()?'':'Bitte gib deinen Namen ein.');
  // Kooperationsanfrage braucht Fahrschule und E-Mail (gleiche Prüfung wie auf /navigator/zugang).
@@ -156,7 +146,10 @@ async function showInquiry(form){
  if(schoolField){schoolField.required=!!coop;schoolField.setCustomValidity(coop&&schoolField.value.trim().length<3?'Bitte den Namen der Fahrschule angeben.':'');}
  if(mailField)mailField.required=!!coop;
  if(!form.reportValidity())return;
- if(coop)await sendCooperation(new FormData(form));
+ if(coop){sendCooperation(new FormData(form)).finally(()=>openInquiryMail(form));return;}
+ openInquiryMail(form);
+}
+function openInquiryMail(form){
  const message=inquiryMessage(new FormData(form),audience);
  document.getElementById('inquiry-handoff')?.remove();
  const panel=document.createElement('section');
@@ -170,6 +163,16 @@ async function showInquiry(form){
  };
  form.after(panel);panel.querySelector('#inquiry-status').focus({preventScroll:true});
  try{window.location.href=message.href;}catch{panel.querySelector('#inquiry-status').textContent='Das E-Mail-Programm konnte nicht geöffnet werden. Kopiere die Anfrage und sende sie an kontakt@laneswitch.de.';}
+}
+async function sendCooperation(data){
+ const status=()=>document.getElementById('coop-status');
+ const show=(text,ok)=>{let el=status();if(!el){el=document.createElement('p');el.id='coop-status';el.setAttribute('role','status');const host=document.getElementById('inquiry-handoff')||document.getElementById('inquiry-form');host.after(el);}el.className='coop-status'+(ok?' is-ok':' is-error');el.innerHTML=text;};
+ const phone=String(data.get('phone')||'').trim();
+ const body={action:'requestCooperation',school:String(data.get('school')||'').trim(),contact:String(data.get('name')||'').trim(),email:String(data.get('email')||'').trim(),phone:/^[+0-9 ()/-]{5,40}$/.test(phone)?phone:'',city:'',message:[String(data.get('topic')||''),String(data.get('message')||'').trim()].filter(Boolean).join(': ').slice(0,1500),consent:true};
+ show('Kooperationsanfrage wird übermittelt …',true);
+ try{const r=await fetch('/api/navigator',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'');
+  show('<strong>Kooperationsanfrage übermittelt.</strong> Steven meldet sich persönlich. Passt es, erhalten Sie einen Einladungslink für Ihren Zugang.',true);}
+ catch(e){show(`Die Kooperationsanfrage konnte nicht übermittelt werden${e.message?' ('+esc(e.message)+')':''}. Sie können sie auch direkt <a href="/navigator/zugang#anfrage">auf der Anmeldeseite</a> stellen.`,false);}
 }
 function recommendationData(target){
  const title='LANE SWITCH';
