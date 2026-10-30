@@ -1,16 +1,16 @@
-2010: 2043 Gruppen, 5746538 Fahrzeuge
-2011: 5079 Gruppen, 5572232 Fahrzeuge
-2012: 5437 Gruppen, 2602025 Fahrzeuge
-2013: 6561 Gruppen, 5861358 Fahrzeuge
-2014: 6306 Gruppen, 6027382 Fahrzeuge
-2015: 7205 Gruppen, 6356896 Fahrzeuge
-2016: 5562 Gruppen, 6635860 Fahrzeuge
-2017: 5819 Gruppen, 6785152 Fahrzeuge
-2018: 7752 Gruppen, 6771211 Fahrzeuge
-2019: 6457 Gruppen, 7075735 Fahrzeuge
-2020: 6929 Gruppen, 5666637 Fahrzeuge
-2021: 11257 Gruppen, 5060268 Fahrzeuge
-2022: 4656 Gruppen, 2570994 Fahrzeuge
-2023: 5107 Gruppen, 2765152 Fahrzeuge
-2024: 5210 Gruppen, 2729299 Fahrzeuge
-2025: 5148 Gruppen, 2772367 Fahrzeuge
+2010: 4007 Gruppen {"Fv2":2873269,"Pv1":2873269}
+2011: 5079 Gruppen {"Pv3":2932608,"Fv4":2639624}
+2012: 8317 Gruppen {"Fv6":2584411,"Pv5":17614}
+2013: 12215 Gruppen {"Fv8":2930679,"Pv7":2930679}
+2014: 11968 Gruppen {"Fv10":3013691,"Pv9":3013691}
+2015: 13641 Gruppen {"Fv12":3178448,"Pv11":3178448}
+2016: 10870 Gruppen {"Fv14":3317930,"Pv13":3317930}
+2017: 11481 Gruppen {"Fv16":3392576,"Pv15":3392576}
+2018: 14821 Gruppen {"Fv18":3384828,"Pv17":3386383}
+2019: 12326 Gruppen {"Fv20":3537753,"Pv19":3537982}
+2020: 12013 Gruppen {"Fv22":2832972,"Pv21":2833665}
+2021: 11257 Gruppen {"Fv24":2530135,"Pv23":2530133}
+2022: 4656 Gruppen {"Pv25":2570994}
+2023: 5107 Gruppen {"Fv28":2765152}
+2024: 5210 Gruppen {"Fv30":2729299}
+2025: 5148 Gruppen {"Pv31":2772367}
