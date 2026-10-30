@@ -1,0 +1,50 @@
+{
+  "stand": "2026-10-30",
+  "hinweis": "Redaktionelle Orientierung von LANE SWITCH, keine Kaufempfehlung. Gebrauchtwagenpreise schwanken stark nach Laufleistung, Zustand, Ausstattung und Region. Lass jeden Gebrauchtwagen vor dem Kauf unabhängig prüfen.",
+  "quellen": [
+    { "titel": "ADAC: Neuwagen unter 20.000 Euro (Listenpreise, Stand 08/2026)", "url": "https://www.adac.de/rund-ums-fahrzeug/auto-kaufen-verkaufen/neuwagenkauf/neuwagen-unter-20000-euro/" },
+    { "titel": "ADAC-Pannenstatistik 2026", "url": "https://www.adac.de/rund-ums-fahrzeug/unfall/adac-pannenstatistik/" },
+    { "titel": "TÜV-Report 2026 (TÜV Rheinland)", "url": "https://www.tuv.com/presse/de/meldungen/tuev_report_2026_de.html" },
+    { "titel": "Marktstichprobe Gebrauchtwagenangebote 05/2026 (fahrzeugschein.de, Angebote auf AutoScout24)", "url": "https://www.fahrzeugschein.de/blog/artikel/auto-bis-10000-euro" }
+  ],
+  "stufen": [
+    {
+      "id": "neu",
+      "titel": "Neuwagen",
+      "kurz": "Günstige Neuwagen",
+      "text": "Die günstigsten Verbrenner und Mild-Hybride mit Listenpreis unter 20.000 € laut ADAC (Stand 08/2026). Neuwagen unter 5.000 € gibt es nicht: Der günstigste Neuwagen der ADAC-Übersicht kostet ab 13.590 €.",
+      "fahrzeuge": [
+        { "hersteller": "Dacia", "modell": "SANDERO", "baujahre": "neu", "preis": "Listenpreis ab 13.590 €", "grund": "Günstigster Verbrenner-Neuwagen in der ADAC-Übersicht, einfache und bewährte Technik." },
+        { "hersteller": "Citroën", "modell": "C3", "baujahre": "neu", "antrieb": "Benzin", "preis": "Listenpreis ab 16.290 €", "grund": "Aktuelle Generation mit 74-kW-Benziner, viel Platz für einen Kleinwagen." },
+        { "hersteller": "Fiat", "modell": "PANDA", "baujahre": "neu", "preis": "Pandina: Listenpreis ab 16.490 €", "grund": "Kleinstwagen mit Mild-Hybrid, wendig in der Stadt und bei der Parkplatzsuche." },
+        { "hersteller": "Kia", "modell": "PICANTO", "baujahre": "neu", "preis": "Listenpreis ab 17.590 €", "grund": "Kleinstwagen mit kleinem Motor und niedriger Leistung, gut für die ersten Fahrjahre." },
+        { "hersteller": "SEAT", "modell": "IBIZA", "baujahre": "neu", "preis": "1.0 MPI: Listenpreis ab 19.910 €", "grund": "In der ADAC-Pannenstatistik 2026 unter den Kleinwagen mit den wenigsten Pannen." }
+      ]
+    },
+    {
+      "id": "bis10000",
+      "titel": "Gebraucht bis 10.000 €",
+      "kurz": "Bis 10.000 €",
+      "text": "Modellgenerationen, die in der Marktstichprobe vom Mai 2026 typischerweise zwischen etwa 5.000 und 10.000 € angeboten wurden. Jüngere Baujahre und wenig Laufleistung liegen eher am oberen Ende.",
+      "fahrzeuge": [
+        { "hersteller": "Mazda", "modell": "MAZDA2", "baujahre": [2015, 2018], "grund": "Die Baureihe schneidet im TÜV-Report 2026 und in der ADAC-Pannenstatistik 2026 sehr gut ab." },
+        { "hersteller": "Škoda", "modell": "FABIA", "baujahre": [2015, 2018], "grund": "In der ADAC-Pannenstatistik 2026 unter den Kleinwagen mit den wenigsten Pannen; große Auswahl am Markt." },
+        { "hersteller": "Toyota", "modell": "AURIS", "baujahre": [2013, 2017], "grund": "Kompaktklasse mit mehr Platz, in der Marktstichprobe häufig unter 10.000 € angeboten." },
+        { "hersteller": "Kia", "modell": "CEED", "baujahre": [2013, 2018], "grund": "Kompaktklasse mit vielen Angeboten in diesem Preisbereich." }
+      ]
+    },
+    {
+      "id": "bis5000",
+      "titel": "Gebraucht bis 5.000 €",
+      "kurz": "Bis 5.000 €",
+      "text": "Ältere, weit verbreitete Kleinwagen. In der Marktstichprobe vom Mai 2026 lagen typische Angebote dieser Generationen meist unter 5.000 €. Die Fahrzeugdaten reichen bis Baujahr 2013 zurück; diese Jahrgänge liegen eher am oberen Ende der Preisspanne.",
+      "fahrzeuge": [
+        { "hersteller": "Hyundai", "modell": "I10", "baujahre": [2013, 2016], "grund": "Kleinstwagen mit geringer Leistung, sparsam und günstig im Unterhalt." },
+        { "hersteller": "Škoda", "modell": "FABIA", "baujahre": [2013, 2014], "grund": "Weit verbreitet, Teile gut verfügbar. Auf ein lückenloses Serviceheft achten." },
+        { "hersteller": "Toyota", "modell": "YARIS", "baujahre": [2013, 2015], "antrieb": "Benzin", "grund": "Sehr verbreiteter Kleinwagen mit einfachen Benzinmotoren." },
+        { "hersteller": "Ford", "modell": "FIESTA", "baujahre": [2013, 2014], "grund": "Großes Angebot am Markt. Modelle mit PowerShift-Automatik eher meiden." },
+        { "hersteller": "Opel", "modell": "CORSA", "baujahre": [2013, 2014], "grund": "Einer der häufigsten Gebrauchtwagen, dadurch große Auswahl und gute Teileversorgung." }
+      ]
+    }
+  ]
+}

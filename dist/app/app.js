@@ -1,4 +1,4 @@
-import {mountAssistant} from '/app/assistant.mjs?v=7';
+import {mountAssistant} from '/app/assistant.mjs?v=8';
 import {mountNews} from '/app/news.mjs?v=3-share';
 import {icon,navigation,nav} from '/app/shell.js?v=7-fragen';
 import {shareButton} from '/app/share.mjs?v=1';

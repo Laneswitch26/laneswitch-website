@@ -152,3 +152,9 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 - Kontaktformular (Bereich Fahrschulen): Häkchen „Zusätzlich Kooperation anfragen“ sendet Name, Fahrschule, E-Mail,
   Telefon, Anliegen und Nachricht an `/api/navigator` (`requestCooperation`, erscheint im Navigator-Admin unter „Anfragen“).
   Funktioniert nur auf laneswitch.online (Same-Origin), nicht in Cloudflare-Vorschauen.
+
+## Fahrzeugkosten-Check mit Baujahren (30.10.2026)
+- Daten: `dist/konzept/fahrzeugkosten/daten/` aus amtlichen EEA-Daten (Erstzulassungen DE, ab Baujahr 2013), je Hersteller eine Datei, Laden erst bei Bedarf. Generator und Ablauf: `tools/fahrzeugdaten/README.md`, Workflow `fahrzeugdaten.yml` (wöchentliche Prüfung, PR und Merge automatisch nur bei neuen Daten).
+- Bedienung: Suchfeld mit sichtbarer Vorschlagsliste (auch „vw golf 2017“), daneben Hersteller → Modell → Baujahr → Motorisierung. Steuerregel folgt aus dem Baujahr, NEFZ-Werte werden um 20 % auf WLTP-Niveau angehoben, Wartungsreserve mit Altersaufschlag.
+- Einsteigerautos nach Budget (Neuwagen, gebraucht bis 10.000 €, bis 5.000 €): redaktionell in `empfehlungen.json` mit Quellen und Stand; vierteljährlich prüfen. Monatskosten rechnet der Generator mit.
+- Bewusst nicht enthalten: Typ- und Regionalklassen (keine frei nutzbare Gesamtliste), Elektroautos.

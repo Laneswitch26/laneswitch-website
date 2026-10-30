@@ -1,0 +1,127 @@
+name: Fahrzeugdaten · EEA
+# Hält die Fahrzeugdaten des Fahrzeugkosten-Checks aktuell (amtliche EEA-Daten, Erstzulassungen in Deutschland).
+# - Bei Pull Requests, die den Rechner betreffen: Daten neu erzeugen, prüfen und in den PR-Branch schreiben.
+# - Wöchentlich (montags, ausgelöst durch den ersten Push auf cloudflare-online) oder bei "[fahrzeugdaten]" in der Commit-Nachricht:
+#   Daten neu erzeugen. Nur wenn sich etwas ändert, entsteht ein Pull Request, der nach bestandenen Prüfungen
+#   und erfolgreicher Cloudflare-Vorschau automatisch zusammengeführt wird.
+on:
+  pull_request:
+    branches: [cloudflare-online]
+    paths: ['tools/fahrzeugdaten/**', 'dist/konzept/fahrzeugkosten/**', 'qa/fahrzeugkosten.test.mjs', '.github/workflows/fahrzeugdaten.yml']
+  push:
+    branches: [cloudflare-online]
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  checks: read
+concurrency:
+  group: fahrzeugdaten-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+env:
+  CF_CHECK: 'Cloudflare Pages: laneswitch-online'
+
+jobs:
+  pr:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Fahrzeugdaten erzeugen
+        run: node tools/fahrzeugdaten/build.mjs
+      - name: Prüfen
+        run: node --test qa/fahrzeugkosten.test.mjs
+      - name: Geänderte Daten in den PR-Branch schreiben
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain dist/konzept/fahrzeugkosten/daten)" ]; then echo "::notice::Fahrzeugdaten unverändert"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add dist/konzept/fahrzeugkosten/daten
+          git commit -m "Fahrzeugdaten aus EEA-Daten erzeugt"
+          git push
+          echo "::notice::Fahrzeugdaten aktualisiert und in den PR-Branch geschrieben"
+
+  aktualisieren:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Fällig?
+        id: due
+        env:
+          MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          due=false
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then due=true; fi
+          case "$MESSAGE" in *"[fahrzeugdaten]"*) due=true;; esac
+          if [ "$due" = false ] && [ "$(date -u +%u)" = "1" ]; then
+            # Montags nur beim ersten Push des Tages, damit der Abruf höchstens einmal pro Woche läuft.
+            today=$(date -u +%Y-%m-%d)
+            count=$(gh api "repos/${{ github.repository }}/commits?sha=cloudflare-online&since=${today}T00:00:00Z&per_page=5" --jq 'length')
+            [ "$count" -le 1 ] && due=true
+          fi
+          echo "due=$due" >> "$GITHUB_OUTPUT"
+          echo "::notice::Fahrzeugdaten-Prüfung fällig: $due"
+      - uses: actions/checkout@v4
+        if: steps.due.outputs.due == 'true'
+        with:
+          ref: cloudflare-online
+      - uses: actions/setup-node@v4
+        if: steps.due.outputs.due == 'true'
+        with: { node-version: 22 }
+      - name: Fahrzeugdaten erzeugen
+        if: steps.due.outputs.due == 'true'
+        run: node tools/fahrzeugdaten/build.mjs
+      - name: Änderungen?
+        id: diff
+        if: steps.due.outputs.due == 'true'
+        run: |
+          if [ -z "$(git status --porcelain dist/konzept/fahrzeugkosten/daten)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"; echo "::notice::Keine neuen EEA-Daten, nichts zu tun"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"; git status --short dist/konzept/fahrzeugkosten/daten | head -20
+          fi
+      - name: Prüfen
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          node --test qa/fahrzeugkosten.test.mjs
+          node qa/check-handoff.cjs
+      - name: Pull Request erstellen, Vorschau abwarten, zusammenführen
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          set -e
+          repo="${{ github.repository }}"
+          branch="fahrzeugdaten/$(date -u +%Y-%m-%d)-${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add dist/konzept/fahrzeugkosten/daten
+          git commit -m "Fahrzeugdaten: neue EEA-Daten übernommen"
+          git push origin "$branch"
+          sha=$(git rev-parse HEAD)
+          body="Automatisch erzeugt aus den amtlichen EEA-Daten (Erstzulassungen in Deutschland). Geprüft mit qa/fahrzeugkosten.test.mjs und qa/check-handoff.cjs. Wird nach erfolgreicher Cloudflare-Vorschau automatisch zusammengeführt."
+          pr=$(gh api "repos/$repo/pulls" -f base=cloudflare-online -f head="$branch" -f title="Fahrzeugdaten: neue EEA-Daten" -f body="$body" --jq .number 2>/dev/null || true)
+          # Cloudflare-Vorschau abwarten (höchstens 25 Minuten)
+          state=""
+          for i in $(seq 1 100); do
+            state=$(gh api "repos/$repo/commits/$sha/check-runs" --jq ".check_runs[] | select(.name==\"$CF_CHECK\") | .status + \" \" + (.conclusion // \"\")" | head -1)
+            case "$state" in completed*) break;; esac
+            sleep 15
+          done
+          if [ "$state" != "completed success" ]; then echo "::error::Cloudflare-Vorschau nicht erfolgreich ($state). Nichts zusammengeführt."; exit 1; fi
+          if [ -n "$pr" ]; then
+            gh api -X PUT "repos/$repo/pulls/$pr/merge" -f merge_method=squash -f commit_title="Fahrzeugdaten: neue EEA-Daten (#$pr)" >/dev/null
+            echo "::notice::PR #$pr zusammengeführt"
+          else
+            # Falls Actions in diesem Repository keine Pull Requests anlegen dürfen: geprüften Branch direkt zusammenführen.
+            gh api "repos/$repo/merges" -f base=cloudflare-online -f head="$branch" -f commit_message="Fahrzeugdaten: neue EEA-Daten (geprüft, Vorschau erfolgreich)" >/dev/null
+            echo "::warning::Pull Request konnte nicht angelegt werden; geprüfter Branch direkt zusammengeführt"
+          fi
+          gh api -X DELETE "repos/$repo/git/refs/heads/$branch" >/dev/null || true
