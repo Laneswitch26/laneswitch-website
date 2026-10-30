@@ -1,0 +1,23 @@
+<!doctype html><meta charset=utf-8>
+<title>Gefahrenradar Render</title>
+<style>html,body{margin:0;background:#000;overflow:hidden}canvas{display:block}</style>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/":"./vendor/jsm/"}}</script>
+<script type="module">
+import * as K from './kit.js';
+import {SCENES} from './scenes.js';
+const q = new URLSearchParams(location.search), id = q.get('id');
+const def = SCENES[id]; if (!def) throw new Error('Unbekannte Szene ' + id);
+const meta = JSON.parse(q.get('meta') || '{}'); // {cue, dur} in ms aus der Spiel-Szenendatei
+const T0 = meta.cue > 0 ? (meta.cue + 350) / 1000 : 0, LEN = (meta.dur + (meta.cue > 0 ? 700 : 0)) / 1000;
+const w = K.createWorld(def.world || {});
+def.build(w, {T0, LEN, K});
+K.bake(w);
+window.api = {
+  T0, LEN,
+  frame(t) { K.setTime(w, t); K.render(w); },
+  areas(t) { K.setTime(w, t); w.camera.updateMatrixWorld(); return K.hazardAreas(w, t); },
+  info() { return {...w.renderer.info.render, geometries: w.renderer.info.memory.geometries, textures: w.renderer.info.memory.textures, objects: w.scene.children.length}; },
+};
+K.setTime(w, 0); K.render(w);
+window.ready = true;
+</script>

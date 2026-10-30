@@ -122,3 +122,11 @@ Desktop-Seitenleiste ebenfalls ergänzt. Kein schwebender Button oder automatisc
 Öffnen. Fest hinterlegte Antworten, Kostenklärung und Kontakt-Fallback.
 Cloudflare-KI vorbereitet, bis zum Nachweis des Workers-Free-Tarifs gesperrt.
 Details und Freigabeschritte: `worker-assistant/README.md`.
+
+## Gefahrenradar in 3D (30.10.2026)
+
+Alle 25 Szenen laufen als vorgerenderte 3D-Fahrt aus Fahrerperspektive (MP4, 960 × 672, 25 fps).
+Fragen, Antworten, Punkte und Zeitregeln sind unverändert. Die Trefferprüfung nutzt eine Spur der
+Gefahrenbereiche (alle 100 ms), weil sich die Kamera bewegt (`video-tracks.mjs`, `core.mjs`).
+Fällt ein Video aus, ist der Datensparmodus an oder kann der Browser kein MP4, erscheint die bisherige Zeichnung.
+Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `node --test qa/gefahrenradar.test.mjs`.

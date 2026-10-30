@@ -1,6 +1,7 @@
 import { SCENES, RULES, BADGES } from './scenes.mjs?v=5';
-import { shuffle, createSceneDeck, isHit, scoreScene, summarize } from './core.mjs?v=5';
-import { illustration, paint } from './illustrations.mjs?v=5';
+import { shuffle, createSceneDeck, isHit, scoreScene, summarize } from './core.mjs?v=6';
+import { illustration, paint } from './illustrations.mjs?v=6';
+import { canUseVideo, hasPreview, attachTrack, detachTrack, mountVideo, paintOverlay } from './video.mjs?v=1';
 
 const $ = id => document.getElementById(id);
 // Presentation only: stroke icons in the style of /app/shell.js.
@@ -21,10 +22,17 @@ const deck = createSceneDeck(SCENES);
 $('gr-pool-size').textContent = `${SCENES.length} Szenen · 5 pro Runde`;
 let phase = 'start', scenes = [], index = 0, records = [], record, scene;
 let frame = 0, lastTick = 0, elapsed = 0, lastAttempt = -Infinity;
-let calm = false, textMode = false, cursor = { x: 400, y: 280 };
+let calm = false, textMode = false, cursor = { x: 400, y: 280 }, media = null;
 const setPhase = value => { phase=value; document.body.dataset.grPhase=value; };
 const escape = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-const stopClock = () => { cancelAnimationFrame(frame); frame = 0; lastTick = 0; };
+const stopClock = () => { cancelAnimationFrame(frame); frame = 0; lastTick = 0; media?.pause(); };
+// Darstellung: 3D-Video, wenn verfügbar; sonst (oder nach einem Fehler) die bisherige Zeichnung.
+const draw = (time, reveal = false) => media ? paintOverlay(stage,scene,time,reveal) : paint(stage,scene,time,reveal);
+function dropMedia() { media?.destroy(); media = null; delete stage.dataset.loading; }
+function fallbackToDrawing() {
+  dropMedia(); detachTrack(scene); stage.innerHTML = illustration(scene); draw(elapsed, phase !== 'observing' && phase !== 'paused');
+  lastTick = 0;
+}
 function focus(id) { $(id)?.focus({ preventScroll: true }); }
 function announce(message) { $('gr-status').textContent = message; }
 function updatePoints() { $('gr-total').textContent = `${records.reduce((sum, item) => sum + scoreScene(item), 0) + (record ? scoreScene(record) : 0)} Punkte`; }
@@ -58,7 +66,10 @@ function nextScene() {
   $('gr-progress').value = index;
   $('gr-instruction').textContent = 'Tippe auf die Stelle, die gefährlich werden könnte.';
   stage.dataset.paused = 'false'; stage.dataset.locked = 'false'; stage.tabIndex = 0;
-  stage.innerHTML = illustration(scene); stage.hidden = textMode;
+  dropMedia();
+  if (!textMode && canUseVideo(scene.id)) { attachTrack(scene); media = mountVideo(stage, scene, { onFail: fallbackToDrawing }); }
+  else stage.innerHTML = illustration(scene);
+  stage.hidden = textMode;
   $('gr-pause').hidden = calm || textMode; $('gr-pause').disabled = false; $('gr-pause').textContent = 'Pause';
   $('gr-time').hidden = calm || textMode; $('gr-time').value = 1;
   $('gr-instruction').hidden = textMode;
@@ -68,22 +79,23 @@ function nextScene() {
   $('gr-show')?.addEventListener('click',() => ask(false));
   // The untimed reveal option must remain reachable on small screens as well.
   if (calm) panel.classList.remove('gr-wait-panel');
-  paint(stage,scene,elapsed); announce(calm ? 'Ohne Zeitdruck: Suche in Ruhe nach einer möglichen Gefahr.' : 'Beobachte die Szene.');
+  draw(elapsed); if (media && calm) media.showAt(elapsed); announce(calm ? 'Ohne Zeitdruck: Suche in Ruhe nach einer möglichen Gefahr.' : 'Beobachte die Szene.');
   updatePoints(); focus('gr-scene-title'); $('game').scrollIntoView({block:'start',behavior:'instant'});
   if (textMode) ask(false);
-  else if (!calm) frame = requestAnimationFrame(tick);
+  else if (!calm) { media?.play(); frame = requestAnimationFrame(tick); }
 }
 function tick(now) {
   if (phase !== 'observing' || calm || textMode) return;
-  if (lastTick) elapsed += now-lastTick;
+  if (media) { const time = media.ended ? scene.durationMs : media.elapsed(); if (time !== null && time > elapsed) elapsed = time; }
+  else if (lastTick) elapsed += now-lastTick;
   lastTick = now;
   if (elapsed >= scene.durationMs) { elapsed = scene.durationMs-1; ask(false); return; }
-  paint(stage,scene,elapsed);
+  draw(elapsed);
   $('gr-time').value = Math.max(0,1-elapsed/scene.durationMs);
   frame = requestAnimationFrame(tick);
 }
 function attempt(x,y) {
-  if (phase !== 'observing' || textMode) return;
+  if (phase !== 'observing' || textMode || stage.dataset.loading === 'true') return;
   const now = performance.now();
   // Count accepted taps only; all attempts during the cooldown are ignored.
   if (now-lastAttempt < RULES.cooldownMs) return;
@@ -103,7 +115,7 @@ function ask(detected) {
   setPhase('question'); stopClock(); clearCursor();
   stage.dataset.locked = 'true'; stage.tabIndex = -1;
   $('gr-pause').disabled = true; $('gr-time').hidden = true;
-  paint(stage,scene,elapsed,true);
+  draw(elapsed,true);
   panel.className = 'gr-panel';
   const heading = textMode ? 'Situation lesen, Entscheidung treffen' : detected ? (record.early ? 'Früh erkannt · +8 Erkennungspunkte' : 'Gefahr erkannt · +6 Erkennungspunkte') : 'Gefahr übersehen · jetzt dazulernen';
   const headingState = textMode ? 'is-info' : detected ? 'is-good' : 'is-miss';
@@ -129,7 +141,7 @@ function answer(id) {
   updatePoints(); focus('gr-feedback-title');
 }
 function finish() {
-  stopClock(); setPhase('result'); $('gr-round').hidden=true; $('gr-result').hidden=false;
+  stopClock(); dropMedia(); setPhase('result'); $('gr-round').hidden=true; $('gr-result').hidden=false;
   const result=summarize(records);
   const badge=textMode ? (result.correct>=5?BADGES[0]:result.correct>=4?BADGES[1]:result.correct>=3?BADGES[2]:null) : result.badge;
   const max=textMode?60:calm?90:100;
@@ -138,7 +150,7 @@ function finish() {
   focus('gr-result-title'); $('game').scrollIntoView({block:'start',behavior:'instant'});
 }
 function home() {
-  stopClock(); setPhase('start'); records=[]; record=null;
+  stopClock(); dropMedia(); setPhase('start'); records=[]; record=null;
   $('gr-round').hidden=true; $('gr-result').hidden=true; $('gr-start').hidden=false;
   focus('gr-play'); $('game').scrollIntoView({block:'start',behavior:'instant'});
 }
@@ -148,7 +160,7 @@ function pause() {
   $('gr-pause').textContent='Fortsetzen'; announce('Pausiert. Mit „Fortsetzen“ geht es weiter.');
 }
 $('gr-pause').addEventListener('click',()=>{
-  if(phase==='paused') { setPhase('observing');stage.dataset.paused='false';$('gr-pause').textContent='Pause';announce('Beobachte die Szene.'); frame=requestAnimationFrame(tick); }
+  if(phase==='paused') { setPhase('observing');stage.dataset.paused='false';$('gr-pause').textContent='Pause';announce('Beobachte die Szene.'); media?.play(); frame=requestAnimationFrame(tick); }
   else pause();
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden) pause();});
@@ -172,6 +184,6 @@ stage.addEventListener('focus',()=>{if(phase==='observing' && stage.matches(':fo
 stage.addEventListener('blur',clearCursor);
 $('gr-play').addEventListener('click',start); $('gr-exit').addEventListener('click',home);
 $('gr-calm').checked=matchMedia('(prefers-reduced-motion: reduce)').matches;
-$('gr-preview').innerHTML=illustration(SCENES[0],'preview');
-paint($('gr-preview'),SCENES[0],SCENES[0].cueMs+3200);
+if (hasPreview()) $('gr-preview').innerHTML='<img class="gr-art gr-preview-img" src="video/preview.jpg" alt="" width="960" height="672" decoding="async">';
+else { $('gr-preview').innerHTML=illustration(SCENES[0],'preview'); paint($('gr-preview'),SCENES[0],SCENES[0].cueMs+3200); }
 $('gr-play').disabled=false; $('gr-play').innerHTML=`Gefahrenradar starten${ICON.arrow}`;
