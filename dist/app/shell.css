@@ -71,10 +71,10 @@ html body .ls-footer{margin:0;padding:20px 32px;background:var(--card);color:var
 .ls-partner-badge svg{width:24px;height:24px;flex:none;border-radius:6px}
 .partner-kicker--badge{margin-bottom:12px!important;letter-spacing:0!important;text-transform:none!important}
 .partner-copy .ls-partner-badge{margin-bottom:12px}
-/* Fahrschul-Login neben „Empfehlen“: führt zur Anmeldeseite des Navigators (dort auch „Kooperation anfragen“). */
-.login-top{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:10px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:24px;font-size:14px;font-weight:750;line-height:1.3;white-space:nowrap;text-decoration:none}
+/* Fahrschul-Login neben „Empfehlen“: führt zur Anmeldeseite des Navigators (dort auch „Kooperation anfragen“). Mobil kurz „Login“. */
+.login-top{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:24px;font-size:14px;font-weight:750;line-height:1.3;white-space:nowrap;text-decoration:none}
 .login-top:hover{border-color:var(--teal);color:var(--teal)}
-.login-top .icon{width:18px;height:18px}
-@media(max-width:900px){.login-top{width:44px;padding:0}.login-top .login-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
-@media(max-width:760px){html body .topbar .login-top{width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important;padding:0!important;flex:none!important}}
-@media(max-width:370px){html body .topbar .login-top{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}}
+@media(max-width:900px){.login-long{display:none}}
+@media(max-width:760px){html body .topbar .brand,html body .topbar .brand img{width:126px!important}html body .topbar .header-actions{gap:6px!important}html body .topbar .recommend-top{padding-inline:12px!important}html body .topbar .login-top{min-height:42px!important;padding:10px 12px!important;flex:none!important}}
+@media(max-width:370px){html body .topbar .brand,html body .topbar .brand img{width:104px!important}html body .topbar .header-actions{gap:5px!important}html body .topbar .recommend-top,html body .topbar .login-top{padding-inline:10px!important;font-size:13px!important}}
+@media(max-width:340px){html body .topbar{padding-inline:10px!important}html body .topbar .brand,html body .topbar .brand img{width:92px!important}html body .topbar .header-actions{gap:4px!important}html body .topbar .recommend-top,html body .topbar .login-top{padding-inline:9px!important}}

@@ -3,3 +3,7 @@
 .partner-hero--logo .partner-logo{width:120px;justify-self:end;padding:12px}
 @container detail-content (min-width:860px){.partner-hero--logo{grid-template-columns:minmax(0,1fr) 140px}}
 @media(max-width:760px){.partner-hero--logo .partner-logo{order:-1;width:84px;justify-self:start;padding:8px}}
+/* Breite Logos (z. B. Emre, 3:1) bekommen mehr Platz, damit sie gleich groß wirken wie quadratische. */
+.partner-hero--wide .partner-logo{width:220px}
+@container detail-content (min-width:860px){.partner-hero--wide{grid-template-columns:minmax(0,1fr) 240px}}
+@media(max-width:760px){.partner-hero--wide .partner-logo{width:180px}}

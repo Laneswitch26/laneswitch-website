@@ -133,10 +133,10 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 
 ## Fahrschul-Login und einheitliche Partnerdarstellung (30.10.2026)
 
-- Kopfzeile: „Fahrschul-Login“ (Schloss-Symbol, `.login-top` in `shell.css`) neben „Empfehlen“ auf allen Seiten,
+- Kopfzeile: Textbutton „Fahrschul-Login“ (`.login-top` in `shell.css`) neben „Empfehlen“ auf allen Seiten,
   führt zu `/navigator/zugang`. Dort gibt es zusätzlich „Kooperation anfragen“ für Fahrschulen ohne Zugang
-  (Navigator-Änderung in `main`, PR #89). Bis 900 px nur Symbol mit `aria-label`.
+  (Navigator-Änderung in `main`, PR #89). Bis 900 px heißt er kurz „Login“ (kein reines Symbol, Wunsch des Eigentümers).
 - Fahrschule Emre ohne Video: Netzwerk-Ansicht (`app.js`) und Profilseite zeigen wie A1 das Logo
-  (`konzept/assets/kooperationen/emre-logo.png`, vorläufig aus dem Kooperationsmotiv ausgeschnitten;
-  durch das Originallogo ersetzen, sobald vorhanden). Profil-Logo-Layout: `.partner-hero--logo` in `app/a1.css`.
+  (`konzept/assets/kooperationen/emre-logo.png`, Originallogo vom Eigentümer, 300 × 100, transparent).
+  Profil-Logo-Layout: `.partner-hero--logo` in `app/a1.css`, breite Logos zusätzlich `.partner-hero--wide`.
 - Datenschutz: Abschnitt „Kooperationsanfrage für Fahrschulen“ ergänzt (bitte rechtlich prüfen).
