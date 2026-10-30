@@ -4,7 +4,7 @@
 
 Der eigenständige Worker `laneswitch-navigator` ist über `https://laneswitch.online/navigator/zugang` erreichbar. Nur `/navigator/*` und `/api/navigator*` werden dem Worker zugeordnet. Die Hauptwebsite bleibt Cloudflare Pages auf dem Branch `cloudflare-online`. `laneswitch.de` wird über GitHub Pages auf `main` bereitgestellt; dessen separater Zugang leitet auf die eigene Domain `laneswitch.online` weiter. Eine direkte Worker-Route für `.de` ist nicht eingerichtet, da die Zone im zugänglichen Cloudflare-Konto nicht sichtbar ist.
 
-Die öffentliche Profilerkennung darf ausschließlich für `GET action=public` von `https://laneswitch.de` gelesen werden. Anmelde-Cookies werden dabei nicht übertragen; private API-Abfragen und Schreibaktionen erhalten keine domainübergreifende Freigabe. Beide Fahrschulprofile verwenden denselben Navigator-Datenbestand. Der Editor ist in keiner Hauptnavigation verlinkt.
+Die öffentliche Profilerkennung darf ausschließlich für `GET action=public` von `https://laneswitch.de` gelesen werden. Anmelde-Cookies werden dabei nicht übertragen; private API-Abfragen und Schreibaktionen erhalten keine domainübergreifende Freigabe. Beide Fahrschulprofile verwenden denselben Navigator-Datenbestand. Der Editor selbst ist in keiner Hauptnavigation verlinkt; die Zugangsseite `/navigator/zugang` ist auf laneswitch.online über den Header-Button „Fahrschul-Login“ erreichbar (ausdrücklicher Wunsch des Eigentümers, 30.10.2026).
 
 ## Einmalig: drei GitHub-Secrets hinterlegen
 
