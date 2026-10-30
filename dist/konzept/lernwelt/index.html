@@ -81,6 +81,23 @@
     .lw-question .feedback.bad strong{color:var(--sp-bad)}
     .lw-question .feedback p{font-size:15px;line-height:1.6;color:var(--ink)}
     .lw-question .feedback small{display:block;margin-top:8px;font-size:13px;color:var(--muted)}
+    /* Fokus- und Vollbildmodus (vollbild.mjs) */
+    .lw-focusbar{display:none}
+    html.lw-focus,html.lw-focus body{overflow:hidden}
+    html.lw-focus .lw-trainer.active{position:fixed;inset:0;z-index:1000;margin:0;max-width:none;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:var(--bg);padding:0 max(16px,env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+    html.lw-focus .lw-trainer.active>*{max-width:760px;margin-inline:auto}
+    html.lw-focus .lw-focusbar{position:sticky;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 auto 12px;padding:calc(10px + env(safe-area-inset-top)) 0 10px;background:var(--bg);border-bottom:1px solid var(--line)}
+    .lw-focus-btn{appearance:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:650;cursor:pointer}
+    .lw-focus-btn:hover{border-color:var(--teal)}
+    .lw-focus-btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+    .lw-focus-btn svg.icon{width:18px;height:18px}
+    .lw-focus-btn[hidden]{display:none}
+    html.lw-focus #leave{display:none}
+    html.lw-focus .lw-trainer-head{margin-bottom:12px}
+    html.lw-focus .lw-trainer-head #modeDescription{display:none}
+    html.lw-focus body .detail-main .lw-trainer-head h2{font-size:clamp(20px,2.2vw,24px)!important}
+    html.lw-focus .lw-actions{position:sticky;bottom:0;z-index:2;margin-top:18px;padding:12px 0;background:var(--card);box-shadow:0 -1px 0 var(--line)}
+    html.lw-focus .lw-trainer.active{padding-bottom:env(safe-area-inset-bottom)}
     .lw-actions{display:flex;justify-content:space-between;gap:12px;margin-top:22px}
     .lw-actions #submit{margin-left:auto}
     .lw-actions [hidden]{display:none}
@@ -332,5 +349,6 @@
   if(storageMode==='local')closeStorage();else openStorage();
   updateStats();
   </script>
+<script type="module" src="./vollbild.mjs?v=1"></script>
 <script src="/konzept/preview-guard.js"></script></body>
 </html>
