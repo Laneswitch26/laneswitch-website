@@ -158,3 +158,7 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 - Bedienung: Suchfeld mit sichtbarer Vorschlagsliste (auch „vw golf 2017“), daneben Hersteller → Modell → Baujahr → Motorisierung. Steuerregel folgt aus dem Baujahr, NEFZ-Werte werden um 20 % auf WLTP-Niveau angehoben, Wartungsreserve mit Altersaufschlag.
 - Einsteigerautos nach Budget (Neuwagen, gebraucht bis 10.000 €, bis 5.000 €): redaktionell in `empfehlungen.json` mit Quellen und Stand; vierteljährlich prüfen. Monatskosten rechnet der Generator mit.
 - Bewusst nicht enthalten: Typ- und Regionalklassen (keine frei nutzbare Gesamtliste), Elektroautos.
+
+## Lernwelt: Fokus- und Vollbildmodus (30.10.2026)
+- `dist/konzept/lernwelt/vollbild.mjs`: Sobald eine Lernrunde startet, füllt der Trainer den ganzen Bildschirm (ohne Kopfzeile und Menü), Antwortknöpfe bleiben unten sichtbar. Wo möglich wird zusätzlich echtes Vollbild angefordert (nicht auf dem iPhone). „Beenden“ und die Zurück-Taste verlassen den Modus; bei laufender Prüfung wird nachgefragt.
+- Die Lernlogik im Inline-Skript ist unverändert; das Modul beobachtet nur die Klasse `active` von `#trainer`.
