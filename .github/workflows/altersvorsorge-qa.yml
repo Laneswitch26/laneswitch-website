@@ -25,11 +25,20 @@ jobs:
       - name: Check online integration
         uses: actions/checkout@v4
         with:
-          ref: feature/altersvorsorge-2027-online
+          ref: cloudflare-online
           path: online-target
-      - name: Verify identical generated engine and UI
+      # Compare against the live .online branch. Calculation and form logic must be identical;
+      # calculator.css is intentionally different because .online has its own design.
+      - name: Verify identical calculation and form logic
         run: |
-          for f in rules.mjs engine.mjs ui.mjs calculator.css; do cmp "assets/altersvorsorge/$f" "online-target/dist/konzept/assets/altersvorsorge/$f"; done
+          for f in rules.mjs engine.mjs ui.mjs share.mjs; do cmp "assets/altersvorsorge/$f" "online-target/dist/konzept/assets/altersvorsorge/$f"; done
+      - name: Verify privacy notice covers the calculator on both sites
+        run: |
+          for f in datenschutz/index.html online-target/dist/konzept/datenschutz/index.html; do
+            grep -q 'Förderrechner für Altersvorsorge' "$f"
+            grep -q 'Rufnummer' "$f"
+            grep -q 'sendet sie nicht an einen Server' "$f"
+          done
       - name: Browser checks for both sites
         env:
           CODEX_PRIMARY_RUNTIME_NODE_MODULES: /tmp/av-browser/node_modules
@@ -38,8 +47,9 @@ jobs:
           mkdir -p /tmp/av-shots
           python3 -m http.server 8080 > /tmp/de-server.log 2>&1 &
           python3 -m http.server 8081 --directory online-target/dist > /tmp/online-server.log 2>&1 &
-          node tests/altersvorsorge-browser.cjs
-          AV_BASE=http://localhost:8081 AV_ONLINE=1 node tests/altersvorsorge-browser.cjs
+          run_check() { if ! "$@" > /tmp/av-check.log 2>&1; then echo "::error title=Browser-Test $AV_LABEL::$(grep -v '^LAYOUT' /tmp/av-check.log | grep -E 'Error|Overflow|LAYOUT|right' | head -c 1500 | tr '\n' ' ')"; grep -A8 '^LAYOUT' /tmp/av-check.log | grep -B3 -A5 "tag:" | head -40; exit 1; fi; }
+          AV_LABEL=de run_check node tests/altersvorsorge-browser.cjs
+          AV_LABEL=online AV_BASE=http://localhost:8081 AV_ONLINE=1 run_check node tests/altersvorsorge-browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
