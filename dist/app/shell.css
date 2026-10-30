@@ -74,7 +74,52 @@ html body .ls-footer{margin:0;padding:20px 32px;background:var(--card);color:var
 /* Fahrschul-Login neben „Empfehlen“: führt zur Anmeldeseite des Navigators (dort auch „Kooperation anfragen“). Mobil kurz „Login“. */
 .login-top{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:24px;font-size:14px;font-weight:750;line-height:1.3;white-space:nowrap;text-decoration:none}
 .login-top:hover{border-color:var(--teal);color:var(--teal)}
-@media(max-width:900px){.login-long{display:none}}
-@media(max-width:760px){html body .topbar .brand,html body .topbar .brand img{width:126px!important}html body .topbar .header-actions{gap:6px!important}html body .topbar .recommend-top{padding-inline:12px!important}html body .topbar .login-top{min-height:42px!important;padding:10px 12px!important;flex:none!important}}
-@media(max-width:370px){html body .topbar .brand,html body .topbar .brand img{width:104px!important}html body .topbar .header-actions{gap:5px!important}html body .topbar .recommend-top,html body .topbar .login-top{padding-inline:10px!important;font-size:13px!important}}
+@media(max-width:760px){html body .topbar .brand,html body .topbar .brand img{width:126px!important}html body .topbar .header-actions{gap:6px!important}html body .topbar .recommend-top{padding-inline:12px!important}html body .topbar .login-top{min-height:42px!important;padding:5px 12px!important;flex:none!important;flex-direction:column!important;gap:0!important;font-size:12px!important;line-height:1.15!important}html body .topbar .login-top .login-b{font-size:11px}}
+@media(max-width:370px){html body .topbar .brand,html body .topbar .brand img{width:104px!important}html body .topbar .header-actions{gap:5px!important}html body .topbar .recommend-top{padding-inline:10px!important;font-size:13px!important}html body .topbar .login-top{padding-inline:9px!important}}
 @media(max-width:340px){html body .topbar{padding-inline:10px!important}html body .topbar .brand,html body .topbar .brand img{width:92px!important}html body .topbar .header-actions{gap:4px!important}html body .topbar .recommend-top,html body .topbar .login-top{padding-inline:9px!important}}
+/* Inhalte teilen (app/share.mjs): Knopf in der Kopfzeile des Inhalts und Dialog. Nur Theme-Variablen. */
+.ls-share-button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:700;line-height:1.2;cursor:pointer;white-space:nowrap}
+.ls-share-button:hover{border-color:var(--teal);color:var(--teal)}
+.ls-share-button .icon{width:17px;height:17px}
+.ls-share-button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.detail-context-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+.detail-context .ls-share-button{color:var(--ink)!important}
+.page-head .ls-share-button.on-navy{position:absolute;top:18px;right:18px;z-index:2;background:#ffffff14;border-color:#ffffff40;color:#fff}
+.page-head .ls-share-button.on-navy:hover{background:#ffffff26;border-color:#fff;color:#fff}
+.radar-toolbar-actions{justify-self:end;display:flex;align-items:center;gap:8px}
+.radar-toolbar-actions #radar-fullscreen{justify-self:auto}
+.radar-share{min-height:44px}
+.ls-share{width:min(520px,calc(100% - 28px));max-height:90dvh;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:20px;padding:0;overflow:auto}
+.ls-share::backdrop{background:#041b2ab8;backdrop-filter:blur(4px)}
+.ls-share-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 24px 6px}
+.ls-share-kicker{display:flex;align-items:center;gap:7px;margin:0 0 6px;font-size:13px;font-weight:700;color:var(--teal)}
+.ls-share-kicker .icon{width:16px;height:16px}
+.ls-share-head h2{margin:0;font-size:22px;line-height:1.2;color:var(--ink)}
+.ls-share-close{flex:none;width:40px;height:40px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font-size:22px;line-height:1;cursor:pointer}
+.ls-share-body{padding:14px 24px 24px}
+.ls-share-label{margin:0 0 8px;font-size:12px;font-weight:700;color:var(--muted)}
+.ls-share-preview{padding:16px 18px;border-radius:14px;background:var(--tint);color:var(--ink);font-size:15px;line-height:1.55;overflow-wrap:anywhere}
+.ls-share-preview p{margin:0 0 10px;color:var(--ink)}
+.ls-share-preview p:last-child{margin:0}
+.ls-share-url{color:var(--teal)!important;font-weight:650}
+.ls-share-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;margin-top:18px}
+.ls-share-action{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;min-height:76px;padding:12px 8px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;text-align:center}
+.ls-share-action:hover{border-color:var(--teal);color:var(--teal)}
+.ls-share-action .icon{width:24px;height:24px}
+.ls-share-action.is-whatsapp{background:var(--navy);border-color:var(--navy);color:#fff}
+.ls-share-action.is-whatsapp:hover{color:#fff;opacity:.92}
+.ls-share-status{margin:14px 0 0;font-size:13px;color:var(--muted)}
+@media(max-width:760px){.page-head .ls-share-button.on-navy{top:12px;right:12px;padding:7px 11px;min-height:36px;font-size:13px}.page-head.has-share .hero-copy{padding-right:0}.page-head.has-share h1{padding-right:86px}.detail-context-actions{gap:10px}.ls-share-head{padding:18px 18px 4px}.ls-share-body{padding:12px 18px 20px}.ls-share-actions{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.radar-share span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.radar-share{width:44px;padding:0}}
+
+.login-top .login-a,.login-top .login-b{white-space:nowrap}
+.coop-status{margin:16px 0 0;padding:14px 16px;border-radius:12px;background:var(--tint);color:var(--ink);font-size:14px;line-height:1.55}
+.coop-status.is-error{border:1px solid var(--line);background:var(--card)}
+.coop-status a{color:var(--teal);font-weight:700}
+.form-coop{margin-top:4px}
+@media(max-width:400px){html body .topbar .brand,html body .topbar .brand img{width:112px!important}html body .topbar .header-actions{gap:5px!important}html body .topbar .recommend-top{padding-inline:10px!important}html body .topbar .login-top{padding-inline:9px!important}}
+@media(max-width:370px){html body .topbar .brand,html body .topbar .brand img{width:104px!important}}
+@media(max-width:340px){html body .topbar .login-top .login-b{display:none}html body .topbar .login-top .login-a{font-size:0}html body .topbar .login-top .login-a::after{content:"Login";font-size:13px}}
+
+.login-top{gap:.3em}
+.partner.partner--text{grid-template-columns:minmax(0,1fr)}
