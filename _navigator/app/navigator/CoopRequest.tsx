@@ -27,7 +27,7 @@ export default function CoopRequest({onLogin}:{onLogin:()=>void}){
   <label className="nv-field">Nachricht <span className="nv-optional">(optional)</span><textarea name="message" rows={3} maxLength={1500} placeholder="z. B. Standorte, Führerscheinklassen oder was dich an LANE SWITCH interessiert"/></label>
   {/* Unsichtbare Falle für automatisierte Einsendungen. */}
   <label className="nv-hp" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off"/></label>
-  <label className="nv-check"><input type="checkbox" name="consent" required/><span>Ich habe die <a href="https://laneswitch.de/datenschutz/#kooperationsanfrage" target="_blank" rel="noopener noreferrer">Datenschutzhinweise</a> gelesen. LANE SWITCH speichert meine Angaben, um die Anfrage zu bearbeiten und mich zu kontaktieren.</span></label>
+  <label className="nv-check"><input type="checkbox" name="consent" required/><span>Ich habe die <a href="https://laneswitch.online/konzept/datenschutz/#kooperationsanfrage" target="_blank" rel="noopener noreferrer">Datenschutzhinweise</a> gelesen. LANE SWITCH speichert meine Angaben, um die Anfrage zu bearbeiten und mich zu kontaktieren.</span></label>
   <button disabled={busy} type="submit">{busy?'Wird gesendet …':'Anfrage senden →'}</button>
   <p className="nv-muted">Unverbindlich. Mit der Anfrage entsteht noch kein Zugang und keine Verpflichtung.</p>
   {error&&<p role="alert" className="nv-alert nv-alert-warn">{error}</p>}
