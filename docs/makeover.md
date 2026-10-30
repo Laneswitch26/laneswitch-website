@@ -162,3 +162,11 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 ## Lernwelt: Fokus- und Vollbildmodus (30.10.2026)
 - `dist/konzept/lernwelt/vollbild.mjs`: Sobald eine Lernrunde startet, füllt der Trainer den ganzen Bildschirm (ohne Kopfzeile und Menü), Antwortknöpfe bleiben unten sichtbar. Wo möglich wird zusätzlich echtes Vollbild angefordert (nicht auf dem iPhone). „Beenden“ und die Zurück-Taste verlassen den Modus; bei laufender Prüfung wird nachgefragt.
 - Die Lernlogik im Inline-Skript ist unverändert; das Modul beobachtet nur die Klasse `active` von `#trainer`.
+
+## Nutzerfreundlichkeit (30.10.2026)
+- Lernwelt fragt erst nach der ersten Lernrunde nach dem Speichern (vorher sofort beim Öffnen).
+- Kontextleiste der Unterseiten ohne Zielgruppenwechsel-Link („Zu Fahrschulen“ war missverständlich).
+- Login in der Kopfzeile auf dem Handy nur in der Fahrschul-Ansicht, einzeilig „Login“ (`html[data-audience]`, gesetzt in app.js/detail.js).
+- Hinweis „LANE SWITCH als App“ im Browser wegklickbar (`ls-app-entry-v1`), im App-Fenster wie bisher unsichtbar.
+- Vorlagen: ganze Checklistenzeile antippbar; größere Tippflächen für Brotkrumen, Partnerkontakte, Seitenleisten-Links.
+- Notfallcenter: Hinweis „Akuter Notfall / 112“ steht über der Einleitung. Begrüßungsfenster nutzt h2 (nur eine h1 je Seite).

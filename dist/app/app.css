@@ -191,7 +191,7 @@ h1{font-size:30px}
 .welcome{padding:38px}
 .welcome>img{margin-bottom:34px}
 .welcome>p:not(.eyebrow){color:var(--muted);margin:17px 0 27px;font-size:16px}
-.welcome h1{font-size:44px}
+.welcome :is(h1,h2){font-size:44px}
 .welcome-choice{display:flex;align-items:center;gap:15px;width:100%;text-align:left;padding:18px 15px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:15px;margin:13px 0;min-height:100px}
 .welcome-choice:hover{border-color:var(--teal);background:var(--tint)}
 .welcome-choice>span:nth-child(2){flex:1}
@@ -200,7 +200,7 @@ h1{font-size:30px}
 .welcome-skip{background:none;border:0;min-height:48px;width:100%;color:var(--teal);font-size:14px;font-weight:650;margin-top:9px}
 .welcome p.welcome-note{font-size:12px;text-align:center;margin:13px 0 0}
 @media(max-width:760px){.welcome{padding:27px 21px}
-.welcome h1{font-size:36px}
+.welcome :is(h1,h2){font-size:36px}
 .welcome>img{margin-bottom:27px}
 .welcome-choice{gap:11px;padding:15px 12px}
 .welcome-choice strong{font-size:15px}
