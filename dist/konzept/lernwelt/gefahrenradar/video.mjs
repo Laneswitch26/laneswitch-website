@@ -1,5 +1,6 @@
 // Gefahrenradar · Videoszenen (vorgerenderte 3D-Fahrten). Fällt bei Problemen still auf die Zeichnungen zurück.
-import { VIDEO_TRACKS } from './video-tracks.mjs?v=1';
+import { VIDEO_TRACKS } from './video-tracks.mjs?v=2';
+const MEDIA_VERSION = 2; // bei neu gerenderten Videos erhöhen
 import { hazardAt } from './core.mjs?v=6';
 
 let disabled = false;
@@ -31,8 +32,8 @@ export function mountVideo(stage, scene, { onFail }) {
   let failed = false, ended = false;
   const fail = () => { if (failed) return; failed = true; disabled = true; onFail(); };
   video.muted = true; video.defaultMuted = true; video.playsInline = true;
-  video.poster = `video/${scene.id}.jpg`;
-  video.src = `video/${scene.id}.mp4#t=${(offset / 1000).toFixed(2)}`;
+  video.poster = `video/${scene.id}.jpg?v=${MEDIA_VERSION}`;
+  video.src = `video/${scene.id}.mp4?v=${MEDIA_VERSION}#t=${(offset / 1000).toFixed(2)}`;
   video.addEventListener('error', fail);
   // Nicht jeder Browser beachtet den Startpunkt im Fragment (#t=…): dann einmalig selbst springen.
   video.addEventListener('loadedmetadata', () => { if (video.currentTime < offset / 1000 - 0.04) { try { video.currentTime = offset / 1000; } catch {} } }, { once: true });

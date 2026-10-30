@@ -11,11 +11,31 @@ const meta = JSON.parse(q.get('meta') || '{}'); // {cue, dur} in ms aus der Spie
 const T0 = meta.cue > 0 ? (meta.cue + 350) / 1000 : 0, LEN = (meta.dur + (meta.cue > 0 ? 700 : 0)) / 1000;
 const w = K.createWorld(def.world || {});
 def.build(w, {T0, LEN, K});
-K.bake(w);
+if (!q.has('check')) K.bake(w);
 window.api = {
   T0, LEN,
   frame(t) { K.setTime(w, t); K.render(w); },
   areas(t) { K.setTime(w, t); w.camera.updateMatrixWorld(); return K.hazardAreas(w, t); },
+  // Kollisionsprüfung: eigenes Auto und alle Objekte als Quader; meldet Überschneidungen.
+  collisions() {
+    const {THREE} = K, out = [], seen = new Set();
+    const solid = [];
+    for (const o of w.scene.children) {
+      if (o.isCamera || o.isLight || !(o.isMesh || o.isGroup)) continue;
+      const b = new THREE.Box3().setFromObject(o); const s = b.getSize(new THREE.Vector3());
+      if (o.isMesh && (s.y < 0.3 || s.x > 30 || s.z > 30 || b.min.y > 1.6)) continue; // Boden, Linien, Hintergrund, Dächer
+      solid.push({o, name: o.name || (o.geometry?.type ?? 'Objekt'), dynamic: o.isGroup});
+    }
+    for (let t = 0; t <= LEN; t += 0.1) {
+      K.setTime(w, t); w.scene.updateMatrixWorld(true);
+      const c = w.camera.position, zf = -c.z;
+      const ego = new THREE.Box3(new THREE.Vector3(c.x + 0.37 - 0.88, 0.05, -(zf + 2.3)), new THREE.Vector3(c.x + 0.37 + 0.88, 1.45, -(zf - 2.0)));
+      const boxes = solid.map(s => ({...s, b: new THREE.Box3().setFromObject(s.o).expandByScalar(-0.06)}));
+      for (const s of boxes) if (s.b.intersectsBox(ego)) { const k = 'ego|' + s.name + Math.round(s.b.min.z); if (!seen.has(k)) { seen.add(k); out.push(`t=${t.toFixed(1)} eigenes Auto ↔ ${s.name} bei x=${s.b.min.x.toFixed(1)}…${s.b.max.x.toFixed(1)} zf=${(-s.b.max.z).toFixed(1)}…${(-s.b.min.z).toFixed(1)}`); } }
+      for (let i = 0; i < boxes.length; i++) if (boxes[i].dynamic) for (let j = 0; j < boxes.length; j++) if (i !== j && (!boxes[j].dynamic || j > i) && boxes[i].b.intersectsBox(boxes[j].b)) { const k = i + '|' + j; if (!seen.has(k)) { seen.add(k); out.push(`t=${t.toFixed(1)} ${boxes[i].name} ↔ ${boxes[j].name} bei zf=${(-boxes[i].b.max.z).toFixed(1)}…${(-boxes[i].b.min.z).toFixed(1)}`); } }
+    }
+    return out;
+  },
   info() { return {...w.renderer.info.render, geometries: w.renderer.info.memory.geometries, textures: w.renderer.info.memory.textures, objects: w.scene.children.length}; },
 };
 K.setTime(w, 0); K.render(w);

@@ -19,6 +19,7 @@ Unbewegliche Umgebung wird beim Aufbau nach Material zusammengefasst (`bake`). D
 node tools/gefahrenradar-3d/render.mjs ball --preview 0,3,6,9    # Standbilder nach out/preview/
 node tools/gefahrenradar-3d/render.mjs                           # alle Szenen rendern
 node tools/gefahrenradar-3d/render.mjs ball door                 # einzelne Szenen neu rendern
+node tools/gefahrenradar-3d/check.mjs                            # Kollisionsprüfung aller Szenen (ohne Rendern)
 node --test qa/gefahrenradar.test.mjs                            # Spuren und Dateien prüfen
 ```
 
@@ -29,5 +30,6 @@ Das dauert etwa 1,3 s pro Bild und gut 6 Minuten pro Szene.
 
 - **Zeitpunkt der Gefahr:** Im Video liegt er bei `cueMs + 350` ms, das Video ist 700 ms länger als die Szene. So kann das Spiel den Zeitpunkt wie bisher um ±350 ms variieren. Es startet das Video dafür passend später (`trackOffset`).
 - **Kamera:** Sie fährt ruhig und hält rechtzeitig an, damit sie nie durch die Gefahr hindurchfährt. Frei bewegen lässt sie sich nicht.
-- **Ändern einer Szene:** Nach jeder Änderung die Szene neu rendern. Danach `node --test qa/gefahrenradar.test.mjs` ausführen und die `?v=`-Versionen erhöhen.
+- **Kollisionen:** `check.mjs` meldet, wenn das eigene Auto oder ein bewegtes Objekt etwas anderes berührt. Die Prüfung arbeitet mit Quadern, deshalb kann ein Werkzeug über Leitkegeln fälschlich als Treffer erscheinen.
+- **Ändern einer Szene:** Nach jeder Änderung `check.mjs` laufen lassen und die Szene neu rendern. Danach `node --test qa/gefahrenradar.test.mjs` ausführen und die `?v=`-Versionen erhöhen.
 - **Lizenz:** three.js (MIT) liegt nur in `vendor/` und wird nicht eingecheckt.
