@@ -1,2 +1,7 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /navigator/
+Disallow: /api/
+Disallow: /offline.html
+
+Sitemap: https://laneswitch.online/sitemap.xml
