@@ -5,3 +5,10 @@
 /* Keep content clear of system cutouts and the mobile navigation. */
 @media(max-width:760px){body[data-detail]{padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}html body .topbar{padding-left:max(19px,env(safe-area-inset-left))!important;padding-right:max(19px,env(safe-area-inset-right))!important}.detail-layout{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}.bottom-nav{padding-left:max(8px,env(safe-area-inset-left));padding-right:max(8px,env(safe-area-inset-right))}}
 @media(max-width:370px){html body .topbar{padding-left:max(12px,env(safe-area-inset-left))!important;padding-right:max(12px,env(safe-area-inset-right))!important}}
+.app-entry-wrap{position:relative}
+.app-entry-wrap>.app-entry{padding-right:64px}
+.app-entry-wrap>.app-entry>span[aria-hidden]{display:none}
+.app-entry-close{position:absolute;top:50%;right:6px;transform:translateY(-50%);display:grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}
+.app-entry-close:hover{color:var(--ink)}
+.app-entry-close:focus-visible{outline:3px solid var(--teal);outline-offset:-3px}
+.app-entry small{font-size:12px}

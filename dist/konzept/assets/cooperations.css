@@ -86,3 +86,5 @@ html[data-theme=dark] .partner-share-dialog .recommend-action-primary{background
 
 /* Automatisch ergänzte, freigegebene Partnerfahrschulen. Logo-Fläche bewusst weiß (Logos sind für Weiß freigegeben, wie im Navigator). */
 .partner-directory-logo{display:block;max-width:140px;max-height:56px;object-fit:contain;margin:4px 0 14px;padding:8px;background:#fff;border:1px solid var(--line);border-radius:10px}
+/* Größere Tippflächen für Brotkrumen und Kontaktlinks */
+.partner-breadcrumbs a,.partner-card>a:not(.partner-button),.partner-contact a{display:inline-flex;align-items:center;min-height:44px}

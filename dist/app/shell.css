@@ -130,3 +130,13 @@ html body .ls-footer{margin:0;padding:20px 32px;background:var(--card);color:var
 @media(max-width:315px){html body .topbar .brand,html body .topbar .brand img{width:78px!important}html body .topbar .icon-button{min-width:38px!important;min-height:38px!important}}
 /* Logo may shrink on small screens so the header never overflows, whatever system font renders the buttons. */
 @media(max-width:1000px){html body header.topbar .brand{flex:0 1 auto!important;min-width:64px!important}html body header.topbar .brand img{width:100%!important;height:auto}}
+
+/* Nutzerfreundlichkeit 10/2026: Login nur dort, wo er gebraucht wird; größere Tippflächen */
+@media(max-width:760px){
+  html[data-audience=learner] body .topbar .login-top{display:none!important}
+  html[data-audience=school] body .topbar .login-top .login-b{display:none}
+  html[data-audience=school] body .topbar .login-top .login-a{font-size:0}
+  html[data-audience=school] body .topbar .login-top .login-a::after{content:"Login";font-size:14px}
+}
+.side-foot a{display:inline-flex;align-items:center;min-height:32px}
+.detail-context>a{white-space:nowrap}
