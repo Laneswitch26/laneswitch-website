@@ -1,56 +1,34 @@
-### query.js https://discodata.eea.europa.eu/query.js
-404
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/static_errors/css/style.css">
-</head>
-<body class="err404">
-<a href="https://www.eea.europa.eu" title="Go to homepage"><img class="eealogo" src="https://www.eea.europa.eu/about-us/documents/logos/eps_logos/eea-uk-white"></a>
-<div class="message">
-<h1>404 Not found!</h1>
-<h2>Ooops the page you were looking for has melted away...</h2>
-</div>
-</body>
-</html>
-
-
-### queryarea.js https://discodata.eea.europa.eu/queryarea.js
-404
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="/static_errors/css/style.css">
-</head>
-<body class="err404">
-<a href="https://www.eea.europa.eu" title="Go to homepage"><img class="eealogo" src="https://www.eea.europa.eu/about-us/documents/logos/eps_logos/eea-uk-white"></a>
-<div class="message">
-<h1>404 Not found!</h1>
-<h2>Ooops the page you were looking for has melted away...</h2>
-</div>
-</body>
-</html>
-
-
-### get-noenc https://discodata.eea.europa.eu/sql?query=SELECT%20TOP%202%20*%20FROM%20[CO2Emission].[latest].[co2cars_2025Pv31]&p=1&nrOfHits=2
-403
-<html>
-<head><title>403 Forbidden</title></head>
-<body>
-<center><h1>403 Forbidden</h1></center>
-<hr><center>Microsoft-Azure-Application-Gateway/v2</center>
-</body>
-</html>
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-<!-- a padding to disable MSIE and Chrome friendly error page -->
-
-
-### post-json https://discodata.eea.europa.eu/sql
+### is1
+SELECT TABLE_SCHEMA AS s, TABLE_NAME AS t FROM INFORMATION_SCHEMA.TABLES
 200
-{"errors":[{"error":"Please specify an alias for the first column of your query.","errorcode":10004}]}
+{"errors":[{"error":"system tables are not allowed","errorcode":10001}]}
 
-### post-form https://discodata.eea.europa.eu/sql
+### is2
+SELECT TABLE_SCHEMA AS s, TABLE_NAME AS t FROM [CO2Emission].INFORMATION_SCHEMA.TABLES
 200
-{"results":[{"ID":176215821,"MS":"DE","Mp":"HYUNDAI MOTOR EUROPE","VFN":"IP-050662-NLH","Mh":"HYUNDAI TURKIYE","Man":"HYUNDAI MOTOR TURKIYE OTOMOTIV AS","MMS":null,"TAN":"E5*2007\/46*0121*06","T":"BC3","Va":"B5P51","Ve":"M62CZ1","Mk":"HYUNDAI","Cn":"I20","Ct":"M1","Cr":"M1","M (kg)":1140,"Mt":1237,"Enedc (g\/km)":null,"Ewltp (g\/km)":119,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"petrol","Fm":"M","Ec (cm3)":998,"Ep (KW)":74,"Z (Wh\/km)":null,"IT":"","Ernedc (g\/km)":null,"Erwltp (g\/km)":null,"De":null,"Vf":null,"R":1,"Year":2025,"Status":"P","Version_file":"v31","E (g\/km)":null,"Er (g\/km)":null,"Zr":null,"Dr":"2025-08-13","Fc":5.200000000000000e+000,"Ech":"EA","RLFI":"RL-050009-NLH"},{"ID":176461503,"MS":"DE","Mp":"HYUNDAI MOTOR EUROPE","VFN":"IP-050662-NLH","Mh":"HYUNDAI TURKIYE","Man":"HYUNDAI MOTOR TURKIYE OTOMOTIV AS","MMS":null,"TAN":"E5*2007\/46*0121*06","T":"BC3","Va":"B5P51","Ve":"M62CZ1","Mk":"HYUNDAI","Cn":"I20","Ct":"M1","Cr":"M1","M (kg)":1140,"Mt":1237,"Enedc (g\/km)":null,"Ewltp (g\/km)":119,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"petrol","Fm":"M","Ec (cm3)":998,"Ep (KW)":74,"Z (Wh\/km)":null,"IT":"","Ernedc (g\/km)":null,"Erwltp (g\/km)":null,"De":null,"Vf":null,"R":1,"Year":2025,"Status":"P","Version_file":"v31","E (g\/km)":null,"Er (g\/km)":null,"Zr":null,"Dr":"2025-06-02","Fc":5.200000000000000e+000,"Ech":"EA","RLFI":"RL-050009-NLH"}]}
+{"errors":[{"error":"system tables are not allowed","errorcode":10001}]}
+
+### is3
+SELECT TABLE_SCHEMA AS s, TABLE_NAME AS t FROM INFORMATION_SCHEMA."TABLES" WHERE TABLE_SCHEMA LIKE '%CO2%'
+200
+{"errors":[{"error":"system tables are not allowed","errorcode":10001}]}
+
+### agg2025
+SELECT TOP 20 c.Mk AS mk, c.Cn AS cn, c.Ft AS ft, c.Fm AS fm, c.[Ec (cm3)] AS ec, c.[Ep (KW)] AS kw, AVG(c.[Ewltp (g/km)]) AS co2, AVG(c.Fc) AS fc, SUM(c.R) AS n FROM [CO2Emission].[latest].[co2cars_2025Pv31] c WHERE c.MS='DE' GROUP BY c.Mk, c.Cn, c.Ft, c.Fm, c.[Ec (cm3)], c.[Ep (KW)] ORDER BY SUM(c.R) DESC
+200
+{"errors":[{"error":"Your query is not allowed execution...","errorcode":10002}]}
+
+### t2018
+SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2018Fv15] c WHERE c.MS='DE'
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2018Fv15'.","errorcode":10003}]}
+
+### t2014
+SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2014Fv10] c WHERE c.MS='DE'
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2014Fv10'.","errorcode":10003}]}
+
+### t2024
+SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE'
+200
+{"results":[{"ID":150070462,"MS":"DE","Mp":"KIA","VFN":"IP-0401571-U5Y","Mh":"KIA SLOVAKIA","Man":"KIA SLOVAKIA SRO","MMS":null,"TAN":"E4*2018\/858*00079*04","T":"NQ5E","Va":"F5P41","Ve":"A61B11","Mk":"KIA","Cn":"SPORTAGE","Ct":"M1","Cr":"M1","M (kg)":1649,"Mt":1754,"Enedc (g\/km)":null,"Ewltp (g\/km)":127,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"petrol","Fm":"H","Ec (cm3)":1598,"Ep (KW)":118,"Z (Wh\/km)":null,"IT":"","Ernedc (g\/km)":null,"Erwltp (g\/km)":null,"De":null,"Vf":null,"R":1,"Year":2024,"Status":"F","Version_file":"v30","E (g\/km)":null,"Er (g\/km)":null,"Zr":null,"Dr":"2024-07-17","Fc":5.600000000000000e+000,"Ech":"EURO 6 EA","RLFI":"RL-0401571-U5Y"},{"ID":150148266,"MS":"DE","Mp":"KIA","VFN":"IP-0401571-U5Y","Mh":"KIA SLOVAKIA","Man":"KIA SLOVAKIA SRO","MMS":null,"TAN":"E4*2018\/858*00079*04","T":"NQ5E","Va":"F5P41","Ve":"A61B11","Mk":"KIA","Cn":"SPORTAGE","Ct":"M1","Cr":"M1","M (kg)":1649,"Mt":1754,"Enedc (g\/km)":null,"Ewltp (g\/km)":127,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"petrol","Fm":"H","Ec (cm3)":1598,"Ep (KW)":118,"Z (Wh\/km)":null,"IT":"","Ernedc (g\/km)":null,"Erwltp (g\/km)":null,"De":null,"Vf":null,"R":1,"Year":2024,"Status":"F","Version_file":"v30","E (g\/km)":null,"Er (g\/km)":null,"Zr":null,"Dr":"2024-12-11","Fc":5.600000000000000e+000,"Ech":"EURO 6 EA","RLFI":"RL-0401571-U5Y"}]}
