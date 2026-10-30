@@ -1,13 +1,16 @@
-2012: {"results":[{"ID":106726,"MS":"DE","Mp":"","VFN":null,"Mh":"UNKNOWN","Man":"VOLKSWAGEN AG","MMS":"VOLKSWAGEN-VW","TAN":"","T":"2K","Va":"-","Ve":"-","Mk":"","Cn":"CADDY","Ct":"","Cr":null,"M (kg)":1642,"Mt":null,"Enedc (g/km)":null,"Ewltp (g/km)":null,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"NG-biomethane","Fm":"M","Ec (cm3)":1984,"Ep (KW)":80,"Z (Wh/km)":null,"IT":"","Ernedc (g/km)":null,"Erwltp (g/km)":null,"De":null,"Vf":null,"R":1,"Year":2012,"Status":"F","Version_file":"v6","E (g/km)":179,"Er (g/km)":null,"Zr":null,"Dr":null,"Fc":null},{"ID":106794,"MS":"DE","Mp":"","VFN":null,"Mh":"UNKNOWN","Man":"VOLKSWAGEN AG","MMS":"VOLKSWAGEN-VW","TAN":"","T":"AAE","Va":"-","Ve":"-","Mk":"","Cn":"UP!","Ct":"","Cr":null,"M (kg)":1245,"Mt":null,"Enedc (g/km)":null,"Ewltp (g/km)":null,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"Electric","Fm":"M","Ec (cm3)":null,"Ep (KW)":60,"Z (Wh/km)":null,"IT":"","Ernedc (g/km)":null,"Erwltp (g/km)":null,"De":null,"Vf":null,"R":1,"Year":2012,"Status":"F","Version_file":"v6","E (g/km)":0,"Er (g/km)":null,"Zr":null,"Dr":null,"Fc":null}],"ms":1535}
-
-2016: {"results":[{"ID":370300,"MS":"DE","Mp":"GENERAL MOTORS","VFN":null,"Mh":"GENERAL MOTORS COMPANY","Man":"GENERAL MOTORS COMPANY","MMS":"GENERAL MOT-GMC(USA)","TAN":"","T":"SUBURBAN","Va":"","Ve":"","Mk":"","Cn":"","Ct":"M1G","Cr":null,"M (kg)":2733,"Mt":null,"Enedc (g/km)":null,"Ewltp (g/km)":null,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"LPG","Fm":"M","Ec (cm3)":5329,"Ep (KW)":250,"Z (Wh/km)":null,"IT":"","Ernedc (g/km)":null,"Erwltp (g/km)":null,"De":null,"Vf":null,"R":1,"Year":2016,"Status":"P","Version_file":"v13","E (g/km)":264,"Er (g/km)":null,"Zr":null,"Dr":null,"Fc":null},{"ID":370314,"MS":"DE","Mp":"GENERAL MOTORS","VFN":null,"Mh":"GENERAL MOTORS COMPANY","Man":"GENERAL MOTORS COMPANY","MMS":"GENERAL MOT-GMC(USA)","TAN":"","T":"TAHOE","Va":"","Ve":"","Mk":"","Cn":"","Ct":"M1G","Cr":null,"M (kg)":2617,"Mt":null,"Enedc (g/km)":null,"Ewltp (g/km)":null,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"LPG","Fm":"M","Ec (cm3)":5328,"Ep (KW)":265,"Z (Wh/km)":null,"IT":"","Ernedc (g/km)":null,"Erwltp (g/km)":null,"De":null,"Vf":null,"R":1,"Year":2016,"Status":"P","Version_file":"v13","E (g/km)":279,"Er (g/km)":null,"Zr":null,"Dr":null,"Fc":null}],"ms":624}
-
-2019: {"results":[{"ID":5060581,"MS":"DE","Mp":"FORD-WERKE GMBH","VFN":null,"Mh":"FORD WERKE GMBH","Man":"FORD-WERKE GMBH","MMS":"FORD D","TAN":"E9*2007/46*0092*19","T":"JK8","Va":"YYJD11X","Ve":"5AAPZN00MDU","Mk":"FORD","Cn":"ECOSPORT","Ct":"M1","Cr":"M1","M (kg)":1348,"Mt":null,"Enedc (g/km)":119,"Ewltp (g/km)":null,"W (mm)":2519,"At1 (mm)":1519,"At2 (mm)":1517,"Ft":"petrol","Fm":"M","Ec (cm3)":998,"Ep (KW)":103,"Z (Wh/km)":null,"IT":null,"Ernedc (g/km)":null,"Erwltp (g/km)":null,"De":null,"Vf":null,"R":1,"Year":2019,"Status":"F","Version_file":"v20","E (g/km)":null,"Er (g/km)":null,"Zr":null,"Dr":null,"Fc":null},{"ID":5060592,"MS":"DE","Mp":"FORD-WERKE GMBH","VFN":null,"Mh":"FORD WERKE GMBH","Man":"FORD-WERKE GMBH","MMS":"FORD D","TAN":"E9*2007/46*0092*19","T":"JK8","Va":"YYJD11X","Ve":"5AAPZN00MDU","Mk":"FORD","Cn":"ECOSPORT","Ct":"M1","Cr":"M1","M (kg)":1348,"Mt":null,"Enedc (g/km)":119,"Ewltp (g/km)":null,"W (mm)":2519,"At1 (mm)":1519,"At2 (mm)":1517,"Ft":"petrol","Fm":"M","Ec (cm3)":998,"Ep (KW)":103,"Z (Wh/km)":null,"IT":null,"Ernedc (g/km)":null,"Erwltp (g/km)":null,"De":null,"Vf":null,"R":1,"Year":2019,"Status":"F","Version_file":"v20","E (g/km)":null,"Er (g/km)":null,"Zr":null,"Dr":null,"Fc":null}],"ms":357}
-
-2021: {"results":[{"ID":50407521,"MS":"DE","Mp":"STELLANTIS","VFN":"IP-YHT____MB6_611D-VR3-0","Mh":"PSA","Man":"PSA AUTOMOBILES SA","MMS":null,"TAN":"e2*2007/46*0624*10","T":"E","Va":"C","Ve":"YHT2-A2C300","Mk":"CITROEN","Cn":"BERLINGO","Ct":"M1","Cr":"M1","M (kg)":1505,"Mt":1692,"Enedc (g/km)":null,"Ewltp (g/km)":137,"W (mm)":2785,"At1 (mm)":1567,"At2 (mm)":1563,"Ft":"DIESEL","Fm":"M","Ec (cm3)":1499,"Ep (KW)":75,"Z (Wh/km)":null,"IT":"e2 29","Ernedc (g/km)":null,"Erwltp (g/km)":0.7,"De":null,"Vf":null,"R":1,"Year":2021,"Status":"F","Version_file":"v24","E (g/km)":null,"Er (g/km)":null,"Zr":null,"Dr":"2021-06-21","Fc":5.2},{"ID":50407527,"MS":"DE","Mp":"STELLANTIS","VFN":"IP-YHT____MB6_611D-VR3-0","Mh":"PSA","Man":"PSA AUTOMOBILES SA","MMS":null,"TAN":"e2*2007/46*0624*10","T":"E","Va":"C","Ve":"YHT2-A2C300","Mk":"CITROEN","Cn":"BERLINGO","Ct":"M1","Cr":"M1","M (kg)":1505,"Mt":1691,"Enedc (g/km)":null,"Ewltp (g/km)":137,"W (mm)":2785,"At1 (mm)":1567,"At2 (mm)":1563,"Ft":"DIESEL","Fm":"M","Ec (cm3)":1499,"Ep (KW)":75,"Z (Wh/km)":null,"IT":"e2 29","Ernedc (g/km)":null,"Erwltp (g/km)":0.7,"De":null,"Vf":null,"R":1,"Year":2021,"Status":"F","Version_file":"v24","E (g/km)":null,"Er (g/km)":null,"Zr":null,"Dr":"2021-04-08","Fc":5.2}],"ms":340}
-
-agg2016: {"results":[{"mk":"","cn":"","ft":"DIESEL","ec":4367,"kw":250,"co2n":null,"co2w":null,"n":2},{"mk":"","cn":"","ft":"E85","ec":5328,"kw":265,"co2n":null,"co2w":null,"n":2},{"mk":"","cn":"","ft":"ELECTRIC","ec":null,"kw":null,"co2n":null,"co2w":null,"n":2},{"mk":"","cn":"","ft":"LPG","ec":5328,"kw":265,"co2n":null,"co2w":null,"n":4},{"mk":"","cn":"","ft":"LPG","ec":5329,"kw":250,"co2n":null,"co2w":null,"n":2}],"ms":326}
-
-rows2016: {"results":[{"n":124926}],"ms":167}
-
-page size test: 4263
+2010: 2043 Gruppen, 5746538 Fahrzeuge
+2011: 5079 Gruppen, 5572232 Fahrzeuge
+2012: 5437 Gruppen, 2602025 Fahrzeuge
+2013: 6561 Gruppen, 5861358 Fahrzeuge
+2014: 6306 Gruppen, 6027382 Fahrzeuge
+2015: 7205 Gruppen, 6356896 Fahrzeuge
+2016: 5562 Gruppen, 6635860 Fahrzeuge
+2017: 5819 Gruppen, 6785152 Fahrzeuge
+2018: 7752 Gruppen, 6771211 Fahrzeuge
+2019: 6457 Gruppen, 7075735 Fahrzeuge
+2020: 6929 Gruppen, 5666637 Fahrzeuge
+2021: 11257 Gruppen, 5060268 Fahrzeuge
+2022: 4656 Gruppen, 2570994 Fahrzeuge
+2023: 5107 Gruppen, 2765152 Fahrzeuge
+2024: 5210 Gruppen, 2729299 Fahrzeuge
+2025: 5148 Gruppen, 2772367 Fahrzeuge
