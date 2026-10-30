@@ -33,7 +33,7 @@ export const SCENES = {
       w.onUpdate(t => {
         const bt = Math.max(0, t - T0); ball.visible = t >= T0 - 0.05;
         const bx = -1.95 + 3.3 * (1 - Math.exp(-bt / 2.2)); ball.position.set(bx, 0.2 + Math.abs(Math.sin(bt * 5)) * 0.07 * Math.exp(-bt * 0.7), -zB); ball.rotation.z = -(bx + 1.95) / 0.2;
-        ped.position.set(4.4, 0.13, -(zB + 30 - 1.2 * t)); ped.userData.walk(t * 5.5);
+        ped.position.set(3.95, 0.13, -(zB + 30 - 1.2 * t)); ped.userData.walk(t * 5.5);
       });
       w.hazards.push(t => t >= T0 ? [{pos: wp(ball), r: 0.7}] : null);
     },
@@ -86,7 +86,7 @@ export const SCENES = {
       town(w, {centerLine: false});
       for (let x = -2.9; x < 3.3; x += 1.0) w.add(new THREE.BoxGeometry(0.5, 0.004, 4), K.MAT.line, x, 0.003, zc, false);
       const sign = K.T.sign('zebra', (g, W, H) => { g.fillStyle = '#1f5fbf'; g.fillRect(0, 0, W, H); g.fillStyle = '#fff'; g.beginPath(); g.moveTo(128, 20); g.lineTo(236, 226); g.lineTo(20, 226); g.closePath(); g.fill(); g.fillStyle = '#111'; g.fillRect(70, 196, 116, 14); g.beginPath(); g.arc(132, 95, 14, 0, 7); g.fill(); g.fillRect(124, 110, 16, 52); g.fillRect(112, 160, 10, 36); g.fillRect(142, 160, 10, 36); });
-      K.signPost(w, 4.5, zc - 3, sign, {sw: 0.7, sh: 0.7, top: 2.7}); K.signPost(w, -4.5, zc + 3, sign, {sw: 0.7, sh: 0.7, top: 2.7, rotY: 0});
+      K.signPost(w, 4.9, zc - 6.5, sign, {sw: 0.7, sh: 0.7, top: 2.7}); K.signPost(w, -4.5, zc + 3, sign, {sw: 0.7, sh: 0.7, top: 2.7, rotY: 0});
       const p = K.person(w, {shirt: 0xb85c38, pants: 0x3b4252});
       w.onUpdate(t => { const u = smooth(T0 - 0.4, T0 + 2.2, t); p.position.set(lerp(5.2, 3.6, u), 0.13, -lerp(zc - 4, zc - 0.6, u)); p.rotation.y = lerp(0.3, Math.PI / 2, smooth(T0 + 1.6, T0 + 2.6, t)); p.userData.walk(t * 5.5, 1 - smooth(T0 + 2.2, T0 + 2.6, t)); });
       K.place(K.car(w, 0xa0b2ad), -2.2, zc + 45, -1);
@@ -115,7 +115,7 @@ export const SCENES = {
       const zv = d.zAt(T0) + 23;
       const v = K.van(w, 0xf1f1ee); K.place(v, 1.75, zv); v.userData.lights.hazard = true;
       const stream = oncoming(w, d, [[0xf3f3f0, zv + 40, T0 - 0.8], [0x6c7a86, zv + 70, T0 - 0.8]], 6.0);
-      for (const [z, c] of [[zv - 30, 0x5a6b74], [zv + 18, 0x9aa7a6]]) K.place(K.car(w, c), 2.2, z);
+      K.place(K.car(w, 0x9aa7a6), 2.2, zv + 18); // parkt hinter dem Transporter, wird nie erreicht
       w.hazards.push(t => t >= T0 ? stream(t) : null);
     },
   },
@@ -179,7 +179,7 @@ export const SCENES = {
       town(w, {gaps: {left: [], right: sideGap(zc)}});
       K.sideRoad(w, {zc, sides: 'right'});
       const p = K.person(w, {shirt: 0x6a4c93, pants: 0x2b3440});
-      w.onUpdate(t => { const u = smooth(T0 - 0.5, T0 + 5.5, t); p.position.set(lerp(6.6, 4.4, u), u > 0.05 && u < 0.95 ? 0 : 0.13, -lerp(zc + 4.2, zc - 4.0, u)); p.rotation.y = Math.PI - 0.25; p.userData.walk(t * 5.2, u < 1 ? 1 : 0); });
+      w.onUpdate(t => { const u = smooth(T0 - 0.5, T0 + 5.5, t); p.position.set(lerp(5.2, 4.4, u), u > 0.08 && u < 0.92 ? 0 : 0.13, -lerp(zc + 4.2, zc - 4.0, u)); p.rotation.y = Math.PI - 0.25; p.userData.walk(t * 5.2, u < 1 ? 1 : 0); });
       w.hazards.push(t => t >= T0 ? [{pos: wp(p, 1.0), r: 1.0}] : null);
     },
   },
@@ -243,7 +243,7 @@ export const SCENES = {
       K.signPost(w, 3.6, zw - 19, sign, {sw: 0.8, sh: 0.8, top: 1.9});
       for (const [x, z] of [[3.6, zw - 6], [3.9, zw + 6]]) { const p = K.person(w, {vest: true, pants: 0x2d3a4a}); p.position.set(x, 0.005, -z); p.rotation.y = 1.2; }
       const wk = K.person(w, {vest: true, pants: 0x2d3a4a, tool: true});
-      w.onUpdate(t => { const u = smooth(T0 - 0.3, T0 + 3.2, t); wk.position.set(lerp(3.9, 2.55, u), 0.005, -(zw + 1)); wk.rotation.y = -Math.PI / 2 + 0.3; wk.userData.walk(t * 4.5, 1 - smooth(T0 + 3.0, T0 + 3.4, t)); });
+      w.onUpdate(t => { const u = smooth(T0 - 0.3, T0 + 3.2, t); wk.position.set(lerp(3.9, 2.85, u), 0.005, -(zw + 1.6)); wk.rotation.y = 0.25; wk.userData.walk(t * 4.5, 1 - smooth(T0 + 3.0, T0 + 3.4, t)); });
       w.hazards.push(t => t >= T0 ? [{pos: wp(wk, 1.0).add(new THREE.Vector3(-0.7, 0, 0)), r: 1.4}] : null);
     },
   },
@@ -252,8 +252,8 @@ export const SCENES = {
     build(w, {T0}) {
       const d = K.drive(w, {x: 1.2, speeds: profile(13.9, T0 + 0.5, T0 + 4.2)});
       w.cockpit.label = 'Landstraße';
-      K.ruralRoad(w, {forest: 'both'});
       const zd = d.zAt(T0) + 42;
+      K.ruralRoad(w, {forest: 'both', clear: [zd - 3, zd + 3]}); // Wildwechsel: Lücke im Wald
       const r = K.deer(w);
       w.onUpdate(t => { const u = smooth(T0 - 0.4, T0 + 3.5, t); r.position.set(lerp(7.5, 3.3, u), 0, -zd); r.rotation.y = Math.PI / 2 - 0.2; r.userData.walk(t * 5, 1 - smooth(T0 + 3.3, T0 + 3.7, t)); r.userData.neck.rotation.y = smooth(T0 + 3.5, T0 + 4.5, t) * -0.9; });
       w.hazards.push(t => t >= T0 ? [{pos: wp(r, 0.9), r: 1.1}] : null);
@@ -300,7 +300,6 @@ export const SCENES = {
       const bike = K.cyclist(w, {shirt: 0x2f8f6a});
       w.onUpdate(t => { bike.position.set(2.3, 0.005, -(13 + 5.0 * t - 0.2 * Math.max(0, t - T0 - 1) ** 2)); bike.userData.pedal(t * 6); });
       const stream = oncoming(w, d, [[0xd9d4c8, d.zAt(T0) + 62, T0 - 1.2], [0x3b5f7a, d.zAt(T0) + 128, T0 - 1.2]], 7.5);
-      for (const [z, c] of [[22, 0x3d6f86]]) K.place(K.car(w, c), -2.2, z);
       w.hazards.push(t => t >= T0 ? stream(t) : null);
     },
   },

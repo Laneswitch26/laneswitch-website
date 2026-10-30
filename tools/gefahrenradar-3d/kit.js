@@ -210,7 +210,7 @@ function cockpit(w) {
     cx.strokeStyle = '#65e5df'; cx.beginPath(); cx.arc(120, 92, 60, Math.PI * 0.85, Math.PI * (0.85 + 1.3 * Math.min(1, s.speed / 60) + 0.001)); cx.stroke();
     cx.fillStyle = '#e9f6f5'; cx.font = 'bold 44px Arial'; cx.textAlign = 'center'; cx.fillText(String(s.speed), 120, 104); cx.font = '18px Arial'; cx.fillStyle = 'rgba(233,246,245,.6)'; cx.fillText('km/h', 120, 130);
     cx.textAlign = 'left'; cx.font = 'bold 24px Arial'; cx.fillStyle = 'rgba(233,246,245,.8)'; cx.fillText(s.label, 230, 80); cx.font = '22px Arial'; cx.fillStyle = 'rgba(233,246,245,.5)'; cx.fillText('D · Automatik', 230, 115);
-    const arrow = (x, dir, on) => { cx.fillStyle = on ? '#3ee07a' : 'rgba(255,255,255,.10)'; cx.beginPath(); cx.moveTo(x + dir * 22, 30); cx.lineTo(x, 14); cx.lineTo(x, 22); cx.lineTo(x - dir * 18, 22); cx.lineTo(x - dir * 18, 38); cx.lineTo(x, 38); cx.lineTo(x, 46); cx.closePath(); cx.fill(); };
+    const arrow = (x, dir, on) => { cx.fillStyle = on ? '#3ee07a' : 'rgba(255,255,255,.10)'; cx.beginPath(); cx.moveTo(x + dir * 30, 40); cx.lineTo(x, 16); cx.lineTo(x, 28); cx.lineTo(x - dir * 24, 28); cx.lineTo(x - dir * 24, 52); cx.lineTo(x, 52); cx.lineTo(x, 64); cx.closePath(); cx.fill(); };
     arrow(36, -1, s.left); arrow(476, 1, s.right); ct.needsUpdate = true;
   }
   const api = {
@@ -259,7 +259,7 @@ export const sideRoad = statically(function sideRoad(w, {zc, width = 6.0, sides 
   }
 });
 // Landstraße mit Leitlinien, Leitpfosten und Wald oder Feld.
-export const ruralRoad = statically(function ruralRoad(w, {len = 300, width = 6.0, forest = 'both', fields = false, z0 = -10, trees = true} = {}) {
+export const ruralRoad = statically(function ruralRoad(w, {len = 300, width = 6.0, forest = 'both', fields = false, z0 = -10, trees = true, clear = null} = {}) {
   const half = width / 2;
   w.add(new THREE.BoxGeometry(width, 0.02, len), MAT.road, 0, -0.01, z0 + len / 2, false);
   const gr = new THREE.Mesh(new THREE.PlaneGeometry(400, len + 40), S({map: T.grass([60, 70]), roughness: 1, color: fields ? 0xcfd29a : 0xffffff})); gr.rotation.x = -Math.PI / 2; gr.position.set(0, -0.03, -(z0 + len / 2)); gr.receiveShadow = true; w.scene.add(gr);
@@ -272,7 +272,7 @@ export const ruralRoad = statically(function ruralRoad(w, {len = 300, width = 6.
     const side = forest === 'both' || (forest === 'left' && s < 0) || (forest === 'right' && s > 0);
     if (side) {
       const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, 9), S({map: T.forest([len / 30, 1]), roughness: 1, color: 0x9aa89a})); wall.rotation.y = s * -Math.PI / 2; wall.position.set(s * 24, 4.5, -(z0 + len / 2)); w.scene.add(wall);
-      if (trees) for (let row = 0; row < 3; row++) for (let z = z0 + 4 + row * 2; z < 200; z += 4 + rnd() * 3) { const x = s * (half + 3.5 + row * 5 + rnd() * 4); conifer(w, x, z, 0.9 + rnd() * 0.7); }
+      if (trees) for (let row = 0; row < 3; row++) for (let z = z0 + 4 + row * 2; z < 200; z += 4 + rnd() * 3) { const x = s * (half + 3.5 + row * 5 + rnd() * 4), sc = 0.9 + rnd() * 0.7; if (clear && s > 0 && z > clear[0] - 2 && z < clear[1] + 2) continue; conifer(w, x, z, sc); }
     } else if (trees) { for (let z = 10; z < 220; z += 28) tree(w, s * (half + 6 + rnd() * 3), z, 1 + rnd() * 0.3); }
   }
 });
@@ -396,7 +396,7 @@ function wheels(grp, xs, zs, r = 0.33, wdt = 0.24) {
 }
 // Auto. Lokal: Heck bei z=0, Front bei z=-4.35 (fährt Richtung -z).
 export function car(w, color, {door = false} = {}) {
-  const grp = new THREE.Group(); const p = paint(color); const parts = [];
+  const grp = new THREE.Group(); grp.name = 'Auto'; const p = paint(color); const parts = [];
   const sh = new THREE.Shape(); sh.moveTo(0, 0.32); sh.lineTo(0, 0.72); sh.quadraticCurveTo(0.02, 0.95, 0.25, 0.98); sh.lineTo(1.05, 1.0); sh.lineTo(3.2, 1.0); sh.quadraticCurveTo(3.8, 0.95, 4.2, 0.82); sh.quadraticCurveTo(4.35, 0.75, 4.33, 0.5); sh.lineTo(4.3, 0.32); sh.lineTo(3.85, 0.32); sh.absarc(3.42, 0.32, 0.42, 0, Math.PI, false); sh.lineTo(1.28, 0.32); sh.absarc(0.86, 0.32, 0.42, 0, Math.PI, false); sh.closePath();
   const body = new THREE.ExtrudeGeometry(sh, {depth: 1.62, bevelEnabled: true, bevelThickness: 0.08, bevelSize: 0.06, bevelSegments: 3, curveSegments: 12}); body.translate(0, 0, -0.81); body.rotateY(Math.PI / 2);
   const bm = new THREE.Mesh(body, p); bm.castShadow = bm.receiveShadow = true; grp.add(bm);
@@ -431,7 +431,7 @@ export function car(w, color, {door = false} = {}) {
 }
 // Kastenwagen (Lieferwagen), Rettungswagen-Variante mit ambulance=true
 export function van(w, color = 0xf1f1ee, {ambulance = false} = {}) {
-  const grp = new THREE.Group(), p = paint(color), parts = [], L = 5.4;
+  const grp = new THREE.Group(), p = paint(color), parts = [], L = 5.4; grp.name = 'Transporter';
   const body = new THREE.Mesh(new THREE.BoxGeometry(1.95, 2.0, L - 1.1), p); body.position.set(0, 1.35, -(L - 1.1) / 2); body.castShadow = body.receiveShadow = true; grp.add(body);
   const cab = new THREE.Shape(); cab.moveTo(0, 0.35); cab.lineTo(0, 2.3); cab.lineTo(0.35, 2.3); cab.lineTo(1.1, 1.2); cab.lineTo(1.1, 0.35); cab.closePath();
   const cg = new THREE.ExtrudeGeometry(cab, {depth: 1.9, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04, bevelSegments: 2}); cg.translate(0, 0, -0.95); cg.rotateY(Math.PI / 2); const cm = new THREE.Mesh(cg, p); cm.position.z = -(L - 1.1); cm.castShadow = true; grp.add(cm);
@@ -463,7 +463,7 @@ export function van(w, color = 0xf1f1ee, {ambulance = false} = {}) {
   compact(grp); w.scene.add(grp); return grp;
 }
 export function bus(w, {color = 0xf4f2ea, stripe = 0x0f6d8a} = {}) {
-  const grp = new THREE.Group(), p = paint(color), parts = [], L = 12;
+  const grp = new THREE.Group(), p = paint(color), parts = [], L = 12; grp.name = 'Bus';
   const body = new THREE.Mesh(new THREE.BoxGeometry(2.55, 2.75, L), p); body.position.set(0, 1.7, -L / 2); body.castShadow = body.receiveShadow = true; grp.add(body);
   for (const sx of [-1, 1]) { const g = new THREE.Mesh(new THREE.BoxGeometry(0.02, 1.15, L - 1.2), MAT.glass); g.position.set(sx * 1.285, 2.25, -L / 2 - 0.3); grp.add(g); const st = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.25, L), S({color: stripe, roughness: 0.5})); st.position.set(sx * 1.285, 1.35, -L / 2); grp.add(st); }
   const rw = new THREE.Mesh(new THREE.PlaneGeometry(2.1, 1.0), MAT.glass); rw.position.set(0, 2.3, 0.01); grp.add(rw);
@@ -472,7 +472,7 @@ export function bus(w, {color = 0xf4f2ea, stripe = 0x0f6d8a} = {}) {
   for (const dz of [-2.4, -7.0]) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.03, 2.2, 1.2), MAT.glass); d.position.set(1.28, 1.4, dz); grp.add(d); }
   for (const sx of [-1, 1]) {
     lightPart(grp, parts, 'tail', 0xff2020, 0x7a0c10, [0.2, 0.32, 0.05], [sx * 1.1, 0.75, 0.02]);
-    lightPart(grp, parts, sx < 0 ? 'left' : 'right', 0xffa020, 0x8a5a20, [0.2, 0.18, 0.05], [sx * 1.1, 1.05, 0.02]);
+    lightPart(grp, parts, sx < 0 ? 'left' : 'right', 0xffa020, 0x8a5a20, [0.3, 0.26, 0.05], [sx * 1.05, 1.12, 0.02]);
     lightPart(grp, parts, sx < 0 ? 'left' : 'right', 0xffa020, 0x8a5a20, [0.05, 0.12, 0.25], [sx * 1.29, 0.9, -1.5]);
     lightPart(grp, parts, sx < 0 ? 'left' : 'right', 0xffa020, 0x8a5a20, [0.05, 0.12, 0.25], [sx * 1.29, 0.9, -L + 1.2]);
     lightPart(grp, parts, 'head', 0xfff6dd, 0xd8dcdc, [0.35, 0.16, 0.05], [sx * 0.85, 0.7, -L - 0.02]);
@@ -481,7 +481,7 @@ export function bus(w, {color = 0xf4f2ea, stripe = 0x0f6d8a} = {}) {
   grp.userData.lights = lightsFor(w, grp, parts); grp.userData.len = L; compact(grp); w.scene.add(grp); return grp;
 }
 export function truck(w, {color = 0xd9dde0, cab = 0x2b5f8c} = {}) {
-  const grp = new THREE.Group(), parts = [], L = 10;
+  const grp = new THREE.Group(), parts = [], L = 10; grp.name = 'Lkw';
   const box = new THREE.Mesh(new THREE.BoxGeometry(2.5, 2.7, 7.6), S({color, roughness: 0.6})); box.position.set(0, 2.25, -3.8); box.castShadow = box.receiveShadow = true; grp.add(box);
   const ribs = S({color: 0xb7bcc0, roughness: 0.6}); for (let k = 0; k < 9; k++) { const r = new THREE.Mesh(new THREE.BoxGeometry(2.52, 2.7, 0.05), ribs); r.position.set(0, 2.25, -0.4 - k * 0.85); grp.add(r); }
   const doors = new THREE.Mesh(new THREE.BoxGeometry(0.03, 2.6, 0.02), MAT.dark); doors.position.set(0, 2.25, 0.01); grp.add(doors);
@@ -511,7 +511,7 @@ export function place(o, x, zRear, dir = 1) {
 // ---------------- Menschen & Tiere ----------------
 const skin = [0xc79a7c, 0xe0b899, 0x8d5f45, 0xa8775a];
 export function person(w, {shirt = 0x6f8fa8, pants = 0x2b3440, hair = 0x3a2c26, skinTone = 0, vest = false, tool = false, scale = 1, helmet = false} = {}) {
-  const grp = new THREE.Group(); const sk = S({color: skin[skinTone], roughness: 0.7}), jk = S({color: vest ? 0xf2e600 : shirt, roughness: 0.85, emissive: vest ? 0x3a3600 : 0}), tr = S({color: pants, roughness: 0.9});
+  const grp = new THREE.Group(); grp.name = 'Person'; const sk = S({color: skin[skinTone], roughness: 0.7}), jk = S({color: vest ? 0xf2e600 : shirt, roughness: 0.85, emissive: vest ? 0x3a3600 : 0}), tr = S({color: pants, roughness: 0.9});
   const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.19, 0.48, 4, 10), jk); body.position.y = 1.26; grp.add(body);
   if (vest) for (const y of [1.12, 1.32]) { const b = new THREE.Mesh(new THREE.CylinderGeometry(0.205, 0.205, 0.05, 14), S({color: 0xd8dde0, roughness: 0.3, metalness: 0.6})); b.position.y = y; grp.add(b); }
   const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 12), sk); head.position.y = 1.72; grp.add(head);
@@ -528,7 +528,7 @@ export function person(w, {shirt = 0x6f8fa8, pants = 0x2b3440, hair = 0x3a2c26, 
   w.scene.add(grp); return grp;
 }
 export function cyclist(w, {shirt = 0xd2553a} = {}) {
-  const grp = new THREE.Group(); const fm = S({color: 0x1f6f78, roughness: 0.4, metalness: 0.5});
+  const grp = new THREE.Group(); grp.name = 'Fahrrad'; const fm = S({color: 0x1f6f78, roughness: 0.4, metalness: 0.5});
   for (const z of [0.55, -0.55]) { const wh = new THREE.Mesh(new THREE.TorusGeometry(0.34, 0.03, 8, 28), MAT.tire); wh.rotation.y = Math.PI / 2; wh.position.set(0, 0.36, z); grp.add(wh); }
   const bar = (a, b, r = 0.022) => { const v = new THREE.Vector3().subVectors(b, a); const m = new THREE.Mesh(new THREE.CylinderGeometry(r, r, v.length(), 6), fm); m.position.copy(a).addScaledVector(v, 0.5); m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), v.normalize()); grp.add(m); };
   const V = (y, z) => new THREE.Vector3(0, y, z);
@@ -539,7 +539,7 @@ export function cyclist(w, {shirt = 0xd2553a} = {}) {
   grp.traverse(o => { if (o.isMesh) o.castShadow = true; }); w.scene.add(grp); return grp;
 }
 export function motorbike(w, {color = 0x1d2a33} = {}) {
-  const grp = new THREE.Group(); const p = paint(color); const parts = [];
+  const grp = new THREE.Group(); grp.name = 'Motorrad'; const p = paint(color); const parts = [];
   for (const z of [0.7, -0.7]) { const wh = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.09, 10, 24), MAT.tire); wh.rotation.y = Math.PI / 2; wh.position.set(0, 0.36, z); grp.add(wh); }
   const tank = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.35, 1.0), p); tank.position.set(0, 0.8, -0.1); grp.add(tank);
   const seat = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.12, 0.6), MAT.dark); seat.position.set(0, 0.95, 0.4); grp.add(seat);
@@ -552,7 +552,7 @@ export function motorbike(w, {color = 0x1d2a33} = {}) {
   grp.traverse(o => { if (o.isMesh) o.castShadow = true; }); w.scene.add(grp); return grp;
 }
 function quadruped(w, {len, h, color, neck, head, legLen, mane = null, bodyR = 0.22}) {
-  const grp = new THREE.Group(); const m = S({color, roughness: 0.85});
+  const grp = new THREE.Group(); grp.name = 'Tier'; const m = S({color, roughness: 0.85});
   const body = new THREE.Mesh(new THREE.CapsuleGeometry(h * bodyR, len * 0.6, 6, 12), m); body.rotation.x = Math.PI / 2; body.position.set(0, legLen + h * 0.2, 0); grp.add(body);
   const nk = new THREE.Group(); nk.position.set(0, legLen + h * 0.32, -len * 0.42); grp.add(nk);
   const n = new THREE.Mesh(new THREE.CapsuleGeometry(h * 0.09, neck, 4, 8), m); n.position.set(0, neck * 0.45, -neck * 0.2); n.rotation.x = -0.45; nk.add(n);
