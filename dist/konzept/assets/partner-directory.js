@@ -16,9 +16,7 @@
         const card = el("article", "partner-card partner-card-registered");
         const place = typeof s.address === "string" ? (s.address.match(/\d{5}\s+([^,·(]+)/) || [])[1] : "";
         card.append(el("p", "partner-kicker", "Partnerfahrschule" + (place ? " · " + place.trim() : "")));
-        if (typeof s.logo === "string" && /^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(s.logo)) {
-          const img = el("img", "partner-directory-logo"); img.src = s.logo; img.alt = "Logo " + s.name; img.loading = "lazy"; card.append(img);
-        }
+        // Übersicht bewusst ohne Logos (einheitlich nur Namen); Logos erscheinen auf den Profilseiten.
         card.append(el("h2", "", s.name.trim().slice(0, 120)));
         if (typeof s.tagline === "string" && s.tagline.trim()) card.append(el("p", "", s.tagline.trim().slice(0, 180)));
         const classes = typeof s.classes === "string" ? s.classes.split(/[,;]/).map(x => x.trim()).filter(Boolean).slice(0, 8) : [];

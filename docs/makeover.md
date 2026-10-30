@@ -135,8 +135,20 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 
 - Kopfzeile: Textbutton „Fahrschul-Login“ (`.login-top` in `shell.css`) neben „Empfehlen“ auf allen Seiten,
   führt zu `/navigator/zugang`. Dort gibt es zusätzlich „Kooperation anfragen“ für Fahrschulen ohne Zugang
-  (Navigator-Änderung in `main`, PR #89). Bis 900 px heißt er kurz „Login“ (kein reines Symbol, Wunsch des Eigentümers).
+  (Navigator-Änderung in `main`, PR #89). Beschriftung „Login / Registrieren“ (mobil zweizeilig, unter 340 px nur „Login“; Wunsch des Eigentümers).
 - Fahrschule Emre ohne Video: Netzwerk-Ansicht (`app.js`) und Profilseite zeigen wie A1 das Logo
   (`konzept/assets/kooperationen/emre-logo.png`, Originallogo vom Eigentümer, 300 × 100, transparent).
-  Profil-Logo-Layout: `.partner-hero--logo` in `app/a1.css`, breite Logos zusätzlich `.partner-hero--wide`.
+  Profil-Logo-Layout: festes, für alle gleiches Logofeld `.partner-hero--logo .partner-logo` in `app/a1.css` (200 × 140, mobil 150 × 96, `object-fit:contain`, transparent). Übersichten (Netzwerk-Ansicht, Fahrschul-Verzeichnis) zeigen bewusst nur Namen, keine Logos.
 - Datenschutz: Abschnitt „Kooperationsanfrage für Fahrschulen“ ergänzt (bitte rechtlich prüfen).
+
+## Inhalte teilen (30.10.2026)
+
+- `app/share.mjs`: Knopf „Teilen“ und Dialog (WhatsApp, E-Mail, Link kopieren, „Mehr …“ = Systemteilen).
+  Platz: Unterseiten in der Kontextzeile oben rechts (`detail.js`), App-Ansichten Werkzeuge/Netzwerk/News/Startklar
+  oben rechts im Kopfbereich (`pageHead(…, share)`), Gefahrenradar in der Spielleiste. Rechtstexte ohne Teilen.
+- Texte je Inhalt in `CONTENT` (Name, Kurzbeschreibung, Pfad). Ton: Inhalte nur für Fahrschüler:innen → „du“,
+  nur für Fahrschulen → „Sie“, für beide → gewählter Bereich. Unbekannte Seiten: Überschrift + meta description.
+  Neue Seite → Eintrag in `CONTENT` und Regex in `detail.js` ergänzen.
+- Kontaktformular (Bereich Fahrschulen): Häkchen „Zusätzlich Kooperation anfragen“ sendet Name, Fahrschule, E-Mail,
+  Telefon, Anliegen und Nachricht an `/api/navigator` (`requestCooperation`, erscheint im Navigator-Admin unter „Anfragen“).
+  Funktioniert nur auf laneswitch.online (Same-Origin), nicht in Cloudflare-Vorschauen.

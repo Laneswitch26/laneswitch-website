@@ -1,9 +1,7 @@
-/* Partner profiles (A1, Emre): small logo beside the hero text. Colors only via shell.css variables. */
+/* Partnerprofile (A1, Emre, künftige): Logo rechts neben dem Kopftext in einem festen, für alle gleichen Logofeld.
+   Das Logo wird ohne Verzerrung eingepasst (quer, hoch oder quadratisch); der Rest des Feldes bleibt transparent. */
 .partner-hero--logo{align-items:start}
-.partner-hero--logo .partner-logo{width:120px;justify-self:end;padding:12px}
-@container detail-content (min-width:860px){.partner-hero--logo{grid-template-columns:minmax(0,1fr) 140px}}
-@media(max-width:760px){.partner-hero--logo .partner-logo{order:-1;width:84px;justify-self:start;padding:8px}}
-/* Breite Logos (z. B. Emre, 3:1) bekommen mehr Platz, damit sie gleich groß wirken wie quadratische. */
-.partner-hero--wide .partner-logo{width:220px}
-@container detail-content (min-width:860px){.partner-hero--wide{grid-template-columns:minmax(0,1fr) 240px}}
-@media(max-width:760px){.partner-hero--wide .partner-logo{width:180px}}
+.partner-hero--logo .partner-logo{width:200px;height:140px;justify-self:end;margin:0;padding:0;background:transparent;border:0;border-radius:0;display:flex;align-items:center;justify-content:center}
+.partner-hero--logo .partner-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+@container detail-content (min-width:860px){.partner-hero--logo{grid-template-columns:minmax(0,1fr) 200px}}
+@media(max-width:760px){.partner-hero--logo .partner-logo{order:-1;width:150px;height:96px;justify-self:start;justify-content:flex-start}.partner-hero--logo .partner-logo img{object-position:left center}}
