@@ -1,7 +1,7 @@
 import { SCENES, RULES, BADGES } from './scenes.mjs?v=5';
 import { shuffle, createSceneDeck, isHit, scoreScene, summarize } from './core.mjs?v=6';
 import { illustration, paint } from './illustrations.mjs?v=6';
-import { canUseVideo, hasPreview, attachTrack, detachTrack, mountVideo, paintOverlay } from './video.mjs?v=1';
+import { canUseVideo, hasPreview, attachTrack, detachTrack, mountVideo, paintOverlay } from './video.mjs?v=2';
 
 const $ = id => document.getElementById(id);
 // Presentation only: stroke icons in the style of /app/shell.js.
@@ -184,6 +184,6 @@ stage.addEventListener('focus',()=>{if(phase==='observing' && stage.matches(':fo
 stage.addEventListener('blur',clearCursor);
 $('gr-play').addEventListener('click',start); $('gr-exit').addEventListener('click',home);
 $('gr-calm').checked=matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (hasPreview()) $('gr-preview').innerHTML='<img class="gr-art gr-preview-img" src="video/preview.jpg" alt="" width="960" height="672" decoding="async">';
+if (hasPreview()) $('gr-preview').innerHTML='<img class="gr-art gr-preview-img" src="video/preview.jpg?v=2" alt="" width="960" height="672" decoding="async">';
 else { $('gr-preview').innerHTML=illustration(SCENES[0],'preview'); paint($('gr-preview'),SCENES[0],SCENES[0].cueMs+3200); }
 $('gr-play').disabled=false; $('gr-play').innerHTML=`Gefahrenradar starten${ICON.arrow}`;
