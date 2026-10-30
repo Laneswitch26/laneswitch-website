@@ -1,0 +1,28 @@
+### SELECT TABLE_SCHEMA, TABLE_NAME FROM [CO2Emission].INFORMATION_SCHEMA.TABLES
+403 <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>Microsoft-Azure-Application-Gateway/v2</center>
+</body>
+</html>
+
+
+### SELECT TOP 3 * FROM [CO2Emission].[latest].[co2cars_2025Pv31] WHERE MS='DE'
+403 <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>Microsoft-Azure-Application-Gateway/v2</center>
+</body>
+</html>
+
+
+### SELECT TOP 3 * FROM [CO2Emission].[latest].[co2cars_2014Fv10] WHERE MS='DE'
+403 <html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>Microsoft-Azure-Application-Gateway/v2</center>
+</body>
+</html>
