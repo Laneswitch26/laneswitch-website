@@ -1,546 +1,392 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-theme="light">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LANE SWITCH | Fahrschulkooperation und Mobilitätswissen</title>
-  <meta name="description" content="LANE SWITCH verbindet Fahrschulen und Fahrschüler:innen mit kostenlosen Checks, Fahrzeugkosten, Lernwelt und modularen Kooperationsbausteinen."><link rel="canonical" href="https://laneswitch.de/"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://laneswitch.de/#organization","name":"LANE SWITCH","description":"Fahrschul-Partnerkonzept von Steven Dragojevic","url":"https://laneswitch.de/","logo":{"@type":"ImageObject","url":"https://laneswitch.de/assets/logo-symbol.svg","width":360,"height":360},"founder":{"@type":"Person","name":"Steven Dragojevic"},"sameAs":["https://www.instagram.com/laneswitch.de/"],"contactPoint":{"@type":"ContactPoint","contactType":"Kundenservice","email":"kontakt@laneswitch.de","telephone":"+49 172 7937262","availableLanguage":"de"}},{"@type":"WebSite","@id":"https://laneswitch.de/#website","url":"https://laneswitch.de/","name":"LANE SWITCH","alternateName":"LANE SWITCH Fahrschul-Partnerkonzept","inLanguage":"de-DE","publisher":{"@id":"https://laneswitch.de/#organization"}},{"@type":"WebPage","@id":"https://laneswitch.de/#webpage","url":"https://laneswitch.de/","name":"LANE SWITCH | Fahrschulkooperation und Mobilitätswissen","description":"LANE SWITCH verbindet Fahrschulen und Fahrschüler:innen mit kostenlosen Checks, Fahrzeugkosten, Lernwelt und modularen Kooperationsbausteinen.","inLanguage":"de-DE","isPartOf":{"@id":"https://laneswitch.de/#website"},"about":{"@id":"https://laneswitch.de/#organization"}}]}</script>
-  <link rel="icon" href="./assets/logo-symbol.svg" type="image/svg+xml">
-  <style>
-    :root {
-      --navy-950:#02304f;
-      --navy-900:#06496f;
-      --navy-800:#0a5d84;
-      --cyan-500:#00b6c6;
-      --cyan-400:#26c8d0;
-      --cyan-100:#d8f3f4;
-      --ice:#eff6f7;
-      --paper:#fff;
-      --ink:#153a53;
-      --muted:#60798a;
-      --line:#d7e5e8;
-      --shadow:0 24px 70px rgba(8,60,91,.15);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.55}
-    body.menu-open{overflow:hidden}
-    a{color:inherit;text-decoration:none}
-    img,video{display:block;max-width:100%}
-    button{font:inherit}
-    :focus-visible{outline:3px solid var(--cyan-400);outline-offset:4px}
-    .container{width:min(1180px,calc(100% - 48px));margin-inline:auto}
-    .skip-link{position:fixed;z-index:100;top:10px;left:10px;padding:10px 14px;background:#fff;color:var(--navy-950);transform:translateY(-150%)}
-    .skip-link:focus{transform:none}
-
-    .site-header{position:absolute;z-index:50;top:0;left:0;width:100%;color:#fff}
-    .header-inner{min-height:88px;display:grid;grid-template-columns:260px 1fr auto;align-items:center;gap:34px}
-    .brand{display:inline-flex;width:250px;align-items:center}
-    .brand img{width:100%;height:auto}
-    .brand-symbol{display:none}
-    .desktop-nav{display:flex;align-items:center;justify-content:center;gap:28px;color:rgba(255,255,255,.76);font-size:13px;font-weight:700}
-    .desktop-nav>a,.nav-group>button{padding:14px 0;border:0;background:transparent;color:inherit;cursor:pointer}
-    .desktop-nav>a:hover,.nav-group>button:hover{color:var(--cyan-400)}
-    .nav-group{position:relative}
-    .nav-group>button::after{content:"⌄";margin-left:7px;color:var(--cyan-400)}
-    .nav-panel{position:absolute;top:44px;left:50%;width:580px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:22px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translate(-50%,-8px);transition:.18s ease}
-    .nav-group:hover .nav-panel,.nav-group:focus-within .nav-panel{opacity:1;visibility:visible;transform:translate(-50%,0)}
-    .nav-panel h3{margin:0 0 10px;color:var(--navy-900);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-    .nav-panel a{display:block;padding:7px 0;color:var(--muted);font-size:13px}
-    .nav-panel a:hover{color:var(--cyan-500)}
-    .header-cta{white-space:nowrap;border:1px solid rgba(255,255,255,.35);border-radius:5px;padding:11px 14px;font-size:12px;font-weight:800}
-    .header-cta:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7)}
-    .menu-toggle{display:none;width:46px;height:46px;border:1px solid rgba(255,255,255,.3);border-radius:6px;background:transparent;color:#fff;place-items:center;cursor:pointer}
-    .menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{display:block;width:21px;height:2px;background:currentColor;content:"";transition:.2s}
-    .menu-toggle span::before{transform:translateY(-7px)}
-    .menu-toggle span::after{transform:translateY(5px)}
-    .menu-toggle[aria-expanded="true"] span{background:transparent}
-    .menu-toggle[aria-expanded="true"] span::before{transform:translateY(2px) rotate(45deg)}
-    .menu-toggle[aria-expanded="true"] span::after{transform:rotate(-45deg)}
-
-    .mobile-menu{position:fixed;z-index:45;inset:0;padding:100px 24px 36px;background:var(--navy-950);color:#fff;overflow:auto;opacity:0;visibility:hidden;transition:.2s ease}
-    .mobile-menu.open{opacity:1;visibility:visible}
-    .mobile-menu-inner{width:min(620px,100%);margin-inline:auto}
-    .mobile-primary{display:grid;border-top:1px solid rgba(255,255,255,.15)}
-    .mobile-primary>a{padding:17px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:24px;font-weight:700;letter-spacing:-.02em}
-    .mobile-groups{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-top:34px}
-    .mobile-groups h2{margin:0 0 12px;color:var(--cyan-400);font-size:11px;letter-spacing:.13em;text-transform:uppercase}
-    .mobile-groups a{display:block;padding:8px 0;color:rgba(255,255,255,.7);font-size:14px}
-    .mobile-cta{margin-top:32px;width:100%}
-
-    .hero{position:relative;overflow:hidden;background:linear-gradient(128deg,var(--navy-950),#064c73 68%,#08708e);color:#fff;padding:150px 0 76px}
-    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.08),transparent 50%)}
-    .hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,.92fr) minmax(480px,1.08fr);align-items:center;gap:clamp(44px,6vw,82px)}
-    .eyebrow{margin:0 0 18px;color:var(--cyan-400);font-size:11px;font-weight:850;letter-spacing:.17em;text-transform:uppercase}
-    h1,h2,h3,p{overflow-wrap:anywhere}
-    h1{margin:0;font-size:clamp(48px,5.5vw,76px);line-height:.98;letter-spacing:-.058em}
-    h1 em{display:block;color:var(--cyan-400);font-style:normal}
-    .hero-lead{max-width:610px;margin:27px 0 0;color:rgba(255,255,255,.75);font-size:18px;line-height:1.72}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
-    .button{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:16px;padding:14px 20px;border:1px solid transparent;border-radius:5px;font-size:13px;font-weight:820;transition:.17s ease}
-    .button:hover{transform:translateY(-2px)}
-    .button-primary{background:var(--cyan-500);color:var(--navy-950)}
-    .button-secondary{border-color:rgba(255,255,255,.35);color:#fff}
-    .video-card{overflow:hidden;border:1px solid rgba(38,200,208,.45);border-radius:13px;background:var(--navy-950);box-shadow:0 28px 80px rgba(0,20,40,.34)}
-    .video-card video{width:100%;aspect-ratio:16/9;background:var(--navy-950);object-fit:cover}
-    .video-caption{display:flex;justify-content:space-between;gap:20px;padding:15px 18px;color:rgba(255,255,255,.65);font-size:11px}
-    .video-caption strong{color:#fff}
-    .principles{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-top:34px}
-    .principles span{border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 10px;color:rgba(255,255,255,.66);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-
-    .section{padding:94px 0}
-    .section-soft{background:var(--ice)}
-    .section-dark{background:var(--navy-950);color:#fff}
-    .section-heading{max-width:790px;margin-bottom:46px}
-    .section-heading h2{margin:0;font-size:clamp(38px,4.3vw,58px);line-height:1.04;letter-spacing:-.05em}
-    .section-heading>p:last-child{max-width:680px;margin:20px 0 0;color:var(--muted);font-size:16px;line-height:1.75}
-    .section-dark .section-heading>p:last-child{color:rgba(255,255,255,.66)}
-
-    .concept-intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(50px,8vw,110px);align-items:start}
-    .concept-intro h2{margin:0;font-size:clamp(40px,4.5vw,62px);line-height:1.02;letter-spacing:-.05em}
-    .concept-steps{display:grid}
-    .concept-step{display:grid;grid-template-columns:56px 1fr;gap:22px;padding:24px 0;border-top:1px solid var(--line)}
-    .concept-step:last-child{border-bottom:1px solid var(--line)}
-    .step-no{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:var(--cyan-100);color:var(--navy-900);font-size:11px;font-weight:900}
-    .concept-step h3{margin:0 0 8px;font-size:22px;letter-spacing:-.025em}
-    .concept-step p{margin:0;color:var(--muted);font-size:14px;line-height:1.72}
-
-    .audience-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-    .audience-card{min-height:400px;display:flex;flex-direction:column;padding:38px;border:1px solid var(--line);border-radius:12px;background:#fff}
-    .audience-card-dark{background:var(--navy-900);border-color:var(--navy-900);color:#fff}
-    .card-label{color:var(--cyan-500);font-size:10px;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
-    .audience-card h3{max-width:500px;margin:62px 0 16px;font-size:clamp(30px,3.2vw,44px);line-height:1.08;letter-spacing:-.045em}
-    .audience-card p{margin:0;color:var(--muted);font-size:15px;line-height:1.72}
-    .audience-card-dark p{color:rgba(255,255,255,.68)}
-    .audience-card ul{margin:22px 0 32px;padding:0;display:grid;gap:8px;list-style:none;color:var(--muted);font-size:13px}
-    .audience-card-dark ul{color:rgba(255,255,255,.72)}
-    .audience-card li::before{content:"✓";margin-right:10px;color:var(--cyan-500);font-weight:900}
-    .text-link{margin-top:auto;color:var(--cyan-500);font-size:13px;font-weight:850}
-
-    .module-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.16);border-left:1px solid rgba(255,255,255,.16)}
-    .module{min-height:260px;padding:28px;border-right:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16)}
-    .module span{color:var(--cyan-400);font-size:10px;font-weight:850}
-    .module h3{margin:60px 0 12px;font-size:21px;letter-spacing:-.025em}
-    .module p{margin:0;color:rgba(255,255,255,.62);font-size:13px;line-height:1.7}
-
-    .service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-    .service-card{min-width:0;padding:26px;border:1px solid var(--line);border-radius:9px;background:#fff;transition:.17s ease}
-    .service-card:hover{transform:translateY(-3px);border-color:var(--cyan-500);box-shadow:0 16px 44px rgba(8,60,91,.09)}
-    .service-card .service-audience{display:block;margin-bottom:36px;color:var(--cyan-500);font-size:10px;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
-    .service-card h3{margin:0 0 10px;font-size:22px;letter-spacing:-.03em}
-    .service-card p{margin:0 0 22px;color:var(--muted);font-size:13px;line-height:1.7}
-    .service-card strong{color:var(--navy-900);font-size:12px}
-
-    .process-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
-    .process-grid article{padding:30px 36px 10px 0}
-    .process-grid article+article{padding-left:36px;border-left:1px solid var(--line)}
-    .process-grid span{color:var(--cyan-500);font-size:11px;font-weight:900}
-    .process-grid h3{margin:46px 0 10px;font-size:23px;letter-spacing:-.03em}
-    .process-grid p{margin:0;color:var(--muted);font-size:14px;line-height:1.7}
-
-    .cta-section{padding:20px 0 94px;background:var(--ice)}
-    .cta-panel{display:grid;grid-template-columns:1fr auto;align-items:center;gap:60px;padding:clamp(42px,6vw,70px);border-radius:12px;background:linear-gradient(120deg,var(--navy-900),var(--navy-950));color:#fff;box-shadow:var(--shadow)}
-    .cta-panel h2{max-width:760px;margin:0;font-size:clamp(38px,4.3vw,58px);line-height:1.04;letter-spacing:-.05em}
-    .cta-panel p{max-width:620px;margin:18px 0 0;color:rgba(255,255,255,.66)}
-    .cta-panel .button{white-space:nowrap}
-
-    .site-footer{background:var(--navy-950);color:rgba(255,255,255,.62)}
-    .footer-grid{min-height:175px;display:grid;grid-template-columns:260px 1fr auto;align-items:center;gap:34px}
-    .footer-brand img{width:250px;height:auto}
-    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;font-size:11px}
-    .footer-links a:hover{color:var(--cyan-400)}
-    .footer-note{margin:0;text-align:right;font-size:10px}
-    .footer-transparency{border-top:1px solid rgba(255,255,255,.1);padding:16px 0 22px;color:rgba(255,255,255,.58);font-size:10px;line-height:1.65}
-    .footer-transparency strong{color:rgba(255,255,255,.76)}
-
-    @media(max-width:1020px){
-      .header-inner{grid-template-columns:240px 1fr auto}.desktop-nav{display:none}.menu-toggle{display:grid}.header-cta{margin-left:auto}
-      .hero-grid{grid-template-columns:1fr;gap:46px}.hero-copy{max-width:820px}.video-card{max-width:900px}
-      .concept-intro{grid-template-columns:1fr;gap:40px}.module-grid{grid-template-columns:repeat(2,1fr)}.service-grid{grid-template-columns:repeat(2,1fr)}
-      .footer-grid{grid-template-columns:250px 1fr}.footer-note{display:none}
-    }
-    @media(max-width:700px){
-      .container{width:min(100% - 32px,1180px)}.site-header{position:absolute}.header-inner{min-height:74px;grid-template-columns:1fr auto auto;gap:10px}
-      .brand{width:50px}.brand-primary{display:none}.brand-symbol{display:block;width:50px!important}.header-cta{display:none}.menu-toggle{width:43px;height:43px}
-      .mobile-groups{grid-template-columns:1fr}.hero{padding:112px 0 58px}.hero-grid{gap:36px}h1{font-size:47px}.hero-lead{font-size:16px}
-      .hero-actions{display:grid}.button{width:100%}.video-caption{display:block}.video-caption span{display:block;margin-top:5px}
-      .section{padding:72px 0}.section-heading{margin-bottom:36px}.concept-step{grid-template-columns:44px 1fr;gap:14px}
-      .audience-grid,.service-grid,.process-grid{grid-template-columns:1fr}.audience-card{min-height:0;padding:28px}.audience-card h3{margin-top:42px}
-      .module-grid{grid-template-columns:1fr}.module{min-height:0}.module h3{margin-top:34px}
-      .process-grid article{padding:26px 0}.process-grid article+article{padding-left:0;border-top:1px solid var(--line);border-left:0}.process-grid h3{margin-top:26px}
-      .recommend-entry{grid-template-columns:1fr;gap:18px;padding:22px}.recommend-entry-button{width:100%}.recommend-dialog-inner{padding:28px 20px}.recommend-targets,.recommend-actions{grid-template-columns:1fr}.recommend-action{width:100%}
-      .cta-section{padding:8px 0 72px}.cta-panel{grid-template-columns:1fr;gap:28px;padding:34px 26px}.footer-grid{grid-template-columns:1fr;min-height:230px;padding:34px 0}.footer-links{justify-content:flex-start}
-    }
-
-    .recommend-entry{margin-top:22px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:30px;padding:25px 28px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(105deg,#fff,var(--cyan-100));box-shadow:0 12px 34px rgba(8,60,91,.07)}
-    .recommend-entry p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
-    .recommend-entry strong{display:block;margin-bottom:3px;color:var(--navy-900);font-size:17px;letter-spacing:-.02em}
-    .recommend-entry-button{min-height:48px;padding:12px 18px;border:1px solid var(--navy-900);border-radius:5px;background:var(--navy-900);color:#fff;cursor:pointer;white-space:nowrap;font-size:12px;font-weight:850}
-    .recommend-entry-button:hover{background:var(--navy-950);transform:translateY(-2px)}
-    .recommend-dialog{width:min(720px,calc(100% - 28px));padding:0;border:0;border-radius:14px;background:#fff;color:var(--ink);box-shadow:0 28px 100px rgba(0,25,45,.34)}
-    .recommend-dialog::backdrop{background:rgba(2,35,55,.72);backdrop-filter:blur(4px)}
-    .recommend-dialog-inner{position:relative;padding:34px}
-    .recommend-close{position:absolute;top:18px;right:18px;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy-950);cursor:pointer;font-size:22px}
-    .recommend-dialog h2{max-width:580px;margin:0;font-size:clamp(29px,5vw,42px);line-height:1.05;letter-spacing:-.04em}
-    .recommend-dialog .dialog-lead{margin:14px 42px 26px 0;color:var(--muted);font-size:14px}
-    .recommend-targets{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .recommend-target{padding:18px;border:1px solid var(--line);border-radius:9px;background:var(--ice);color:var(--ink);cursor:pointer;text-align:left;font-weight:800}
-    .recommend-target small{display:block;margin-top:5px;color:var(--muted);font-weight:400}
-    .recommend-target[aria-pressed="true"]{border-color:var(--cyan-500);background:var(--cyan-100)}
-    .recommend-preview{margin:18px 0 0;padding:18px;border-left:4px solid var(--cyan-500);background:var(--ice);color:var(--muted);font-size:13px;line-height:1.65}
-    .recommend-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:18px}
-    .recommend-action{min-height:46px;padding:11px 9px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--navy-900);cursor:pointer;font-size:12px;font-weight:820}
-    .recommend-action-primary{border-color:var(--cyan-500);background:var(--cyan-500);color:var(--navy-950)}
-    .recommend-note{margin:14px 0 0;color:var(--muted);font-size:10px}
-
-
-    .header-recommend{white-space:nowrap;border:1px solid var(--cyan-400);border-radius:5px;padding:11px 13px;background:rgba(0,182,198,.12);color:#fff;cursor:pointer;font-size:12px;font-weight:820}
-    .header-recommend:hover{background:var(--cyan-500);color:var(--navy-950)}
-    .mobile-recommend{width:100%;margin-top:24px;background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
-    .recommend-reminder{position:fixed;z-index:48;left:50%;bottom:max(20px,env(safe-area-inset-bottom));width:min(620px,calc(100% - 32px));display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:18px;padding:16px 18px;border:1px solid rgba(255,255,255,.28);border-radius:10px;background:var(--navy-950);color:#fff;box-shadow:0 20px 70px rgba(0,24,42,.32);transform:translate(-50%,calc(100% + 60px));opacity:0;transition:transform .3s ease,opacity .3s ease}
-    .recommend-reminder.is-visible{transform:translate(-50%,0);opacity:1}
-    .recommend-reminder-copy{min-width:0}.recommend-reminder strong{display:block;font-size:14px}.recommend-reminder span{display:block;margin-top:2px;color:rgba(255,255,255,.68);font-size:11px}
-    .recommend-reminder-action{min-height:40px;padding:9px 13px;border:0;border-radius:5px;background:var(--cyan-500);color:var(--navy-950);cursor:pointer;font-size:11px;font-weight:850}
-    .recommend-reminder-close{width:38px;height:38px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:transparent;color:#fff;cursor:pointer;font-size:20px}
-    @media(max-width:700px){.header-recommend{display:none}.mobile-recommend{display:inline-flex}.recommend-reminder{left:14px;right:14px;bottom:max(14px,env(safe-area-inset-bottom));width:auto;grid-template-columns:1fr auto;gap:12px;transform:translateY(calc(100% + 60px))}.recommend-reminder.is-visible{transform:translateY(0)}.recommend-reminder-action{grid-column:1/-1;width:100%}.recommend-reminder-close{grid-column:2;grid-row:1}.recommend-reminder-copy{grid-column:1;grid-row:1}}
-
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important}}
-  
-@media screen{
-  html:not([data-theme="dark"]) body main .process-grid article>span,
-  html:not([data-theme="dark"]) body main .step-no{color:#006b7c!important}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LANE SWITCH · Partnerkonzept für Fahrschulen</title>
+<meta name="description" content="LANE SWITCH ergänzt Ihre Fahrschule um Versicherungscheck, Gastbeitrag im Theorieunterricht, Tippgeber-Kooperation und kostenlose Werkzeuge für Ihre Fahrschüler:innen.">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="content-security-policy" content="default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<link rel="canonical" href="https://laneswitch.de/">
+<link rel="icon" href="/assets/logo-symbol.svg" type="image/svg+xml">
+<meta name="theme-color" content="#062d47">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="LANE SWITCH">
+<meta property="og:title" content="LANE SWITCH · Partnerkonzept für Fahrschulen">
+<meta property="og:description" content="Absicherung für Ihren Betrieb, Praxiswissen für Ihren Unterricht und kostenlose Werkzeuge für Ihre Fahrschüler:innen.">
+<meta property="og:url" content="https://laneswitch.de/">
+<meta property="og:image" content="https://laneswitch.de/assets/og-fahrschulen.png">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{var t=localStorage.getItem('laneswitch-theme-v1');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: ruhige Einspalten-Erzählung mit Straßen-Grafik im Hero; Abschnitte als volle Bänder, Inhalte max. 1120 px. Inhalte stehen auf der Seite, Absprünge zu .online nur über klar benannte Buttons. */
+:root{
+  --bg:#f3f5f7;--card:#fff;--ink:#102b3e;--muted:#526879;--line:#dbe3e9;--navy:#062d47;--teal:#007c89;--accent:#65e5df;--tint:#e2f5f3;--on-navy:#fff;--on-navy-muted:#c4d6e0;
+  --font:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --r:14px;
 }
+:root[data-theme="dark"]{--bg:#0c1923;--card:#132735;--ink:#edf6fa;--muted:#b3c5d0;--line:#304653;--navy:#062d47;--teal:#76e5df;--tint:#173e46;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--font)}
+a{color:inherit}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-size:12px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--teal)}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 22px;border-radius:30px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent}
+.btn-primary{background:var(--navy);color:var(--on-navy)}
+:root[data-theme="dark"] .btn-primary{border-color:var(--accent)}
+.btn-ghost{border-color:var(--line);background:var(--card);color:var(--ink)}
+.btn:focus-visible,.icon-btn:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.btn svg{width:18px;height:18px}
+.short{display:none}
+svg.i{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Kopfzeile */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:16px;height:72px}
+.logo{width:170px;flex:none;display:block}
+.logo svg{width:100%;height:auto;display:block}
+.logo-dark{display:none}
+:root[data-theme="dark"] .logo-light{display:none}:root[data-theme="dark"] .logo-dark{display:block}
+.bar nav{display:flex;gap:22px;margin-left:auto;font-size:14px;font-weight:620}
+.bar nav a{text-decoration:none;color:var(--muted)}
+.bar nav a:hover{color:var(--ink)}
+.icon-btn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.icon-btn svg{width:20px;height:20px}
+.bar .btn{min-height:44px;padding:9px 18px;font-size:14px}
+
+/* Hero */
+.hero{padding-block:64px 72px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center}
+.hero h1{font-size:clamp(34px,5vw,58px);font-weight:800;letter-spacing:-.035em;margin-top:14px}
+.hero h1 em{font-style:normal;color:var(--teal)}
+.lead{font-size:clamp(17px,1.6vw,19px);color:var(--muted);max-width:56ch;margin-top:20px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:26px;font-size:14px;color:var(--muted);padding:0;list-style:none}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts svg{width:18px;height:18px;color:var(--teal)}
+
+.road{background:var(--navy);border-radius:22px;padding:28px 26px;color:var(--on-navy);position:relative;overflow:hidden}
+.road svg.lanes{position:absolute;inset:0;width:100%;height:100%}
+.road ol{position:relative;list-style:none;margin:0;padding:0;display:grid;gap:22px}
+.road li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start;background:#ffffff0f;border:1px solid #ffffff1f;border-radius:12px;padding:14px 16px}
+.road li b{display:block;font-size:15px}
+.road li span{font-size:14px;color:var(--on-navy-muted);line-height:1.5}
+.road .dot{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--accent);color:var(--navy);font-weight:800;font-size:13px}
+.road .who{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:750;margin-bottom:2px}
+
+/* Abschnitte */
+section{padding-block:72px}
+.alt{background:var(--card);border-block:1px solid var(--line)}
+.head{max-width:680px;display:grid;gap:12px;margin-bottom:36px}
+.head h2{font-size:clamp(27px,3.2vw,38px);font-weight:780}
+.head p{color:var(--muted);font-size:17px}
+
+.modules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.module{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;display:grid;gap:12px;align-content:start}
+.alt .module{background:var(--bg)}
+.module .ico{width:46px;height:46px;border-radius:12px;background:var(--tint);color:var(--teal);display:grid;place-items:center}
+.module .ico svg{width:24px;height:24px}
+.module h3{font-size:20px;font-weight:750}
+.module p{color:var(--muted);font-size:15px}
+.module ul{margin:2px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
+.module li{display:flex;gap:9px;align-items:baseline}
+.module li::before{content:"";flex:none;width:7px;height:7px;border-radius:2px;background:var(--teal);transform:translateY(-1px)}
+.tag{justify-self:start;font-size:12px;font-weight:700;padding:4px 10px;border-radius:20px;background:var(--tint);color:var(--teal)}
+.section-cta{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
+
+.split{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:48px;align-items:start}
+.tools{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--bg);overflow:hidden;margin:0;padding:0;list-style:none}
+.tool{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;align-items:center;padding:18px 20px;border-top:1px solid var(--line)}
+.tool:first-child{border-top:0}
+.tool .ico{width:46px;height:46px;border-radius:12px;background:var(--tint);color:var(--teal);display:grid;place-items:center}
+.tool .ico svg{width:23px;height:23px}
+.tool b{display:block;font-size:16px}
+.tool span span{display:block;font-size:14px;color:var(--muted);line-height:1.5}
+.why{display:grid;gap:18px}
+.why .quote{font-size:clamp(20px,2.2vw,25px);font-weight:700;letter-spacing:-.015em;line-height:1.35}
+.why p{color:var(--muted)}
+.why ul{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:10px}
+.why li{display:flex;gap:12px;align-items:flex-start;font-size:15px}
+.why li svg{width:20px;height:20px;color:var(--teal);flex:none;margin-top:2px}
+
+.benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.benefit{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;display:grid;gap:10px;align-content:start}
+.benefit .ico{width:46px;height:46px;border-radius:12px;background:var(--tint);color:var(--teal);display:grid;place-items:center}
+.benefit .ico svg{width:24px;height:24px}
+.benefit h3{font-size:18px;font-weight:750}
+.benefit p{color:var(--muted);font-size:15px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.step{padding:22px 24px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);display:grid;gap:8px;align-content:start}
+.step .n{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--tint);color:var(--teal);font-weight:800}
+.step b{font-size:17px}
+.step p{font-size:15px;color:var(--muted)}
+.step-wide{grid-column:1/-1;grid-template-columns:36px minmax(0,1fr) minmax(0,1.3fr);gap:8px 18px;align-items:start;background:var(--navy);border-color:var(--navy);color:var(--on-navy)}
+.step-wide .n{background:var(--accent);color:var(--navy)}
+.step-wide p{color:var(--on-navy-muted)}
+.step-wide ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;font-size:15px}
+.step-wide li{display:flex;gap:10px;align-items:flex-start}
+.step-wide li svg{width:18px;height:18px;color:var(--accent);flex:none;margin-top:3px}
+.roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.role{padding:22px 24px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);display:grid;gap:8px;align-content:start}
+.role .n{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--tint);color:var(--teal);font-weight:800}
+.role b{font-size:17px}
+.role p{font-size:15px;color:var(--muted)}
+.fine{font-size:13px;color:var(--muted);margin-top:22px;max-width:820px}
+
+.partners{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.partner{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:30px;border:1px solid var(--line);background:var(--card);font-weight:650;font-size:15px}
+.partner svg{width:18px;height:18px;color:var(--teal)}
+
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;background:var(--navy);color:var(--on-navy);border-radius:22px;padding:44px}
+.contact h2{font-size:clamp(26px,3vw,36px);font-weight:780}
+.contact p{color:var(--on-navy-muted)}
+.contact .btn-primary{background:var(--accent);color:var(--navy)}
+.contact .btn-ghost{background:transparent;border-color:#ffffff40;color:var(--on-navy)}
+.person{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:center;background:#ffffff0f;border:1px solid #ffffff1f;border-radius:16px;padding:18px}
+.person img{width:96px;height:96px;border-radius:16px;object-fit:cover;object-position:center;background:var(--tint);max-width:100%}
+.person b{display:block;font-size:17px}
+.reach{display:grid;gap:8px;margin-top:10px;justify-items:start}
+.person .mail{display:inline-flex;align-items:center;gap:9px;font-weight:600;color:var(--on-navy);text-decoration:none;border-bottom:2px solid transparent;transition:border-color .2s}
+.person .mail:hover{border-color:var(--accent)}
+.person .mail svg{width:18px;height:18px;color:var(--accent);flex:none}
+
+footer{padding-block:30px 40px;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+footer nav{display:flex;gap:18px;margin-left:auto}
+.preview-note{background:var(--tint);color:var(--ink);font-size:13px;text-align:center;padding-block:8px}
+
+@media (max-width:980px){.benefits,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step-wide{grid-template-columns:36px minmax(0,1fr)}.step-wide ul{grid-column:1/-1}.hero-grid,.split,.contact{grid-template-columns:minmax(0,1fr)}.hero-grid{gap:40px}.bar nav{display:none}.bar .icon-btn{margin-left:auto}}
+@media (max-width:760px){.step-wide ul{grid-template-columns:minmax(0,1fr)}.modules,.roles,.benefits,.steps{grid-template-columns:minmax(0,1fr)}section{padding-block:52px}.hero{padding-block:40px 52px}.contact{padding:28px 22px}.logo{width:142px}.bar{height:64px;gap:10px}.bar .btn .long{display:none}.bar .btn .short{display:inline}footer nav{margin-left:0}}
+@media (max-width:480px){.person{grid-template-columns:minmax(0,1fr)}.person img{width:88px;height:88px}}
+@media (max-width:400px){.bar .btn{padding:9px 14px}}
+@media (prefers-reduced-motion:no-preference){.lane-move{stroke-dasharray:6 200;animation:drive 6s linear infinite}@keyframes drive{to{stroke-dashoffset:-206}}}
+
+/* Dynamik: Lesefortschritt, aktive Navigation, Einblenden beim Scrollen, Hover */
+header{position:sticky}
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;pointer-events:none}
+.progress span{display:block;height:100%;width:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+.bar nav a{position:relative;padding-block:6px}
+.bar nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--teal);transform:scaleX(0);transform-origin:0 50%;transition:transform .3s}
+.bar nav a.on{color:var(--ink)}.bar nav a.on::after,.bar nav a:hover::after{transform:scaleX(1)}
+.eyebrow{display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:3px;border-radius:2px;background:repeating-linear-gradient(90deg,var(--teal) 0 8px,transparent 8px 12px);background-size:24px 3px;flex:none}
+.module,.benefit,.step,.tool,.role{transition:transform .25s,box-shadow .25s,border-color .25s,background-color .25s}
+.module:hover,.benefit:hover,.step:not(.step-wide):hover{transform:translateY(-4px);box-shadow:0 18px 36px -24px #02182966;border-color:var(--teal)}
+.module .ico,.benefit .ico,.tool .ico{transition:background-color .25s,color .25s,transform .25s}
+.module:hover .ico,.benefit:hover .ico,.tool:hover .ico{background:var(--teal);color:var(--card);transform:rotate(-6deg)}
+.tool:hover{background:var(--tint)}
+.road li{transition:background-color .3s,transform .3s}
+.road li:hover{background:#ffffff1c;transform:translateX(4px)}
+.btn svg{transition:transform .2s}.btn:hover svg{transform:translateX(3px)}
+.btn-primary{position:relative;overflow:hidden}
+@media (prefers-reduced-motion:no-preference){
+  .fx .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+  .fx .rv.in{opacity:1;transform:none}
+  .hero .eyebrow,.hero h1,.hero .lead,.hero .actions,.hero .facts{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  .hero h1{animation-delay:.08s}.hero .lead{animation-delay:.16s}.hero .actions{animation-delay:.24s}.hero .facts{animation-delay:.32s}
+  .road li{animation:slide .7s cubic-bezier(.2,.7,.2,1) both}
+  .road li:nth-child(1){animation-delay:.35s}.road li:nth-child(2){animation-delay:.5s}.road li:nth-child(3){animation-delay:.65s}
+  .road .dot{animation:pulse 3s ease-in-out infinite}
+  .road li:nth-child(2) .dot{animation-delay:1s}.road li:nth-child(3) .dot{animation-delay:2s}
+  .eyebrow::before{animation:dash 1.2s linear infinite}
+  .step-wide .n{animation:pulse 3s ease-in-out infinite}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}}
+  @keyframes slide{from{opacity:0;transform:translateX(28px)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 #65e5df66}50%{box-shadow:0 0 0 10px #65e5df00}}
+  @keyframes dash{to{background-position:24px 0}}
+}
+
+/* Handy: eigene Dynamik (Wischen, Fokus im Blickfeld, Zeitleiste, Antippen) */
+.dots{display:none}
+.road li.now{background:#ffffff1f;border-color:#65e5df66}
+.road li{border:1px solid #ffffff1f}
+@media (max-width:760px){
+  .swipe{display:flex!important;align-items:flex-start;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:4px max(16px,env(safe-area-inset-left,0px)) 10px;scroll-padding-inline:max(16px,env(safe-area-inset-left,0px));scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .swipe::-webkit-scrollbar{display:none}
+  .swipe>*{flex:0 0 86%;scroll-snap-align:start}
+  .dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+  .dots button{width:8px;height:8px;padding:0;border:0;border-radius:4px;background:var(--line);transition:width .3s,background-color .3s}
+  .dots button.on{width:26px;background:var(--teal)}
+  .swipe-hint{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin:-18px 0 14px}
+  .swipe-hint svg{width:18px;height:18px;color:var(--teal)}
+  .steps{gap:14px;position:relative;padding-left:28px}
+  .steps::before{content:"";position:absolute;left:9px;top:18px;bottom:18px;width:2px;background:var(--line);border-radius:2px}
+  .steps::after{content:"";position:absolute;left:9px;top:18px;width:2px;height:calc((100% - 36px) * var(--p,0));background:var(--teal);border-radius:2px;transition:height .15s linear}
+  .step{position:relative}
+  .step::before{content:"";position:absolute;left:-25px;top:28px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--line);transition:background-color .3s,border-color .3s}
+  .step.done::before{background:var(--teal);border-color:var(--teal)}
+  .is-focus{border-color:var(--teal)!important;box-shadow:0 18px 36px -24px #02182966}
+  .is-focus .ico{background:var(--teal)!important;color:var(--card)!important}
+  .tool.is-focus{background:var(--tint)}
+  .module,.benefit,.step,.tool,.btn{-webkit-tap-highlight-color:transparent}
+  .btn:active,.module:active,.benefit:active,.tool:active{transform:scale(.98)}
+}
+@media (min-width:761px){.swipe-hint{display:none}}
 </style>
 </head>
-<link rel="stylesheet" href="./assets/theme.css?v=20260908-cooperations"><script src="./assets/theme.js?v=20261029-assistent"></script><body>
-  <a class="skip-link" href="#inhalt">Zum Inhalt</a>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="./" aria-label="LANE SWITCH Startseite">
-        <img class="brand-primary" src="./assets/logo-primary-dark.svg?v=20260824" alt="LANE SWITCH: Fahrschul-Partnerkonzept" width="1400" height="360">
-        <img class="brand-symbol" src="./assets/logo-symbol.svg" alt="" width="360" height="360" aria-hidden="true">
-      </a>
-      <nav class="desktop-nav" aria-label="Hauptnavigation">
-        <a href="#konzept">Konzept</a>
-        <a href="./fahrschulen/">Für Fahrschulen</a>
-        <a href="./fahrschueler/">Für Fahrschüler:innen</a>
-        <div class="nav-group">
-          <button type="button" aria-haspopup="true">Services</button>
-          <div class="nav-panel">
-            <div>
-              <h3>Für Fahrschulen</h3>
-              <a href="./cockpit/">Fahrschul-Cockpit</a>
-              <a href="./fahrschul-check/">5-Minuten-Check</a>
-              <a href="./notfallcenter/">Notfallcenter</a>
-              <a href="./vorlagen/">Vorlagen</a>
-            </div>
-            <div>
-              <h3>Für Fahrschüler:innen</h3>
-              <a href="./fahrzeugkosten/">Fahrzeugkosten-Rechner</a>
-              <a href="./lernwelt/">Lernwelt Klasse B</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-      <div class="global-header-actions"><button class="header-recommend" type="button" data-recommend-open aria-haspopup="dialog">Empfehlen</button><a class="header-cta" href="./kontakt/">20 Minuten kennenlernen</a></div>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menü öffnen"><span></span></button>
+<body>
+<header>
+  <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  <div class="wrap bar">
+    <a class="logo" href="#top" aria-label="LANE SWITCH, zum Seitenanfang"><span class="logo-light"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 360" role="img" aria-labelledby="lt"><title id="lt">LANE SWITCH</title><g transform="translate(30 50) scale(2.6)"><rect width="100" height="100" rx="24" fill="#062D47"/><path d="M50 14V86" fill="none" stroke="#65E5DF" stroke-width="5" stroke-dasharray="9 8" opacity="0.75"/><path d="M68 86V64C68 50 32 50 32 36V14" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/></g><path d="M357.29443359375 231.29150390625H422.56201171875V213.873046875H378.29296875V128.70849609375H357.29443359375ZM433.91912109375 231.29150390625H457.12078125L464.76287109375 207.47021484375H501.18328125L509.10076171875 231.29150390625H532.4401171874999L496.501640625 128.70849609375H468.962578125ZM469.99529296875 191.015625 472.9557421875 181.7900390625C476.05388671875 171.462890625 479.08318359375 159.27685546875 482.52556640625 145.1630859375C486.10564453125 159.13916015625 489.341484375 171.25634765625 492.646171875 181.7900390625L495.74431640625 191.015625ZM547.9280859375 231.29150390625H569.4085546875V184.130859375C569.4085546875 178.072265625 568.78892578125 167.056640625 568.0316015625 154.6640625C574.3655859375 167.4697265625 578.15220703125 174.97412109375 583.8665625 184.19970703125L613.333359375 231.29150390625H636.81041015625V128.70849609375H615.32994140625V177.9345703125C615.32994140625 184.681640625 615.88072265625 195.697265625 616.638046875 205.7490234375C612.16294921875 195.07763671875 607.825546875 187.2978515625 603.76353515625 180.61962890625L571.3362890625 128.70849609375H547.9280859375ZM658.21927734375 231.29150390625H726.9980859375V213.873046875H679.2178125V188.05517578125H723.2803125V170.912109375H679.2178125V146.126953125H726.860390625V128.70849609375H658.21927734375ZM820.4876953125 232.80615234375C845.410546875 232.80615234375 860.07509765625 220.7578125 860.07509765625 202.10009765625C860.07509765625 184.88818359375 846.71865234375 176.07568359375 829.437890625 172.08251953125L820.14345703125 169.810546875C811.46865234375 167.7451171875 803.75771484375 164.50927734375 803.75771484375 156.8671875C803.75771484375 149.982421875 809.81630859375 145.025390625 820.55654296875 145.025390625C831.090234375 145.025390625 837.63076171875 149.77587890625 838.3880859375 157.96875H858.69814453125C858.35390625 139.9306640625 843.4828125 127.33154296875 820.7630859375 127.33154296875C798.4564453125 127.33154296875 782.2083984375 139.72412109375 782.2083984375 158.244140625C782.2083984375 173.18408203125 792.60439453125 181.927734375 809.95400390625 186.12744140625L821.24501953125 188.9501953125C832.39833984375 191.7041015625 838.9388671875 194.93994140625 838.9388671875 201.96240234375C838.9388671875 209.7421875 831.5033203125 215.04345703125 820.28115234375 215.04345703125C808.9212890625 215.04345703125 800.59072265625 209.8798828125 799.90224609375 199.48388671875H779.4544921875C780.07412109375 221.30859375 795.840234375 232.80615234375 820.4876953125 232.80615234375ZM899.6597460937501 231.29150390625H923.6875781250001L937.2505664062501 178.82958984375C939.2471484375001 171.0498046875 940.4864062500001 162.85693359375 941.7945117187501 154.31982421875C943.2403125000001 163.13232421875 944.6172656250001 171.462890625 946.4761523437501 178.82958984375L960.1079882812501 231.29150390625H984.0669726562501L1011.6748828125001 128.70849609375H988.6797656250001L976.7691210937501 179.173828125C974.7036914062501 188.537109375 972.9136523437501 199.552734375 971.2613085937501 210.017578125C969.4024218750001 199.552734375 967.5435351562501 188.537109375 965.2715625000001 179.173828125L952.8101367187501 128.70849609375H930.9854296875001L918.4551562500001 179.173828125C916.1143359375001 188.60595703125 914.3242968750001 199.75927734375 912.4654101562501 210.29296875C910.8130664062501 199.75927734375 909.0230273437501 188.60595703125 906.9575976562501 179.173828125L895.0469531250001 128.70849609375H872.1206835937501ZM1048.16138671875 128.70849609375H1027.1628515625V231.29150390625H1048.16138671875ZM1065.43939453125 146.126953125H1096.83392578125V231.29150390625H1117.90130859375V146.126953125H1149.2269921875V128.70849609375H1065.43939453125ZM1211.3248242187499 232.66845703125C1237.2115429687499 232.66845703125 1253.1841992187499 215.25 1255.5250195312499 196.17919921875H1234.2510937499999C1232.1856640624999 207.33251953125 1223.3731640624999 214.0107421875 1211.6690624999999 214.0107421875C1195.8341015624999 214.0107421875 1185.0250195312499 202.306640625 1185.0250195312499 180.06884765625C1185.0250195312499 158.31298828125 1195.6964062499999 145.9892578125 1211.7379101562499 145.9892578125C1223.4420117187499 145.9892578125 1232.2545117187499 152.5986328125 1234.1822460937499 163.751953125H1255.4561718749999C1252.4268749999999 140.68798828125 1234.6641796874999 127.33154296875 1211.3248242187499 127.33154296875C1184.2676953124999 127.33154296875 1163.6822460937499 146.5400390625 1163.6822460937499 180.06884765625C1163.6822460937499 213.39111328125 1183.9923046874999 232.66845703125 1211.3248242187499 232.66845703125ZM1273.6291992187498 231.29150390625H1294.6277343749998V187.5732421875H1339.3098632812498V231.29150390625H1360.3772460937498V128.70849609375H1339.3098632812498V170.15478515625H1294.6277343749998V128.70849609375H1273.6291992187498Z" fill="#062D47"/></svg>
+</span><span class="logo-dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 360" role="img" aria-labelledby="ld"><title id="ld">LANE SWITCH</title><g transform="translate(30 50) scale(2.6)"><rect width="100" height="100" rx="24" fill="#65E5DF"/><path d="M50 14V86" fill="none" stroke="#062D47" stroke-width="5" stroke-dasharray="9 8" opacity="0.45"/><path d="M68 86V64C68 50 32 50 32 36V14" fill="none" stroke="#062D47" stroke-width="10" stroke-linecap="round"/></g><path d="M357.29443359375 231.29150390625H422.56201171875V213.873046875H378.29296875V128.70849609375H357.29443359375ZM433.91912109375 231.29150390625H457.12078125L464.76287109375 207.47021484375H501.18328125L509.10076171875 231.29150390625H532.4401171874999L496.501640625 128.70849609375H468.962578125ZM469.99529296875 191.015625 472.9557421875 181.7900390625C476.05388671875 171.462890625 479.08318359375 159.27685546875 482.52556640625 145.1630859375C486.10564453125 159.13916015625 489.341484375 171.25634765625 492.646171875 181.7900390625L495.74431640625 191.015625ZM547.9280859375 231.29150390625H569.4085546875V184.130859375C569.4085546875 178.072265625 568.78892578125 167.056640625 568.0316015625 154.6640625C574.3655859375 167.4697265625 578.15220703125 174.97412109375 583.8665625 184.19970703125L613.333359375 231.29150390625H636.81041015625V128.70849609375H615.32994140625V177.9345703125C615.32994140625 184.681640625 615.88072265625 195.697265625 616.638046875 205.7490234375C612.16294921875 195.07763671875 607.825546875 187.2978515625 603.76353515625 180.61962890625L571.3362890625 128.70849609375H547.9280859375ZM658.21927734375 231.29150390625H726.9980859375V213.873046875H679.2178125V188.05517578125H723.2803125V170.912109375H679.2178125V146.126953125H726.860390625V128.70849609375H658.21927734375ZM820.4876953125 232.80615234375C845.410546875 232.80615234375 860.07509765625 220.7578125 860.07509765625 202.10009765625C860.07509765625 184.88818359375 846.71865234375 176.07568359375 829.437890625 172.08251953125L820.14345703125 169.810546875C811.46865234375 167.7451171875 803.75771484375 164.50927734375 803.75771484375 156.8671875C803.75771484375 149.982421875 809.81630859375 145.025390625 820.55654296875 145.025390625C831.090234375 145.025390625 837.63076171875 149.77587890625 838.3880859375 157.96875H858.69814453125C858.35390625 139.9306640625 843.4828125 127.33154296875 820.7630859375 127.33154296875C798.4564453125 127.33154296875 782.2083984375 139.72412109375 782.2083984375 158.244140625C782.2083984375 173.18408203125 792.60439453125 181.927734375 809.95400390625 186.12744140625L821.24501953125 188.9501953125C832.39833984375 191.7041015625 838.9388671875 194.93994140625 838.9388671875 201.96240234375C838.9388671875 209.7421875 831.5033203125 215.04345703125 820.28115234375 215.04345703125C808.9212890625 215.04345703125 800.59072265625 209.8798828125 799.90224609375 199.48388671875H779.4544921875C780.07412109375 221.30859375 795.840234375 232.80615234375 820.4876953125 232.80615234375ZM899.6597460937501 231.29150390625H923.6875781250001L937.2505664062501 178.82958984375C939.2471484375001 171.0498046875 940.4864062500001 162.85693359375 941.7945117187501 154.31982421875C943.2403125000001 163.13232421875 944.6172656250001 171.462890625 946.4761523437501 178.82958984375L960.1079882812501 231.29150390625H984.0669726562501L1011.6748828125001 128.70849609375H988.6797656250001L976.7691210937501 179.173828125C974.7036914062501 188.537109375 972.9136523437501 199.552734375 971.2613085937501 210.017578125C969.4024218750001 199.552734375 967.5435351562501 188.537109375 965.2715625000001 179.173828125L952.8101367187501 128.70849609375H930.9854296875001L918.4551562500001 179.173828125C916.1143359375001 188.60595703125 914.3242968750001 199.75927734375 912.4654101562501 210.29296875C910.8130664062501 199.75927734375 909.0230273437501 188.60595703125 906.9575976562501 179.173828125L895.0469531250001 128.70849609375H872.1206835937501ZM1048.16138671875 128.70849609375H1027.1628515625V231.29150390625H1048.16138671875ZM1065.43939453125 146.126953125H1096.83392578125V231.29150390625H1117.90130859375V146.126953125H1149.2269921875V128.70849609375H1065.43939453125ZM1211.3248242187499 232.66845703125C1237.2115429687499 232.66845703125 1253.1841992187499 215.25 1255.5250195312499 196.17919921875H1234.2510937499999C1232.1856640624999 207.33251953125 1223.3731640624999 214.0107421875 1211.6690624999999 214.0107421875C1195.8341015624999 214.0107421875 1185.0250195312499 202.306640625 1185.0250195312499 180.06884765625C1185.0250195312499 158.31298828125 1195.6964062499999 145.9892578125 1211.7379101562499 145.9892578125C1223.4420117187499 145.9892578125 1232.2545117187499 152.5986328125 1234.1822460937499 163.751953125H1255.4561718749999C1252.4268749999999 140.68798828125 1234.6641796874999 127.33154296875 1211.3248242187499 127.33154296875C1184.2676953124999 127.33154296875 1163.6822460937499 146.5400390625 1163.6822460937499 180.06884765625C1163.6822460937499 213.39111328125 1183.9923046874999 232.66845703125 1211.3248242187499 232.66845703125ZM1273.6291992187498 231.29150390625H1294.6277343749998V187.5732421875H1339.3098632812498V231.29150390625H1360.3772460937498V128.70849609375H1339.3098632812498V170.15478515625H1294.6277343749998V128.70849609375H1273.6291992187498Z" fill="#FFFFFF"/></svg>
+</span></a>
+    <nav aria-label="Seitenbereiche"><a href="#bausteine">Bausteine</a><a href="#vorteile">Vorteile</a><a href="#fahrschueler">Für Ihre Fahrschüler:innen</a><a href="#ablauf">Zusammenarbeit</a><a href="#kontakt">Kontakt</a></nav>
+    <button class="icon-btn" type="button" id="theme" aria-label="Dunkles Design einschalten"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></svg></button>
+    <a class="btn btn-primary" href="https://laneswitch.online/?zielgruppe=school"><span class="long">Zu laneswitch.online</span><span class="short">Öffnen</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero"><div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Für Fahrschulen</p>
+      <h1>Ihre Fahrschule bildet aus. <em>LANE SWITCH begleitet den Weg danach.</em></h1>
+      <p class="lead">Absicherung für Ihren Betrieb, Praxiswissen für Ihren Unterricht und kostenlose Werkzeuge für Ihre Fahrschüler:innen. Sie wählen nur die Bausteine, die zu Ihrer Fahrschule passen.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://laneswitch.online/?zielgruppe=school">Mehrwerte auf laneswitch.online ansehen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#bausteine">Bausteine ansehen</a>
+      </div>
+      <ul class="facts">
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Modular, einzeln wählbar</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Kostenlose Werkzeuge für Ihre Fahrschüler:innen</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Persönlicher Ansprechpartner</li>
+      </ul>
     </div>
-  </header>
-
-  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile Navigation" aria-hidden="true">
-    <div class="mobile-menu-inner">
-      <div class="mobile-primary">
-        <a href="#konzept">Das Konzept</a>
-        <a href="./fahrschulen/">Für Fahrschulen</a>
-        <a href="./fahrschueler/">Für Fahrschüler:innen</a>
-        <a href="./kontakt/">Kontakt</a>
-      </div>
-      <div class="mobile-groups">
-        <div>
-          <h2>Services für Fahrschulen</h2>
-          <a href="./cockpit/">Fahrschul-Cockpit</a>
-          <a href="./fahrschul-check/">5-Minuten-Check</a>
-          <a href="./notfallcenter/">Notfallcenter</a>
-          <a href="./vorlagen/">Vorlagen</a>
-        </div>
-        <div>
-          <h2>Services für Fahrschüler:innen</h2>
-          <a href="./fahrzeugkosten/">Fahrzeugkosten-Rechner</a>
-          <a href="./lernwelt/">Lernwelt Klasse B</a>
-        </div>
-      </div>
-      <button class="button button-secondary mobile-recommend" type="button" data-recommend-open aria-haspopup="dialog">LANE SWITCH empfehlen</button> <a class="button button-primary mobile-cta" href="./kontakt/">20 Minuten kennenlernen <span aria-hidden="true">→</span></a>
+    <div class="road" aria-label="Der Weg, den LANE SWITCH begleitet">
+      <svg class="lanes" viewBox="0 0 400 420" preserveAspectRatio="none" aria-hidden="true"><path d="M22 0V420M378 0V420" stroke="#ffffff1a" stroke-width="2" fill="none" stroke-dasharray="18 16"/><path class="lane-move" d="M330 420V300C330 220 70 200 70 120V0" stroke="#65e5df" stroke-width="3" fill="none" opacity=".55" stroke-linecap="round"/></svg>
+      <ol>
+        <li><span class="dot">1</span><div><p class="who">Ihre Fahrschule</p><b>Betrieb absichern</b><span>Versicherungscheck, Notfallcenter und Vorlagen für den Fahrschulalltag.</span></div></li>
+        <li><span class="dot">2</span><div><p class="who">Im Unterricht</p><b>Praxiswissen vermitteln</b><span>Gastbeitrag eines Versicherungsexperten, vor Ort oder online: Haftpflicht, Kasko, Unfall und Rechtsschutz.</span></div></li>
+        <li><span class="dot">3</span><div><p class="who">Nach der Prüfung</p><b>Sicher in die eigene Mobilität</b><span>Lernwelt, Kostenrechner und Unfallhelfer für Ihre Fahrschüler:innen, kostenlos und ohne Konto.</span></div></li>
+      </ol>
     </div>
-  </nav>
+  </div></div>
 
-  <main id="inhalt">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Das Fahrschul-Partnerkonzept</p>
-          <h1 id="hero-title">Mehrwert, der über die <em>Fahrprüfung hinausgeht.</em></h1>
-          <p class="hero-lead">LANE SWITCH verbindet eine modulare Zusammenarbeit für Fahrschulen mit freiwilliger Orientierung für Fahrschüler:innen. Das Angebot ist persönlich, verständlich und ohne Verkaufsdruck.</p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#konzept">Konzept verstehen <span aria-hidden="true">↓</span></a>
-            <a class="button button-secondary" href="./kontakt/">20 Minuten kennenlernen</a>
-          </div>
-          <div class="principles" aria-label="Grundsätze des Konzepts">
-            <span>Modular</span><span>Persönlich</span><span>Transparent</span><span>Freiwillig</span>
-          </div>
-        </div>
-        <div class="video-card">
-          <video controls playsinline preload="metadata" aria-label="Erklärvideo zum LANE SWITCH Fahrschul-Partnerkonzept">
-            <source src="./laneswitch-erklaervideo.mp4?v=20260907-voiceover-final" type="video/mp4">
-            Ihr Browser unterstützt die Videowiedergabe nicht.
-          </video>
-          <div class="video-caption"><strong>LANE SWITCH in rund zwei Minuten</strong><span>Konzept · Kooperation · Mehrwerte</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft" id="neuigkeiten" aria-labelledby="news-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Neu bei LANE SWITCH</p>
-          <h2 id="news-title">Was gibt’s Neues?</h2>
-          <p>Der Fahrschul-Navigator bündelt Informationen zur Anmeldung, Ausbildung und zu Preisen – online und als PDF. Partnerfahrschulen pflegen ihre Angaben über einen eigenen Zugang.</p>
-        </div>
-        <div class="service-grid">
-          <a class="service-card" href="https://laneswitch.online/navigator/demo"><span class="service-audience">Für Fahrschulen</span><h3>Navigator ausprobieren</h3><p>Lernen Sie den Fahrschul-Navigator mit einer Musterfahrschule kennen. Ohne Anmeldung; in der Demo wird nichts gespeichert.</p><strong>Demo öffnen →</strong></a>
-          <a class="service-card" href="./navigator/zugang/"><span class="service-audience">Für Partnerfahrschulen</span><h3>Ihr eigener Zugang</h3><p>Informationen bearbeiten und als Online-Ausgabe oder PDF bereitstellen. Neue Zugänge entstehen über einen persönlichen Einladungslink.</p><strong>Zur Anmeldung →</strong></a>
-          <a class="service-card" href="./kontakt/"><span class="service-audience">Für interessierte Fahrschulen</span><h3>Partner werden</h3><p>Besprechen Sie die passende Zusammenarbeit mit Steven. Hier können Sie auch eine Einladung zur Registrierung für den Navigator anfragen.</p><strong>Kooperation anfragen →</strong></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="konzept" aria-labelledby="concept-title">
-      <div class="container concept-intro">
-        <div>
-          <p class="eyebrow">Was ist LANE SWITCH?</p>
-          <h2 id="concept-title">Eine Verbindung zwischen Fahrschule, Unterricht und mobilem Alltag.</h2>
-        </div>
-        <div class="concept-steps">
-          <article class="concept-step">
-            <span class="step-no">01</span>
-            <div><h3>Die Fahrschule wählt passende Bausteine.</h3><p>Versicherungscheck, Theoriebeitrag, Kooperation und Netzwerk werden nur dort eingesetzt, wo sie einen nachvollziehbaren Nutzen für Betrieb, Team oder Unterricht bieten.</p></div>
-          </article>
-          <article class="concept-step">
-            <span class="step-no">02</span>
-            <div><h3>Fahrschüler:innen erhalten Mehrwerte für danach.</h3><p>Nach der Prüfung endet die Begleitung nicht abrupt: Wissen, Rechner und freiwillige Orientierung unterstützen beim sicheren Start in die eigene Mobilität.</p></div>
-          </article>
-          <article class="concept-step">
-            <span class="step-no">03</span>
-            <div><h3>Eine persönliche Ansprechperson verbindet alles.</h3><p>Die Fahrschule verkauft nichts. LANE SWITCH begleitet, berät und koordiniert mit klaren Rollen und kurzen Wegen.</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft" aria-labelledby="paths-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Direkt zum passenden Bereich</p>
-          <h2 id="paths-title">Zwei Zielgruppen. Klar getrennte Mehrwerte.</h2>
-          <p>Ob betriebliche Unterstützung oder Orientierung für den Start in die eigene Mobilität: Hier finden Fahrschulen und Fahrschüler:innen direkt die Angebote, die zu ihrem Bedarf passen.</p>
-        </div>
-        <div class="audience-grid">
-          <article class="audience-card audience-card-dark">
-            <span class="card-label">Für Fahrschulen und Inhaber:innen</span>
-            <h3>Betrieb stärken und Fahrschüler:innen weiter begleiten.</h3>
-            <p>Modulare Zusammenarbeit statt vorgegebenem Paket.</p>
-            <ul><li>Versicherungscheck und betriebliche Absicherung</li><li>Theoriebeitrag mit Quiz und Mehrwert</li><li>Kooperation mit individuell vereinbarter Vergütung</li><li>Netzwerk und praktische Arbeitshilfen</li></ul>
-            <a class="text-link" href="./fahrschulen/">Bereich für Fahrschulen öffnen →</a>
-          </article>
-          <article class="audience-card">
-            <span class="card-label">Für Fahrschüler:innen</span>
-            <h3>Sicher und informiert in die eigene Mobilität starten.</h3>
-            <p>Kostenlose Orientierung rund um Prüfung, Unfallabsicherung und das erste eigene Auto.</p>
-            <ul><li>Lernwelt für Klasse B</li><li>Fahrzeugkosten realistisch einschätzen</li><li>Absicherung bei Unfall verstehen</li><li>Unterstützung ohne Produktdruck</li></ul>
-            <a class="text-link" href="./fahrschueler/">Bereich für Fahrschüler:innen öffnen →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-dark" aria-labelledby="modules-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Die vier Kooperationsbausteine</p>
-          <h2 id="modules-title">Nur die Spuren, die zur Fahrschule passen.</h2>
-          <p>Jeder Baustein kann einzeln eingesetzt oder sinnvoll mit anderen Bausteinen verbunden werden.</p>
-        </div>
-        <div class="module-grid">
-          <article class="module"><span>01</span><h3>Versicherungscheck</h3><p>Vorhandenen Schutz einordnen, Risiken sichtbar machen und nur echte Lücken besprechen.</p></article>
-          <article class="module"><span>02</span><h3>Theoriebeitrag</h3><p>Praxiswissen für den mobilen Alltag, verständlich vermittelt und mit einem kurzen Quiz ergänzt.</p></article>
-          <article class="module"><span>03</span><h3>Kooperation</h3><p>Freiwilliger Kontaktweg mit klarer Rollenverteilung und individuell vereinbarter Tippgebervergütung.</p></article>
-          <article class="module"><span>04</span><h3>Netzwerk</h3><p>Kurze Wege zu ergänzenden Lösungen und kompetenten Ansprechpersonen für den Fahrschulalltag.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-soft" aria-labelledby="services-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Digitale Services</p>
-          <h2 id="services-title">Werkzeuge und Wissen an einem Ort.</h2>
-          <p>Alle digitalen Angebote sind nach Zielgruppe geordnet und über das Menü jederzeit direkt erreichbar.</p>
-        </div>
-        <div class="service-grid">
-          <a class="service-card" href="./cockpit/"><span class="service-audience">Fahrschulen</span><h3>Fahrschul-Cockpit</h3><p>Zentrale Übersicht für Betrieb, Team, Fuhrpark, Cyber, Inhaberabsicherung und Kooperation.</p><strong>Öffnen →</strong></a>
-          <a class="service-card" href="./fahrschul-check/"><span class="service-audience">Fahrschulen</span><h3>5-Minuten-Check</h3><p>Zwölf Fragen zeigen, welche Bereiche bereits gut vorbereitet sind und wo ein Gespräch sinnvoll sein kann.</p><strong>Check starten →</strong></a>
-          <a class="service-card" href="./notfallcenter/"><span class="service-audience">Fahrschulen</span><h3>Notfallcenter</h3><p>Klare Erstschritte bei Unfall, Cybervorfall, Arbeitsunfall oder Ausfall der Inhaberin beziehungsweise des Inhabers.</p><strong>Öffnen →</strong></a>
-          <a class="service-card" href="./vorlagen/"><span class="service-audience">Fahrschulen</span><h3>Vorlagen</h3><p>Druckoptimierte Jahreschecks, Notfallkarten und Schadenprotokolle für den betrieblichen Alltag.</p><strong>Vorlagen ansehen →</strong></a>
-          <a class="service-card" href="./fahrzeugkosten/"><span class="service-audience">Fahrschüler:innen</span><h3>Fahrzeugkosten-Rechner</h3><p>Monatliche Kosten für Versicherung, Steuer, Kraftstoff und weitere Positionen realistisch einordnen.</p><strong>Berechnen →</strong></a>
-          <a class="service-card" href="./lernwelt/"><span class="service-audience">Fahrschüler:innen</span><h3>Lernwelt Klasse B</h3><p>Mit wechselnden Übungen, verständlichen Erklärungen und Prüfungssimulationen lernen.</p><strong>Lernen →</strong></a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" aria-labelledby="process-title">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">Einfach starten</p>
-          <h2 id="process-title">Vom Kennenlernen zum passenden Pilot.</h2>
-        </div>
-        <div class="process-grid">
-          <article><span>01</span><h3>Kennenlernen</h3><p>20 Minuten für Ziele, Ausgangslage und offene Fragen.</p></article>
-          <article><span>02</span><h3>Bausteine wählen</h3><p>Nur die Themen auswählen, die einen konkreten Mehrwert für die Fahrschule bieten.</p></article>
-          <article><span>03</span><h3>Zusammenarbeit erproben</h3><p>Klein beginnen, Rückmeldungen sammeln und das Konzept bei Bedarf weiterentwickeln.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-section">
-      <div class="container cta-panel">
-        <div><p class="eyebrow">Der nächste Schritt</p><h2>20 Minuten für Ihre Fahrschule.</h2><p>Unverbindlich kennenlernen, Bedarf einordnen und mögliche Bausteine besprechen.</p></div>
-        <a class="button button-primary" href="./kontakt/">Kennenlernen vereinbaren <span aria-hidden="true">→</span></a>
-      </div>
-    </section>
-  </main>
-
-
-  <dialog class="recommend-dialog" id="recommend-dialog" aria-labelledby="recommend-title">
-    <div class="recommend-dialog-inner">
-      <button class="recommend-close" type="button" data-recommend-close aria-label="Fenster schließen">×</button>
-      <p class="eyebrow">Mehrwert weitergeben</p>
-      <h2 id="recommend-title">Wem möchten Sie LANE SWITCH empfehlen?</h2>
-      <p class="dialog-lead">Wählen Sie die Zielgruppe. Der passende Link und ein fertiger Text werden automatisch vorbereitet.</p>
-      <div class="recommend-targets" role="group" aria-label="Zielgruppe auswählen">
-        <button class="recommend-target" type="button" data-recommend-target="learner" aria-pressed="true">Fahrschüler:in<small>Lernwelt, Fahrzeugkosten und Orientierung</small></button>
-        <button class="recommend-target" type="button" data-recommend-target="school" aria-pressed="false">Fahrschule<small>Kooperationskonzept und betriebliche Mehrwerte</small></button>
-      </div>
-      <p class="recommend-preview" data-recommend-preview aria-live="polite"></p>
-      <div class="recommend-actions">
-        <button class="recommend-action recommend-action-primary" type="button" data-recommend-share>Teilen</button>
-        <a class="recommend-action" data-recommend-whatsapp target="_blank" rel="noopener">WhatsApp</a>
-        <a class="recommend-action" data-recommend-email>E-Mail</a>
-        <button class="recommend-action" type="button" data-recommend-copy>Link kopieren</button>
-      </div>
-      <p class="recommend-note">Es werden keine Kontaktdaten gespeichert und keine Cookies gesetzt. Erst die gewählte App übernimmt den Versand.</p>
+  <section class="alt" id="bausteine"><div class="wrap">
+    <div class="head"><p class="eyebrow">Mehrwert für Ihre Fahrschule</p><h2>Vier Bausteine. Sie entscheiden, was passt.</h2><p>Die Zusammenarbeit kann bei einem einzelnen Thema beginnen, später wachsen oder bewusst kompakt bleiben.</p></div>
+    <p class="swipe-hint"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Zum Weiterblättern wischen</p>
+    <div class="modules swipe" data-swipe>
+      <article class="module"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Versicherungscheck</h3><p>Bestehenden Schutz zuerst verstehen. In rund 20 Minuten ordnen wir betriebliche, personelle, digitale und rechtliche Risiken.</p><ul><li>Vorhandene Verträge einordnen</li><li>Risiken priorisieren</li><li>Nur relevante Lücken vertiefen</li></ul></article>
+      <article class="module"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9"/></svg></div><h3>Gastbeitrag im Theorieunterricht</h3><p>Ein Versicherungsexperte vermittelt in rund 45 Minuten Praxiswissen, das über die Fahrschulausbildung hinausgeht. Zielgruppengerecht und individuell auf die Fahrschüler:innen Ihrer Fahrschule abgestimmt.</p><ul><li>Kfz-Haftpflicht, Kasko und das Auto der Eltern</li><li>Richtiges Verhalten und Beratung nach einem Unfall</li><li>Themen wie Rechtsschutz, die in der Ausbildung nicht vorkommen</li></ul><p>Die Inhalte wurden gemeinsam mit fahrlernen entwickelt. Der Beitrag findet vor Ort in Ihrer Fahrschule oder online statt, zum Beispiel über den Bildschirm im Unterrichtsraum.</p><span class="tag">Mit Wissensquiz</span></article>
+      <article class="module"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></div><h3>Tippgeber-Kooperation</h3><p>Sie geben Ihren Fahrschüler:innen einen vertrauenswürdigen Ansprechpartner für Versicherungsfragen beim Start in den Straßenverkehr. Der Kontakt läuft über Ihren eigenen QR-Code.</p><ul><li>Weitergeben statt beraten: Ihr Team gibt nur den Hinweis</li><li>Auf Wunsch mit Tippgebervertrag und Vergütung</li></ul></article>
+      <article class="module"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 10.5 16M16 7.5 13.5 16M8.5 6h7"/></svg></div><h3>Netzwerk</h3><p>Nicht jedes Problem ist ein Versicherungsthema. Ergänzende Kontakte können Ihren Betrieb zusätzlich entlasten, zum Beispiel rund um Rechnungsstellung oder Inkasso.</p></article>
     </div>
-  </dialog>
+    <div class="section-cta"><a class="btn btn-ghost" href="https://laneswitch.online/?zielgruppe=school">Service für Ihre Fahrschule entdecken <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+  </div></section>
 
-
-  <aside class="recommend-reminder" data-recommend-reminder hidden aria-label="LANE SWITCH weiterempfehlen">
-    <div class="recommend-reminder-copy"><strong>LANE SWITCH könnte auch anderen helfen.</strong><span>Empfehlen Sie den passenden Bereich direkt weiter.</span></div>
-    <button class="recommend-reminder-action" type="button" data-recommend-open aria-haspopup="dialog">Jetzt empfehlen</button>
-    <button class="recommend-reminder-close" type="button" data-recommend-reminder-close aria-label="Empfehlungshinweis dauerhaft schließen">×</button>
-  </aside>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <a class="footer-brand" href="./" aria-label="LANE SWITCH Startseite"><img src="./assets/logo-primary-dark.svg?v=20260824" alt="LANE SWITCH: Fahrschul-Partnerkonzept" width="1400" height="360" loading="lazy"></a>
-      <div class="footer-links"><a href="/kooperationen/">Kooperationen</a><a href="./fahrschulen/">Für Fahrschulen</a><a href="./fahrschueler/">Für Fahrschüler:innen</a><a href="./kontakt/">Kontakt</a><a href="./impressum/">Impressum</a><a href="./datenschutz/">Datenschutz</a></div>
-      <p class="footer-note">Ein modulares Partnerkonzept von Steven Dragojevic.</p>
+  <section id="vorteile"><div class="wrap">
+    <div class="head"><p class="eyebrow">Ihre Vorteile als Partnerfahrschule</p><h2>Was die Zusammenarbeit Ihrer Fahrschule bringt.</h2><p>LANE SWITCH ergänzt Ihre Ausbildung um Leistungen, die über die Prüfung hinausgehen. Davon profitieren Ihre Fahrschüler:innen und Ihr Betrieb.</p></div>
+    <p class="swipe-hint"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Zum Weiterblättern wischen</p>
+    <div class="benefits swipe" data-swipe>
+      <div class="benefit"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg></div><h3>Abheben in Ihrer Region</h3><p>Lernwelt, Kostenrechner, Unfallhelfer und Gastbeitrag im Unterricht: Mit Mehrwerten über die Ausbildung hinaus unterscheiden Sie sich von anderen Fahrschulen.</p></div>
+      <div class="benefit"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg></div><h3>Vertrauenswürdiger Ansprechpartner</h3><p>Ihre Fahrschüler:innen erhalten für Fragen zu Kfz-Versicherung, Kasko und dem Auto der Eltern einen festen, persönlichen Kontakt.</p></div>
+      <div class="benefit"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></div><h3>Einfach weitergeben</h3><p>Ein eigener QR-Code reicht. Ihr Team berät nicht und verkauft nichts, Sie geben nur den Hinweis auf den freiwilligen Kontaktweg.</p></div>
+      <div class="benefit"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 9.5v5M17.5 9.5v5"/></svg></div><h3>Vergütung als Tippgeber</h3><p>Auf Wunsch binden wir Ihre Fahrschule mit einem Tippgebervertrag an. Die Tippgebervergütung wird vorab individuell und transparent vereinbart.</p></div>
+      <div class="benefit"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 11h6M9 15h6"/></svg></div><h3>Fahrschul-Navigator</h3><p>Anmeldung, Ausbildung und Preise Ihrer Fahrschule als Online-Ausgabe und PDF für Ihre Fahrschüler:innen.</p></div>
+      <div class="benefit"><div class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Sichtbar als Partnerfahrschule</h3><p>Ihre Fahrschule wird auf laneswitch.online mit Ansprechperson, Standort und Kontakt vorgestellt und auf Instagram gezeigt.</p></div>
     </div>
-    <div class="container footer-transparency"><strong>Transparenzhinweis:</strong> Steven Dragojevic ist angestellter Mitarbeiter im Versicherungsvertrieb der SIGNAL IDUNA Allgemeine Versicherung Aktiengesellschaft und im Team der Bezirksdirektion Markus Rohmann tätig. Versicherungsberatung und Versicherungsvermittlung erfolgen im Rahmen dieser Tätigkeit. Es findet kein unabhängiger Marktvergleich statt. Kontakt und Abschluss sind freiwillig. <a href="https://signal-iduna-agentur.de/steven.dragojevic/" target="_blank" rel="noopener noreferrer">Erstinformation und Vermittlerangaben ↗</a></div>
-  </footer>
+  </div></section>
 
-  <script>
-    const toggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.mobile-menu');
-    const setMenu = (open) => {
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-      menu.classList.toggle('open', open);
-      menu.setAttribute('aria-hidden', String(!open));
-      document.body.classList.toggle('menu-open', open);
-    };
-    toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
-    menu.addEventListener('click', (event) => { if (event.target.closest('a')) setMenu(false); });
-    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
+  <section class="alt" id="fahrschueler"><div class="wrap split">
+    <div class="why">
+      <p class="eyebrow">Mehrwert für Ihre Fahrschüler:innen</p>
+      <h2 class="quote">Ihre Fahrschüler:innen bekommen mehr als die Prüfung: einen guten Start in die eigene Mobilität.</h2>
+      <p>Auf laneswitch.online finden Ihre Fahrschüler:innen Werkzeuge, die beim Lernen und beim ersten eigenen Auto helfen. Sie können diese Inhalte direkt im Unterricht oder per Link weitergeben.</p>
+      <ul>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Kostenlos und ohne Konto nutzbar</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Eingaben bleiben im Browser und werden nicht übertragen</li>
+      </ul>
+      <div class="actions"><a class="btn btn-primary" href="https://laneswitch.online/?zielgruppe=learner">Service für Ihre Fahrschüler:innen entdecken <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <ul class="tools">
+      <li class="tool"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></span><span><b>Lernwelt Klasse B</b><span>Eigene Lernfragen, Themen- und Fehlertraining und eine Prüfungssimulation mit 30 Fragen.</span></span></li>
+      <li class="tool"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 12 18 6"/></svg></span><span><b>Gefahrenradar</b><span>Verkehrssituationen lesen, Gefahren früh erkennen und schnell entscheiden.</span></span></li>
+      <li class="tool"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16h14l-1.5-5.5A2 2 0 0 0 15.6 9H8.4a2 2 0 0 0-1.9 1.5L5 16Z"/><path d="M4 16v3h3v-3M17 16v3h3v-3"/></svg></span><span><b>Fahrzeugkosten-Check</b><span>Modell und Baujahr wählen und sehen, was das erste Auto im Monat kostet.</span></span></li>
+      <li class="tool"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg></span><span><b>Unfallhelfer</b><span>Notrufnummern, Unfall-Checkliste und offizielle Anlaufstellen für den Ernstfall.</span></span></li>
+      <li class="tool"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg></span><span><b>EaSI Drive</b><span>Das Auto der Eltern nutzen und eigene schadenfreie Jahre aufbauen, mit Rechenbeispiel.</span></span></li>
+    </ul>
+  </div></section>
 
-    const recommendDialog = document.querySelector('#recommend-dialog');
-    const recommendPreview = document.querySelector('[data-recommend-preview]');
-    const recommendTargets = [...document.querySelectorAll('[data-recommend-target]')];
-    const recommendShare = document.querySelector('[data-recommend-share]');
-    const recommendWhatsApp = document.querySelector('[data-recommend-whatsapp]');
-    const recommendEmail = document.querySelector('[data-recommend-email]');
-    const recommendCopy = document.querySelector('[data-recommend-copy]');
-    const recommendations = {
-      learner: {
-        title: 'LANE SWITCH für Fahrschüler:innen',
-        url: 'https://laneswitch.de/fahrschueler/',
-        text: 'Hi, ich möchte dir LANE SWITCH empfehlen. Dort findest du verständliche Informationen und kostenlose Hilfen rund um den Führerschein, das erste Auto und den sicheren Start in die eigene Mobilität.'
-      },
-      school: {
-        title: 'LANE SWITCH für Fahrschulen',
-        url: 'https://laneswitch.de/fahrschulen/',
-        text: 'Hallo, ich möchte Ihnen LANE SWITCH empfehlen. Es ist ein modulares Kooperationskonzept für Fahrschulen mit Versicherungscheck, Theoriebeitrag, Arbeitshilfen und Mehrwerten für Fahrschüler:innen.'
-      }
-    };
-    let recommendType = 'learner';
-    const recommendPayload = () => recommendations[recommendType];
-    const updateRecommendation = () => {
-      const item = recommendPayload();
-      recommendPreview.textContent = item.text + ' ' + item.url;
-      recommendWhatsApp.href = 'https://wa.me/?text=' + encodeURIComponent(item.text + '\n\n' + item.url);
-      recommendEmail.href = 'mailto:?subject=' + encodeURIComponent(item.title) + '&body=' + encodeURIComponent(item.text + '\n\n' + item.url);
-      recommendTargets.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.recommendTarget === recommendType)));
-    };
-    const recommendReminder = document.querySelector('[data-recommend-reminder]');
-    const recommendReminderClose = document.querySelector('[data-recommend-reminder-close]');
-    const recommendReminderKey = 'laneswitch-recommend-hint-dismissed-v1';
-    const recommendationWasDismissed = () => { try { return localStorage.getItem(recommendReminderKey) === '1'; } catch (_) { return false; } };
-    const dismissRecommendationReminder = () => {
-      try { localStorage.setItem(recommendReminderKey, '1'); } catch (_) {}
-      recommendReminder.classList.remove('is-visible');
-      window.setTimeout(() => { recommendReminder.hidden = true; }, 320);
-    };
-    document.querySelectorAll('[data-recommend-open]').forEach((button) => button.addEventListener('click', () => {
-      if (!recommendReminder.hidden) dismissRecommendationReminder();
-      else { try { localStorage.setItem(recommendReminderKey, '1'); } catch (_) {} }
-      updateRecommendation();
-      if (typeof recommendDialog.showModal === 'function') recommendDialog.showModal();
-    }));
-    recommendReminderClose.addEventListener('click', dismissRecommendationReminder);
-    if (!recommendationWasDismissed()) {
-      window.setTimeout(() => {
-        if (recommendationWasDismissed()) return;
-        recommendReminder.hidden = false;
-        window.requestAnimationFrame(() => recommendReminder.classList.add('is-visible'));
-      }, 180000);
-    }
-    document.querySelector('[data-recommend-close]').addEventListener('click', () => recommendDialog.close());
-    recommendDialog.addEventListener('click', (event) => { if (event.target === recommendDialog) recommendDialog.close(); });
-    recommendTargets.forEach((button) => button.addEventListener('click', () => { recommendType = button.dataset.recommendTarget; updateRecommendation(); }));
-    recommendShare.addEventListener('click', async () => {
-      const item = recommendPayload();
-      if (navigator.share) {
-        try { await navigator.share({ title: item.title, text: item.text, url: item.url }); } catch (error) { if (error.name !== 'AbortError') console.warn(error); }
-      } else {
-        await navigator.clipboard.writeText(item.text + '\n\n' + item.url);
-        recommendShare.textContent = 'Kopiert';
-        setTimeout(() => { recommendShare.textContent = 'Teilen'; }, 1800);
-      }
-    });
-    recommendCopy.addEventListener('click', async () => {
-      const item = recommendPayload();
-      await navigator.clipboard.writeText(item.url);
-      recommendCopy.textContent = 'Kopiert';
-      setTimeout(() => { recommendCopy.textContent = 'Link kopieren'; }, 1800);
-    });
+  <section id="ablauf"><div class="wrap">
+    <div class="head"><p class="eyebrow">So läuft die Zusammenarbeit</p><h2>In fünf Schritten zur Partnerfahrschule.</h2><p>Vom ersten Kontakt bis zum gemeinsamen Start bleibt alles persönlich und unkompliziert.</p></div>
+    <ol class="steps">
+      <li class="step"><span class="n">1</span><b>Anfragen</b><p>Sie melden sich über das Kontaktformular oder fragen direkt Ihren Zugang an.</p></li>
+      <li class="step"><span class="n">2</span><b>Kennenlernen</b><p>In einem ersten Gespräch lernen wir uns und Ihre Fahrschule kennen.</p></li>
+      <li class="step"><span class="n">3</span><b>Bausteine wählen</b><p>Gemeinsam schauen wir, welche Bausteine aus dem Konzept zu Ihnen passen.</p></li>
+      <li class="step"><span class="n">4</span><b>Kooperation festmachen</b><p>Wir halten die Zusammenarbeit fest, auf Wunsch mit Tippgebervertrag.</p></li>
+      <li class="step step-wide"><span class="n">5</span><div><b>Gemeinsamer Start</b><p>Ab jetzt sind Sie sichtbar Teil von LANE SWITCH.</p></div><ul>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Eintrag Ihrer Fahrschule auf laneswitch.online</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Freischaltung Ihres Zugangs für die Fahrschule</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Vorstellungsbeitrag auf Instagram</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Regelmäßiges Teilen Ihrer Inhalte in der Instagram-Story</li>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Von den Vorteilen Ihrer gewählten Bausteine profitieren</li></ul></li>
+    </ol>
+    <div class="section-cta"><a class="btn btn-primary" href="https://laneswitch.online/navigator/zugang">Zugang anfragen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost" href="#kontakt">Kontakt aufnehmen</a></div>
+    <div class="head" style="margin:44px 0 14px"><h3 style="font-size:19px">Bereits dabei</h3></div>
+    <ul class="partners" style="list-style:none;padding:0">
+      <li class="partner"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>A1 Fahrschule</li>
+      <li class="partner"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>Fahrschule Emre</li>
+    </ul>
+    <p class="fine">Versicherungsinformationen, Beratung, Produktauswahl, Dokumentation und eine mögliche Vermittlung erfolgen durch Steven Dragojevic als angestellten Mitarbeiter im Versicherungsvertrieb der SIGNAL IDUNA Allgemeine Versicherung Aktiengesellschaft. Es findet kein unabhängiger Marktvergleich statt. Kontakt und Abschluss sind freiwillig.</p>
+  </div></section>
 
-  </script>
+  <section id="kontakt"><div class="wrap">
+    <div class="contact">
+      <div style="display:grid;gap:14px">
+        <h2>Lernen Sie LANE SWITCH in Ruhe kennen.</h2>
+        <p>Auf laneswitch.online sehen Sie alle Bausteine, Werkzeuge und Beispiele im Detail. Für ein persönliches Gespräch nutzen Sie das Kontaktformular, rufen an oder schreiben eine E-Mail.</p>
+        <div class="actions" style="margin-top:6px"><a class="btn btn-primary" href="https://laneswitch.online/konzept/kontakt/">Zum Kontaktformular <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn btn-ghost" href="https://laneswitch.online/?zielgruppe=school">laneswitch.online öffnen</a></div>
+      </div>
+      <div class="person">
+        <img src="data:image/jpeg;base64,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" alt="Porträt von Steven Dragojevic" width="88" height="88">
+        <div><b>Steven Dragojevic</b><p>Ihr persönlicher Ansprechpartner</p><div class="reach"><a class="mail" href="tel:+491727937262"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>0172 7937262</a><a class="mail" href="mailto:kontakt@laneswitch.de"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>kontakt@laneswitch.de</a></div></div>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer><div class="wrap"><span>LANE SWITCH</span><nav aria-label="Rechtliches"><a href="/impressum/">Impressum</a><a href="/datenschutz/">Datenschutz</a><a href="https://laneswitch.online/">laneswitch.online</a></nav></div></footer>
+
+<script>
+(()=>{const r=document.documentElement,b=document.getElementById('theme');let t=null;try{t=localStorage.getItem('laneswitch-theme-v1')}catch{}
+const dark=()=>r.dataset.theme==='dark';
+const sync=()=>b.setAttribute('aria-label',dark()?'Helles Design einschalten':'Dunkles Design einschalten');
+if(t==='dark'||t==='light')r.dataset.theme=t;sync();
+b.addEventListener('click',()=>{const n=dark()?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('laneswitch-theme-v1',n)}catch{}sync()});})();
+
+(()=>{const bar=document.getElementById('progress');const links=[...document.querySelectorAll('.bar nav a')];
+const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+let tick=false;const upd=()=>{tick=false;const h=document.documentElement;const max=h.scrollHeight-innerHeight;bar.style.transform='scaleX('+(max>0?Math.min(1,scrollY/max):0)+')';
+let cur=null;for(const s of secs){if(s.getBoundingClientRect().top<innerHeight*.4)cur=s}links.forEach(a=>a.classList.toggle('on',cur&&a.getAttribute('href')==='#'+cur.id))};
+addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd();
+if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+const small=matchMedia('(max-width:760px)').matches;const items=[...document.querySelectorAll('section .head, .module, .benefit, .step, .tool, .why > *, .partners, .fine, .contact, .section-cta, [data-swipe]')].filter(el=>small?!el.parentElement.matches('[data-swipe]'):!el.matches('[data-swipe]'));
+const groups=new Map();items.forEach(el=>{const p=el.parentElement;const i=(groups.get(p)||0);groups.set(p,i+1);el.style.setProperty('--d',Math.min(i,5)*0.08+'s');
+if(el.getBoundingClientRect().top>innerHeight*.92)el.classList.add('rv')});
+document.documentElement.classList.add('fx');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.rv').forEach(el=>el.classList.add('in')),6000);})();
+(()=>{const road=[...document.querySelectorAll('.road li')];let k=0;const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const show=()=>{road.forEach((li,i)=>li.classList.toggle('now',i===k));k=(k+1)%road.length};if(road.length){show();if(!still)setInterval(show,2600)}
+const mobile=matchMedia('(max-width:760px)');
+document.querySelectorAll('[data-swipe]').forEach(sw=>{const cards=[...sw.children];const dots=document.createElement('div');dots.className='dots';
+cards.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Karte '+(i+1)+' von '+cards.length);b.addEventListener('click',()=>sw.scrollTo({left:c.offsetLeft-sw.offsetLeft-parseFloat(getComputedStyle(sw).paddingLeft),behavior:still?'auto':'smooth'}));dots.append(b)});
+sw.after(dots);const upd=()=>{const x=sw.scrollLeft+sw.clientWidth*.35;let a=0;cards.forEach((c,i)=>{if(c.offsetLeft-sw.offsetLeft<=x)a=i});
+[...dots.children].forEach((d,i)=>d.classList.toggle('on',i===a));if(mobile.matches)cards.forEach((c,i)=>c.classList.toggle('is-focus',i===a))};
+sw.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});mobile.addEventListener?.('change',upd);upd()});
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(mobile.matches)e.target.classList.toggle('is-focus',e.isIntersecting)}),{rootMargin:'-42% 0px -42% 0px'});
+document.querySelectorAll('.tool,.step:not(.step-wide)').forEach(el=>io.observe(el))}
+const steps=document.querySelector('.steps');const items=steps?[...steps.querySelectorAll('.step')]:[];
+const tl=()=>{if(!steps)return;const r=steps.getBoundingClientRect();const mid=innerHeight*.55;const p=Math.max(0,Math.min(1,(mid-r.top)/r.height));steps.style.setProperty('--p',p.toFixed(3));
+items.forEach(it=>it.classList.toggle('done',it.getBoundingClientRect().top+20<mid))};addEventListener('scroll',()=>requestAnimationFrame(tl),{passive:true});tl();})();
+</script>
+
 </body>
 </html>
