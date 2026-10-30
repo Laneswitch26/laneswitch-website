@@ -1,34 +1,69 @@
-### is1
-SELECT TABLE_SCHEMA AS s, TABLE_NAME AS t FROM INFORMATION_SCHEMA.TABLES
+### count (1343 ms)
+SELECT COUNT(*) AS n FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE'
 200
-{"errors":[{"error":"system tables are not allowed","errorcode":10001}]}
+{"results":[{"n":2729299}]}
 
-### is2
-SELECT TABLE_SCHEMA AS s, TABLE_NAME AS t FROM [CO2Emission].INFORMATION_SCHEMA.TABLES
+### grp1 (2088 ms)
+SELECT c.Mk AS mk, COUNT(*) AS n FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE' GROUP BY c.Mk
 200
-{"errors":[{"error":"system tables are not allowed","errorcode":10001}]}
+{"results":[{"mk":"","n":279},{"mk":"ABARTH","n":517},{"mk":"ACURA","n":1},{"mk":"AIWAYS","n":27},{"mk":"ALFA ROMEO","n":6089}]}
 
-### is3
-SELECT TABLE_SCHEMA AS s, TABLE_NAME AS t FROM INFORMATION_SCHEMA."TABLES" WHERE TABLE_SCHEMA LIKE '%CO2%'
+### grp2 (1808 ms)
+SELECT c.Mk AS mk, c.Cn AS cn, SUM(c.R) AS n FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE' GROUP BY c.Mk, c.Cn
 200
-{"errors":[{"error":"system tables are not allowed","errorcode":10001}]}
+{"results":[{"mk":"","cn":"","n":59},{"mk":"","cn":"540 DB","n":1},{"mk":"","cn":"ABT XGT","n":8},{"mk":"","cn":"AMG GT 63 S E PERFORMANCE","n":1},{"mk":"","cn":"ATECA","n":1}]}
 
-### agg2025
-SELECT TOP 20 c.Mk AS mk, c.Cn AS cn, c.Ft AS ft, c.Fm AS fm, c.[Ec (cm3)] AS ec, c.[Ep (KW)] AS kw, AVG(c.[Ewltp (g/km)]) AS co2, AVG(c.Fc) AS fc, SUM(c.R) AS n FROM [CO2Emission].[latest].[co2cars_2025Pv31] c WHERE c.MS='DE' GROUP BY c.Mk, c.Cn, c.Ft, c.Fm, c.[Ec (cm3)], c.[Ep (KW)] ORDER BY SUM(c.R) DESC
+### grp3 (2424 ms)
+SELECT c.Mk AS mk, c.Cn AS cn, c.Ft AS ft, c.Fm AS fm, c.[Ec (cm3)] AS ec, c.[Ep (KW)] AS kw, AVG(c.[Ewltp (g/km)]) AS co2, AVG(c.Fc) AS fc, SUM(c.R) AS n FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE' GROUP BY c.Mk, c.Cn, c.Ft, c.Fm, c.[Ec (cm3)], c.[Ep (KW)]
 200
-{"errors":[{"error":"Your query is not allowed execution...","errorcode":10002}]}
+{"results":[{"mk":"","cn":"","ft":"diesel","fm":"M","ec":1951,"kw":140,"co2":322,"fc":null,"n":1},{"mk":"","cn":"","ft":"diesel","fm":"M","ec":1996,"kw":125,"co2":null,"fc":null,"n":9},{"mk":"","cn":"","ft":"diesel","fm":"M","ec":2179,"kw":121,"co2":291,"fc":null,"n":1},{"mk":"","cn":"","ft":"diesel","fm":"M","ec":2925,"kw":200,"co2":253,"fc":null,"n":2},{"mk":"","cn":"","ft":"electric","fm":"E","ec":null,"kw":120,"co2":0,"fc":null,"n":1}]}
 
-### t2018
-SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2018Fv15] c WHERE c.MS='DE'
+### distinct (363 ms)
+SELECT DISTINCT c.Mk AS mk FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE'
 200
-{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2018Fv15'.","errorcode":10003}]}
+{"results":[{"mk":""},{"mk":"ABARTH"},{"mk":"ACURA"},{"mk":"AIWAYS"},{"mk":"ALFA ROMEO"}]}
 
-### t2014
-SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2014Fv10] c WHERE c.MS='DE'
+### tbl co2cars_2023Fv27 (229 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2023Fv27] c
 200
-{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2014Fv10'.","errorcode":10003}]}
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2023Fv27'.","errorcode":10003}]}
 
-### t2024
-SELECT TOP 2 * FROM [CO2Emission].[latest].[co2cars_2024Fv30] c WHERE c.MS='DE'
+### tbl co2cars_2023Fv28 (751 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2023Fv28] c
 200
-{"results":[{"ID":150070462,"MS":"DE","Mp":"KIA","VFN":"IP-0401571-U5Y","Mh":"KIA SLOVAKIA","Man":"KIA SLOVAKIA SRO","MMS":null,"TAN":"E4*2018\/858*00079*04","T":"NQ5E","Va":"F5P41","Ve":"A61B11","Mk":"KIA","Cn":"SPORTAGE","Ct":"M1","Cr":"M1","M (kg)":1649,"Mt":1754,"Enedc (g\/km)":null,"Ewltp (g\/km)":127,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"petrol","Fm":"H","Ec (cm3)":1598,"Ep (KW)":118,"Z (Wh\/km)":null,"IT":"","Ernedc (g\/km)":null,"Erwltp (g\/km)":null,"De":null,"Vf":null,"R":1,"Year":2024,"Status":"F","Version_file":"v30","E (g\/km)":null,"Er (g\/km)":null,"Zr":null,"Dr":"2024-07-17","Fc":5.600000000000000e+000,"Ech":"EURO 6 EA","RLFI":"RL-0401571-U5Y"},{"ID":150148266,"MS":"DE","Mp":"KIA","VFN":"IP-0401571-U5Y","Mh":"KIA SLOVAKIA","Man":"KIA SLOVAKIA SRO","MMS":null,"TAN":"E4*2018\/858*00079*04","T":"NQ5E","Va":"F5P41","Ve":"A61B11","Mk":"KIA","Cn":"SPORTAGE","Ct":"M1","Cr":"M1","M (kg)":1649,"Mt":1754,"Enedc (g\/km)":null,"Ewltp (g\/km)":127,"W (mm)":null,"At1 (mm)":null,"At2 (mm)":null,"Ft":"petrol","Fm":"H","Ec (cm3)":1598,"Ep (KW)":118,"Z (Wh\/km)":null,"IT":"","Ernedc (g\/km)":null,"Erwltp (g\/km)":null,"De":null,"Vf":null,"R":1,"Year":2024,"Status":"F","Version_file":"v30","E (g\/km)":null,"Er (g\/km)":null,"Zr":null,"Dr":"2024-12-11","Fc":5.600000000000000e+000,"Ech":"EURO 6 EA","RLFI":"RL-0401571-U5Y"}]}
+{"results":[{"y":2023}]}
+
+### tbl co2cars_2022Fv25 (230 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2022Fv25] c
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2022Fv25'.","errorcode":10003}]}
+
+### tbl co2cars_2021Fv23 (326 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2021Fv23] c
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2021Fv23'.","errorcode":10003}]}
+
+### tbl co2cars_2020Fv20 (229 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2020Fv20] c
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2020Fv20'.","errorcode":10003}]}
+
+### tbl co2cars_2019Fv18 (230 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2019Fv18] c
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2019Fv18'.","errorcode":10003}]}
+
+### tbl co2cars_2018Fv16 (226 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_2018Fv16] c
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_2018Fv16'.","errorcode":10003}]}
+
+### tbl co2cars (1649 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars] c
+200
+{"results":[{"y":2021}]}
+
+### tbl co2cars_all (322 ms)
+SELECT TOP 1 c.Year AS y FROM [CO2Emission].[latest].[co2cars_all] c
+200
+{"errors":[{"error":"Invalid object name 'CO2Emission.latest.co2cars_all'.","errorcode":10003}]}
