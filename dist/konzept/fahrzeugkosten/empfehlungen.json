@@ -12,7 +12,7 @@
       "id": "neu",
       "titel": "Neuwagen",
       "kurz": "Günstige Neuwagen",
-      "text": "Die günstigsten Verbrenner und Mild-Hybride mit Listenpreis unter 20.000 € laut ADAC (Stand 08/2026). Neuwagen unter 5.000 € gibt es nicht: Der günstigste Neuwagen der ADAC-Übersicht kostet ab 13.590 €.",
+      "text": "Die günstigsten Verbrenner und Mild-Hybride mit Listenpreis unter 20.000 € laut ADAC (Stand 08/2026).",
       "fahrzeuge": [
         { "hersteller": "Dacia", "modell": "SANDERO", "baujahre": "neu", "preis": "Listenpreis ab 13.590 €", "grund": "Günstigster Verbrenner-Neuwagen in der ADAC-Übersicht, einfache und bewährte Technik." },
         { "hersteller": "Citroën", "modell": "C3", "baujahre": "neu", "antrieb": "Benzin", "preis": "Listenpreis ab 16.290 €", "grund": "Aktuelle Generation mit 74-kW-Benziner, viel Platz für einen Kleinwagen." },
