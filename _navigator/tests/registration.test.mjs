@@ -124,6 +124,23 @@ try{
  for(const t of ['nav_schools','nav_accounts','nav_documents','nav_files','nav_invites','nav_sessions'])eq((await db.prepare(`SELECT COUNT(*) AS n FROM ${t} WHERE school=?`).bind(del.school).first()).n,0,'deleted rows in '+t);
  r=await post({action:'createInvite',name:'Fahrschule Löschtest'},admin);eq((await r.json()).school,del.school,'address reusable after delete');
  eq((await get('action=me',a1)).status,200,'other schools untouched');
+ // Kooperationsanfrage ohne Konto: Validierung, Bot-Falle, Admin-Liste, erledigt/löschen, Bremse
+ const reqBody={action:'requestCooperation',school:'Fahrschule Neu',contact:'Erika Muster',email:'Info@Fahrschule-Neu.de',phone:'02323 12345',city:'Bochum',message:'Wir möchten mitmachen.',consent:true};
+ eq((await post({...reqBody,consent:false})).status,400,'request needs consent');
+ eq((await post({...reqBody,email:'keine-mail'})).status,400,'request needs valid email');
+ eq((await post({...reqBody,school:'X'})).status,400,'request needs school name');
+ eq((await post({...reqBody,message:'x'.repeat(1501)})).status,400,'request message limited');
+ eq((await post({...reqBody,website:'http://spam.example'})).status,200,'honeypot answers ok');
+ eq((await db.prepare('SELECT COUNT(*) AS n FROM nav_requests').first()).n,0,'honeypot stores nothing');
+ r=await post(reqBody);eq(r.status,200,'request stored');eq((await r.json()).ok,true);
+ eq((await post({action:'adminOverview'},a1)).status,400,'school cannot read requests');
+ let ov=await (await post({action:'adminOverview'},admin)).json();eq(ov.requests.length,1,'admin sees request');
+ const rq=ov.requests[0];eq(rq.school,'Fahrschule Neu');eq(rq.email,'info@fahrschule-neu.de','email normalised');eq(rq.done,false);ok(!('consent' in rq)&&!('website' in rq),'only form fields stored');
+ ok(!(await (await post({action:'adminOverview'},admin)).json()).schools.some(s=>s.name==='Fahrschule Neu'),'request creates no account');
+ ov=await (await post({action:'setRequest',id:rq.id,done:true},admin)).json();eq(ov.requests[0].done,true,'mark done');
+ ov=await (await post({action:'deleteRequest',id:rq.id},admin)).json();eq(ov.requests.length,0,'request deleted');
+ let lastReq=0;for(let i=0;i<7;i++)lastReq=(await POST(new Request(origin+'/api/navigator',{method:'POST',headers:{origin,'content-type':'application/json','cf-connecting-ip':'192.0.2.7'},body:JSON.stringify(reqBody)}))).status;
+ eq(lastReq,429,'requests throttled');
  // Bremse gegen Durchprobieren von Einladungslinks
  let last=0;for(let i=0;i<32;i++)last=(await POST(new Request(origin+'/api/navigator',{method:'POST',headers:{origin,'content-type':'application/json','cf-connecting-ip':'192.0.2.1'},body:JSON.stringify({action:'inviteInfo',token:'1'.repeat(64)})}))).status;
  eq(last,429,'invite lookup throttled');

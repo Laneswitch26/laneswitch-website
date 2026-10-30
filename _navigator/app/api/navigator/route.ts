@@ -50,7 +50,7 @@ async function adminOverview(){
  const fixed=['a1','emre','test'].map(s=>({school:s,name:s==='a1'?'A1 Fahrschule':s==='emre'?'Fahrschule Emre':'Testzugang',code:staticCodes[s],fixed:true,approved:s!=='test',disabled:false,created:0,published:!!doc(s)?.published,listed:!!doc(s)?.listed,updated:doc(s)?.updated||0,username:s}));
  const reg=(await db().prepare('SELECT s.*,a.username FROM nav_schools s LEFT JOIN nav_accounts a ON a.school=s.school ORDER BY s.created DESC').all<SchoolRow&{username:string|null}>()).results.map(r=>({school:r.school,name:r.name,code:r.code,fixed:false,approved:r.approved===1,disabled:r.disabled===1,created:r.created,published:!!doc(r.school)?.published,listed:!!doc(r.school)?.listed,updated:doc(r.school)?.updated||0,username:r.username||''}));
  const invites=(await db().prepare('SELECT school,name,code,expires,created,used FROM nav_invites WHERE used IS NULL AND expires>? ORDER BY created DESC').bind(Date.now()).all()).results;
- return {schools:[...fixed,...reg],invites,partners:await partners(false)};
+ return {schools:[...fixed,...reg],invites,partners:await partners(false),requests:await requests()};
 }
 async function createInvite(body:Record<string,unknown>,origin:string){
  const days=Math.min(60,Math.max(1,Number(body.days)||14));
@@ -89,9 +89,37 @@ async function adminAction(action:string,body:Record<string,unknown>,origin:stri
   if(String(body.confirm||'').trim()!==row.name)throw new PublicError('Zum Löschen bitte den Namen der Fahrschule exakt eingeben.');
   await db().batch(['nav_sessions','nav_files','nav_documents','nav_accounts','nav_invites','nav_schools'].map(t=>db().prepare(`DELETE FROM ${t} WHERE school=?`).bind(school)));
   return adminOverview();}
+ if(action==='setRequest'){await db().prepare('UPDATE nav_requests SET done=? WHERE id=?').bind(body.done===true?1:0,String(body.id||'')).run();return adminOverview();}
+ if(action==='deleteRequest'){await db().prepare('DELETE FROM nav_requests WHERE id=?').bind(String(body.id||'')).run();return adminOverview();}
  if(action==='deletePartner'){await db().prepare('DELETE FROM nav_partners WHERE id=?').bind(String(body.id||'')).run();return adminOverview();}
  throw new PublicError('Unbekannte Aktion.');
 }
+
+// ---- Kooperationsanfragen (öffentlich, ohne Konto) ----
+// Fahrschulen ohne Partnerzugang können eine Kooperation anfragen. Es entsteht KEIN Konto:
+// LANE SWITCH prüft die Anfrage im Admin-Bereich und verschickt bei Interesse einen Einladungslink.
+export type CoopRequest={school:string,contact:string,email:string,phone:string,city:string,message:string};
+const MAX_OPEN_REQUESTS=300;
+const field=(v:unknown,max:number)=>String(typeof v==='string'?v:'').replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,'').trim().slice(0,max+1);
+export function validRequest(body:Record<string,unknown>):CoopRequest{
+ const r={school:field(body.school,120),contact:field(body.contact,120),email:field(body.email,160).toLowerCase(),phone:field(body.phone,40),city:field(body.city,80),message:field(body.message,1500)};
+ if(r.school.length<3||r.school.length>120)throw new PublicError('Bitte den Namen der Fahrschule angeben.');
+ if(r.contact.length<2||r.contact.length>120)throw new PublicError('Bitte eine Ansprechperson angeben.');
+ if(r.email.length>160||!/^[^\s@<>()",;]+@[^\s@<>()",;]+\.[a-z]{2,}$/i.test(r.email))throw new PublicError('Bitte eine gültige E-Mail-Adresse angeben.');
+ if(r.phone.length>40||(r.phone&&!/^[+0-9 ()/-]{5,40}$/.test(r.phone)))throw new PublicError('Bitte eine gültige Telefonnummer angeben oder das Feld leer lassen.');
+ if(r.city.length>80)throw new PublicError('Der Ort ist zu lang.');
+ if(r.message.length>1500)throw new PublicError('Die Nachricht ist zu lang (maximal 1.500 Zeichen).');
+ if(body.consent!==true)throw new PublicError('Bitte bestätige die Datenschutzhinweise.');
+ return r;
+}
+async function requestCooperation(body:Record<string,unknown>){
+ const r=validRequest(body);
+ const open=await db().prepare('SELECT COUNT(*) AS n FROM nav_requests WHERE done=0').first<{n:number}>();
+ if((open?.n||0)>=MAX_OPEN_REQUESTS)throw new PublicError('Anfragen können gerade nicht entgegengenommen werden. Bitte schreib an kontakt@laneswitch.de.',503);
+ await db().prepare('INSERT INTO nav_requests (id,data,done,created) VALUES (?,?,0,?)').bind(crypto.randomUUID(),JSON.stringify(r),Date.now()).run();
+ return {ok:true};
+}
+async function requests(){return (await db().prepare('SELECT id,data,done,created FROM nav_requests ORDER BY done ASC, created DESC LIMIT 500').all<{id:string,data:string,done:number,created:number}>()).results.map(x=>{let d:Partial<CoopRequest>={};try{d=JSON.parse(x.data)}catch{}return {id:x.id,done:x.done===1,created:x.created,...d};});}
 
 // ---- Registrierung über Einladungslink ----
 async function openInvite(token:unknown){if(typeof token!=='string'||!/^[a-f0-9]{64}$/.test(token))return null;return await db().prepare('SELECT * FROM nav_invites WHERE token=? AND used IS NULL AND expires>?').bind(await digest(token),Date.now()).first<{token:string,school:string,name:string,code:string}>();}
@@ -134,6 +162,8 @@ export async function POST(req:Request){try{if(!sameOrigin(req))return reply({er
  const {s,cookie}=await startSession(a.school,a.hash);return reply(await state(s),200,{'Set-Cookie':cookie});}
  // Einladungslink prüfen und registrieren: ohne Anmeldung, aber gebremst.
  if(action==='inviteInfo'){await throttle('invite:'+ip,30);const invite=await openInvite(body.token);if(!invite)return reply({error:'Dieser Link ist ungültig, abgelaufen oder wurde bereits verwendet. Bitte fordere bei LANE SWITCH einen neuen Link an.'},404);const renewal=!!await db().prepare('SELECT 1 FROM nav_accounts WHERE school=?').bind(invite.school).first();return reply({name:invite.name,renewal});}
+ // Kooperationsanfrage: ohne Anmeldung, gebremst; Feld „website“ ist eine unsichtbare Falle für Bots.
+ if(action==='requestCooperation'){if(typeof body.website==='string'&&body.website.trim())return reply({ok:true});await throttle('request:'+ip,5);return reply(await requestCooperation(body));}
  if(action==='register'){await throttle('register:'+ip,10);const {s,cookie}=await register(body);return reply(await state(s),200,{'Set-Cookie':cookie});}
  const s=await session(req);if(!s)return reply({error:'Bitte anmelden.'},401);if(!equal(req.headers.get('x-csrf-token')||'',s.csrf))return reply({error:'Sicherheitsprüfung fehlgeschlagen. Bitte neu anmelden.'},403);
  if(action==='logout'){await db().prepare('DELETE FROM nav_sessions WHERE token=?').bind(s.token).run();return reply({ok:true},200,{'Set-Cookie':`${cookieName}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0`});}

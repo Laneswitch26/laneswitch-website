@@ -4,7 +4,7 @@
 
 Der eigenständige Worker `laneswitch-navigator` ist über `https://laneswitch.online/navigator/zugang` erreichbar. Nur `/navigator/*` und `/api/navigator*` werden dem Worker zugeordnet. Die Hauptwebsite bleibt Cloudflare Pages auf dem Branch `cloudflare-online`. `laneswitch.de` wird über GitHub Pages auf `main` bereitgestellt; dessen separater Zugang leitet auf die eigene Domain `laneswitch.online` weiter. Eine direkte Worker-Route für `.de` ist nicht eingerichtet, da die Zone im zugänglichen Cloudflare-Konto nicht sichtbar ist.
 
-Die öffentliche Profilerkennung darf ausschließlich für `GET action=public` von `https://laneswitch.de` gelesen werden. Anmelde-Cookies werden dabei nicht übertragen; private API-Abfragen und Schreibaktionen erhalten keine domainübergreifende Freigabe. Beide Fahrschulprofile verwenden denselben Navigator-Datenbestand. Der Editor ist in keiner Hauptnavigation verlinkt.
+Die öffentliche Profilerkennung darf ausschließlich für `GET action=public` von `https://laneswitch.de` gelesen werden. Anmelde-Cookies werden dabei nicht übertragen; private API-Abfragen und Schreibaktionen erhalten keine domainübergreifende Freigabe. Beide Fahrschulprofile verwenden denselben Navigator-Datenbestand. Der Editor selbst ist in keiner Hauptnavigation verlinkt; die Zugangsseite `/navigator/zugang` ist auf laneswitch.online über den Header-Button „Fahrschul-Login“ erreichbar (ausdrücklicher Wunsch des Eigentümers, 30.10.2026).
 
 ## Einmalig: drei GitHub-Secrets hinterlegen
 
@@ -72,6 +72,8 @@ Danach „Navigator · Cloudflare“ mit `deploy` ausführen. Ohne `NAV_ADMIN_PA
 - *Einladungen:* Name der Fahrschule und Kürzel für Rabattcodes eingeben → Einmal-Link (Standard 14 Tage). Der Schlüssel steht hinter `#` und erreicht so keine Server-Protokolle; gespeichert wird nur sein Hash. Je Fahrschule ist nur ein Link offen; widerrufbar.
 - *Fahrschulen:* registrierte Fahrschulen freigeben (erst dann öffentlich unter `/navigator/<adresse>` und im Verzeichnis), Freigabe entziehen, sperren (beendet Sitzungen, nicht mehr öffentlich) oder einen neuen Zugangslink erzeugen (z. B. Passwort vergessen; Inhalte bleiben, alte Zugangsdaten und Sitzungen werden ungültig). A1, Emre und Test bleiben feste Konten über die bisherigen Secrets.
 - *Partnerfirmen:* Name, Kürzel, Rabatt, Leistungen, Vorteile, Bedingungen, Kontakt, Logo, aktiv/inaktiv. Codes entstehen automatisch: `FIRMENKÜRZEL-FAHRSCHULKÜRZEL-RABATT`, z. B. `EINGEPRAEGT-A1-5`. Je Firma lässt sich die Codeliste kopieren und an die Firma weitergeben.
+
+**Kooperationsanfragen:** Auf `/navigator/zugang` gibt es neben „Anmelden“ den Reiter „Kooperation anfragen“ (direkt verlinkbar mit `/navigator/zugang#anfrage`, auf laneswitch.online im Website-Header über „Fahrschul-Login“ erreichbar). Fahrschulen ohne Zugang senden Name, Ansprechperson, E-Mail und optional Telefon, Ort und Nachricht. Es entsteht **kein** Konto; die Anfrage erscheint im Admin-Bereich unter „Anfragen“ (erledigt markieren, löschen, „Einladung vorbereiten“ übernimmt den Namen in das Einladungsformular). Schutz: max. 5 Anfragen je IP in 15 Minuten, unsichtbares Bot-Feld, höchstens 300 offene Anfragen. Tabelle `nav_requests` (Migration `drizzle/0003_kooperationsanfragen.sql`).
 
 **Registrierung:** `/navigator/registrierung#<schlüssel>` – Benutzername (3–40 Zeichen) und Passwort (mind. 12 Zeichen) wählt die Fahrschule selbst; Passwörter werden mit PBKDF2 gehasht in D1 gespeichert. Danach landet sie im Editor; der Name ist vorausgefüllt.
 
