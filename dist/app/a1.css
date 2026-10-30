@@ -1,5 +1,5 @@
-/* A1 profile: small logo beside the hero text. Colors only via shell.css variables. */
-.partner-hero--a1{align-items:start}
-.partner-hero--a1 .partner-logo{width:120px;justify-self:end;padding:12px}
-@container detail-content (min-width:860px){.partner-hero--a1{grid-template-columns:minmax(0,1fr) 140px}}
-@media(max-width:760px){.partner-hero--a1 .partner-logo{order:-1;width:84px;justify-self:start;padding:8px}}
+/* Partner profiles (A1, Emre): small logo beside the hero text. Colors only via shell.css variables. */
+.partner-hero--logo{align-items:start}
+.partner-hero--logo .partner-logo{width:120px;justify-self:end;padding:12px}
+@container detail-content (min-width:860px){.partner-hero--logo{grid-template-columns:minmax(0,1fr) 140px}}
+@media(max-width:760px){.partner-hero--logo .partner-logo{order:-1;width:84px;justify-self:start;padding:8px}}

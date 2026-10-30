@@ -130,3 +130,13 @@ Fragen, Antworten, Punkte und Zeitregeln sind unverändert. Die Trefferprüfung 
 Gefahrenbereiche (alle 100 ms), weil sich die Kamera bewegt (`video-tracks.mjs`, `core.mjs`).
 Fällt ein Video aus, ist der Datensparmodus an oder kann der Browser kein MP4, erscheint die bisherige Zeichnung.
 Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `node --test qa/gefahrenradar.test.mjs`.
+
+## Fahrschul-Login und einheitliche Partnerdarstellung (30.10.2026)
+
+- Kopfzeile: „Fahrschul-Login“ (Schloss-Symbol, `.login-top` in `shell.css`) neben „Empfehlen“ auf allen Seiten,
+  führt zu `/navigator/zugang`. Dort gibt es zusätzlich „Kooperation anfragen“ für Fahrschulen ohne Zugang
+  (Navigator-Änderung in `main`, PR #89). Bis 900 px nur Symbol mit `aria-label`.
+- Fahrschule Emre ohne Video: Netzwerk-Ansicht (`app.js`) und Profilseite zeigen wie A1 das Logo
+  (`konzept/assets/kooperationen/emre-logo.png`, vorläufig aus dem Kooperationsmotiv ausgeschnitten;
+  durch das Originallogo ersetzen, sobald vorhanden). Profil-Logo-Layout: `.partner-hero--logo` in `app/a1.css`.
+- Datenschutz: Abschnitt „Kooperationsanfrage für Fahrschulen“ ergänzt (bitte rechtlich prüfen).
