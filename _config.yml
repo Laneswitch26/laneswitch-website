@@ -1,0 +1,6 @@
+# GitHub Pages (Jekyll): nur die Landingpage, Impressum, Datenschutz und benötigte Dateien veröffentlichen.
+exclude:
+  - README.md
+  - docs
+  - tools
+  - .github

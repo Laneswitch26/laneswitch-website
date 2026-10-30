@@ -187,6 +187,17 @@
     brand.setAttribute('aria-label', 'LANE SWITCH Startseite');
     brand.innerHTML = '<img src="' + new URL('assets/logo-primary-dark.svg', siteRoot).href + '" alt="LANE SWITCH: Fahrschul-Partnerkonzept" width="1400" height="360">';
 
+    // Seit 30.10.2026 ist laneswitch.de nur noch eine Landingpage: Impressum und Datenschutz zeigen eine schlanke Kopfzeile.
+    const homeActions = document.createElement('div');
+    homeActions.className = 'global-header-actions canonical-header-actions';
+    const home = document.createElement('a');
+    home.className = 'header-cta canonical-header-cta';
+    home.href = siteRoot.href;
+    home.textContent = 'Zur Startseite';
+    homeActions.append(home);
+    inner.append(brand, homeActions);
+    return;
+
     const nav = document.createElement('nav');
     nav.className = 'unified-primary-nav';
     nav.setAttribute('aria-label', 'Hauptnavigation');
