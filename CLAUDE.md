@@ -5,7 +5,7 @@ Diese Datei ist die Kurzfassung. Bei Widerspruch gilt die neuere ausdrückliche 
 
 ## Geltungsbereich
 - Dieser Branch `cloudflare-online` ist laneswitch.online (Cloudflare Pages, Ausgabeordner `dist/`, kein Build).
-- `main` ist laneswitch.de (GitHub Pages). **Nicht anfassen, nicht mergen, keine Dateien von dort übernehmen**, außer der Eigentümer verlangt es ausdrücklich.
+- `main` ist laneswitch.de (GitHub Pages), seit 30.10.2026 nur noch Landingpage für Fahrschulen; alte Unterseiten leiten auf die passenden .online-Seiten (Sicherung: Branch `archiv/laneswitch-de-2026-10-30`). **Nicht anfassen, nicht mergen, keine Dateien von dort übernehmen**, außer der Eigentümer verlangt es ausdrücklich.
 - Die beiden Branches niemals ineinander mergen.
 
 ## Ablauf bei Änderungen
@@ -19,6 +19,7 @@ Diese Datei ist die Kurzfassung. Bei Widerspruch gilt die neuere ausdrückliche 
 - Fahrschul-Navigator: `/navigator/*`, `/api/navigator*`, Worker `laneswitch-navigator`, D1-Datenbank, Zugänge, Secrets, Workflow „Navigator · Cloudflare“. Keine Daten aus der Datenbank abfragen.
 - Tägliche News-Automation: `dist/news/*.json`, `docs/news-editorial.md`, Metricool/Instagram. Diese Automation committet direkt auf `cloudflare-online`; ihre Arbeit nicht überschreiben, vor dem Push immer frisch fetchen und rebasen.
 - DNS, Domains, Cloudflare-Einstellungen, `dist/_headers`, `dist/sw.js`, `dist/manifest.webmanifest`, Indexierung (`noindex`).
+- laneswitch.online ist seit 30.10.2026 bewusst für Google freigegeben (robots.txt, sitemap.xml, eigene Canonicals); kein `noindex` wieder einführen ohne Freigabe.
 - Impressum, Vermittlerangaben und Erstinformation; Datenschutz nur punktuell und mit Hinweis „bitte rechtlich prüfen“.
 - Keine Passwörter, Tokens oder Zugangsdaten in Dateien, Commits, PRs oder Chat (das Repository ist öffentlich).
 
