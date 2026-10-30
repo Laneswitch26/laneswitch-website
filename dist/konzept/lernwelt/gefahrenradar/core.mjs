@@ -7,8 +7,23 @@ export function shuffle(items, random = Math.random) {
   }
   return result;
 }
+// Video-Szenen: Gefahrenbereiche liegen als Spur (alle `step` ms) vor, weil sich die Kamera bewegt.
+// `trackOffset` verschiebt die Spur, wenn der Gefahren-Zeitpunkt der Runde zufällig variiert.
+export function trackAreas(scene, elapsed) {
+  const t = scene.track; if (!t) return null;
+  const pos = (elapsed + (scene.trackOffset || 0)) / t.step, i = Math.max(0, Math.min(t.areas.length - 1, Math.floor(pos)));
+  const a = t.areas[i], b = t.areas[Math.min(t.areas.length - 1, i + 1)], u = Math.max(0, Math.min(1, pos - i));
+  const out = [];
+  for (let k = 0; k + 3 < a.length; k += 4) {
+    const mix = j => b.length === a.length ? a[k + j] + (b[k + j] - a[k + j]) * u : a[k + j];
+    out.push({ x: mix(0), y: mix(1), rx: mix(2), ry: mix(3) });
+  }
+  return out;
+}
 export function hazardAt(scene, elapsed) {
   const progress = Math.max(0, Math.min(1, (elapsed - scene.cueMs) / scene.motionMs));
+  const areas = trackAreas(scene, elapsed);
+  if (areas) return areas.length ? { x: areas[0].x, y: areas[0].y, progress, areas } : { x: -999, y: -999, progress, areas };
   return { x: scene.hazard.from[0] + (scene.hazard.to[0] - scene.hazard.from[0]) * progress,
     y: scene.hazard.from[1] + (scene.hazard.to[1] - scene.hazard.from[1]) * progress, progress };
 }
@@ -17,7 +32,8 @@ export function isHit(scene, elapsed, x, y, width = 800) {
   const position = hazardAt(scene, elapsed);
   // Minimum target diameter of 56 CSS pixels, in the same SVG coordinate system.
   const minRadius = 28 * 800 / Math.max(width, 1);
-  return [{...position,rx:scene.hazard.rx,ry:scene.hazard.ry}, ...(scene.hazard.also || [])].some(area =>
+  const areas = position.areas || [{...position,rx:scene.hazard.rx,ry:scene.hazard.ry}, ...(scene.hazard.also || [])];
+  return areas.some(area =>
     ((x - area.x) / Math.max(area.rx, minRadius)) ** 2 +
     ((y - area.y) / Math.max(area.ry, minRadius)) ** 2 <= 1);
 }

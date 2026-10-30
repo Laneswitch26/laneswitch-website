@@ -108,7 +108,11 @@ html[data-theme=dark] .gr-hero{border:1px solid #ffffff1f}
 .gr-scene-column{min-width:0;min-height:0;display:flex;flex-direction:column;align-items:center;overflow:hidden}
 .gr-stage{position:relative;flex:none;width:min(100%,calc((100dvh - 330px)*1.428571));aspect-ratio:800/560;margin:0 auto;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--tint);cursor:crosshair;touch-action:manipulation}
 .gr-stage[data-locked=true]{cursor:default}
-.gr-stage[data-paused=true] .gr-art{filter:blur(9px);opacity:.25}
+.gr-stage[data-paused=true] .gr-art,.gr-stage[data-paused=true] .gr-video{filter:blur(9px);opacity:.25}
+.gr-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;background:var(--tint)}
+.gr-overlay{position:absolute;inset:0}
+.gr-stage[data-loading=true]::before{content:'Szene lädt …';position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:2;padding:6px 12px;border-radius:999px;background:var(--card);color:var(--ink);font-size:13px;font-weight:700;border:1px solid var(--line)}
+.gr-preview-img{aspect-ratio:800/560;object-fit:cover}
 .gr-stage[data-paused=true]::after{content:'Pause';position:absolute;inset:0;display:grid;place-items:center;color:var(--ink);font-weight:800;font-size:28px;letter-spacing:-.02em}
 .gr-scene-controls{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 8px;min-height:40px;font-size:14px;color:var(--muted)}
 #gr-time{width:100%;height:6px;flex:none}
