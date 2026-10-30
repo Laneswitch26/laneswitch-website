@@ -111,7 +111,12 @@ function aggregate(years) {
   const modelNames = new Map();
   for (const [yearKey, rows] of Object.entries(years)) {
     const year = +yearKey;
-    for (const r of rows) {
+    // Die EEA-Schnittstelle mittelt parallel; Kleinstabweichungen (8,2499… statt 8,25) und wechselnde Reihenfolgen
+    // würden sonst bei jedem Lauf andere Rundungen ergeben. Deshalb Werte vorab runden und Zeilen fest sortieren.
+    const fix = x => (x == null ? null : Math.round(+x * 1000) / 1000);
+    const stable = rows.map(r => ({ ...r, e: fix(r.e), en: fix(r.en), ew: fix(r.ew), fc: fix(r.fc) }))
+      .sort((a, b) => JSON.stringify([a.mk, a.cn, a.ft, a.fm, a.ec, a.kw, a.n]).localeCompare(JSON.stringify([b.mk, b.cn, b.ft, b.fm, b.ec, b.kw, b.n])));
+    for (const r of stable) {
       const n = +r.n || 0; if (n <= 0) continue;
       const make = normalizeMake(r.mk); if (!make) continue;
       const wltp = r.ew > 0 ? r.ew : null;
