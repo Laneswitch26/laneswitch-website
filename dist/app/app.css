@@ -416,3 +416,10 @@ html[data-theme=dark] .page-head{border:1px solid #ffffff1f}
 @media(max-width:760px){.sk-q{padding:18px}.sk-form>.primary{justify-self:stretch;width:100%}.sk-item{padding:16px;gap:12px}}
 /* Fußzeile in der Übersicht: auf dem Handy Platz für die untere Navigation lassen */
 @media(max-width:760px){.layout:has(+.ls-footer-app){padding-bottom:24px}.ls-footer-app{padding-bottom:calc(96px + env(safe-area-inset-bottom))!important}}
+
+/* Werkzeuge: Teilen direkt an der Karte */
+.tool-wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:stretch;min-width:0}
+.tool-share{align-self:center;display:inline-grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--teal);cursor:pointer;transition:background-color .2s,border-color .2s,transform .2s}
+.tool-share:hover{border-color:var(--teal);background:var(--tint)}
+.tool-share .icon{width:20px;height:20px}
+@media(max-width:760px){.tool-wrap{display:block;position:relative}.tool-share{position:absolute;top:8px;right:8px;width:40px;height:40px;border-color:transparent;background:transparent}.tool-wrap .path-text strong{display:block;padding-right:30px}}

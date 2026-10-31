@@ -1,5 +1,6 @@
 import {icon,navigation} from '/app/shell.js?v=7-fragen';
-import {shareButton} from '/app/share.mjs?v=2';
+import {shareButton} from '/app/share.mjs?v=3';
+import '/app/motion.js?v=1';
 const read=k=>{try{return localStorage.getItem(k)}catch{return null}};
 const write=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
 const root=document.documentElement;

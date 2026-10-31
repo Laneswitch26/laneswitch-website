@@ -140,3 +140,13 @@ html body .ls-footer{margin:0;padding:20px 32px;background:var(--card);color:var
 }
 .side-foot a{display:inline-flex;align-items:center;min-height:32px}
 .detail-context>a{white-space:nowrap}
+
+/* Dezente Bewegung (motion.js) und Rückmeldung bei Hover/Antippen */
+@media (prefers-reduced-motion:no-preference){
+ .mo-on .mo{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.2,.7,.2,1) var(--mo-d,0ms),transform .55s cubic-bezier(.2,.7,.2,1) var(--mo-d,0ms)}
+ .mo-on .mo.mo-in{opacity:1;transform:none}
+ .home-path{transition:transform .25s,box-shadow .25s,border-color .25s}
+ .home-path .update-icon{transition:background-color .25s,color .25s}
+ @media (hover:hover){.home-path:hover{transform:translateY(-2px);box-shadow:0 14px 30px -22px color-mix(in srgb,var(--navy) 55%,transparent)}.home-path:hover .update-icon{background:var(--teal);color:var(--card)}}
+ .home-path:active,.chip:active,.tool-share:active,.ls-share-button:active{transform:scale(.97)}
+}
