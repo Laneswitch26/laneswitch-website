@@ -30,6 +30,8 @@ const CONTENT={
  netzwerk:{path:'/#netzwerk',app:true,name:'Netzwerk',learnerName:'Partnerfahrschulen',schoolName:'Das LANE SWITCH Netzwerk',learner:'Fahrschulen im LANE SWITCH Netzwerk mit Standorten, Führerscheinklassen und Kontakt.',school:'Ein Fahrschulnetzwerk und die Möglichkeiten einer Kooperation.'},
  'fahrschule-emre':{path:'/konzept/kooperationen/fahrschulen/fahrschule-emre/',name:'Fahrschule Emre',learner:'Partnerfahrschule in Herne und Recklinghausen: Pkw, Anhänger, Motorrad und begleitetes Fahren ab 17. Standorte und Kontakt im Überblick.',school:'Partnerfahrschule im LANE SWITCH Netzwerk mit drei Standorten in Herne und Recklinghausen.'},
  'fahrschule-a1':{path:'/konzept/kooperationen/fahrschulen/fahrschule-a1/',name:'A1 Fahrschule',learner:'Partnerfahrschule in Herne-Wanne-Eickel: Pkw, Anhänger, Motorrad und Mofa. Ansprechpartner und Kontakt im Überblick.',school:'Partnerfahrschule im LANE SWITCH Netzwerk in Herne-Wanne-Eickel.'},
+ 'ai-studio-demo':{only:'school',path:'/ai-studio/demo/',name:'LANESWITCH AI Studio · Beispieldemo',school:'Ohne Anmeldung ansehen, wie Fahrschulen mit ChatGPT, Gemini oder Claude ein Markenprofil, eigene KI-Prompts und Social-Media-Beiträge entwickeln.'},
+ 'navigator-demo':{only:'school',path:'/navigator/demo',name:'Fahrschul-Navigator · Demo',school:'Den Fahrschul-Navigator ohne Anmeldung mit einer Musterfahrschule ausprobieren. Nichts wird gespeichert.'},
  news:{path:'/#news',app:true,name:'Newsticker',learner:'Geprüfte Meldungen zu Führerschein, Mobilität und Kosten, mit Quellen und Einordnung.',school:'Geprüfte Meldungen für Ausbildung, Betrieb und Fuhrpark, mit Quellen und Einordnung.'}
 };
 
