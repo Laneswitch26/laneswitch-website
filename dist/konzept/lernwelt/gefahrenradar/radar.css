@@ -66,6 +66,7 @@ html[data-theme=dark] .gr-hero{border:1px solid #ffffff1f}
 .gr-tags li{display:inline-flex;align-items:center;min-height:32px;padding:5px 12px;border:1px solid #ffffff2e;border-radius:999px;font-size:13px;font-weight:600;color:#fff}
 .gr-start-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;margin-top:24px}
 .gr-hero .gr-primary,html[data-theme=dark] .gr-hero .gr-primary{background:var(--accent);border-color:var(--accent);color:var(--navy)}
+.gr-hero .gr-primary:hover:not(:disabled),html[data-theme=dark] .gr-hero .gr-primary:hover:not(:disabled){background:var(--accent);border-color:var(--accent);color:var(--navy);filter:brightness(1.08)}
 .gr-hero .gr-small{color:#c9dde6}
 .radar-info-open{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0;border:0;background:none;color:#fff;font-size:15px;font-weight:650;text-decoration:underline;text-underline-offset:4px}
 .radar-info-open svg.icon{width:19px;height:19px;color:#65e5df}
