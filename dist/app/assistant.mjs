@@ -1,4 +1,4 @@
-import {FAQ,REVIEWED,AI_AVAILABLE,classifyLocal,canUseAI} from './assistant-knowledge.mjs?v=6';
+import {FAQ,REVIEWED,AI_AVAILABLE,classifyLocal,canUseAI} from './assistant-knowledge.mjs?v=7';
 // Chat-style assistant (2026-10-29). Curated answers first; free questions go to grounded AI after a
 // one-time confirmation that lasts until the page is reloaded (kept only in memory) and can be switched off.
 let aiConsent; // undefined = not asked yet, true = agreed, false = declined/switched off
