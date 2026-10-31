@@ -1,0 +1,66 @@
+name: AI Studio · Öffentliche Demo prüfen
+on:
+  pull_request:
+    branches: [cloudflare-online]
+    paths:
+      - 'dist/ai-studio/demo/**'
+      - 'dist/app/app.js'
+      - 'dist/index.html'
+      - '.github/workflows/ai-studio-demo-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Browser-Test vorbereiten
+        run: npm install --prefix /tmp/ai-studio-demo-check --no-audit --no-fund playwright-core@1.57.0
+      - name: Demo, Zugriffshinweise und responsive Darstellung prüfen
+        run: |
+          node <<'EOF'
+          const {chromium}=require('/tmp/ai-studio-demo-check/node_modules/playwright-core');
+          const fs=require('fs'),assert=require('node:assert/strict');
+          const {execSync}=require('node:child_process');
+          const html=fs.readFileSync('dist/ai-studio/demo/index.html','utf8');
+          const app=fs.readFileSync('dist/app/app.js','utf8');
+          assert.match(html,/Der echte Ablauf – in sechs Stationen/);
+          assert.match(html,/MUSTERFAHRSCHULE/);
+          assert.match(html,/href="\/navigator\/ai-studio"/);
+          assert.match(html,/Zurück zu den Werkzeugen/);
+          assert.doesNotMatch(html,/<(?:script|input|form|textarea)\b/i);
+          assert.doesNotMatch(html,/function contentPrompt|VERBINDLICHE, BEREINIGTE MARKENAKTE/);
+          assert.match(app,/href:'\/ai-studio\/demo\/'/);
+          assert.match(app,/href:'\/navigator\/ai-studio'/);
+          const browserPath=execSync('command -v google-chrome || command -v chromium || command -v chromium-browser',{encoding:'utf8'}).trim();
+          (async()=>{
+            const browser=await chromium.launch({headless:true,executablePath:browserPath,args:['--no-sandbox']});
+            try{
+              for(const width of [390,1280]){
+                const page=await browser.newPage({viewport:{width,height:850}});
+                const errors=[];
+                page.on('pageerror',e=>errors.push(e.message));
+                await page.goto('file://'+process.cwd()+'/dist/ai-studio/demo/index.html');
+                assert.equal(await page.locator('.grid .card').count(),6);
+                assert.equal(await page.locator('.demo-primary').count(),2);
+                const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
+                assert.ok(overflow<=3,`horizontal overflow at ${width}px: ${overflow}`);
+                assert.deepEqual(errors,[]);
+                await page.screenshot({path:`demo-${width}.png`,fullPage:true,animations:'disabled'});
+                await page.close();
+              }
+            }finally{await browser.close()}
+            console.log('PASS: static demo only, two viewports, 6 steps, safe links, no overflow');
+          })().catch(e=>{console.error(e);process.exitCode=1});
+          EOF
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-ai-studio-demo-screenshots
+          path: demo-*.png
+          if-no-files-found: ignore
