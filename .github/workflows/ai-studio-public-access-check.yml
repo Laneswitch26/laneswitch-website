@@ -38,3 +38,14 @@ jobs:
           echo "Unauthenticated navigator API HTTP status: $api"
           test "$api" = "401"
           echo "PASS: Studio redirects without login; app shell and private API denied"
+          public=$(curl --silent --show-error --max-time 25 --output /tmp/ai-studio-demo-html --write-out "%{http_code}" --max-redirs 0 "https://laneswitch.online/ai-studio/demo/")
+          echo "Public AI Studio demo HTTP status: $public"
+          test "$public" = "200"
+          grep -Fq 'Der echte Ablauf' /tmp/ai-studio-demo-html
+          grep -Fq 'MUSTERFAHRSCHULE' /tmp/ai-studio-demo-html
+          if grep -Eiq 'function contentPrompt|VERBINDLICHE, BEREINIGTE MARKENAKTE|PRODUKTION AKTIV' /tmp/ai-studio-demo-html; then
+            echo "ERROR: Internal AI Studio instructions surfaced on public demo"
+            exit 1
+          fi
+          echo "PASS: public read-only demo accessible; protected studio still requires login"
+
