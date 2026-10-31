@@ -1,0 +1,35 @@
+name: AI Studio · Öffentlicher Zugriffstest
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '_navigator/worker/index.ts'
+      - '_navigator/wrangler.json'
+      - '.github/workflows/ai-studio-public-access-check.yml'
+permissions:
+  contents: read
+jobs:
+  anonymous-access:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Unangemeldeten Produktionszugriff prüfen
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://laneswitch.online/navigator/ai-studio"
+          status=$(curl --silent --show-error --max-time 25 --output /tmp/ai-studio-anon-body --dump-header /tmp/ai-studio-anon-headers --write-out "%{http_code}" --max-redirs 0 "$URL")
+          echo "Anonymous AI Studio HTTP status: $status"
+          test "$status" = "302"
+          grep -Eiq '^location: /navigator/zugang\?next=ai-studio\r?$' /tmp/ai-studio-anon-headers
+          if grep -Eiq 'PRODUKTION AKTIV|VERBINDLICHE.*MARKENAKTE|function contentPrompt' /tmp/ai-studio-anon-body; then
+            echo "ERROR: Protected studio content leaked to anonymous visitor"
+            exit 1
+          fi
+          direct=$(curl --silent --show-error --max-time 25 --output /dev/null --write-out "%{http_code}" --max-redirs 0 "https://laneswitch.online/navigator/app.html")
+          echo "Direct app shell HTTP status: $direct"
+          test "$direct" = "404"
+          api=$(curl --silent --show-error --max-time 25 --output /dev/null --write-out "%{http_code}" --max-redirs 0 "https://laneswitch.online/api/navigator?action=me")
+          echo "Unauthenticated navigator API HTTP status: $api"
+          test "$api" = "401"
+          echo "PASS: Studio redirects without login; app shell and private API denied"
