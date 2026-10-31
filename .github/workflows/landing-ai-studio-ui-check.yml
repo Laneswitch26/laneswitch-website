@@ -34,7 +34,7 @@ jobs:
                 assert.equal(await page.locator('#vorteile .benefit').count(),7);
                 const tile=page.locator('#vorteile .benefit-link');
                 assert.equal(await tile.count(),1);
-                assert.equal(await tile.getAttribute('href'),'https://laneswitch.online/navigator/ai-studio');
+                assert.equal(await tile.getAttribute('href'),'https://laneswitch.online/ai-studio/demo/');
                 assert.match(await tile.textContent(),/LANESWITCH AI Studio/);
                 assert.equal(await page.locator('#theme').count(),1);
                 for(const theme of ['light','dark']){
