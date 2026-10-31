@@ -1,6 +1,6 @@
 // Public repository contains only harmless fictional, read-only marketing mockups.
 // The real AI Studio code and prompts are delivered from private KV after authentication.
-export const AI_STUDIO_DEMO_HTML = \`<!doctype html>
+export const AI_STUDIO_DEMO_HTML = `<!doctype html>
 <html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="dark">
 <title>LANESWITCH AI Studio · Beispieldemo</title>
@@ -37,4 +37,4 @@ a{color:var(--cyan)}.wrap{max-width:1140px;padding:26px clamp(15px,4vw,40px) 55p
   <div class="banner"><div>✓ Geführter Prozess</div><div>✓ Individuelle Markenidentität</div><div>✓ Professionelle Social-Posts</div></div>
   <p class="note">Diese fiktive Demo ist ausschließlich zum Ansehen. Es werden keine realen Kunden- oder Projektdaten angezeigt. Prompts, Generatoren und die eigentliche Anwendung sind nur mit regulärem Partnerzugang zugänglich. Die gezeigten Oberflächen sind illustrative Beispiele.</p>
   <footer class="footer"><a class="back" href="/navigator/zugang">← Zurück zum Fahrschul-Navigator</a></footer>
-</div></body></html>\`;
+</div></body></html>`;
