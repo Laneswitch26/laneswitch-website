@@ -1,4 +1,5 @@
 name: Landingpage · AI-Studio-Kachel prüfen
+# Regression: existing benefits, themes and mobile layout
 on:
   pull_request:
     branches: [main]
