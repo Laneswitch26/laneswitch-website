@@ -21,7 +21,12 @@ jobs:
           status=$(curl --silent --show-error --max-time 25 --output /tmp/ai-studio-anon-body --dump-header /tmp/ai-studio-anon-headers --write-out "%{http_code}" --max-redirs 0 "$URL")
           echo "Anonymous AI Studio HTTP status: $status"
           test "$status" = "302"
-          grep -Eiq '^location: /navigator/zugang\?next=ai-studio\r?$' /tmp/ai-studio-anon-headers
+          location=$(grep -i '^location:' /tmp/ai-studio-anon-headers | head -1 | cut -d: -f2- | tr -d '\r' | xargs)
+          echo "Anonymous redirect: $location"
+          case "$location" in
+            /navigator/zugang?next=ai-studio|https://laneswitch.online/navigator/zugang?next=ai-studio) ;;
+            *) echo "ERROR: Redirect target is unexpected"; exit 1;;
+          esac
           if grep -Eiq 'PRODUKTION AKTIV|VERBINDLICHE.*MARKENAKTE|function contentPrompt' /tmp/ai-studio-anon-body; then
             echo "ERROR: Protected studio content leaked to anonymous visitor"
             exit 1
