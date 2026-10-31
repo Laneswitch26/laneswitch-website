@@ -49,7 +49,6 @@ function postCard(original){const p={...original};if(p.id==='a1'&&audience==='sc
 function pageHead(title,lead,back='',share=''){return `${back}<section class="page-head${share?' has-share':''}">${share?shareButton(share,'on-navy').replace('data-ls-share=','data-ls-audience="'+audience+'" data-ls-share='):''}<svg class="hero-lanes" viewBox="0 0 240 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" d="M24 0V400M216 0V400" stroke-dasharray="26 22"/><path class="lane-move" vector-effect="non-scaling-stroke" d="M168 400V250C168 190 72 200 72 140V0"/></svg><div class="hero-copy"><h1>${title}</h1><p>${lead}</p></div></section>`}
 function intro(k,h,p){return `<div class="intro"><p class="eyebrow">${k}</p><h1>${h}</h1><p>${p}</p></div>`}
 function updates(){const school=audience==='school';const items=[
- ...(school?[['tools','Vom Markenprofil zum Social-Post · ohne Anmeldung ansehen','AI Studio: öffentliche Demo','/ai-studio/demo/']]:[]),
  ...(!school?[['radar','25 Situationen aus Fahrerperspektive','Gefahrenradar jetzt in 3D','lernwelt/gefahrenradar/']]:[]),
  ['message','Antworten zu Angeboten & Kontakt','Frag LANE SWITCH','#assistent'],
  ...(school?[['compass','Informationen online & als PDF','Navigator-Demo','/navigator/demo'],['compass','Neu für Partnerfahrschulen','Partnerbereich: Anmelden','/navigator/zugang']]:[['check','Deine Checkliste nach der Prüfung','Startklar-Check','#startklar'],['network','Infos online & als PDF','Navigator bei deiner Partnerfahrschule','kooperationen/fahrschulen/']]),
@@ -66,10 +65,10 @@ const lanes=`<svg class="hero-lanes" viewBox="0 0 240 400" preserveAspectRatio="
 const href=h=>h.startsWith('#')||h.startsWith('/')?h:url(h);
 function feedSection(exclude){const school=audience==='school';let list=posts.filter(p=>p.groups.includes(audience));if(school)list.sort((a,b)=>(a.id==='check'?-1:b.id==='check'?1:0));if(filter==='saved')list=list.filter(p=>saved.includes(p.id));else{if(filter!=='all')list=list.filter(p=>p.category===filter);list=list.filter(p=>p.id!==exclude);}return `<section class="home-section" aria-labelledby="home-feed-title"><div class="home-head"><h2 id="home-feed-title">Weitere Beiträge</h2></div><div class="feed-filters" role="group" aria-label="Beiträge filtern">${[['all','Alle'],['tools','Angebote'],['network','Netzwerk'],['social','Instagram'],['saved','Gemerkt']].map(([id,label])=>`<button class="chip" data-filter="${id}" aria-pressed="${filter===id}">${label}</button>`).join('')}</div><div class="feed">${list.length?list.map(postCard).join(''):filter==='saved'?`<div class="empty"><h2>Noch nichts gemerkt.</h2><p>${school?'Tippen Sie':'Tippe'} auf das Lesezeichen an einem Beitrag. Die Auswahl wird nur auf diesem Gerät gespeichert.</p></div>`:'<div class="empty"><p>In dieser Auswahl gibt es gerade keine weiteren Beiträge.</p></div>'}</div></section>`;}
 function renderFeed(){const school=audience==='school',c=homeContent[audience];const featured=posts.find(p=>p.id===c.featured);const newItems=school?[
+ ['tools','AI Studio: Vom Markenprofil zum Social-Post – öffentliche Demo','/ai-studio/demo/'],
  ['message','Frag LANE SWITCH: Antworten zu Angeboten & Kontakt','#assistent'],
  ['compass','Fahrschul-Navigator: Informationen online & als PDF','/navigator/demo'],
  ['compass','Eigener Navigator-Zugang für Partnerfahrschulen','/navigator/zugang'],
- ['network','Partner werden: Kooperation & Einladung anfragen','#kontakt'],
  ['tools','Förderrechner Altersvorsorge','altersvorsorge/?zielgruppe=fahrschulen']
 ]:[
  ['radar','Gefahrenradar: 25 Situationen jetzt als 3D-Fahrt üben','lernwelt/gefahrenradar/'],
