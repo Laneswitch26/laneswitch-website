@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-10-30T07:22:38Z",
+  "checkedAt": "2026-10-31T07:09:32Z",
   "items": [
     {
       "id": "euro7-typgenehmigung-2026-10-29",
@@ -12,7 +12,7 @@
       "impact": "Für dein bereits zugelassenes Auto folgt aus diesem Starttermin keine Pflicht zum Austausch. Wenn du einen Neuwagen suchst, unterscheide die Genehmigung eines neuen Fahrzeugtyps von der Erstzulassung eines einzelnen Autos.",
       "action": "Frage beim Neuwagenkauf nach der konkreten Emissionsnorm und dem vorgesehenen Zulassungstermin. Für ein vorhandenes Auto ist allein wegen dieses Euro-7-Termins kein Fahrzeugwechsel nötig.",
       "publishedAt": "2026-10-29T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-13T00:00:00+01:00",
       "sources": [
         {
@@ -38,7 +38,7 @@
       "impact": "Für dich gilt bereits: In der Probezeit oder unter 21 Jahren verbietet § 24c StVG Alkohol beim Führen eines Kraftfahrzeugs sowie den Fahrtantritt unter Alkoholwirkung. Die Umfrage ändert daran nichts.",
       "action": "Plane vor dem Trinken einen Heimweg ohne eigene Fahrt, etwa mit einer nüchternen Person, Bus oder Taxi. Auch nach dem Ende der Probezeit ist alkoholfreies Fahren die sichere Entscheidung.",
       "publishedAt": "2026-10-27T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-11T00:00:00+01:00",
       "sources": [
         {
@@ -60,7 +60,7 @@
       "impact": "Führt dein Weg zur Fahrschule über eine dieser Einmündungen, brauchst du während der jeweiligen Sperrung eine andere Zufahrt. Auch vereinbarte Treffpunkte für Fahrstunden können betroffen sein.",
       "action": "Prüfe vor deiner Fahrt die ausgeschilderte Umleitung und kläre einen betroffenen Treffpunkt mit deiner Fahrschule.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-18T00:00:00+01:00",
       "sources": [
         {
@@ -78,7 +78,7 @@
       "impact": "Fährst du hier stadtauswärts zur Fahrschule oder während einer Fahrstunde, brauchst du eine andere Route. Die Gegenrichtung bleibt auf der nördlichen Seite befahrbar.",
       "action": "Prüfe deinen Weg vor der Abfahrt und folge den ausgeschilderten Umleitungen.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-12-01T00:00:00+01:00",
       "sources": [
         {
@@ -96,7 +96,7 @@
       "impact": "Wenn dein Weg zur Fahrschule oder deine Fahrstunde über diesen Knoten führt, musst du mit dem Auto der ausgeschilderten Umleitung folgen.",
       "action": "Prüfe vor deiner Fahrt die Route und beachte die ausgeschilderte Umleitung.",
       "publishedAt": "2026-10-23T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
@@ -114,7 +114,7 @@
       "impact": "Auch Konten für Lernangebote oder Terminbuchungen können Ziel solcher Täuschungsversuche sein. Eine dringend formulierte Sicherheitsmail beweist weder ihre Echtheit noch einen Angriff auf dein Konto.",
       "action": "Öffne die bekannte Anbieteradresse oder App selbst. Gib keine Zugangsdaten über einen verdächtigen Mail-Link ein und lade dort kein Update herunter. Frage bei Unsicherheit über einen bereits bekannten Kontakt nach.",
       "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-06T00:00:00+01:00",
       "sources": [
         {
@@ -132,7 +132,7 @@
       "impact": "Deine Wege zwischen Bochum und Herne sowie Fahrstunden können durch wechselnde Verkehrsführungen länger dauern.",
       "action": "Prüfe vor der Fahrt die aktuelle Bauphase und die ausgeschilderte Umleitung. Plane für Termine zusätzliche Zeit ein.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
@@ -146,7 +146,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt bis Jahresende: Was beim Tanken zählt.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",

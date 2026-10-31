@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-30T07:22:38Z",
+  "checkedAt": "2026-10-31T07:09:32Z",
   "items": [
     {
       "id": "euro7-typgenehmigung-2026-10-29",
@@ -12,7 +12,7 @@
       "impact": "Für bereits zugelassene Fahrschulwagen löst dieser Starttermin keinen Austauschzwang aus. Bei der Beschaffung neuer Fahrzeuge sind Typgenehmigung und Erstzulassung getrennt zu betrachten; die Fristen sind nicht identisch.",
       "action": "Lassen Sie sich bei Neuwagenangeboten Emissionsnorm und geplanten Zulassungstermin bestätigen. Planen Sie keinen vorzeitigen Fuhrparktausch allein wegen des Starts neuer Typgenehmigungen.",
       "publishedAt": "2026-10-29T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-13T00:00:00+01:00",
       "sources": [
         {
@@ -38,7 +38,7 @@
       "impact": "Für Ihren Unterricht bleibt die Trennung zwischen Verbandsforderung und geltendem Recht wichtig: In der Probezeit oder unter 21 Jahren gilt bereits das Alkoholverbot nach § 24c StVG für das Führen von Kraftfahrzeugen. Die Umfrage belegt keine Regelkenntnis Ihrer Lernenden.",
       "action": "Nutzen Sie die Meldung als Unterrichtsanlass: Lassen Sie Lernende Probezeit und Altersgrenze unterscheiden und einen Heimweg ohne eigene Fahrt nach Alkoholkonsum planen.",
       "publishedAt": "2026-10-27T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-11T00:00:00+01:00",
       "sources": [
         {
@@ -60,7 +60,7 @@
       "impact": "Prüfen Sie Unterrichtsrouten und Abholpunkte im Bereich der beiden Einmündungen. Die abschnittsweise Sperrung kann andere Zufahrten für Fahrstunden und Terminwege erfordern.",
       "action": "Gleichen Sie betroffene Abholpunkte mit der aktuellen Beschilderung ab und informieren Sie Ihre Lernenden bei Änderungen.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-18T00:00:00+01:00",
       "sources": [
         {
@@ -78,7 +78,7 @@
       "impact": "Stadtauswärts führen Ausbildungsfahrten und Abholwege in diesem Abschnitt über Umleitungen. Das kann die Zeitplanung für aufeinanderfolgende Fahrstunden verändern.",
       "action": "Prüfen Sie Ausbildungsrouten und Abholzeiten während der Einbahnregelung und teilen Sie betroffenen Lernenden geänderte Treffpunkte mit.",
       "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-12-01T00:00:00+01:00",
       "sources": [
         {
@@ -96,7 +96,7 @@
       "impact": "Ausbildungsfahrten über diesen Knoten benötigen eine andere Route. Der weiter mögliche Fuß- und Radverkehr ist bei der Planung zu berücksichtigen.",
       "action": "Prüfen Sie Ausbildungsrouten und Abholpunkte und berücksichtigen Sie die Beschilderung vor Ort.",
       "publishedAt": "2026-10-23T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
@@ -114,7 +114,7 @@
       "impact": "Relevant ist dies für Ihre Website oder Schülerverwaltung, wenn der Dienstleister PHP unter Windows einsetzt. Ein Windows-Bürorechner allein macht Ihren Betrieb nicht betroffen. Die PHP-Versionsnummer genügt nicht als Nachweis des neuen Windows-Paketstands.",
       "action": "Lassen Sie den Betreiber Betriebssystem, PHP-Paketstand und die cURL-Konfiguration prüfen. Bei den offiziellen Windows-Paketen kennzeichnet die Endung -1 die Nachbesserung. Lassen Sie zudem die PHP-Hinweise vom 23. Oktober zur Session-Konfiguration und mögliche frühere Angriffe prüfen; sichern und testen Sie Backups.",
       "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-06T00:00:00+01:00",
       "sources": [
         {
@@ -136,7 +136,7 @@
       "impact": "Die wechselnden Bauphasen betreffen Ausbildungsrouten, Abholungen und die Erreichbarkeit zwischen Bochum und Herne.",
       "action": "Berücksichtigen Sie die Bauphasen in der Routen- und Terminplanung und informieren Sie Lernende über geänderte Abholwege.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
@@ -150,7 +150,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-30T07:22:38Z",
+      "checkedAt": "2026-10-31T07:09:32Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt: Entlastung für den Fuhrpark einordnen.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
