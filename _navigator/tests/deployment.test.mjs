@@ -74,3 +74,36 @@ test('Built Worker uses its actual D1 binding and hashed registry for login',asy
     assert.equal(publish.status,403);
   }finally{await mf.dispose();}
 });
+
+
+test('AI Studio: full app requires server-side session; test account gets only static demo',async()=>{
+  const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789',NAV_ADMIN_PASSWORD:'Admin fixture password 987'});
+  const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',d1Databases:['DB'],kvNamespaces:['AI_STUDIO_KV'],bindings:{NAV_ACCOUNTS:JSON.stringify(accounts)},serviceBindings:{ASSETS:async()=>new Response('app')}});
+  try{
+    const db=await mf.getD1Database('DB');
+    for(const file of (await readdir('drizzle')).filter(f=>f.endsWith('.sql')).sort())for(const q of (await readFile('drizzle/'+file,'utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
+    await (await mf.getKVNamespace('AI_STUDIO_KV')).put('studio-v06','<!doctype html><title>PRIVATE-STUDIO-TEST</title><div>Test-Creator</div>');
+    const origin='https://laneswitch.online',studio=origin+'/navigator/ai-studio';
+    const anonymous=await mf.dispatchFetch(studio,{redirect:'manual'});
+    assert.equal(anonymous.status,302);assert.equal(anonymous.headers.get('location'),'/navigator/zugang?next=ai-studio');
+    assert.ok(!(await anonymous.text()).includes('PRIVATE-STUDIO-TEST'));
+    assert.equal((await mf.dispatchFetch(studio,{method:'POST'})).status,405);
+    const login=async(username,password)=>{
+      const res=await mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'content-type':'application/json'},body:JSON.stringify({action:'login',username,password})});
+      assert.equal(res.status,200);return res.headers.get('set-cookie').split(';')[0];
+    };
+    const partner=await login('a1','A1 fixture password 123');
+    const part=await mf.dispatchFetch(studio,{headers:{cookie:partner}});
+    assert.equal(part.status,200);assert.match(await part.text(),/PRIVATE-STUDIO-TEST/);
+    assert.equal(part.headers.get('cache-control'),'no-store');
+    const demo=await login('test','Test fixture password 789');
+    const testRes=await mf.dispatchFetch(studio,{headers:{cookie:demo}});
+    assert.equal(testRes.status,200);
+    const publicDemo=await testRes.text();
+    assert.match(publicDemo,/MUSTERFAHRSCHULE/);assert.doesNotMatch(publicDemo,/PRIVATE-STUDIO-TEST/);
+    assert.doesNotMatch(publicDemo,/PRODUKTION AKTIV/);
+    const admin=await login('admin','Admin fixture password 987');
+    const adminRes=await mf.dispatchFetch(studio,{headers:{cookie:admin}});
+    assert.equal(adminRes.status,200);assert.match(await adminRes.text(),/PRIVATE-STUDIO-TEST/);
+  }finally{await mf.dispose();}
+});
