@@ -7,6 +7,13 @@ on:
       - 'dist/app/app.js'
       - 'dist/index.html'
       - '.github/workflows/ai-studio-demo-check.yml'
+  push:
+    branches: [cloudflare-online]
+    paths:
+      - 'dist/ai-studio/demo/**'
+      - 'dist/app/app.js'
+      - 'dist/index.html'
+      - '.github/workflows/ai-studio-demo-check.yml'
   workflow_dispatch:
 permissions:
   contents: read
