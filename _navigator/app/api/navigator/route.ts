@@ -9,31 +9,31 @@ const DAY=86400000;
 // Meldungen dieser Klasse werden unverändert an die Oberfläche gegeben.
 class PublicError extends Error{constructor(message:string,public status=400){super(message);}}
 
-type Account={username:string,school:string,salt:string,hash:string};
+type Account={username:string,school:string,salt:string,hash:string,trial_until?:number|null};
 type Session={school:string,csrf:string,expires:number,account_version:string,token:string};
-type SchoolRow={school:string,name:string,code:string,approved:number,disabled:number,created:number};
+type SchoolRow={school:string,name:string,code:string,approved:number,disabled:number,created:number,trial_until?:number|null};
 const db=()=>env.DB;
 
 // ---- Konten ----
 // Feste Konten (A1, Emre, Test, Admin) kommen gehasht aus dem Secret NAV_ACCOUNTS.
 function staticAccounts():Account[]{try{return JSON.parse((env as unknown as Record<string,string>).NAV_ACCOUNTS||'[]').filter((x:Account)=>(schools.has(x.school)||x.school===ADMIN)&&/^[a-f0-9]{32,128}$/.test(x.salt)&&/^[a-f0-9]{64}$/.test(x.hash));}catch{return [];}}
 // Registrierte Fahrschulen liegen in D1. Gesperrte Fahrschulen haben kein gültiges Konto.
-async function registeredBy(field:'username'|'school',value:string):Promise<Account|null>{return await db().prepare(`SELECT a.username,a.school,a.salt,a.hash FROM nav_accounts a JOIN nav_schools s ON s.school=a.school WHERE a.${field}=? AND s.disabled=0`).bind(value).first<Account>()||null;}
+async function registeredBy(field:'username'|'school',value:string):Promise<Account|null>{return await db().prepare(`SELECT a.username,a.school,a.salt,a.hash,s.trial_until FROM nav_accounts a JOIN nav_schools s ON s.school=a.school WHERE a.${field}=? AND s.disabled=0`).bind(value).first<Account>()||null;}
 async function accountForUsername(username:string){return staticAccounts().find(x=>x.username.toLowerCase()===username)||await registeredBy('username',username);}
 async function accountForSchool(school:string){return staticAccounts().find(x=>x.school===school)||(schools.has(school)||school===ADMIN?null:await registeredBy('school',school));}
 async function usernameTaken(username:string){return staticAccounts().some(x=>x.username.toLowerCase()===username)||['admin','a1','emre','test'].includes(username)||!!await db().prepare('SELECT 1 FROM nav_accounts WHERE username=?').bind(username).first();}
 async function schoolRow(school:string){return await db().prepare('SELECT * FROM nav_schools WHERE school=?').bind(school).first<SchoolRow>();}
 // Öffentlich sichtbar: Bestandsfahrschulen (außer Test) oder registrierte, freigegebene, nicht gesperrte Fahrschulen.
-async function publicSchool(school:string){if(school==='test'||school===ADMIN)return false;if(schools.has(school))return true;const row=await schoolRow(school);return !!row&&row.approved===1&&row.disabled===0;}
+async function publicSchool(school:string){if(school==='test'||school===ADMIN)return false;if(schools.has(school))return true;const row=await schoolRow(school);return !!row&&row.approved===1&&row.disabled===0&&(!row.trial_until||row.trial_until>Date.now());}
 async function schoolCode(school:string){if(staticCodes[school])return staticCodes[school];return (await schoolRow(school))?.code||'';}
 
-async function session(req:Request){const token=req.headers.get('cookie')?.split(';').map(x=>x.trim()).find(x=>x.startsWith(cookieName+'='))?.slice(cookieName.length+1);if(!token||!/^[a-f0-9]{64}$/.test(token))return null;const row=await db().prepare('SELECT * FROM nav_sessions WHERE token=? AND expires>?').bind(await digest(token),Date.now()).first<Session>();if(!row)return null;const a=await accountForSchool(row.school);if(!a||await digest(a.hash)!==row.account_version)return null;return row;}
+async function session(req:Request){const token=req.headers.get('cookie')?.split(';').map(x=>x.trim()).find(x=>x.startsWith(cookieName+'='))?.slice(cookieName.length+1);if(!token||!/^[a-f0-9]{64}$/.test(token))return null;const row=await db().prepare('SELECT * FROM nav_sessions WHERE token=? AND expires>?').bind(await digest(token),Date.now()).first<Session>();if(!row)return null;const a=await accountForSchool(row.school);if(!a||await digest(a.hash)!==row.account_version)return null;if(a.trial_until&&a.trial_until<Date.now())return null;return row;}
 async function startSession(school:string,hash:string){const now=Date.now(),token=random(),s:Session={token:await digest(token),school,csrf:random(),expires:now+8*3600000,account_version:await digest(hash)};await db().batch([db().prepare('INSERT INTO nav_sessions (token,school,csrf,expires,account_version) VALUES (?,?,?,?,?)').bind(s.token,s.school,s.csrf,s.expires,s.account_version),db().prepare('DELETE FROM nav_sessions WHERE expires<?').bind(now),db().prepare('DELETE FROM nav_throttle WHERE until<?').bind(now)]);return {s,cookie:`${cookieName}=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=28800`};}
 async function state(s:Session){
  if(s.school===ADMIN)return {admin:true,school:ADMIN,csrf:s.csrf};
  const row=await db().prepare('SELECT * FROM nav_documents WHERE school=?').bind(s.school).first<{draft:string,published:string|null,listed:number}>();const files=await db().prepare('SELECT id,name FROM nav_files WHERE school=?').bind(s.school).all();
  const reg=schools.has(s.school)?null:await schoolRow(s.school);
- return {school:s.school,data:row?JSON.parse(row.draft):{},published:!!row?.published,listed:!!row?.listed,csrf:s.csrf,files:files.results,registered:!!reg,approved:reg?reg.approved===1:true};
+ return {school:s.school,data:row?JSON.parse(row.draft):{},published:!!row?.published,listed:!!row?.listed,csrf:s.csrf,files:files.results,registered:!!reg,approved:reg?reg.approved===1:true,trialUntil:reg?.trial_until||0};
 }
 async function ownsDocs(school:string,data:Record<string,unknown>){for(const f of data.documents as {id:string}[]){if(!await db().prepare('SELECT id FROM nav_files WHERE id=? AND school=?').bind(f.id,school).first())throw new Error('Dokument gehört nicht zu diesem Zugang.');}}
 // Einfache Bremse gegen Durchprobieren (wie beim Login), je Schlüssel und Zeitfenster von 15 Minuten.
@@ -47,13 +47,13 @@ async function benefitsFor(school:string){const code=await schoolCode(school);re
 async function adminOverview(){
  const docs=(await db().prepare('SELECT school,published IS NOT NULL AS published,listed,updated FROM nav_documents').all<{school:string,published:number,listed:number,updated:number}>()).results;
  const doc=(s:string)=>docs.find(d=>d.school===s);
- const fixed=['a1','emre','test'].map(s=>({school:s,name:s==='a1'?'A1 Fahrschule':s==='emre'?'Fahrschule Emre':'Testzugang',code:staticCodes[s],fixed:true,approved:s!=='test',disabled:false,created:0,published:!!doc(s)?.published,listed:!!doc(s)?.listed,updated:doc(s)?.updated||0,username:s}));
- const reg=(await db().prepare('SELECT s.*,a.username FROM nav_schools s LEFT JOIN nav_accounts a ON a.school=s.school ORDER BY s.created DESC').all<SchoolRow&{username:string|null}>()).results.map(r=>({school:r.school,name:r.name,code:r.code,fixed:false,approved:r.approved===1,disabled:r.disabled===1,created:r.created,published:!!doc(r.school)?.published,listed:!!doc(r.school)?.listed,updated:doc(r.school)?.updated||0,username:r.username||''}));
+ const fixed=['a1','emre','test'].map(s=>({school:s,name:s==='a1'?'A1 Fahrschule':s==='emre'?'Fahrschule Emre':'Testzugang',code:staticCodes[s],fixed:true,approved:s!=='test',disabled:false,trialUntil:0,created:0,published:!!doc(s)?.published,listed:!!doc(s)?.listed,updated:doc(s)?.updated||0,username:s}));
+ const reg=(await db().prepare('SELECT s.*,a.username FROM nav_schools s LEFT JOIN nav_accounts a ON a.school=s.school ORDER BY s.created DESC').all<SchoolRow&{username:string|null}>()).results.map(r=>({school:r.school,name:r.name,code:r.code,fixed:false,approved:r.approved===1,disabled:r.disabled===1,trialUntil:r.trial_until||0,created:r.created,published:!!doc(r.school)?.published,listed:!!doc(r.school)?.listed,updated:doc(r.school)?.updated||0,username:r.username||''}));
  const invites=(await db().prepare('SELECT school,name,code,expires,created,used FROM nav_invites WHERE used IS NULL AND expires>? ORDER BY created DESC').bind(Date.now()).all()).results;
  return {schools:[...fixed,...reg],invites,partners:await partners(false),requests:await requests()};
 }
 async function createInvite(body:Record<string,unknown>,origin:string){
- const days=Math.min(60,Math.max(1,Number(body.days)||14));
+ const days=Math.min(60,Math.max(1,Number(body.days)||14)),trialDays=body.trial===true&&!body.school?Math.min(60,Math.max(1,Number(body.trialDays)||14)):null;
  let school=String(body.school||'').trim(),name=String(body.name||'').trim().slice(0,120),code=String(body.code||'').trim().toUpperCase();
  if(school){
   // Neuer Zugangslink für eine bereits registrierte Fahrschule (z. B. Passwort vergessen). Daten bleiben erhalten.
@@ -68,9 +68,9 @@ async function createInvite(body:Record<string,unknown>,origin:string){
  // Nur ein offener Link je Fahrschule: ältere Links werden ungültig.
  await db().prepare('UPDATE nav_invites SET used=0 WHERE school=? AND used IS NULL').bind(school).run();
  const token=random(),now=Date.now();
- await db().prepare('INSERT INTO nav_invites (token,school,name,code,expires,created,used) VALUES (?,?,?,?,?,?,NULL)').bind(await digest(token),school,name,code,now+days*DAY,now).run();
+ await db().prepare('INSERT INTO nav_invites (token,school,name,code,expires,created,used,trial_days) VALUES (?,?,?,?,?,?,NULL,?)').bind(await digest(token),school,name,code,now+days*DAY,now,trialDays).run();
  // Der Schlüssel steht hinter „#“ und wird so nie an einen Server oder in Protokolle übertragen.
- return {link:origin+'/navigator/registrierung#'+token,school,name,code,expires:now+days*DAY};
+ return {link:origin+'/navigator/registrierung#'+token,school,name,code,expires:now+days*DAY,trialDays};
 }
 async function adminAction(action:string,body:Record<string,unknown>,origin:string){
  if(action==='adminOverview')return adminOverview();
@@ -79,6 +79,8 @@ async function adminAction(action:string,body:Record<string,unknown>,origin:stri
  if(action==='setSchool'){const school=String(body.school||'');const row=await schoolRow(school);if(!row)throw new PublicError('Nur registrierte Fahrschulen können hier geändert werden.',404);
   const approved=typeof body.approved==='boolean'?(body.approved?1:0):row.approved,disabled=typeof body.disabled==='boolean'?(body.disabled?1:0):row.disabled;
   await db().prepare('UPDATE nav_schools SET approved=?,disabled=? WHERE school=?').bind(approved,disabled,school).run();
+  // Testzugang: verlängern oder in Vollzugang umwandeln.
+  if(row.trial_until){if(body.convert===true)await db().prepare('UPDATE nav_schools SET trial_until=NULL WHERE school=?').bind(school).run();else if(Number(body.trialDays)>0){const add=Math.min(60,Math.floor(Number(body.trialDays)))*DAY;await db().prepare('UPDATE nav_schools SET trial_until=? WHERE school=?').bind(Math.max(Date.now(),row.trial_until)+add,school).run();}}
   if(disabled)await db().prepare('DELETE FROM nav_sessions WHERE school=?').bind(school).run();return adminOverview();}
  if(action==='savePartner'){const p=validPartner(body.data);const id=typeof body.id==='string'&&/^[-a-f0-9]{36}$/.test(body.id)?body.id:crypto.randomUUID();
   if((await partners(false)).some(x=>x.id!==id&&x.code===p.code))throw new PublicError('Dieses Firmenkürzel ist bereits vergeben.');
@@ -122,7 +124,7 @@ async function requestCooperation(body:Record<string,unknown>){
 async function requests(){return (await db().prepare('SELECT id,data,done,created FROM nav_requests ORDER BY done ASC, created DESC LIMIT 500').all<{id:string,data:string,done:number,created:number}>()).results.map(x=>{let d:Partial<CoopRequest>={};try{d=JSON.parse(x.data)}catch{}return {id:x.id,done:x.done===1,created:x.created,...d};});}
 
 // ---- Registrierung über Einladungslink ----
-async function openInvite(token:unknown){if(typeof token!=='string'||!/^[a-f0-9]{64}$/.test(token))return null;return await db().prepare('SELECT * FROM nav_invites WHERE token=? AND used IS NULL AND expires>?').bind(await digest(token),Date.now()).first<{token:string,school:string,name:string,code:string}>();}
+async function openInvite(token:unknown){if(typeof token!=='string'||!/^[a-f0-9]{64}$/.test(token))return null;return await db().prepare('SELECT * FROM nav_invites WHERE token=? AND used IS NULL AND expires>?').bind(await digest(token),Date.now()).first<{token:string,school:string,name:string,code:string,trial_days:number|null}>();}
 async function register(body:Record<string,unknown>){
  const invite=await openInvite(body.token);if(!invite)throw new PublicError('Dieser Link ist ungültig, abgelaufen oder wurde bereits verwendet. Bitte fordere bei LANE SWITCH einen neuen Link an.',404);
  const username=String(body.username||'').trim().toLowerCase(),password=String(body.password||'');
@@ -136,7 +138,7 @@ async function register(body:Record<string,unknown>){
  if(!used.meta.changes)throw new PublicError('Dieser Link wurde bereits verwendet.',409);
  const {salt,hash}=await hashPassword(password),now=Date.now();
  try{await db().batch([
-  db().prepare('INSERT INTO nav_schools (school,name,code,approved,disabled,created) VALUES (?,?,?,0,0,?) ON CONFLICT(school) DO NOTHING').bind(invite.school,invite.name,invite.code,now),
+  db().prepare('INSERT INTO nav_schools (school,name,code,approved,disabled,created,trial_until) VALUES (?,?,?,0,0,?,?) ON CONFLICT(school) DO NOTHING').bind(invite.school,invite.name,invite.code,now,invite.trial_days?now+invite.trial_days*DAY:null),
   db().prepare('INSERT INTO nav_accounts (school,username,salt,hash,created) VALUES (?,?,?,?,?) ON CONFLICT(school) DO UPDATE SET username=excluded.username,salt=excluded.salt,hash=excluded.hash').bind(invite.school,username,salt,hash,now),
   db().prepare('DELETE FROM nav_sessions WHERE school=?').bind(invite.school),
   db().prepare('INSERT INTO nav_documents (school,draft,listed,updated) VALUES (?,?,0,?) ON CONFLICT(school) DO NOTHING').bind(invite.school,JSON.stringify({name:invite.name}),now)
@@ -159,6 +161,7 @@ export async function POST(req:Request){try{if(!sameOrigin(req))return reply({er
  if(action==='login'){const username=String(body.username||'').trim().toLowerCase(),password=String(body.password||'');if(username.length>80||password.length>200)return reply({error:'Anmeldung fehlgeschlagen.'},401);
  const now=Date.now();await db().prepare('DELETE FROM nav_throttle WHERE until<?').bind(now).run();const ipKey=await digest('ip:'+ip);await db().prepare('INSERT INTO nav_throttle (key,count,until) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET count=count+1').bind(ipKey,now+900000).run();const ipCount=await db().prepare('SELECT count FROM nav_throttle WHERE key=?').bind(ipKey).first<{count:number}>();if((ipCount?.count||0)>40)return reply({error:'Zu viele Versuche. Bitte in 15 Minuten erneut versuchen.'},429);const key=await digest('account:'+username);await db().prepare('INSERT INTO nav_throttle (key,count,until) VALUES (?,1,?) ON CONFLICT(key) DO UPDATE SET count=CASE WHEN until<? THEN 1 ELSE count+1 END, until=CASE WHEN until<? THEN excluded.until ELSE until END').bind(key,now+900000,now,now).run();const limit=await db().prepare('SELECT count FROM nav_throttle WHERE key=?').bind(key).first<{count:number}>();if((limit?.count||0)>8)return reply({error:'Zu viele Versuche. Bitte in 15 Minuten erneut versuchen.'},429);
  const a=await accountForUsername(username);const ok=await verify(password,a?.salt||'0'.repeat(32),a?.hash||'0'.repeat(64));if(!a||!ok)return reply({error:'Benutzername oder Passwort falsch.'},401);
+ if(a.trial_until&&a.trial_until<Date.now())return reply({error:'Dein Testzugang ist abgelaufen. Bitte melde dich bei LANE SWITCH, wenn du ihn verlängern oder dauerhaft nutzen möchtest.'},403);
  const {s,cookie}=await startSession(a.school,a.hash);return reply(await state(s),200,{'Set-Cookie':cookie});}
  // Einladungslink prüfen und registrieren: ohne Anmeldung, aber gebremst.
  if(action==='inviteInfo'){await throttle('invite:'+ip,30);const invite=await openInvite(body.token);if(!invite)return reply({error:'Dieser Link ist ungültig, abgelaufen oder wurde bereits verwendet. Bitte fordere bei LANE SWITCH einen neuen Link an.'},404);const renewal=!!await db().prepare('SELECT 1 FROM nav_accounts WHERE school=?').bind(invite.school).first();return reply({name:invite.name,renewal});}
