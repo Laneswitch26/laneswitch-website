@@ -76,7 +76,7 @@ test('Built Worker uses its actual D1 binding and hashed registry for login',asy
 });
 
 
-test('AI Studio: full app requires server-side session; test account gets only static demo',async()=>{
+test('AI Studio: full app requires server-side session; test account gets the full studio after login',async()=>{
   const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789',NAV_ADMIN_PASSWORD:'Admin fixture password 987'});
   const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',d1Databases:['DB'],kvNamespaces:['AI_STUDIO_KV'],bindings:{NAV_ACCOUNTS:JSON.stringify(accounts)},serviceBindings:{ASSETS:async()=>new Response('app')}});
   try{
@@ -99,9 +99,9 @@ test('AI Studio: full app requires server-side session; test account gets only s
     const demo=await login('test','Test fixture password 789');
     const testRes=await mf.dispatchFetch(studio,{headers:{cookie:demo}});
     assert.equal(testRes.status,200);
-    const publicDemo=await testRes.text();
-    assert.match(publicDemo,/MUSTERFAHRSCHULE/);assert.doesNotMatch(publicDemo,/PRIVATE-STUDIO-TEST/);
-    assert.doesNotMatch(publicDemo,/PRODUKTION AKTIV/);
+    assert.match(await testRes.text(),/PRIVATE-STUDIO-TEST/);
+    const anonAfter=await mf.dispatchFetch(studio,{redirect:'manual'});
+    assert.equal(anonAfter.status,302);
     const admin=await login('admin','Admin fixture password 987');
     const adminRes=await mf.dispatchFetch(studio,{headers:{cookie:admin}});
     assert.equal(adminRes.status,200);assert.match(await adminRes.text(),/PRIVATE-STUDIO-TEST/);
