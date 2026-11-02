@@ -71,3 +71,17 @@
 .nv-app .nv-tabs{align-items:center}.nv-app .nv-studio-link{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:linear-gradient(135deg,#06496f,#00a9b8);color:#fff;font-weight:700;font-size:14px;line-height:1.2;text-decoration:none;white-space:nowrap;box-shadow:0 4px 14px #06496f33;border:1px solid transparent}.nv-app .nv-studio-link:hover{filter:brightness(1.08);box-shadow:0 6px 18px #06496f4d}.nv-app .nv-studio-link:focus-visible{outline:3px solid #65e3e8;outline-offset:2px}
 @media(max-width:720px){.nv-app .nv-tabs{flex-wrap:wrap;overflow:visible}.nv-app .nv-studio-link{order:-1;margin:0 0 6px;width:100%;justify-content:center}}
 .nv-app .nv-trial{max-width:1100px;margin:16px auto 0;width:calc(100% - 32px)}.nv-app .nv-check{justify-content:flex-end}.nv-app .nv-check input{width:auto;margin-right:8px}
+
+/* Partnerbereich: Startseite und Bereichs-Tabs wie in der Verwaltung */
+.nv-app .nv-partner-tabs{max-width:1340px;margin:26px auto 0;padding:0 30px}
+.nv-workspace.is-single{grid-template-columns:minmax(0,1fr);max-width:1000px}.nv-workspace.is-single .nv-sidebar{display:none}
+.nv-home{max-width:1340px;margin:auto;padding:30px 30px 70px}.nv-home h1{margin-bottom:8px}.nv-home-lead{color:var(--nv-muted);max-width:60ch}
+.nv-home-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+.nv-home-card{display:flex;flex-direction:column;gap:6px;padding:24px;border:1px solid var(--nv-line);border-radius:12px;background:var(--nv-paper)}.nv-home-card h2{font-size:20px;margin:0}.nv-home-card p{color:var(--nv-muted);margin:0 0 6px}.nv-home-card .nv-chips{margin:4px 0 8px}.nv-home-card .nv-actions{margin-top:auto;padding-top:8px}
+.nv-home-studio{background:linear-gradient(160deg,#eaf6f8,var(--nv-paper));border-color:#b9e2e2}.nv-dark .nv-home-studio{background:linear-gradient(160deg,#173e46,var(--nv-paper));border-color:#2b5a63}
+.nv-home-card .nv-studio-link{margin-left:0}
+@media(max-width:900px){.nv-home-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.nv-app .nv-partner-tabs{padding:0 16px;margin-top:18px}.nv-home{padding:20px 16px 45px}.nv-home-card{padding:18px}.nv-home-card .nv-actions>*{width:100%;text-align:center;justify-content:center}}
+.nv-app .nv-header-actions{flex-wrap:nowrap;align-items:center;gap:8px}.nv-app .nv-brand{white-space:nowrap}
+@media(max-width:720px){.nv-app .nv-header{gap:10px}.nv-app .nv-header-actions button{padding:8px 12px;font-size:13px;min-height:0}.nv-app .nv-brand{font-size:16px}.nv-app .nv-partner-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.nv-app .nv-partner-tabs .nv-studio-link{display:none}}
+.nv-workspace.is-single .nv-savebox{display:none}
