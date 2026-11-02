@@ -1,0 +1,75 @@
+name: AI Studio · Verschlüsselter Sync
+# Überträgt Studio-Versionen zwischen privatem KV und Bearbeitung, ohne dass Prompts im Klartext
+# in diesem öffentlichen Repository oder in Protokollen erscheinen.
+# keygen:   erzeugt ein Schlüsselpaar; der private Schlüssel bleibt im privaten KV, der öffentliche erscheint im Log.
+# download: verschlüsselt einen KV-Eintrag für einen übergebenen öffentlichen Schlüssel.
+# upload:   entschlüsselt mit dem privaten KV-Schlüssel, sichert die alte Fassung und schreibt die neue.
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'keygen | download | upload'
+        required: true
+        type: choice
+        options: [keygen, download, upload]
+      key:
+        description: 'KV-Schlüssel'
+        required: true
+        type: choice
+        options: [studio-v06, studio-test]
+      recipient:
+        description: 'download: öffentlicher Schlüssel (PEM, base64)'
+        required: false
+        type: string
+      payload:
+        description: 'upload: verschlüsselte Datei'
+        required: false
+        type: string
+permissions:
+  contents: read
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      CF: https://api.cloudflare.com/client/v4/accounts/565efa139d3990e026b8bcf6a8c8963e/storage/kv/namespaces/58cc488df79a43d2ae3ca9bcc1a8a20e/values
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      ACTION: ${{ inputs.action }}
+      KEY: ${{ inputs.key }}
+      RECIPIENT: ${{ inputs.recipient }}
+      PAYLOAD: ${{ inputs.payload }}
+    steps:
+      - name: Ausführen
+        run: |
+          set -euo pipefail
+          umask 077; cd "$(mktemp -d)"
+          kv_get(){ curl -sSf "$CF/$1" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -o "$2"; }
+          kv_put(){ code=$(curl -sS -o resp.json -w '%{http_code}' -X PUT "$CF/$1" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" --data-binary @"$2"); test "$code" = 200 || { cat resp.json; exit 1; }; }
+          case "$ACTION" in
+            keygen)
+              openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out priv.pem 2>/dev/null
+              kv_put sync-private-key priv.pem
+              echo "PUBKEY-BEGIN"; openssl pkey -in priv.pem -pubout | base64 -w0; echo; echo "PUBKEY-END";;
+            download)
+              printf '%s' "$RECIPIENT" | base64 -d > pub.pem
+              kv_get "$KEY" studio.html
+              gzip -9c studio.html > s.gz
+              openssl rand -hex 32 > k; openssl rand -hex 16 > iv
+              openssl enc -aes-256-cbc -K "$(cat k)" -iv "$(cat iv)" -in s.gz -out s.enc
+              printf '%s%s' "$(cat k)" "$(cat iv)" | openssl pkeyutl -encrypt -pubin -inkey pub.pem -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 -out k.enc
+              echo "DATA-BEGIN"; { base64 -w0 k.enc; printf '.'; base64 -w0 s.enc; } | fold -w 900; echo; echo "DATA-END";;
+            upload)
+              kv_get sync-private-key priv.pem
+              printf '%s' "$PAYLOAD" | cut -d. -f1 | base64 -d > k.enc
+              printf '%s' "$PAYLOAD" | cut -d. -f2 | base64 -d > s.enc
+              kv=$(openssl pkeyutl -decrypt -inkey priv.pem -in k.enc -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256)
+              openssl enc -d -aes-256-cbc -K "${kv:0:64}" -iv "${kv:64:32}" -in s.enc -out s.gz
+              gunzip -c s.gz > new.html
+              head -c 15 new.html | grep -qi '<!doctype html>'
+              grep -q 'AI Studio' new.html
+              size=$(wc -c < new.html); echo "Neue Fassung: $size Bytes"; test "$size" -gt 20000
+              kv_get "$KEY" old.html && kv_put "$KEY-backup" old.html && echo "Vorherige Fassung gesichert unter $KEY-backup"
+              kv_put "$KEY" new.html
+              kv_get "$KEY" check.html; cmp -s new.html check.html && echo "PASS: $KEY aktualisiert";;
+          esac
