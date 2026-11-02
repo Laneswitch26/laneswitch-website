@@ -64,3 +64,10 @@
 .nv-request-contact{margin:8px 0 0;font-size:14px;overflow-wrap:anywhere}
 .nv-request-contact a{color:inherit;text-underline-offset:3px}
 .nv-request-message{margin:10px 0 0;padding:10px 12px;border-left:3px solid var(--nv-line);font-size:14px;white-space:pre-wrap;overflow-wrap:anywhere;max-width:70ch}
+
+/* Zugangsbereiche: Abmelden abgesetzt, AI-Studio-Einstieg im Admin */
+.nv-app .nv-logout{color:#b4233c;border-color:#f3c3cc;background:#fff;font-weight:700}.nv-app .nv-logout:hover:not(:disabled){background:#b4233c;border-color:#b4233c;color:#fff}.nv-dark .nv-logout{background:transparent;color:#ffa3b1;border-color:#6a2f3d}.nv-dark .nv-logout:hover:not(:disabled){background:#b4233c;border-color:#b4233c;color:#fff}
+.nv-sidebar>.nv-logout{margin-top:18px}
+.nv-app .nv-tabs{align-items:center}.nv-app .nv-studio-link{margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;background:linear-gradient(135deg,#06496f,#00a9b8);color:#fff;font-weight:700;font-size:14px;line-height:1.2;text-decoration:none;white-space:nowrap;box-shadow:0 4px 14px #06496f33;border:1px solid transparent}.nv-app .nv-studio-link:hover{filter:brightness(1.08);box-shadow:0 6px 18px #06496f4d}.nv-app .nv-studio-link:focus-visible{outline:3px solid #65e3e8;outline-offset:2px}
+@media(max-width:720px){.nv-app .nv-tabs{flex-wrap:wrap;overflow:visible}.nv-app .nv-studio-link{order:-1;margin:0 0 6px;width:100%;justify-content:center}}
+.nv-app .nv-trial{max-width:1100px;margin:16px auto 0;width:calc(100% - 32px)}.nv-app .nv-check{justify-content:flex-end}.nv-app .nv-check input{width:auto;margin-right:8px}

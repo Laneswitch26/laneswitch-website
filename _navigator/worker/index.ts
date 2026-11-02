@@ -33,10 +33,10 @@ export default {
         const auth=await GET(new Request(authUrl,{method:'GET',headers:req.headers}));
         if(!auth.ok)response=new Response(null,{status:302,headers:{Location:'/navigator/zugang?next=ai-studio'}});
         else {
-          const account=await auth.json() as {admin?:boolean,school?:string};
+          const account=await auth.json() as {admin?:boolean,school?:string,trialUntil?:number};
           if(account.school==='test')response=new Response(AI_STUDIO_DEMO_HTML,{headers:{'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'"}});
           else if(account.admin||account.school){
-            const html=await env.AI_STUDIO_KV?.get('studio-v06');
+            const html=await env.AI_STUDIO_KV?.get(account.trialUntil&&!account.admin?'studio-test':'studio-v06');
             response=html?new Response(req.method==='HEAD'?null:html,{headers:{'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'none'; font-src 'self'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'"}}):new Response('AI Studio wird eingerichtet.',{status:503});
           }else response=new Response('Kein Zugriff.',{status:403});
         }

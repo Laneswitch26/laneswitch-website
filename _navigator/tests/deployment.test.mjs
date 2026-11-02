@@ -107,3 +107,42 @@ test('AI Studio: full app requires server-side session; test account gets only s
     assert.equal(adminRes.status,200);assert.match(await adminRes.text(),/PRIVATE-STUDIO-TEST/);
   }finally{await mf.dispose();}
 });
+
+
+test('Testzugang mit Laufzeit: eigene Studio-Variante, Verlängern, Umwandeln und Sperre nach Ablauf',async()=>{
+  const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789',NAV_ADMIN_PASSWORD:'Admin fixture password 987'});
+  const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',d1Databases:['DB'],kvNamespaces:['AI_STUDIO_KV'],bindings:{NAV_ACCOUNTS:JSON.stringify(accounts)},serviceBindings:{ASSETS:async()=>new Response('app')}});
+  try{
+    const db=await mf.getD1Database('DB');
+    for(const file of (await readdir('drizzle')).filter(f=>f.endsWith('.sql')).sort())for(const q of (await readFile('drizzle/'+file,'utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
+    const kv=await mf.getKVNamespace('AI_STUDIO_KV');
+    await kv.put('studio-v06','<title>PRIVATE-STUDIO-TEST</title>');await kv.put('studio-test','<title>TRIAL-STUDIO-TEST</title>');
+    const origin='https://laneswitch.online',studio=origin+'/navigator/ai-studio';
+    const post=async(body,cookie,csrf)=>mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'content-type':'application/json',...(cookie?{cookie}:{}),...(csrf?{'x-csrf-token':csrf}:{})},body:JSON.stringify(body)});
+    const adminLogin=await post({action:'login',username:'admin',password:'Admin fixture password 987'});
+    const adminCookie=adminLogin.headers.get('set-cookie').split(';')[0],adminCsrf=(await adminLogin.json()).csrf;
+    const inv=await (await post({action:'createInvite',name:'Testfahrschule Muster',trial:true,trialDays:10},adminCookie,adminCsrf)).json();
+    assert.equal(inv.trialDays,10);
+    const reg=await post({action:'register',token:inv.link.split('#')[1],username:'testfahrschule',password:'Ein sehr langes Passwort 12',consent:true});
+    assert.equal(reg.status,200);const cookie=reg.headers.get('set-cookie').split(';')[0];const state=await reg.json();
+    assert.ok(state.trialUntil>Date.now()+9*86400000&&state.trialUntil<Date.now()+11*86400000);
+    const trialStudio=await mf.dispatchFetch(studio,{headers:{cookie}});
+    assert.equal(trialStudio.status,200);const body=await trialStudio.text();
+    assert.match(body,/TRIAL-STUDIO-TEST/);assert.doesNotMatch(body,/PRIVATE-STUDIO-TEST/);
+    const overview=await (await post({action:'adminOverview'},adminCookie,adminCsrf)).json();
+    const row=overview.schools.find(s=>s.school===inv.school);assert.ok(row.trialUntil>0);
+    const extended=await (await post({action:'setSchool',school:inv.school,trialDays:14},adminCookie,adminCsrf)).json();
+    assert.ok(extended.schools.find(s=>s.school===inv.school).trialUntil>row.trialUntil+13*86400000);
+    // Abgelaufen: Anmeldung und bestehende Sitzung werden abgewiesen, Daten bleiben erhalten.
+    await db.prepare('UPDATE nav_schools SET trial_until=? WHERE school=?').bind(Date.now()-1000,inv.school).run();
+    const expiredLogin=await post({action:'login',username:'testfahrschule',password:'Ein sehr langes Passwort 12'});
+    assert.equal(expiredLogin.status,403);
+    assert.equal((await mf.dispatchFetch(studio,{headers:{cookie},redirect:'manual'})).status,302);
+    // Verlängern reaktiviert, Umwandeln hebt die Befristung auf und liefert das volle Studio.
+    await post({action:'setSchool',school:inv.school,trialDays:5},adminCookie,adminCsrf);
+    const again=await post({action:'login',username:'testfahrschule',password:'Ein sehr langes Passwort 12'});assert.equal(again.status,200);
+    await post({action:'setSchool',school:inv.school,convert:true},adminCookie,adminCsrf);
+    const fullCookie=(await post({action:'login',username:'testfahrschule',password:'Ein sehr langes Passwort 12'})).headers.get('set-cookie').split(';')[0];
+    assert.match(await (await mf.dispatchFetch(studio,{headers:{cookie:fullCookie}})).text(),/PRIVATE-STUDIO-TEST/);
+  }finally{await mf.dispose();}
+});
