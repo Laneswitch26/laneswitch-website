@@ -1,0 +1,42 @@
+name: AI Studio · Testvariante hochladen
+# Legt eine Studio-Version im privaten KV ab, ohne die Datei im öffentlichen Repository zu speichern.
+# Eingabe: gzip-komprimiertes, base64-kodiertes HTML. Nur der Schlüssel studio-test ist erlaubt.
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'HTML der Testvariante (gzip + base64)'
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  upload:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Datei dekodieren und prüfen
+        env:
+          PAYLOAD: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PAYLOAD" | base64 -d | gunzip > /tmp/studio-test.html
+          head -c 15 /tmp/studio-test.html | grep -q '<!doctype html>'
+          grep -q 'Testversion' /tmp/studio-test.html
+          if grep -Eq 'PRODUKTION AKTIV|AKTIVER ARBEITSSCHRITT|ZWEI AUFTRAGSPHASEN|PRODUKTIONSMODUS' /tmp/studio-test.html; then
+            echo "Abbruch: Datei enthält interne Studio-Anweisungen"; exit 1
+          fi
+          echo "Größe: $(wc -c < /tmp/studio-test.html) Bytes"
+      - name: In KV ablegen (Schlüssel studio-test)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          url="https://api.cloudflare.com/client/v4/accounts/565efa139d3990e026b8bcf6a8c8963e/storage/kv/namespaces/58cc488df79a43d2ae3ca9bcc1a8a20e/values/studio-test"
+          code=$(curl -sS -o /tmp/resp.json -w '%{http_code}' -X PUT "$url" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H 'Content-Type: text/html; charset=utf-8' --data-binary @/tmp/studio-test.html)
+          cat /tmp/resp.json; echo
+          test "$code" = "200"
+          back=$(curl -sS -w '\n%{http_code}' "$url" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" | tail -1)
+          test "$back" = "200"
+          echo "PASS: studio-test hochgeladen und lesbar"
