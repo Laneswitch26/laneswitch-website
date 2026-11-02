@@ -85,3 +85,11 @@
 .nv-app .nv-header-actions{flex-wrap:nowrap;align-items:center;gap:8px}.nv-app .nv-brand{white-space:nowrap}
 @media(max-width:720px){.nv-app .nv-header{gap:10px}.nv-app .nv-header-actions button{padding:8px 12px;font-size:13px;min-height:0}.nv-app .nv-brand{font-size:16px}.nv-app .nv-partner-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.nv-app .nv-partner-tabs .nv-studio-link{display:none}}
 .nv-workspace.is-single .nv-savebox{display:none}
+
+/* Meine Beiträge */
+.nv-posts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:14px}
+.nv-post{display:flex;flex-direction:column;border:1px solid var(--nv-line);border-radius:12px;background:var(--nv-paper);overflow:hidden}
+.nv-post img{display:block;width:100%;max-height:420px;object-fit:contain;background:var(--nv-bg)}
+.nv-post-body{padding:18px 20px;display:flex;flex-direction:column;gap:6px}.nv-post-body h2{font-size:19px;margin:0}
+.nv-post-caption{max-height:220px;overflow:auto;padding:12px;border:1px solid var(--nv-line);border-radius:8px;background:var(--nv-bg);font-size:14px;margin:6px 0}
+@media(max-width:900px){.nv-posts{grid-template-columns:1fr}}
