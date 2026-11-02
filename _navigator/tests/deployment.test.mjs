@@ -146,3 +146,45 @@ test('Testzugang mit Laufzeit: eigene Studio-Variante, Verlängern, Umwandeln un
     assert.match(await (await mf.dispatchFetch(studio,{headers:{cookie:fullCookie}})).text(),/PRIVATE-STUDIO-TEST/);
   }finally{await mf.dispose();}
 });
+
+
+test('AI Studio: Beitragspakete speichern/abrufen/löschen und Feedback im Admin',async()=>{
+  const accounts=makeAccounts({NAV_A1_PASSWORD:'A1 fixture password 123',NAV_EMRE_PASSWORD:'Emre fixture password 456',NAV_TEST_PASSWORD:'Test fixture password 789',NAV_ADMIN_PASSWORD:'Admin fixture password 987'});
+  const mf=new Miniflare({modules:true,scriptPath:'dist/worker.mjs',compatibilityDate:'2026-05-15',d1Databases:['DB'],kvNamespaces:['AI_STUDIO_KV'],bindings:{NAV_ACCOUNTS:JSON.stringify(accounts)},serviceBindings:{ASSETS:async()=>new Response('app')}});
+  try{
+    const db=await mf.getD1Database('DB');
+    for(const file of (await readdir('drizzle')).filter(f=>f.endsWith('.sql')).sort())for(const q of (await readFile('drizzle/'+file,'utf8')).split('--> statement-breakpoint'))await db.prepare(q.trim()).run();
+    await (await mf.getKVNamespace('AI_STUDIO_KV')).put('studio-v06','<title>STUDIO</title>');
+    const origin='https://laneswitch.online';
+    const post=async(body,cookie,csrf)=>mf.dispatchFetch(origin+'/api/navigator',{method:'POST',headers:{origin,'content-type':'application/json',...(cookie?{cookie}:{}),...(csrf?{'x-csrf-token':csrf}:{})},body:JSON.stringify(body)});
+    const login=async(u,p)=>{const r=await post({action:'login',username:u,password:p});assert.equal(r.status,200);return {cookie:r.headers.get('set-cookie').split(';')[0],csrf:(await r.json()).csrf};};
+    const a1=await login('a1','A1 fixture password 123');
+    const studio=await mf.dispatchFetch(origin+'/navigator/ai-studio',{headers:{cookie:a1.cookie}});
+    assert.match(studio.headers.get('content-security-policy'),/connect-src 'self'/);
+    const img='data:image/jpeg;base64,'+Buffer.from([0xff,0xd8,0xff,0xd9]).toString('base64');
+    const bad=await post({action:'savePost',title:'',caption:'x'},a1.cookie,a1.csrf);assert.equal(bad.status,400);
+    const saved=await post({action:'savePost',title:'Auffrischungsstunden Herbst',topic:'Auffrischung',format:'instagram',caption:'Wieder sicher am Steuer.',image:img,task:'LS-001',provider:'claude'},a1.cookie,a1.csrf);
+    assert.equal(saved.status,200);const {id}=await saved.json();
+    const list=await (await mf.dispatchFetch(origin+'/api/navigator?action=posts',{headers:{cookie:a1.cookie}})).json();
+    assert.equal(list.posts.length,1);assert.equal(list.posts[0].title,'Auffrischungsstunden Herbst');assert.equal(list.posts[0].hasImage,true);assert.equal(list.limit,100);
+    const pic=await mf.dispatchFetch(origin+'/api/navigator?action=postImage&id='+id,{headers:{cookie:a1.cookie}});
+    assert.equal(pic.status,200);assert.equal(pic.headers.get('content-type'),'image/jpeg');
+    // Andere Fahrschule sieht nichts
+    const emre=await login('emre','Emre fixture password 456');
+    assert.equal((await mf.dispatchFetch(origin+'/api/navigator?action=postImage&id='+id,{headers:{cookie:emre.cookie}})).status,404);
+    assert.equal((await (await mf.dispatchFetch(origin+'/api/navigator?action=posts',{headers:{cookie:emre.cookie}})).json()).posts.length,0);
+    assert.equal((await post({action:'deletePost',id},emre.cookie,emre.csrf)).status,200);
+    assert.equal((await (await mf.dispatchFetch(origin+'/api/navigator?action=posts',{headers:{cookie:a1.cookie}})).json()).posts.length,1);
+    // Feedback
+    assert.equal((await post({action:'sendFeedback',rating:11},a1.cookie,a1.csrf)).status,400);
+    assert.equal((await (await mf.dispatchFetch(origin+'/api/navigator?action=feedbackStatus',{headers:{cookie:a1.cookie}})).json()).given,false);
+    assert.equal((await post({action:'sendFeedback',rating:8,text:'Bild mit Claude klappte gut.',provider:'claude'},a1.cookie,a1.csrf)).status,200);
+    assert.equal((await (await mf.dispatchFetch(origin+'/api/navigator?action=feedbackStatus',{headers:{cookie:a1.cookie}})).json()).given,true);
+    const admin=await login('admin','Admin fixture password 987');
+    const ov=await (await post({action:'adminOverview'},admin.cookie,admin.csrf)).json();
+    assert.equal(ov.feedback.length,1);assert.equal(ov.feedback[0].rating,8);assert.equal(ov.feedback[0].name,'A1 Fahrschule');
+    // Löschen durch Eigentümer
+    assert.equal((await post({action:'deletePost',id},a1.cookie,a1.csrf)).status,200);
+    assert.equal((await (await mf.dispatchFetch(origin+'/api/navigator?action=posts',{headers:{cookie:a1.cookie}})).json()).posts.length,0);
+  }finally{await mf.dispose();}
+});
