@@ -1,8 +1,30 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-10-31T07:09:32Z",
+  "checkedAt": "2026-11-04T07:12:53Z",
   "items": [
+    {
+      "id": "fahrschulreform-abstimmung-2026-11-05",
+      "category": "Ausbildung & Prüfung",
+      "status": "proposal",
+      "title": "Führerscheinreform kommt am 5. November zur Abstimmung",
+      "summary": "Der Bundestag will am 5. November über den Gesetzentwurf zur Fahrschulausbildung abstimmen. Das Reformpaket sieht vor, dass Fahrschulen Theorie vollständig digital anbieten können. Die vorgesehene Abstimmung setzt diese Änderung noch nicht in Kraft.",
+      "impact": "Für die Planung Ihrer Klasse-B-Kurse gilt weiterhin das bisherige Pflichtprogramm. Beim Ersterwerb gehören zwölf besondere Ausbildungsfahrten zu je 45 Minuten dazu.",
+      "action": "Kalkulieren Sie laufende Kurse mit den geltenden Vorgaben. Prüfen Sie vor einer Umstellung auf reine App-Theorie die endgültigen Vorschriften und deren Inkrafttreten.",
+      "publishedAt": "2026-11-03T00:00:00+01:00",
+      "checkedAt": "2026-11-04T07:12:53Z",
+      "expiresAt": "2026-11-05T14:00:00+01:00",
+      "sources": [
+        {
+          "name": "Deutscher Bundestag · Ankündigung der Abstimmung, aktualisiert am 3. November",
+          "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw45-de-fahrlehrergesetz-1230606"
+        },
+        {
+          "name": "Bundesministerium der Justiz · Fahrschüler-Ausbildungsordnung, Anlage 4",
+          "url": "https://www.gesetze-im-internet.de/fahrschausbo_2012/anlage_4.html"
+        }
+      ]
+    },
     {
       "id": "euro7-typgenehmigung-2026-10-29",
       "category": "Fahrzeug & Recht",
@@ -168,6 +190,24 @@
         {
           "name": "Bundesregierung · Neuregelungen Oktober, 29.09.2026",
           "url": "https://www.bundesregierung.de/breg-de/suche/gesetzliche-neuregelungen-oktober-2026-2454624"
+        }
+      ]
+    },
+    {
+      "id": "recklinghausen-eifelstrasse-2026-11-03",
+      "category": "Regionalverkehr",
+      "status": "report",
+      "title": "Recklinghausen: Eifelstraße nur in Richtung Hausnummer 31 befahrbar",
+      "summary": "Die Stadt richtet zwischen den Hausnummern 23 und 31 wegen Leitungsarbeiten eine Einbahnstraße ein. Die Regelung läuft vom 3. bis voraussichtlich 30. November.",
+      "impact": "Bei Fahrstunden mit Zielen in diesem Abschnitt ist die Anfahrt aus Richtung Hausnummer 31 unterbrochen.",
+      "action": "Planen Sie die Anfahrt zu Treffpunkten anhand der ausgeschilderten Umleitung.",
+      "publishedAt": "2026-10-26T00:00:00+01:00",
+      "checkedAt": "2026-11-04T07:12:53Z",
+      "expiresAt": "2026-12-01T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Recklinghausen · Eifelstraße, 26. Oktober",
+          "url": "https://recklinghausen.de/Inhalte/startseite/_details.asp?db=513&form=detail&id=32507"
         }
       ]
     }
