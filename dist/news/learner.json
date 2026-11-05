@@ -1,18 +1,18 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-11-04T07:12:53Z",
+  "checkedAt": "2026-11-05T07:49:11Z",
   "items": [
     {
       "id": "fahrschulreform-abstimmung-2026-11-05",
       "category": "Ausbildung & Prüfung",
       "status": "proposal",
       "title": "Führerscheinreform kommt am 5. November zur Abstimmung",
-      "summary": "Der Bundestag will am 5. November über den Gesetzentwurf zur Fahrschulausbildung abstimmen. Das Reformpaket sieht vor, dass Fahrschulen Theorie vollständig digital anbieten können. Die vorgesehene Abstimmung setzt diese Änderung noch nicht in Kraft.",
+      "summary": "Prüfstand am Morgen des 5. November: Der Bundestag kündigt für heute die Abstimmung über den Gesetzentwurf zur Fahrschulausbildung in der vom Verkehrsausschuss geänderten Fassung an. Geplant ist unter anderem vollständig digitaler Theorieunterricht. Zum Prüfzeitpunkt ist kein Beschluss als geltendes Recht bestätigt.",
       "impact": "Beim Ersterwerb der Klasse B brauchst du weiterhin zwölf besondere Ausbildungsfahrten zu je 45 Minuten: fünf über Land, vier auf der Autobahn oder einer gleichgestellten Kraftfahrstraße und drei bei Dämmerung oder Dunkelheit.",
       "action": "Behalte deine vereinbarten Theorie- und Fahrtermine bei. Aus dem Abstimmungstermin ergibt sich für dich weder ein Wegfall von Stunden noch ein neuer Preis.",
       "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-04T07:12:53Z",
+      "checkedAt": "2026-11-05T07:49:11Z",
       "expiresAt": "2026-11-05T14:00:00+01:00",
       "sources": [
         {
@@ -22,6 +22,42 @@
         {
           "name": "Bundesministerium der Justiz · Fahrschüler-Ausbildungsordnung, Anlage 4",
           "url": "https://www.gesetze-im-internet.de/fahrschausbo_2012/anlage_4.html"
+        }
+      ]
+    },
+    {
+      "status": "report",
+      "checkedAt": "2026-11-05T07:49:11Z",
+      "id": "adac-kraftstoffpreise-2026-11-04",
+      "category": "Tanken & Kosten",
+      "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
+      "summary": "Der ADAC meldet am 4. November bundesweite Durchschnittspreise von 2,041 Euro je Liter Super E10 und 2,260 Euro je Liter Diesel. Gegenüber der Vorwoche sind das 4,3 beziehungsweise 2,9 Cent weniger. Diese Durchschnittswerte sind keine örtlichen Preisangebote.",
+      "impact": "Für 40 Liter ergeben sich mit diesen Durchschnittspreisen rechnerisch 81,64 Euro für E10 oder 90,40 Euro für Diesel. Dein tatsächlicher Tankbetrag hängt vom Preis vor Ort ab.",
+      "action": "Vergleiche vor dem Tanken lokale Preise und rechne dein Budget mit dem tatsächlich angezeigten Literpreis. Aus der Wochenentwicklung folgt keine Garantie für weitere Rückgänge.",
+      "publishedAt": "2026-11-04T11:59:00+01:00",
+      "expiresAt": "2026-11-12T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "ADAC · eigene Kraftstoffpreisauswertung vom 4. November 2026",
+          "url": "https://www.adac.de/news/aktueller-spritpreis/"
+        }
+      ]
+    },
+    {
+      "status": "report",
+      "checkedAt": "2026-11-05T07:49:11Z",
+      "id": "a2-recklinghausen-sued-2026-11-05",
+      "category": "Region & Verkehr",
+      "title": "A2 Recklinghausen-Süd: Auffahrt heute Nacht gesperrt",
+      "summary": "Die Auffahrt Recklinghausen-Süd zur A2 Richtung Hannover ist wegen Fahrbahnsanierung vom 5. November, 20 Uhr, bis 6. November, 5 Uhr, gesperrt. Die Autobahn GmbH führt den Verkehr über das Kreuz Recklinghausen bis Recklinghausen/Herten und von dort zurück zur A2 Richtung Hannover.",
+      "impact": "Eine späte Fahrstunde oder Heimfahrt über diese Auffahrt braucht in diesem Zeitraum eine andere Route. Die Meldung betrifft die Auffahrt Richtung Hannover, nicht eine vollständige Sperrung der A2.",
+      "action": "Kläre bei einer betroffenen Fahrstunde die Route mit deiner Fahrschule und folge vor Ort der ausgeschilderten Umleitung.",
+      "publishedAt": "2026-11-02T00:00:00+01:00",
+      "expiresAt": "2026-11-06T05:00:00+01:00",
+      "sources": [
+        {
+          "name": "Autobahn GmbH des Bundes · Verkehrsmeldung vom 2. November 2026",
+          "url": "https://www.autobahn.de/betrieb-verkehr/verkehrsmeldung/a2-sperrung-der-auffahrt-recklinghausen-sued-wegen-fahrbahnsanierung"
         }
       ]
     },
@@ -74,24 +110,6 @@
       ]
     },
     {
-      "id": "recklinghausen-clausius-schubert-2026-10-28",
-      "category": "Region & Verkehr",
-      "status": "report",
-      "title": "Recklinghausen: Zwei Einmündungen an der Halterner Straße gesperrt.",
-      "summary": "Ab 28. Oktober werden die Einmündungen von Clausiusstraße und Schubertstraße in die Halterner Straße in zwei Bauabschnitten gesperrt. Die Leitungsarbeiten sollen bis 17. November dauern. In der jeweiligen Bauphase enden die Straßen zur Halterner Straße hin als Sackgassen; ein Abbiegen von dort ist nicht möglich. Umleitungen werden ausgeschildert.",
-      "impact": "Führt dein Weg zur Fahrschule über eine dieser Einmündungen, brauchst du während der jeweiligen Sperrung eine andere Zufahrt. Auch vereinbarte Treffpunkte für Fahrstunden können betroffen sein.",
-      "action": "Prüfe vor deiner Fahrt die ausgeschilderte Umleitung und kläre einen betroffenen Treffpunkt mit deiner Fahrschule.",
-      "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
-      "expiresAt": "2026-11-18T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Recklinghausen · Meldung vom 26.10.2026",
-          "url": "https://www.recklinghausen.de/Inhalte/Startseite/_details.asp?db=513&form=detail&id=32505"
-        }
-      ]
-    },
-    {
       "id": "bochum-wittener-strasse-2026-10-28",
       "category": "Region & Verkehr",
       "status": "report",
@@ -106,24 +124,6 @@
         {
           "name": "Stadt Bochum · Meldung vom 26.10.2026",
           "url": "https://www.bochum.de/Pressemeldungen/26-Oktober-2026/Wittener-Strasse-Einbahnstrasse-zwischen-Alter-Wittener-Strasse-und-Werner-Hellweg"
-        }
-      ]
-    },
-    {
-      "id": "bochum-kabeisemannsweg-2026-10-26",
-      "category": "Region & Verkehr",
-      "status": "report",
-      "title": "Kabeisemannsweg: Umleitung ab 26. Oktober.",
-      "summary": "Die Stadt Bochum erneuert am Knoten Kabeisemannsweg/Erzbahntrasse Fahrbahn sowie Geh- und Radweg. Vom 26. Oktober bis voraussichtlich 20. November wird der motorisierte Verkehr umgeleitet. Zu Fuß und mit dem Rad bleibt der Bereich passierbar.",
-      "impact": "Wenn dein Weg zur Fahrschule oder deine Fahrstunde über diesen Knoten führt, musst du mit dem Auto der ausgeschilderten Umleitung folgen.",
-      "action": "Prüfe vor deiner Fahrt die Route und beachte die ausgeschilderte Umleitung.",
-      "publishedAt": "2026-10-23T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
-      "expiresAt": "2026-11-21T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Bochum · Meldung vom 23.10.2026",
-          "url": "https://www.bochum.de/Pressemeldungen/23-Oktober-2026/Arbeiten-im-Kreuzungsbereich-Kabeisemannsweg-/-Erzbahntrasse"
         }
       ]
     },
