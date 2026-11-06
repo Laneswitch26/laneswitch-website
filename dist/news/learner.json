@@ -1,23 +1,23 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-11-05T07:49:11Z",
+  "checkedAt": "2026-11-06T07:52:19Z",
   "items": [
     {
       "id": "fahrschulreform-abstimmung-2026-11-05",
       "category": "Ausbildung & Prüfung",
-      "status": "proposal",
-      "title": "Führerscheinreform kommt am 5. November zur Abstimmung",
-      "summary": "Prüfstand am Morgen des 5. November: Der Bundestag kündigt für heute die Abstimmung über den Gesetzentwurf zur Fahrschulausbildung in der vom Verkehrsausschuss geänderten Fassung an. Geplant ist unter anderem vollständig digitaler Theorieunterricht. Zum Prüfzeitpunkt ist kein Beschluss als geltendes Recht bestätigt.",
+      "status": "decided",
+      "title": "Update: Bundestag beschließt ersten Teil der Führerscheinreform",
+      "summary": "Am 5. November hat der Bundestag den ersten Teil der Reform beschlossen. Die Zustimmung des Bundesrats steht noch aus – auch zur ergänzenden Verordnung. Das Paket sieht vollständig digitale Theorie und flexiblere Sonderfahrten vor; diese Änderungen sind noch nicht in Kraft.",
       "impact": "Beim Ersterwerb der Klasse B brauchst du weiterhin zwölf besondere Ausbildungsfahrten zu je 45 Minuten: fünf über Land, vier auf der Autobahn oder einer gleichgestellten Kraftfahrstraße und drei bei Dämmerung oder Dunkelheit.",
-      "action": "Behalte deine vereinbarten Theorie- und Fahrtermine bei. Aus dem Abstimmungstermin ergibt sich für dich weder ein Wegfall von Stunden noch ein neuer Preis.",
-      "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-05T07:49:11Z",
-      "expiresAt": "2026-11-05T14:00:00+01:00",
+      "action": "Behalte vereinbarte Theorie- und Fahrtermine bei. Der Beschluss allein erlaubt weder den Verzicht auf Pflichtfahrten noch privates Üben im öffentlichen Verkehr ohne Fahrerlaubnis. Eine konkrete Ersparnis ist nicht zugesichert.",
+      "publishedAt": "2026-11-05T00:00:00+01:00",
+      "checkedAt": "2026-11-06T07:52:19Z",
+      "expiresAt": "2026-11-20T00:00:00+01:00",
       "sources": [
         {
-          "name": "Deutscher Bundestag · Ankündigung der Abstimmung, aktualisiert am 3. November",
-          "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw45-de-fahrlehrergesetz-1230606"
+          "name": "Bundesregierung · Bundestagsbeschluss vom 5. November 2026",
+          "url": "https://www.bundesregierung.de/breg-de/schwerpunkte/wirksam-regieren/kabinett-startet-reform-fahrschulausbildung-2431088"
         },
         {
           "name": "Bundesministerium der Justiz · Fahrschüler-Ausbildungsordnung, Anlage 4",
@@ -27,7 +27,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-05T07:49:11Z",
+      "checkedAt": "2026-11-06T07:52:19Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
@@ -40,24 +40,6 @@
         {
           "name": "ADAC · eigene Kraftstoffpreisauswertung vom 4. November 2026",
           "url": "https://www.adac.de/news/aktueller-spritpreis/"
-        }
-      ]
-    },
-    {
-      "status": "report",
-      "checkedAt": "2026-11-05T07:49:11Z",
-      "id": "a2-recklinghausen-sued-2026-11-05",
-      "category": "Region & Verkehr",
-      "title": "A2 Recklinghausen-Süd: Auffahrt heute Nacht gesperrt",
-      "summary": "Die Auffahrt Recklinghausen-Süd zur A2 Richtung Hannover ist wegen Fahrbahnsanierung vom 5. November, 20 Uhr, bis 6. November, 5 Uhr, gesperrt. Die Autobahn GmbH führt den Verkehr über das Kreuz Recklinghausen bis Recklinghausen/Herten und von dort zurück zur A2 Richtung Hannover.",
-      "impact": "Eine späte Fahrstunde oder Heimfahrt über diese Auffahrt braucht in diesem Zeitraum eine andere Route. Die Meldung betrifft die Auffahrt Richtung Hannover, nicht eine vollständige Sperrung der A2.",
-      "action": "Kläre bei einer betroffenen Fahrstunde die Route mit deiner Fahrschule und folge vor Ort der ausgeschilderten Umleitung.",
-      "publishedAt": "2026-11-02T00:00:00+01:00",
-      "expiresAt": "2026-11-06T05:00:00+01:00",
-      "sources": [
-        {
-          "name": "Autobahn GmbH des Bundes · Verkehrsmeldung vom 2. November 2026",
-          "url": "https://www.autobahn.de/betrieb-verkehr/verkehrsmeldung/a2-sperrung-der-auffahrt-recklinghausen-sued-wegen-fahrbahnsanierung"
         }
       ]
     },
@@ -128,33 +110,15 @@
       ]
     },
     {
-      "id": "sicherheitswarnung-phishing-2026-10-22",
-      "category": "Cyber & Datenschutz",
-      "status": "report",
-      "title": "Sicherheitswarnung per Mail? Zugangsdaten nicht über Links eingeben.",
-      "summary": "Der LfDI Mecklenburg-Vorpommern warnt am 22. Oktober vor Phishing im Umfeld aktueller PHP-Sicherheitswarnungen. Gefälschte Anbieter-Mails können zur Anmeldung oder zum Download eines angeblichen Updates drängen. Die Behörde empfiehlt, Webseiten selbst aufzurufen und Anfragen über einen unabhängigen Kontaktweg zu prüfen.",
-      "impact": "Auch Konten für Lernangebote oder Terminbuchungen können Ziel solcher Täuschungsversuche sein. Eine dringend formulierte Sicherheitsmail beweist weder ihre Echtheit noch einen Angriff auf dein Konto.",
-      "action": "Öffne die bekannte Anbieteradresse oder App selbst. Gib keine Zugangsdaten über einen verdächtigen Mail-Link ein und lade dort kein Update herunter. Frage bei Unsicherheit über einen bereits bekannten Kontakt nach.",
-      "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
-      "expiresAt": "2026-11-06T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "LfDI Mecklenburg-Vorpommern · Warnung vom 22.10.2026",
-          "url": "https://www.datenschutz-mv.de/presse/?id=224390&processor=processor.sa.pressemitteilung"
-        }
-      ]
-    },
-    {
       "id": "herner-strasse-bochum-2026-10-21",
       "category": "Region & Verkehr",
       "status": "report",
-      "title": "Update: Herner Straße wieder mit einer Spur je Richtung.",
-      "summary": "Aktualisierung vom 30. Oktober: Laut Bauplan der Stadt ist seit 5 Uhr am Dorneburger Mühlenbach wieder je eine Spur Richtung Bochum und Herne vorgesehen. Bis 6. November bleibt die A43-Auffahrt Richtung Wuppertal gesperrt; Richtung Münster ist sie frei. Vom 6. bis 13. November folgen Arbeiten auf der Westseite, dann sind die A43-Anschlüsse wieder in beide Richtungen frei. Die Korrektur vom 27. Oktober bleibt bestehen: Der 6. November ist nicht das Ende aller Arbeiten.",
+      "title": "Update: Herner Straße – letzte Bauphase laut Plan ab 6. November",
+      "summary": "Aktualisierung vom 6. November: Der veröffentlichte Bauplan sieht bis 13. November Wiederherstellungsarbeiten auf der Westseite vor. Für diese Phase sind die A43-Auf- und Abfahrten in beide Richtungen wieder freigegeben. Eine gesonderte Bestätigung des tatsächlichen Phasenwechsels liegt dieser Meldung nicht zugrunde; die Beschilderung vor Ort ist maßgeblich.",
       "impact": "Deine Wege zwischen Bochum und Herne sowie Fahrstunden können durch wechselnde Verkehrsführungen länger dauern.",
       "action": "Prüfe vor der Fahrt die aktuelle Bauphase und die ausgeschilderte Umleitung. Plane für Termine zusätzliche Zeit ein.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
+      "checkedAt": "2026-11-06T07:52:19Z",
       "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
@@ -168,7 +132,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
+      "checkedAt": "2026-11-06T07:52:19Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt bis Jahresende: Was beim Tanken zählt.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",

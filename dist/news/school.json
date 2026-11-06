@@ -1,23 +1,23 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-05T07:49:11Z",
+  "checkedAt": "2026-11-06T07:52:19Z",
   "items": [
     {
       "id": "fahrschulreform-abstimmung-2026-11-05",
       "category": "Ausbildung & Prüfung",
-      "status": "proposal",
-      "title": "Führerscheinreform kommt am 5. November zur Abstimmung",
-      "summary": "Prüfstand am Morgen des 5. November: Der Bundestag kündigt für heute die Abstimmung über den Gesetzentwurf zur Fahrschulausbildung in der vom Verkehrsausschuss geänderten Fassung an. Geplant ist unter anderem vollständig digitaler Theorieunterricht. Zum Prüfzeitpunkt ist kein Beschluss als geltendes Recht bestätigt.",
+      "status": "decided",
+      "title": "Update: Bundestag beschließt ersten Teil der Führerscheinreform",
+      "summary": "Am 5. November hat der Bundestag den ersten Teil der Reform beschlossen. Die Zustimmung des Bundesrats steht noch aus – auch zur ergänzenden Verordnung. Das Paket sieht vollständig digitale Theorie und flexiblere Sonderfahrten vor; diese Änderungen sind noch nicht in Kraft.",
       "impact": "Für die Planung Ihrer Klasse-B-Kurse gilt weiterhin das bisherige Pflichtprogramm. Beim Ersterwerb gehören zwölf besondere Ausbildungsfahrten zu je 45 Minuten dazu.",
-      "action": "Kalkulieren Sie laufende Kurse mit den geltenden Vorgaben. Prüfen Sie vor einer Umstellung auf reine App-Theorie die endgültigen Vorschriften und deren Inkrafttreten.",
-      "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-05T07:49:11Z",
-      "expiresAt": "2026-11-05T14:00:00+01:00",
+      "action": "Planen Sie laufende Kurse weiterhin nach geltendem Recht. Stellen Sie Pflichtstunden oder Theorieformate erst nach Prüfung der endgültigen Vorschriften und ihres Inkrafttretens um; kalkulieren Sie keine zugesicherte Ersparnis.",
+      "publishedAt": "2026-11-05T00:00:00+01:00",
+      "checkedAt": "2026-11-06T07:52:19Z",
+      "expiresAt": "2026-11-20T00:00:00+01:00",
       "sources": [
         {
-          "name": "Deutscher Bundestag · Ankündigung der Abstimmung, aktualisiert am 3. November",
-          "url": "https://www.bundestag.de/dokumente/textarchiv/2026/kw45-de-fahrlehrergesetz-1230606"
+          "name": "Bundesregierung · Bundestagsbeschluss vom 5. November 2026",
+          "url": "https://www.bundesregierung.de/breg-de/schwerpunkte/wirksam-regieren/kabinett-startet-reform-fahrschulausbildung-2431088"
         },
         {
           "name": "Bundesministerium der Justiz · Fahrschüler-Ausbildungsordnung, Anlage 4",
@@ -27,7 +27,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-05T07:49:11Z",
+      "checkedAt": "2026-11-06T07:52:19Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
@@ -40,24 +40,6 @@
         {
           "name": "ADAC · eigene Kraftstoffpreisauswertung vom 4. November 2026",
           "url": "https://www.adac.de/news/aktueller-spritpreis/"
-        }
-      ]
-    },
-    {
-      "status": "report",
-      "checkedAt": "2026-11-05T07:49:11Z",
-      "id": "a2-recklinghausen-sued-2026-11-05",
-      "category": "Region & Verkehr",
-      "title": "A2 Recklinghausen-Süd: Auffahrt heute Nacht gesperrt",
-      "summary": "Die Auffahrt Recklinghausen-Süd zur A2 Richtung Hannover ist wegen Fahrbahnsanierung vom 5. November, 20 Uhr, bis 6. November, 5 Uhr, gesperrt. Die Autobahn GmbH führt den Verkehr über das Kreuz Recklinghausen bis Recklinghausen/Herten und von dort zurück zur A2 Richtung Hannover.",
-      "impact": "Prüfen Sie späte Ausbildungsfahrten und Rückfahrten über diese Auffahrt. Die angekündigte Sperrung betrifft die Auffahrt Richtung Hannover, nicht die gesamte A2.",
-      "action": "Passen Sie betroffene Abendrouten an und berücksichtigen Sie die ausgeschilderte Umleitung in Ihrer Zeitplanung.",
-      "publishedAt": "2026-11-02T00:00:00+01:00",
-      "expiresAt": "2026-11-06T05:00:00+01:00",
-      "sources": [
-        {
-          "name": "Autobahn GmbH des Bundes · Verkehrsmeldung vom 2. November 2026",
-          "url": "https://www.autobahn.de/betrieb-verkehr/verkehrsmeldung/a2-sperrung-der-auffahrt-recklinghausen-sued-wegen-fahrbahnsanierung"
         }
       ]
     },
@@ -128,37 +110,15 @@
       ]
     },
     {
-      "id": "php-sicherheitsupdates-2026-10-22",
-      "category": "Cyber & Datenschutz",
-      "status": "report",
-      "title": "Update: PHP unter Windows benötigt zusätzlichen Paketcheck.",
-      "summary": "Ergänzung vom 26. Oktober: Das PHP-Projekt stellt Windows-Pakete 8.5.12-1, 8.4.27-1, 8.3.36-1 und 8.2.35-1 mit einer zusätzlichen Brotli-Sicherheitskorrektur bereit. Die PHP-Laufzeitversion bleibt dabei unverändert. Der betroffene Decoder ist über cURL erreichbar, wenn die automatische Antwort-Dekomprimierung aktiviert wurde. Die zuvor veröffentlichten Updates gegen zwei kritische PHP-Lücken bleiben erforderlich.",
-      "impact": "Relevant ist dies für Ihre Website oder Schülerverwaltung, wenn der Dienstleister PHP unter Windows einsetzt. Ein Windows-Bürorechner allein macht Ihren Betrieb nicht betroffen. Die PHP-Versionsnummer genügt nicht als Nachweis des neuen Windows-Paketstands.",
-      "action": "Lassen Sie den Betreiber Betriebssystem, PHP-Paketstand und die cURL-Konfiguration prüfen. Bei den offiziellen Windows-Paketen kennzeichnet die Endung -1 die Nachbesserung. Lassen Sie zudem die PHP-Hinweise vom 23. Oktober zur Session-Konfiguration und mögliche frühere Angriffe prüfen; sichern und testen Sie Backups.",
-      "publishedAt": "2026-10-22T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
-      "expiresAt": "2026-11-06T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "LfDI Mecklenburg-Vorpommern · Warnung vom 22.10.2026",
-          "url": "https://www.datenschutz-mv.de/presse/?id=224390&processor=processor.sa.pressemitteilung"
-        },
-        {
-          "name": "PHP-Projekt · Sicherheitsmeldungen vom 21., 23. und 26.10.2026",
-          "url": "https://www.php.net/archive/2026.php"
-        }
-      ]
-    },
-    {
       "id": "herner-strasse-bochum-2026-10-21",
       "category": "Betrieb & Verkehr",
       "status": "report",
-      "title": "Update: Herner Straße wieder mit einer Spur je Richtung.",
-      "summary": "Aktualisierung vom 30. Oktober: Laut Bauplan der Stadt ist seit 5 Uhr am Dorneburger Mühlenbach wieder je eine Spur Richtung Bochum und Herne vorgesehen. Bis 6. November bleibt die A43-Auffahrt Richtung Wuppertal gesperrt; Richtung Münster ist sie frei. Vom 6. bis 13. November folgen Arbeiten auf der Westseite, dann sind die A43-Anschlüsse wieder in beide Richtungen frei. Die Korrektur vom 27. Oktober bleibt bestehen: Der 6. November ist nicht das Ende aller Arbeiten.",
+      "title": "Update: Herner Straße – letzte Bauphase laut Plan ab 6. November",
+      "summary": "Aktualisierung vom 6. November: Der veröffentlichte Bauplan sieht bis 13. November Wiederherstellungsarbeiten auf der Westseite vor. Für diese Phase sind die A43-Auf- und Abfahrten in beide Richtungen wieder freigegeben. Eine gesonderte Bestätigung des tatsächlichen Phasenwechsels liegt dieser Meldung nicht zugrunde; die Beschilderung vor Ort ist maßgeblich.",
       "impact": "Die wechselnden Bauphasen betreffen Ausbildungsrouten, Abholungen und die Erreichbarkeit zwischen Bochum und Herne.",
       "action": "Berücksichtigen Sie die Bauphasen in der Routen- und Terminplanung und informieren Sie Lernende über geänderte Abholwege.",
       "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
+      "checkedAt": "2026-11-06T07:52:19Z",
       "expiresAt": "2026-11-14T00:00:00+01:00",
       "sources": [
         {
@@ -172,7 +132,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
+      "checkedAt": "2026-11-06T07:52:19Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt: Entlastung für den Fuhrpark einordnen.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
