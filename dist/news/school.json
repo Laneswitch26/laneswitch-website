@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-06T07:52:19Z",
+  "checkedAt": "2026-11-07T07:08:37Z",
   "items": [
+    {
+      "id": "herne-baumstrasse-2026-11-09",
+      "category": "Region & Verkehr",
+      "status": "report",
+      "title": "Herne: Baumstraße schon ab 9. November gesperrt",
+      "summary": "Die Stadt zieht den Baustart um eine Woche vor: Ab 9. November wird die Baumstraße zwischen Funkenbergstraße und Unterführung vollständig gesperrt. Die Arbeiten sollen wetterabhängig bis Mitte Februar 2027 dauern; mindestens eine Gehwegseite bleibt nutzbar.",
+      "impact": "Die frühere Sperrung betrifft Ausbildungsrouten und Abholungen nahe dem Herner Bahnhof. Die bisherige Planung für die kommende Woche muss gegebenenfalls angepasst werden.",
+      "action": "Prüfen Sie die Routen und Treffpunkte ab Montag, 9. November, und informieren Sie betroffene Lernende vorab.",
+      "publishedAt": "2026-11-05T00:00:00+01:00",
+      "checkedAt": "2026-11-07T07:08:37Z",
+      "expiresAt": "2026-11-21T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Herne · Baustart Baumstraße, 5. November 2026",
+          "url": "https://www.herne.de/Meldungen/News-Detailansicht_303360.html"
+        }
+      ]
+    },
     {
       "id": "fahrschulreform-abstimmung-2026-11-05",
       "category": "Ausbildung & Prüfung",
@@ -12,7 +30,7 @@
       "impact": "Für die Planung Ihrer Klasse-B-Kurse gilt weiterhin das bisherige Pflichtprogramm. Beim Ersterwerb gehören zwölf besondere Ausbildungsfahrten zu je 45 Minuten dazu.",
       "action": "Planen Sie laufende Kurse weiterhin nach geltendem Recht. Stellen Sie Pflichtstunden oder Theorieformate erst nach Prüfung der endgültigen Vorschriften und ihres Inkrafttretens um; kalkulieren Sie keine zugesicherte Ersparnis.",
       "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-06T07:52:19Z",
+      "checkedAt": "2026-11-07T07:08:37Z",
       "expiresAt": "2026-11-20T00:00:00+01:00",
       "sources": [
         {
@@ -27,7 +45,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-06T07:52:19Z",
+      "checkedAt": "2026-11-07T07:08:37Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
