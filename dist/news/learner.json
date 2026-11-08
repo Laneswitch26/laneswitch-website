@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-11-07T07:08:37Z",
+  "checkedAt": "2026-11-08T07:32:59Z",
   "items": [
+    {
+      "id": "bochum-castroper-strasse-2026-11-09",
+      "category": "Region & Verkehr",
+      "status": "report",
+      "title": "Bochum: Castroper Straße ab 9. November eingeschränkt",
+      "summary": "Vom 9. bis voraussichtlich 27. November wird der Verkehr an den Gleisbaustellen der Castroper Straße einspurig vorbeigeführt. Ab 9. November, 6 Uhr, bis 18. November ist die Ausfahrt Karl-Lange-Straße nur stadtauswärts möglich; die Einfahrt in den Quellenweg ist gesperrt. Die Linien 308 und 318 fahren zwischen Bochum Hbf und Schürbankstraße bis voraussichtlich 27. November, etwa 12 Uhr, mit Ersatzbussen.",
+      "impact": "Deine Anfahrt zur Fahrschule kann länger dauern: Ersatzbusse haben andere Fahrpläne und teilweise andere Haltestellen.",
+      "action": "Prüfe vor der Abfahrt deine Verbindung bei der BOGESTRA und kläre den Treffpunkt. Beachte ab 19. November die nächste Bauphase.",
+      "publishedAt": "2026-11-03T00:00:00+01:00",
+      "checkedAt": "2026-11-08T07:32:59Z",
+      "expiresAt": "2026-11-28T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "BOGESTRA · Verkehrsänderungen vom 3. November 2026",
+          "url": "https://www.bogestra.de/unternehmen/alle-news/news-details/castroper-strasse-bochum-verkehrsbehinderungen-busse-statt-bahnen"
+        }
+      ]
+    },
     {
       "id": "herne-baumstrasse-2026-11-09",
       "category": "Region & Verkehr",
@@ -30,7 +48,7 @@
       "impact": "Beim Ersterwerb der Klasse B brauchst du weiterhin zwölf besondere Ausbildungsfahrten zu je 45 Minuten: fünf über Land, vier auf der Autobahn oder einer gleichgestellten Kraftfahrstraße und drei bei Dämmerung oder Dunkelheit.",
       "action": "Behalte vereinbarte Theorie- und Fahrtermine bei. Der Beschluss allein erlaubt weder den Verzicht auf Pflichtfahrten noch privates Üben im öffentlichen Verkehr ohne Fahrerlaubnis. Eine konkrete Ersparnis ist nicht zugesichert.",
       "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-07T07:08:37Z",
+      "checkedAt": "2026-11-08T07:32:59Z",
       "expiresAt": "2026-11-20T00:00:00+01:00",
       "sources": [
         {
@@ -45,7 +63,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-07T07:08:37Z",
+      "checkedAt": "2026-11-08T07:32:59Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
