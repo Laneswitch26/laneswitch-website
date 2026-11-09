@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-08T07:32:59Z",
+  "checkedAt": "2026-11-09T08:10:51Z",
   "items": [
     {
       "id": "bochum-castroper-strasse-2026-11-09",
@@ -10,9 +10,9 @@
       "title": "Bochum: Castroper Straße ab 9. November eingeschränkt",
       "summary": "Vom 9. bis voraussichtlich 27. November wird der Verkehr an den Gleisbaustellen der Castroper Straße einspurig vorbeigeführt. Ab 9. November, 6 Uhr, bis 18. November ist die Ausfahrt Karl-Lange-Straße nur stadtauswärts möglich; die Einfahrt in den Quellenweg ist gesperrt. Die Linien 308 und 318 fahren zwischen Bochum Hbf und Schürbankstraße bis voraussichtlich 27. November, etwa 12 Uhr, mit Ersatzbussen.",
       "impact": "Ausbildungsrouten und Abholungen am Ruhrstadion müssen die geänderten Abbiegerichtungen berücksichtigen. Auch Lernende mit Straßenbahnanreise sind betroffen.",
-      "action": "Prüfen Sie Treffpunkte und Fahrzeiten vor Montag. Ab 19. November ist die Ausfahrt Karl-Lange-Straße zur Castroper Straße vollständig gesperrt; berücksichtigen Sie den Phasenwechsel.",
+      "action": "Prüfen Sie Treffpunkte und Fahrzeiten während der Bauarbeiten. Ab 19. November ist die Ausfahrt Karl-Lange-Straße zur Castroper Straße vollständig gesperrt; berücksichtigen Sie den Phasenwechsel.",
       "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-08T07:32:59Z",
+      "checkedAt": "2026-11-09T08:10:51Z",
       "expiresAt": "2026-11-28T00:00:00+01:00",
       "sources": [
         {
@@ -63,7 +63,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-08T07:32:59Z",
+      "checkedAt": "2026-11-09T08:10:51Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
@@ -114,7 +114,7 @@
       "impact": "Für Ihren Unterricht bleibt die Trennung zwischen Verbandsforderung und geltendem Recht wichtig: In der Probezeit oder unter 21 Jahren gilt bereits das Alkoholverbot nach § 24c StVG für das Führen von Kraftfahrzeugen. Die Umfrage belegt keine Regelkenntnis Ihrer Lernenden.",
       "action": "Nutzen Sie die Meldung als Unterrichtsanlass: Lassen Sie Lernende Probezeit und Altersgrenze unterscheiden und einen Heimweg ohne eigene Fahrt nach Alkoholkonsum planen.",
       "publishedAt": "2026-10-27T00:00:00+01:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
+      "checkedAt": "2026-11-09T08:10:51Z",
       "expiresAt": "2026-11-11T00:00:00+01:00",
       "sources": [
         {

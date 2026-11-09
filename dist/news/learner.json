@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-11-08T07:32:59Z",
+  "checkedAt": "2026-11-09T08:10:51Z",
   "items": [
     {
       "id": "bochum-castroper-strasse-2026-11-09",
@@ -12,7 +12,7 @@
       "impact": "Deine Anfahrt zur Fahrschule kann länger dauern: Ersatzbusse haben andere Fahrpläne und teilweise andere Haltestellen.",
       "action": "Prüfe vor der Abfahrt deine Verbindung bei der BOGESTRA und kläre den Treffpunkt. Beachte ab 19. November die nächste Bauphase.",
       "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-08T07:32:59Z",
+      "checkedAt": "2026-11-09T08:10:51Z",
       "expiresAt": "2026-11-28T00:00:00+01:00",
       "sources": [
         {
@@ -63,7 +63,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-08T07:32:59Z",
+      "checkedAt": "2026-11-09T08:10:51Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
@@ -114,7 +114,7 @@
       "impact": "Für dich gilt bereits: In der Probezeit oder unter 21 Jahren verbietet § 24c StVG Alkohol beim Führen eines Kraftfahrzeugs sowie den Fahrtantritt unter Alkoholwirkung. Die Umfrage ändert daran nichts.",
       "action": "Plane vor dem Trinken einen Heimweg ohne eigene Fahrt, etwa mit einer nüchternen Person, Bus oder Taxi. Auch nach dem Ende der Probezeit ist alkoholfreies Fahren die sichere Entscheidung.",
       "publishedAt": "2026-10-27T00:00:00+01:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
+      "checkedAt": "2026-11-09T08:10:51Z",
       "expiresAt": "2026-11-11T00:00:00+01:00",
       "sources": [
         {
