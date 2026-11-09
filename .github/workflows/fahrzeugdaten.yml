@@ -1,6 +1,8 @@
 name: Fahrzeugdaten · EEA
 # Hält die Fahrzeugdaten des Fahrzeugkosten-Checks aktuell (amtliche EEA-Daten, Erstzulassungen in Deutschland).
 # - Bei Pull Requests, die den Rechner betreffen: Daten neu erzeugen, prüfen und in den PR-Branch schreiben.
+#   Ist die EEA-Schnittstelle gestört, endet der Schritt mit einer Warnung statt mit einem Fehler; die vorhandenen
+#   Daten bleiben dann unverändert (ein Ausfall bei der Datenquelle sagt nichts über den Pull Request aus).
 # - Wöchentlich (montags, ausgelöst durch den ersten Push auf cloudflare-online) oder bei "[fahrzeugdaten]" in der Commit-Nachricht:
 #   Daten neu erzeugen. Nur wenn sich etwas ändert, entsteht ein Pull Request, der nach bestandenen Prüfungen
 #   und erfolgreicher Cloudflare-Vorschau automatisch zusammengeführt wird.

@@ -4,6 +4,8 @@
 //   node tools/fahrzeugdaten/build.mjs                 # live von discodata.eea.europa.eu (GitHub-Ablauf)
 //   node tools/fahrzeugdaten/build.mjs --raw <ordner>  # aus zwischengespeicherten Rohdaten <jahr>.json.gz
 //
+// Ist die EEA-Schnittstelle gestoert, endet der Lauf mit einer Warnung und ohne Aenderung (Beendigungscode 0).
+//
 // Ergebnis: dist/konzept/fahrzeugkosten/daten/index.json und je Hersteller eine Datei.
 // Die Datei wird nur neu geschrieben, wenn sich der Inhalt ändert, damit der Ablauf keine leeren Updates erzeugt.
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, existsSync } from 'node:fs';
@@ -35,10 +37,16 @@ async function sql(query, page = 1, size = 5000) {
         headers: { 'User-Agent': UA, 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `query=${encodeURIComponent(query)}&p=${page}&nrOfHits=${size}`,
       });
-      const json = await response.json();
+      // Bei Störungen antwortet die Schnittstelle mit einer HTML-Fehlerseite statt mit JSON.
+      if (!response.ok) { const e = new Error(`HTTP ${response.status}`); e.outage = response.status >= 500 || response.status === 429 || response.status === 403; throw e; }
+      const body = await response.text();
+      let json;
+      try { json = JSON.parse(body); }
+      catch { const e = new Error(`Antwort ist kein JSON (${body.trim().slice(0, 60)})`); e.outage = true; throw e; }
       if (json.errors) { const e = new Error(JSON.stringify(json.errors)); e.sqlError = json.errors[0]?.errorcode; throw e; }
       return json.results;
     } catch (error) {
+      if (error.sqlError === undefined && error.outage === undefined) error.outage = true; // Netzwerkfehler, Zeitüberschreitung
       last = error;
       if (error.sqlError === 10003) throw error; // Tabelle existiert nicht
       await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
@@ -188,7 +196,18 @@ function resolveRecommendations(makes, latestYear) {
   return { stand: config.stand, hinweis: config.hinweis, quellen: config.quellen, stufen: tiers };
 }
 
-const { years, sources } = await loadSources();
+// Ist die EEA-Schnittstelle gestört, bleiben die vorhandenen Daten stehen, statt den Ablauf scheitern zu lassen:
+// ein Ausfall bei der Datenquelle ist kein Fehler dieses Repositoriums. Echte Datenfehler schlagen weiterhin fehl.
+let years, sources;
+try { ({ years, sources } = await loadSources()); }
+catch (error) {
+  if (!error?.outage) throw error;
+  const hinweis = `EEA-Schnittstelle nicht erreichbar (${error.message}). Vorhandene Fahrzeugdaten bleiben unveraendert.`;
+  console.log(`::warning::${hinweis}`);
+  console.warn(hinweis);
+  process.exit(0);
+}
+if (!Object.values(years).some(rows => rows?.length)) throw new Error('EEA lieferte keine Datenzeilen');
 const makes = aggregate(years);
 mkdirSync(outDir, { recursive: true });
 const allYears = Object.keys(years).map(Number).sort((a, b) => a - b);
