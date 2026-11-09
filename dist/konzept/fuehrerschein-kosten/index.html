@@ -26,7 +26,7 @@
 <meta http-equiv=content-security-policy content="default-src 'none'; font-src 'self' data:; img-src 'self' data:; style-src 'self' 'unsafe-inline'; media-src 'self' data:; script-src 'self' 'unsafe-inline' data:; object-src 'self' data:; frame-src 'self' data:;">
 
 
-<script type="module" src="/app/detail.js?v=18-kosten-spanne"></script>
+<script type="module" src="/app/detail.js?v=19-kooperation"></script>
   <link rel="stylesheet" href="/konzept/assets/concept.css?v=11-audit">
   <link rel="stylesheet" href="/app/shell.css?v=16-motion">
   <link rel="stylesheet" href="/konzept/assets/subpage.css?v=3">
@@ -57,9 +57,9 @@
     .fk-more>summary::-webkit-details-marker{display:none}
     .fk-more>summary>span{font-size:16px;font-weight:650;color:var(--ink)}
     .fk-more>summary>small{font-size:14px;color:var(--muted)}
-    .fk-more>summary::after{content:'';position:absolute;right:20px;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-4px) rotate(45deg)}
-    .fk-more>summary{position:relative;padding-right:46px}
-    .fk-more[open]>summary::after{transform:translateY(0) rotate(-135deg)}
+    .fk-more>summary{position:relative;padding-right:52px}
+    .fk-more>summary::after{content:'';position:absolute;right:22px;top:50%;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translate(0,-70%) rotate(45deg);transition:transform .15s ease}
+    .fk-more[open]>summary::after{transform:translate(0,-30%) rotate(-135deg)}
     .fk-more[open]>summary{border-bottom:1px solid var(--line)}
     .fk-more>summary:focus-visible{outline:2px solid var(--teal);outline-offset:-2px;border-radius:14px}
     .fk-more>.fk-fields,.fk-more>.fk-intro,.fk-more>.sp-note{margin:18px 20px}
