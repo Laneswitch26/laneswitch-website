@@ -170,3 +170,17 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 - Hinweis „LANE SWITCH als App“ im Browser wegklickbar (`ls-app-entry-v1`), im App-Fenster wie bisher unsichtbar.
 - Vorlagen: ganze Checklistenzeile antippbar; größere Tippflächen für Brotkrumen, Partnerkontakte, Seitenleisten-Links.
 - Notfallcenter: Hinweis „Akuter Notfall / 112“ steht über der Einleitung. Begrüßungsfenster nutzt h2 (nur eine h1 je Seite).
+
+## Neue Inhalte (09.11.2026)
+
+- **Führerschein-Kosten** (`dist/konzept/fuehrerschein-kosten/`, Fahrschüler:innen, „du“): Rechner für die Kosten
+  der Fahrerlaubnis Klasse B. Bewusst **ohne hinterlegte Preise oder Durchschnittswerte** - gerechnet wird mit den
+  Preisen der eigenen Fahrschule und den Gebühren laut Bescheid. Keine Speicherung, keine Übertragung, Logik als
+  Inline-Skript auf der Seite. Pflichtangaben im Text: zwölf Sonderfahrten (5 Überland, 4 Autobahn, 3 Nacht).
+- **So läuft eine Kooperation** (`dist/konzept/kooperation-ablauf/`, Fahrschulen, „Sie“): fünf Schritte von der
+  Anfrage bis zu Eintrag, Partnerzugang und Instagram-Vorstellung, dazu FAQ. Schema.org `HowTo` und `FAQPage`.
+- Eingebunden in `app/app.js` (Werkzeugliste), `app/share.mjs` (Teilen-Texte), `app/detail.js` (Zielgruppe und
+  Teilen-Kennung), `sitemap.xml` sowie quer verlinkt von den beiden Informationsseiten.
+- Entdoppelt: Der FAQ-Assistent (`app/assistant-knowledge.mjs`, Eintrag `partner`) beschrieb den Ablauf bisher
+  selbst ausführlich; er fasst ihn jetzt kurz zusammen und verweist auf die neue Seite.
+
