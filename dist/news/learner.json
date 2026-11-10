@@ -1,8 +1,30 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-11-09T08:10:51Z",
+  "checkedAt": "2026-11-10T07:00:39Z",
   "items": [
+    {
+      "id": "bsi-vernetztes-auto-2026-11-02",
+      "category": "Cyber & Datenschutz",
+      "status": "report",
+      "title": "Vernetzte Autos: Persönliche Daten vor der Rückgabe entfernen",
+      "summary": "Der BSI-Podcast vom 2. November behandelt mit dem TÜV-Verband digitale Risiken vernetzter Autos. Empfohlen werden Updates über offizielle Herstellerwege, geschützte Fahrzeugkonten und das Entfernen persönlicher Daten vor der Rückgabe gemeinsam genutzter Fahrzeuge. Das sind Präventionshinweise, keine neue gesetzliche Pflicht.",
+      "impact": "Wenn du dein Handy mit einem Miet-, Carsharing- oder anderen gemeinsam genutzten Auto verbindest, können Kontakte und Navigationsziele im Fahrzeug gespeichert bleiben. Bloßes Aussteigen entfernt diese Daten nicht.",
+      "action": "Gib beim Verbinden nur benötigte Daten frei. Lösche vor der Rückgabe die Handy-Kopplung, gespeicherte Kontakte und Ziele im Fahrzeugmenü. Sichere dein Fahrzeugkonto mit eigenem starkem Passwort und, soweit angeboten, Zwei-Faktor-Anmeldung oder Passkey.",
+      "publishedAt": "2026-11-02T10:44:43Z",
+      "checkedAt": "2026-11-10T07:00:39Z",
+      "expiresAt": "2026-11-17T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "BSI · Podcast Folge 72, 2. November 2026",
+          "url": "https://update-verfuegbar.podigee.io/77-72-vernetztes-auto"
+        },
+        {
+          "name": "BSI · Originaltranskript, Hinweise zu Updates und Datenlöschung",
+          "url": "https://multimedia.gsb.bund.de/BSI/Podcast/BSI-PodcastFolge72_Transkript_barr.pdf"
+        }
+      ]
+    },
     {
       "id": "bochum-castroper-strasse-2026-11-09",
       "category": "Region & Verkehr",
@@ -48,7 +70,7 @@
       "impact": "Beim Ersterwerb der Klasse B brauchst du weiterhin zwölf besondere Ausbildungsfahrten zu je 45 Minuten: fünf über Land, vier auf der Autobahn oder einer gleichgestellten Kraftfahrstraße und drei bei Dämmerung oder Dunkelheit.",
       "action": "Behalte vereinbarte Theorie- und Fahrtermine bei. Der Beschluss allein erlaubt weder den Verzicht auf Pflichtfahrten noch privates Üben im öffentlichen Verkehr ohne Fahrerlaubnis. Eine konkrete Ersparnis ist nicht zugesichert.",
       "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-08T07:32:59Z",
+      "checkedAt": "2026-11-10T07:00:39Z",
       "expiresAt": "2026-11-20T00:00:00+01:00",
       "sources": [
         {
@@ -63,7 +85,7 @@
     },
     {
       "status": "report",
-      "checkedAt": "2026-11-09T08:10:51Z",
+      "checkedAt": "2026-11-10T07:00:39Z",
       "id": "adac-kraftstoffpreise-2026-11-04",
       "category": "Tanken & Kosten",
       "title": "ADAC-Wochenvergleich: E10 und Diesel günstiger",
@@ -168,7 +190,7 @@
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-11-06T07:52:19Z",
+      "checkedAt": "2026-11-10T07:00:39Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt bis Jahresende: Was beim Tanken zählt.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
@@ -186,24 +208,6 @@
         {
           "name": "Bundesregierung · Neuregelungen Oktober, 29.09.2026",
           "url": "https://www.bundesregierung.de/breg-de/suche/gesetzliche-neuregelungen-oktober-2026-2454624"
-        }
-      ]
-    },
-    {
-      "id": "recklinghausen-eifelstrasse-2026-11-03",
-      "category": "Regionalverkehr",
-      "status": "report",
-      "title": "Recklinghausen: Eifelstraße nur in Richtung Hausnummer 31 befahrbar",
-      "summary": "Die Stadt richtet zwischen den Hausnummern 23 und 31 wegen Leitungsarbeiten eine Einbahnstraße ein. Die Regelung läuft vom 3. bis voraussichtlich 30. November.",
-      "impact": "Von der Seite der Hausnummer 31 aus kannst du den Abschnitt nicht durchfahren.",
-      "action": "Folge der ausgeschilderten Umleitung, wenn dein Navi dich entgegen der Einbahnrichtung führt.",
-      "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-11-04T07:12:53Z",
-      "expiresAt": "2026-12-01T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Recklinghausen · Eifelstraße, 26. Oktober",
-          "url": "https://recklinghausen.de/Inhalte/startseite/_details.asp?db=513&form=detail&id=32507"
         }
       ]
     }

@@ -50,9 +50,9 @@ function postCard(original){const p={...original};if(p.id==='a1'&&audience==='sc
 function pageHead(title,lead,back='',share=''){return `${back}<section class="page-head${share?' has-share':''}">${share?shareButton(share,'on-navy').replace('data-ls-share=','data-ls-audience="'+audience+'" data-ls-share='):''}<svg class="hero-lanes" viewBox="0 0 240 400" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" d="M24 0V400M216 0V400" stroke-dasharray="26 22"/><path class="lane-move" vector-effect="non-scaling-stroke" d="M168 400V250C168 190 72 200 72 140V0"/></svg><div class="hero-copy"><h1>${title}</h1><p>${lead}</p></div></section>`}
 function intro(k,h,p){return `<div class="intro"><p class="eyebrow">${k}</p><h1>${h}</h1><p>${p}</p></div>`}
 function updates(){const school=audience==='school';const items=[
- ...(!school?[['radar','25 Situationen aus Fahrerperspektive','Gefahrenradar jetzt in 3D','lernwelt/gefahrenradar/']]:[]),
+ ...(!school?[['check','Mit Fahrschulpreisen als Spanne rechnen','Führerschein-Kostenrechner','fuehrerschein-kosten/'],['radar','25 Situationen aus Fahrerperspektive','Gefahrenradar jetzt in 3D','lernwelt/gefahrenradar/']]:[]),
  ['message','Antworten zu Angeboten & Kontakt','Frag LANE SWITCH','#assistent'],
- ...(school?[['compass','Informationen online & als PDF','Navigator-Demo','/navigator/demo'],['compass','Neu für Partnerfahrschulen','Partnerbereich: Anmelden','/navigator/zugang']]:[['check','Deine Checkliste nach der Prüfung','Startklar-Check','#startklar'],['network','Infos online & als PDF','Navigator bei deiner Partnerfahrschule','kooperationen/fahrschulen/']]),
+ ...(school?[['compass','Informationen online & als PDF','Navigator-Demo','/navigator/demo'],['compass','Neu für Partnerfahrschulen','Partnerbereich: Anmelden','/navigator/zugang']]:[['check','Deine Checkliste nach der Prüfung','Startklar-Check','#startklar']]),
  ['tools','Förderung selbst berechnen','Förderrechner Altersvorsorge',school?'altersvorsorge/?zielgruppe=fahrschulen':'altersvorsorge/?zielgruppe=fahrschueler']
 ];return `<div class="section-row"><h2>Was gibt’s Neues?</h2><span class="post-meta">Wischen & entdecken</span></div><div class="updates" aria-label="Neuigkeiten">${items.map(([i,k,t,h])=>`<a class="update" href="${href(h)}"><span class="update-icon">${icon(i)}</span><span><small>${k}</small><strong>${t}</strong></span></a>`).join('')}</div>`}
 const homeContent={
@@ -72,10 +72,10 @@ function renderFeed(){const school=audience==='school',c=homeContent[audience];c
  ['compass','Eigener Navigator-Zugang für Partnerfahrschulen','/navigator/zugang'],
  ['tools','Förderrechner Altersvorsorge','altersvorsorge/?zielgruppe=fahrschulen']
 ]:[
+ ['check','Führerschein-Kosten: mit deinen Fahrschulpreisen als Spanne rechnen','fuehrerschein-kosten/'],
  ['radar','Gefahrenradar: 25 Situationen jetzt als 3D-Fahrt üben','lernwelt/gefahrenradar/'],
  ['message','Frag LANE SWITCH: Antworten zu Angeboten & Kontakt','#assistent'],
  ['check','Startklar-Check: deine Checkliste nach der Prüfung','#startklar'],
- ['network','Fahrschul-Navigator: Infos deiner Partnerfahrschule','kooperationen/fahrschulen/'],
  ['tools','Förderrechner Altersvorsorge','altersvorsorge/?zielgruppe=fahrschueler']
 ];
 document.getElementById('view').innerHTML=`<section class="home-hero" aria-labelledby="home-title">${lanes}<div class="hero-copy"><h1 id="home-title">${c.title}</h1><p>${c.lead}</p><div class="hero-actions">${action(href(c.primary[0]),c.primary[1],'primary accent')}<a class="hero-secondary" href="${href(c.secondary[0])}">${c.secondary[1]}</a></div></div></section>
