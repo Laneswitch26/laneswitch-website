@@ -2150,12 +2150,42 @@ button {
   }
 }
 
-/* Heller Bildschirm: langsames Anheben der Leuchtdichte */
-.stage--effect-glare .office-laptop .office-screen {
+/* Heller Bildschirm.
+   Im Ruhezustand bleibt der Bildschirm dunkel. Erst beim Aktivieren wird
+   er deutlich heller und strahlt in den Raum ab – die Helligkeit kommt
+   aus statischen Eigenschaften, damit sie auch bei reduzierter Bewegung
+   sichtbar bleibt. Die Modulation ist langsam (Periode 5 s, also 0,2 Hz)
+   und liegt damit weit unterhalb der Schwelle für Blitzeffekte. */
+.office-screen__bright,
+.office-screen__spill {
+  opacity: 0;
+  transition: opacity 900ms ease-out;
+  pointer-events: none;
+}
+
+.stage--effect-glare .office-screen__bright {
+  opacity: 1;
   animation: office-glare 5s ease-in-out infinite;
 }
-.stage--effect-glare .office-laptop {
-  filter: drop-shadow(0 0 22px rgba(176, 214, 236, 0.5));
+
+.stage--effect-glare .office-screen__spill {
+  opacity: 0.55;
+  animation: office-spill 5s ease-in-out infinite;
+}
+
+/* Textzeilen auf dem hellen Bildschirm abdunkeln, damit der Bildschirm
+   nicht flächig weiß zuläuft, sondern als Bildschirm lesbar bleibt. */
+.stage--effect-glare .office-screen__lines rect {
+  fill: #4d7591;
+  opacity: 0.55;
+}
+
+/* Blendwirkung: der Lichtsaum geht vom Bildschirm aus, nicht von der
+   Silhouette des ganzen Geräts – sonst entsteht ein leuchtender Kasten
+   statt eines hellen Bildschirms. */
+.stage--effect-glare .office-screen__bright {
+  filter: drop-shadow(0 0 10px rgba(226, 243, 255, 0.9))
+    drop-shadow(0 0 32px rgba(188, 222, 245, 0.55));
 }
 
 @keyframes office-glare {
@@ -2164,7 +2194,17 @@ button {
     opacity: 1;
   }
   50% {
-    opacity: 0.82;
+    opacity: 0.88;
+  }
+}
+
+@keyframes office-spill {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.38;
   }
 }
 
@@ -2192,6 +2232,8 @@ button {
   .stage--effect-brewing .office-coffee,
   .stage--effect-brewing .office-coffee__steam path,
   .stage--effect-notify .office-phone__screen,
+  .stage--effect-glare .office-screen__bright,
+  .stage--effect-glare .office-screen__spill,
   .stage--effect-glare .office-laptop .office-screen,
   .stage--effect-clicking .office-mouse,
   .stage--effect-walking .office-passerby {
@@ -19610,7 +19652,7 @@ function Stim({ id, children }) {
             running ? 'is-running' : '',
         ]
             .filter(Boolean)
-            .join(' '), "data-stimulus": id, role: "button", tabIndex: 0, "aria-label": `${data.label} – mögliche Reizquelle${found ? ', bereits entdeckt' : ''}${running ? ', Reiz läuft' : ''}`, "aria-pressed": selected, onClick: activate, onKeyDown: (event) => {
+            .join(' '), "data-stimulus": id, role: "button", tabIndex: 0, "aria-label": `${data.label} – mögliche Reizquelle${found ? ', bereits entdeckt' : ''}${running ? ', Reiz läuft, erneut auswählen beendet ihn' : ''}`, "aria-pressed": selected, onClick: activate, onKeyDown: (event) => {
             if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
                 event.preventDefault();
                 activate(event);
@@ -20470,9 +20512,13 @@ function SceneStage({ scene, children }) {
             next.add(id);
             return next;
         });
-        // Laufende Reize bleiben unberührt; nur dieser kommt hinzu.
-        startEffect(id);
-    }, [startEffect]);
+        // Umschalten: ein laufender Reiz wird durch erneutes Antippen
+        // beendet, ein stehender gestartet. Alle anderen bleiben unberührt.
+        if (activeEffects.has(id))
+            stopEffect(id);
+        else
+            startEffect(id);
+    }, [startEffect, stopEffect, activeEffects]);
     const confirmSafety = useCallback(() => {
         const id = pendingId;
         safetyAcknowledged = true;
@@ -20990,6 +21036,14 @@ function OfficeScene() {
                         React.createElement("linearGradient", { id: "g-screen", x1: "0", y1: "0", x2: "1", y2: "1" },
                             React.createElement("stop", { offset: "0", stopColor: "#53788a" }),
                             React.createElement("stop", { offset: "1", stopColor: "#36545f" })),
+                        React.createElement("linearGradient", { id: "g-screen-bright", x1: "0", y1: "0", x2: "1", y2: "1" },
+                            React.createElement("stop", { offset: "0", stopColor: "#ffffff" }),
+                            React.createElement("stop", { offset: "0.5", stopColor: "#d6ecff" }),
+                            React.createElement("stop", { offset: "1", stopColor: "#7fbde4" })),
+                        React.createElement("radialGradient", { id: "g-screen-spill", cx: "0.5", cy: "0.5", r: "0.5" },
+                            React.createElement("stop", { offset: "0", stopColor: "#eaf6ff", stopOpacity: "0.85" }),
+                            React.createElement("stop", { offset: "0.45", stopColor: "#cfe8fb", stopOpacity: "0.4" }),
+                            React.createElement("stop", { offset: "1", stopColor: "#bcdff8", stopOpacity: "0" })),
                         React.createElement("linearGradient", { id: "g-counter", x1: "0", y1: "0", x2: "0", y2: "1" },
                             React.createElement("stop", { offset: "0", stopColor: "#d9d2c4" }),
                             React.createElement("stop", { offset: "1", stopColor: "#bcb3a2" })),
@@ -21123,12 +21177,15 @@ function OfficeScene() {
                             React.createElement("polygon", { points: "54,744 1546,744 1600,796 0,796", fill: "url(#g-desk-fore)" }),
                             React.createElement("rect", { x: "0", y: "792", width: "1600", height: "108", fill: "#a98a63" }),
                             React.createElement("rect", { x: "0", y: "792", width: "1600", height: "7", fill: "#8e7250" }),
+                            React.createElement("g", { className: "office-screen__spill", "aria-hidden": "true" },
+                                React.createElement("ellipse", { cx: "207", cy: "702", rx: "225", ry: "140", fill: "url(#g-screen-spill)" })),
                             React.createElement(Stim, { id: "laptop" },
                                 React.createElement("g", { className: "office-laptop" },
                                     React.createElement("polygon", { points: "96,756 318,756 336,788 78,788", fill: "#b4b9bd" }),
                                     React.createElement("polygon", { points: "104,752 310,752 302,666 132,666", fill: "#474e54" }),
                                     React.createElement("polygon", { points: "111,747 303,747 296,672 138,672", fill: "url(#g-screen)", className: "office-screen" }),
-                                    React.createElement("g", { fill: "#ffffff", opacity: "0.2" },
+                                    React.createElement("polygon", { points: "111,747 303,747 296,672 138,672", fill: "url(#g-screen-bright)", className: "office-screen__bright" }),
+                                    React.createElement("g", { fill: "#ffffff", opacity: "0.2", className: "office-screen__lines" },
                                         React.createElement("rect", { x: "152", y: "690", width: "110", height: "6", rx: "3" }),
                                         React.createElement("rect", { x: "152", y: "704", width: "78", height: "6", rx: "3" }),
                                         React.createElement("rect", { x: "152", y: "718", width: "96", height: "6", rx: "3" })))),
