@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partnercode eingeben | LANE SWITCH</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar"><div class="shell topbar-inner"><a class="brand" href="/"><span class="brand-mark">LS</span><span class="brand-text">LANE SWITCH</span></a><a class="back-link" href="/">Zurück</a></div></header>
+  <main>
+    <section class="hero"><div class="shell"><p class="eyebrow">Für Fahrschüler:innen</p><h1>Partnercode eingeben.</h1><p class="lead">Den Code erhältst du von deiner LANE SWITCH Partnerfahrschule.</p></div></section>
+    <section class="section">
+      <div class="shell">
+        <article class="card login-card">
+          <h2>Dein Zugang</h2>
+          <p>Der Code ist der Fahrschule zugeordnet, enthält aber keine personenbezogenen Angaben über dich.</p>
+          <form id="code-form" novalidate>
+            <div class="field">
+              <label for="partner-code">Partnercode</label>
+              <input id="partner-code" name="code" type="text" autocomplete="one-time-code" inputmode="text" minlength="8" maxlength="64" placeholder="LS-XXXX-XXXX-XXXX" required>
+            </div>
+            <p class="hint">Groß- und Kleinschreibung sowie Bindestriche spielen keine Rolle.</p>
+            <div class="actions"><button class="button" type="submit">Services freischalten</button></div>
+            <p id="status" class="status" role="status" aria-live="polite"></p>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><span>© LANE SWITCH</span><span><a href="https://laneswitch.de/datenschutz/">Datenschutz</a></span></div></footer>
+  <script>
+    const form = document.getElementById('code-form');
+    const status = document.getElementById('status');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.className = 'status';
+      status.textContent = 'Code wird geprüft …';
+      const button = form.querySelector('button');
+      button.disabled = true;
+      try {
+        const response = await fetch('/api/student-login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({code: form.elements.code.value})
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.message || 'Der Code konnte nicht geprüft werden.');
+        status.className = 'status success';
+        status.textContent = 'Zugang bestätigt. Du wirst weitergeleitet …';
+        window.location.assign(data.redirect || '/fahrschueler/');
+      } catch (error) {
+        status.className = 'status error';
+        status.textContent = error.message;
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
