@@ -20003,13 +20003,17 @@ class AudioEngine {
         if (!this.ctx) {
             const Ctx = window.AudioContext || window.webkitAudioContext;
             this.ctx = new Ctx();
-            // Begrenzer: fängt Pegelspitzen ab, wenn mehrere Reize zusammenfallen
+            // Reiner Übersteuerungsschutz kurz vor Vollaussteuerung. Er darf im
+            // normalen Betrieb nicht arbeiten: ein früh einsetzender Begrenzer
+            // (vorher ab -8 dB) drückt alle Quellen gemeinsam herunter, sobald
+            // viele zusammenkommen – derselbe unerwünschte Effekt wie die
+            // frühere Absenkung je Quelle.
             this.limiter = this.ctx.createDynamicsCompressor();
-            this.limiter.threshold.value = -8;
-            this.limiter.knee.value = 6;
-            this.limiter.ratio.value = 12;
-            this.limiter.attack.value = 0.004;
-            this.limiter.release.value = 0.2;
+            this.limiter.threshold.value = -1.5;
+            this.limiter.knee.value = 0;
+            this.limiter.ratio.value = 20;
+            this.limiter.attack.value = 0.002;
+            this.limiter.release.value = 0.12;
             this.limiter.connect(this.ctx.destination);
             this.master = this.ctx.createGain();
             this.master.gain.value = this.muted ? 0 : this.volume;
@@ -20077,8 +20081,19 @@ class AudioEngine {
         this.pending.set(url, task);
         return task;
     }
-    _headroom(count = this.active.size) {
-        return count <= 1 ? 1 : 1 / Math.sqrt(count);
+    /**
+     * Pegel je Quelle – bewusst konstant, unabhängig von der Anzahl
+     * aktiver Reize.
+     *
+     * Früher wurde hier mit 1/√n abgesenkt, damit die Summe nicht lauter
+     * wird. Das ließ jede Quelle leiser werden, sobald weitere dazukamen –
+     * und wirkte damit wie das Ausblenden von Hintergrundgeräuschen, das
+     * diese Simulation gerade NICHT zeigen soll. Ein Gespräch ist mit 14
+     * aktiven Reizen genauso laut wie allein; die Gesamtlautheit wächst
+     * mit jedem Reiz. Abstufung nach Entfernung bleibt (spatialFor).
+     */
+    _headroom() {
+        return 1;
     }
     _applyHeadroom() {
         if (!this.ctx)
@@ -20254,7 +20269,7 @@ const SAMPLES = {
         mode: 'loop',
         // nach Messung am Ausgang deutlich abgesenkt: Schritte sind
         // Hintergrund, lagen aber über dem Vordergrund
-        gain: 0.22,
+        gain: 0.34,
         // Quelle wandert mit der Person durchs Bild (Sekunden pro Durchgang)
         sweep: { sanft: 26, normal: 18, intensiv: 11 },
     },
