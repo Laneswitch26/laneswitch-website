@@ -1,8 +1,48 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-12T07:01:52Z",
+  "checkedAt": "2026-11-16T07:08:10Z",
   "items": [
+    {
+      "id": "tuev-adas-metastudie-2026-11-11",
+      "category": "Fahrzeug & Sicherheit",
+      "status": "report",
+      "title": "Assistenzsysteme: Fehlende Warnung beweist keine volle Funktion",
+      "summary": "Eine am 11. November vorgestellte Metastudie von Prüforganisationen, FSD und TÜV-Verband beschreibt unerkannte Funktionseinbußen von Fahrassistenten, etwa durch fehlerhafte Sensorkalibrierung. Sie wertet vorhandene Untersuchungen aus; eine allgemeine Ausfallquote lässt sich daraus nicht ableiten. Erweiterte Funktionsprüfungen bei der HU werden gefordert, sind durch die Studie aber nicht vorgeschrieben.",
+      "impact": "Für Ihren Fuhrpark ist eine unauffällige Anzeige allein kein Nachweis intakter Assistenzsysteme. Reparaturen und Kalibrierung verdienen deshalb Aufmerksamkeit; die Studie begründet keinen pauschalen Austauschbedarf.",
+      "action": "Klären Sie nach Reparaturen mit der Werkstatt, ob Sensorik betroffen war und welche Kalibrierung erforderlich ist. Halten Sie dies in den Fahrzeugunterlagen fest und erklären Sie im Unterricht die Grenzen der Assistenz.",
+      "publishedAt": "2026-11-11T00:00:00+01:00",
+      "checkedAt": "2026-11-16T07:08:10Z",
+      "expiresAt": "2026-11-26T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "TÜV-Verband · Mitteilung vom 11. November 2026",
+          "url": "https://www.tuev-verband.de/pressemitteilungen/metastudie-zeigt-bedarf-fuer-erweiterte-pruefungen-von-fahrerassistenzsystemen"
+        },
+        {
+          "name": "Prüforganisationen / FSD / TÜV-Verband · gemeinsame ADAS-Metastudie",
+          "url": "https://www.tuev-verband.de/fileadmin/user_upload/Content_local/Studien_local/2026-10-28_Metastudie_Pruefbedarf_ADAS.pdf"
+        }
+      ]
+    },
+    {
+      "id": "recklinghausen-goethestrasse-2026-11-17",
+      "category": "Region & Verkehr",
+      "status": "report",
+      "title": "Recklinghausen: Goethestraße ab 17. November unterbrochen",
+      "summary": "Die Stadt kündigt eine Vollsperrung der Goethestraße an Hausnummer 11 vom 17. November bis voraussichtlich 10. Dezember an. Wegen Rückbauarbeiten wird die Straße von beiden Seiten zur Sackgasse; Umleitungen werden ausgeschildert.",
+      "impact": "Durchfahrten auf dieser Strecke stehen für Ihre Fahrstunden nicht zur Verfügung. Auch Anfahrten zu Treffpunkten können betroffen sein.",
+      "action": "Prüfen Sie betroffene Fahrstundenrouten und legen Sie bei Bedarf einen anders erreichbaren Treffpunkt fest. Beachten Sie die Beschilderung vor Ort.",
+      "publishedAt": "2026-11-10T00:00:00+01:00",
+      "checkedAt": "2026-11-16T07:08:10Z",
+      "expiresAt": "2026-12-11T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Recklinghausen · Goethestraße, 10. November 2026",
+          "url": "https://www.recklinghausen.de/Inhalte/Startseite/Rathaus_Politik/Pressestelle/Pressemitteilungen/index.asp?db=513&form=detail&id=32570"
+        }
+      ]
+    },
     {
       "id": "adac-kraftstoffpreise-2026-11-11",
       "category": "Tanken & Kosten",
@@ -12,7 +52,7 @@
       "impact": "Bei 100 Litern entspricht der Rückgang rechnerisch 6,30 Euro für E10 beziehungsweise 4,30 Euro für Diesel. Für Ihre Fuhrparkkalkulation bleiben die tatsächlich bezahlten Preise entscheidend.",
       "action": "Vergleichen Sie lokale Preise und halten Sie die Ausgaben je Fahrzeug fest. Eine günstigere Woche ist kein Beleg für dauerhaft niedrigere Betriebskosten.",
       "publishedAt": "2026-11-11T13:25:00+01:00",
-      "checkedAt": "2026-11-12T07:01:52Z",
+      "checkedAt": "2026-11-16T07:08:10Z",
       "expiresAt": "2026-11-19T00:00:00+01:00",
       "sources": [
         {
@@ -78,7 +118,7 @@
       "impact": "Ausbildungsrouten und Abholungen am Ruhrstadion müssen die geänderten Abbiegerichtungen berücksichtigen. Auch Lernende mit Straßenbahnanreise sind betroffen.",
       "action": "Prüfen Sie Treffpunkte und Fahrzeiten während der Bauarbeiten. Ab 19. November ist die Ausfahrt Karl-Lange-Straße zur Castroper Straße vollständig gesperrt; berücksichtigen Sie den Phasenwechsel.",
       "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-09T08:10:51Z",
+      "checkedAt": "2026-11-16T07:08:10Z",
       "expiresAt": "2026-11-28T00:00:00+01:00",
       "sources": [
         {
@@ -96,7 +136,7 @@
       "impact": "Die frühere Sperrung betrifft Ausbildungsrouten und Abholungen nahe dem Herner Bahnhof. Die bisherige Planung für die kommende Woche muss gegebenenfalls angepasst werden.",
       "action": "Prüfen Sie die Routen und Treffpunkte ab Montag, 9. November, und informieren Sie betroffene Lernende vorab.",
       "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-07T07:08:37Z",
+      "checkedAt": "2026-11-16T07:08:10Z",
       "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
@@ -109,13 +149,13 @@
       "id": "fahrschulreform-abstimmung-2026-11-05",
       "category": "Ausbildung & Prüfung",
       "status": "decided",
-      "title": "Update: Bundestag beschließt ersten Teil der Führerscheinreform",
-      "summary": "Am 5. November hat der Bundestag den ersten Teil der Reform beschlossen. Die Zustimmung des Bundesrats steht noch aus – auch zur ergänzenden Verordnung. Das Paket sieht vollständig digitale Theorie und flexiblere Sonderfahrten vor; diese Änderungen sind noch nicht in Kraft.",
+      "title": "Update: Bundesrats-Ausschuss empfiehlt Zustimmung zur Fahrschulreform",
+      "summary": "Aktualisierung vom 16. November: Der Verkehrsausschuss empfiehlt dem Bundesrat die Zustimmung zum bereits am 5. November beschlossenen Änderungsgesetz. Die Empfehlung vom 13. November betrifft TOP 62 der Sitzung am 20. November. Sie ist noch kein Bundesratsbeschluss; Gesetz und ergänzende Ausbildungs-Verordnung sind weiterhin zu unterscheiden.",
       "impact": "Für die Planung Ihrer Klasse-B-Kurse gilt weiterhin das bisherige Pflichtprogramm. Beim Ersterwerb gehören zwölf besondere Ausbildungsfahrten zu je 45 Minuten dazu.",
       "action": "Planen Sie laufende Kurse weiterhin nach geltendem Recht. Stellen Sie Pflichtstunden oder Theorieformate erst nach Prüfung der endgültigen Vorschriften und ihres Inkrafttretens um; kalkulieren Sie keine zugesicherte Ersparnis.",
       "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-12T07:01:52Z",
-      "expiresAt": "2026-11-20T00:00:00+01:00",
+      "checkedAt": "2026-11-16T07:08:10Z",
+      "expiresAt": "2026-11-21T00:00:00+01:00",
       "sources": [
         {
           "name": "Bundesregierung · Bundestagsbeschluss vom 5. November 2026",
@@ -124,32 +164,10 @@
         {
           "name": "Bundesministerium der Justiz · Fahrschüler-Ausbildungsordnung, Anlage 4",
           "url": "https://www.gesetze-im-internet.de/fahrschausbo_2012/anlage_4.html"
-        }
-      ]
-    },
-    {
-      "id": "euro7-typgenehmigung-2026-10-29",
-      "category": "Fahrzeug & Recht",
-      "status": "decided",
-      "title": "Euro 7: Erste Stufe startet am 29. November.",
-      "summary": "Die Bundesregierung erinnert am 29. Oktober an den beschlossenen Euro-7-Zeitplan: Ab 29. November 2026 gelten die Anforderungen für neue Typgenehmigungen von Pkw und leichten Nutzfahrzeugen. Für neue Fahrzeuge dieser Klassen folgt die nächste Stufe grundsätzlich am 29. November 2027; für Kleinserienhersteller gelten spätere Termine. Euro 7 regelt neben Abgasen auch Bremsabrieb und die Haltbarkeit von Antriebsbatterien.",
-      "impact": "Für bereits zugelassene Fahrschulwagen löst dieser Starttermin keinen Austauschzwang aus. Bei der Beschaffung neuer Fahrzeuge sind Typgenehmigung und Erstzulassung getrennt zu betrachten; die Fristen sind nicht identisch.",
-      "action": "Lassen Sie sich bei Neuwagenangeboten Emissionsnorm und geplanten Zulassungstermin bestätigen. Planen Sie keinen vorzeitigen Fuhrparktausch allein wegen des Starts neuer Typgenehmigungen.",
-      "publishedAt": "2026-10-29T00:00:00+01:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
-      "expiresAt": "2026-11-13T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Bundesregierung · Neuregelungen November, 29.10.2026",
-          "url": "https://www.bundesregierung.de/breg-de/aktuelles/gesetzliche-neuregelungen-november-2026-2459132"
         },
         {
-          "name": "Umweltbundesamt · Emissionsstandards für Pkw und leichte Nutzfahrzeuge",
-          "url": "https://www.umweltbundesamt.de/themen/verkehr/emissionsstandards/pkw-leichte-nutzfahrzeuge"
-        },
-        {
-          "name": "Europäisches Parlament · Verordnung (EU) 2024/1257, Anwendungstermine",
-          "url": "https://oeil.europarl.europa.eu/oeil/en/document-summary?id=1784743"
+          "name": "Bundesrat · Ausschussempfehlung 655/1/26 vom 13. November 2026",
+          "url": "https://www.bundesrat.de/SharedDocs/drucksachen/2026/0601-0700/655-1-26.pdf?__blob=publicationFile&v=1"
         }
       ]
     },
@@ -172,29 +190,11 @@
       ]
     },
     {
-      "id": "herner-strasse-bochum-2026-10-21",
-      "category": "Betrieb & Verkehr",
-      "status": "report",
-      "title": "Update: Herner Straße – letzte Bauphase laut Plan ab 6. November",
-      "summary": "Aktualisierung vom 6. November: Der veröffentlichte Bauplan sieht bis 13. November Wiederherstellungsarbeiten auf der Westseite vor. Für diese Phase sind die A43-Auf- und Abfahrten in beide Richtungen wieder freigegeben. Eine gesonderte Bestätigung des tatsächlichen Phasenwechsels liegt dieser Meldung nicht zugrunde; die Beschilderung vor Ort ist maßgeblich.",
-      "impact": "Die wechselnden Bauphasen betreffen Ausbildungsrouten, Abholungen und die Erreichbarkeit zwischen Bochum und Herne.",
-      "action": "Berücksichtigen Sie die Bauphasen in der Routen- und Terminplanung und informieren Sie Lernende über geänderte Abholwege.",
-      "publishedAt": "2026-10-14T00:00:00+02:00",
-      "checkedAt": "2026-11-06T07:52:19Z",
-      "expiresAt": "2026-11-14T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Bochum · Verkehrsmeldung vom 14.10.2026",
-          "url": "https://www.bochum.de/Pressemeldungen/14-Oktober-2026/Abbau-der-Baustelle-auf-der-Herner-Strasse-erfordert-Sperrungen"
-        }
-      ]
-    },
-    {
       "id": "tankrabatt-2026-q4",
       "category": "Tanken & Kosten",
       "status": "in_force",
       "publishedAt": "2026-10-01T00:00:00+02:00",
-      "checkedAt": "2026-11-12T07:01:52Z",
+      "checkedAt": "2026-11-16T07:08:10Z",
       "expiresAt": "2027-01-01T00:00:00+01:00",
       "title": "Tankrabatt: Entlastung für den Fuhrpark einordnen.",
       "summary": "Vom 1. Oktober bis 31. Dezember 2026 ist die Energiesteuer auf Benzin und Diesel reduziert. Mit Umsatzsteuer entspricht das rund 17 Cent je Liter. Wie stark der Tankpreis sinkt, hängt von der Weitergabe durch die Anbieter ab.",
