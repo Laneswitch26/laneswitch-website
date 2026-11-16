@@ -31,6 +31,7 @@ kurz berichten, was sich geändert hat.
 | #64 | Seitenleisten-Links (Instagram, Unfallhelfer, Impressum, Datenschutz) auf Unterseiten in Theme-Farben statt Browser-Blau (`shell.css` v7); Ortsschilder Fahrschul-Übersicht bündig |
 | #65 | Gefahrenradar im neuen Design (`radar.css` ersetzt `game.css`/`immersive.css`; Textmodus ohne leere Spalte) |
 | #66 | Impressum und Datenschutz optisch angeglichen (`legal.css`; nur `<head>` geändert, `<body>` byte-identisch; vom Eigentümer freigegeben) |
+| (Lernkontrolle) | Neue Seite `konzept/fahrplan/`: zweiseitige A4-Lernkontrolle „Führerschein geschafft – und jetzt?“ (Thema 2) mit Lückentext, Lösungsblatt, Druck/PDF, Teilen-Link und QR; Fahrschul-Branding nur Darstellung. Bewusst eigenständiges Druckdokument mit festen CD-Farben (Navy/Petrol/Türkis), nicht theme-abhängig. Aufruf aus dem Partnerbereich des Navigators. |
 
 ## Gestaltungssystem der App-Ansichten (`dist/app/app.css`, `app.js`)
 
