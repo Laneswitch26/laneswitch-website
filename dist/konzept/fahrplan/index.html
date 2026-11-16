@@ -2625,7 +2625,7 @@ function headerHtml(isBack){
   return '<header class="head"><div class="cobrand">'+
     '<span class="ls-mark">'+LS_LOGO+'</span>'+
     fsPart+'</div>'+
-    '<div class="tag">'+(isBack?'Lösung &amp; Merkzettel':'Lernkontrolle')+'<span>'+esc(CONFIG.version)+'</span></div></header>';
+    '<div class="tag">'+(isBack?'Lösung &amp; Merkzettel':'Lernkontrolle')+'<span>Thema 2</span></div></header>';
 }
 
 /* =========================================================
@@ -2636,7 +2636,7 @@ function renderSentence(parts,mode,ctr){
   parts.forEach(function(p){
     if(typeof p==="string"){ h+=esc(p); return; }
     var num=p.bonus?"★":(++ctr.n), pre=p.pre?esc(p.pre):"";
-    if(mode==="front") h+='<span class="nw">'+pre+'<span class="gap'+(p.w==="l"?" w-l":"")+'" aria-label="Lücke '+num+'"><span class="n">'+num+'</span></span></span>';
+    if(mode==="front") h+='<span class="nw">'+pre+'<span class="gap'+(p.w==="l"?" w-l":"")+'" aria-label="'+(p.bonus?'Bonus-Lücke':'Lücke '+num)+'">'+(p.bonus?'':'<span class="n">'+num+'</span>')+'</span></span>';
     else h+='<span class="nw">'+pre+'<span class="sol">'+esc(p.g)+'<span class="n">'+num+'</span></span></span>';
   });
   return h;
