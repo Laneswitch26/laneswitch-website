@@ -106,3 +106,7 @@ Offizielle Grundlagen:
 - https://developers.cloudflare.com/d1/configuration/data-location/
 - https://developers.cloudflare.com/workers/configuration/secrets/
 - https://developers.cloudflare.com/workers/configuration/routing/routes/
+
+## Lernkontrolle Thema 2 (Partnerbereich)
+
+Karte „Nach dem Führerschein“ auf der Partnerbereich-Startseite öffnet die öffentliche Seite `https://laneswitch.online/konzept/fahrplan/` (Branch `cloudflare-online`) als Lückentext, Lösungsblatt oder beide Seiten. Übergeben werden nur Darstellungsangaben über `localStorage` desselben Ursprungs (`lsfp_school`, `lsfp_fs`, `lsfp_logoData`). Inhalte (Fragen, Lösungen, Reihenfolge) stehen ausschließlich zentral in der Seite. Geteilte Links nutzen `?school=<adresse>`; Name und Logo kommen dann aus `action=public` (nur veröffentlichte Profile). Kein neuer Server-Endpunkt.
