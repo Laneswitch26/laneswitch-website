@@ -518,10 +518,28 @@ button {
   transition: opacity var(--motion-base) var(--ease);
 }
 
-.stim--active:hover .stim__ring,
-.stim--active:focus-visible .stim__ring,
-.stage--hints .stim--active .stim__ring {
+.stim-marks.is-hover .stim__ring,
+.stim-marks.is-focusvis .stim__ring {
   opacity: 0.55;
+}
+
+/* Markierungsebene nimmt keine Eingaben an */
+.stim-rings,
+.stim-rings * {
+  pointer-events: none;
+}
+
+/* „Reizquellen einblenden": Rahmen in Rot – nur in diesem Modus.
+   Eine laufende oder ausgewählte Quelle wird dadurch nicht rot,
+   solange die Hilfe nicht eingeschaltet ist. */
+.stage--hints .stim--active .stim__ring,
+.stage--hints .stim--active.is-running .stim__ring,
+.stage--hints .stim--active.is-selected .stim__ring,
+.stage--hints .stim--active.is-running.is-selected .stim__ring {
+  opacity: 0.95;
+  stroke: var(--c-stop);
+  fill: rgba(224, 92, 92, 0.1);
+  stroke-width: 3;
 }
 
 .stim--active.is-selected .stim__ring {
@@ -535,7 +553,7 @@ button {
 .stim--active:focus {
   outline: none;
 }
-.stim--active:focus-visible .stim__ring {
+.stim-marks.is-focusvis .stim__ring {
   stroke-dasharray: 9 6;
 }
 
@@ -822,17 +840,19 @@ button {
 
 /* Markierung laufender Quellen in der Szene */
 .stim__live {
-  fill: var(--c-stop);
+  /* Neutral statt Rot: Rot ist allein der eingeblendeten Hilfe vorbehalten */
+  fill: #ffffff;
   stroke: rgba(13, 17, 23, 0.7);
   stroke-width: 2;
   pointer-events: none;
   animation: card-pulse 1.8s ease-in-out infinite;
 }
 
+/* Laufender Reiz: neutral, gestrichelt (Form statt Farbe, siehe unten) */
 .stim--active.is-running .stim__ring {
   opacity: 0.75;
-  stroke: var(--c-stop);
-  fill: rgba(224, 92, 92, 0.1);
+  stroke: #ffffff;
+  fill: rgba(255, 255, 255, 0.06);
 }
 
 .stim--active.is-running.is-selected .stim__ring {
@@ -1676,26 +1696,82 @@ button {
   height: auto;
 }
 
-/* ---------------------------------------------- Deckenleuchten */
+/* ---------------------------------------------- Deckenleuchten
+   Ruhezustand: ausgeschaltet. Leuchtröhre grau, kein Lichtsaum, kein
+   Lichtkegel – der Raum ist insgesamt dunkler (siehe .office-ambient).
+   Erst der Reiz „Deckenlampe" schaltet das Licht ein. */
 .office-light__tube {
-  animation: office-lamp-breath 7s ease-in-out infinite;
+  fill: #9aa1a8;
+  transition: fill 1.2s ease-out;
 }
-.office-light__unit--2 .office-light__tube {
-  animation-duration: 9s;
-  animation-delay: -3s;
+.office-light__glow,
+.office-light__cone {
+  opacity: 0;
+  transition: opacity 1.2s ease-out;
 }
-.office-light__unit--3 .office-light__tube {
-  animation-duration: 8s;
-  animation-delay: -5s;
+.stage--effect-flicker [data-stimulus='ceiling-light'] .office-light__tube {
+  fill: #ffffff;
+}
+.stage--effect-flicker [data-stimulus='ceiling-light'] .office-light__cone {
+  opacity: 1;
 }
 
-@keyframes office-lamp-breath {
+/* ---------------------------------------------- Licht- und Blendebene */
+
+/* Raumabdunklung bei ausgeschaltetem Licht */
+.office-ambient {
+  fill: #0a0f16;
+  opacity: 0.44;
+  transition: opacity 1.4s ease-out;
+}
+.stage--effect-flicker .office-ambient {
+  opacity: 0;
+}
+
+.office-lightfx__lamps,
+.office-lightfx__screen {
+  opacity: 0;
+  transition: opacity 1.2s ease-out;
+}
+.stage--effect-flicker .office-lightfx__lamps {
+  opacity: 1;
+}
+.stage--effect-glare .office-lightfx__screen {
+  opacity: 1;
+}
+
+/* Harter, kalter Lichtton über dem ganzen Raum – gleichmäßig, ohne
+   Flackern: großflächige Helligkeitswechsel wären ein Blitzrisiko. */
+.office-lightfx__wash {
+  fill: #eef6ff;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+}
+
+/* Blendenflecken überlagern sich additiv wie Licht in einer Optik */
+.office-flare {
+  mix-blend-mode: screen;
+}
+
+/* Flackern nur an kleinen Flächen (Röhre, Lichtsaum, Reflexe) und mit
+   geringer Absenkung – wie bisher, unterhalb der Blitzschwellen. */
+.stage--effect-flicker .office-lightfx__tube,
+.stage--effect-flicker .office-lightfx__lamps .office-lightfx__flares {
+  animation: office-lamp-flicker 2.6s linear infinite;
+}
+
+/* Bildschirm: langsames Atmen der Helligkeit (0,2 Hz) */
+.stage--effect-glare .office-lightfx__screen .office-lightfx__flares {
+  animation: office-flare-breath 5s ease-in-out infinite;
+}
+
+@keyframes office-flare-breath {
   0%,
   100% {
     opacity: 1;
   }
   50% {
-    opacity: 0.93;
+    opacity: 0.78;
   }
 }
 
@@ -1992,8 +2068,19 @@ button {
    dauerhaft leicht abgesenkter Zustand als sichtbarer Hinweis. */
 @media (prefers-reduced-motion: reduce) {
   .stage--effect-flicker [data-stimulus='ceiling-light'] .office-light__tube,
-  .stage--effect-flicker [data-stimulus='ceiling-light'] .office-light__glow {
+  .stage--effect-flicker [data-stimulus='ceiling-light'] .office-light__glow,
+  .stage--effect-flicker .office-lightfx__tube,
+  .stage--effect-flicker .office-lightfx__lamps .office-lightfx__flares,
+  .stage--effect-glare .office-lightfx__screen .office-lightfx__flares {
     animation: none !important;
+  }
+  .office-ambient,
+  .office-lightfx__lamps,
+  .office-lightfx__screen,
+  .office-light__tube,
+  .office-light__glow,
+  .office-light__cone {
+    transition: none !important;
   }
   .stage--effect-flicker [data-stimulus='ceiling-light'] .office-light__tube {
     opacity: 0.82;
@@ -19712,6 +19799,11 @@ const OFFICE_STIMULI = [
         kind: 'Visuell und akustisch',
         explanation: 'Beleuchtung kann flimmern und ein leises elektrisches Summen abgeben. Beides liegt häufig unterhalb dessen, was bewusst auffällt. Manche Menschen nehmen es dennoch deutlich wahr und bringen es mit Augenbeschwerden oder Kopfschmerzen in Verbindung.',
         hotspot: { x: 700, y: 105, w: 210, h: 70 },
+        // Alle drei Leuchten sind antippbar, nicht nur die mittlere
+        extraHotspots: [
+            { x: 372, y: 105, w: 196, h: 70 },
+            { x: 1034, y: 105, w: 186, h: 70 },
+        ],
         effect: { audio: 'ceiling-light', visual: 'flicker' },
     },
     {
@@ -19728,6 +19820,8 @@ const OFFICE_STIMULI = [
         kind: 'Visuell / akustisch',
         explanation: 'Bewegung am Rand des Blickfelds löst eine reflexhafte Hinwendung aus – hier läuft eine Person durch den Raum und verschwindet durch die Tür. Dazu kommen Schritte und das wiederholte Öffnen und Schließen. Dieser Hinwendungsreflex läuft automatisch ab; wie stark er sich willentlich unterdrücken lässt, ist von Person zu Person unterschiedlich.',
         hotspot: { x: -45, y: 450, w: 90, h: 160 },
+        // Grafik bewegt sich durch den Raum: Trefferfläche wandert mit
+        moving: true,
         effect: { audio: 'passerby', visual: 'walking' },
     },
     {
@@ -19857,6 +19951,7 @@ function ScenePlaceholder({ scene, onBack, children }) {
 
 "use strict";
 const { createContext, useContext } = __req("react");
+const { createPortal } = __req("react-dom");
 /**
  * Verbindung zwischen SVG-Illustration und Szenen-Engine.
  *
@@ -19865,8 +19960,30 @@ const { createContext, useContext } = __req("react");
  * diesen Context – die Illustration selbst kennt keine Interaktionslogik.
  */
 const StimulusContext = createContext(null);
+/**
+ * Oberste Markierungsebene.
+ *
+ * Rahmen, Entdeckt-Punkt und Läuft-Punkt einer Quelle werden nicht in
+ * deren eigener Gruppe gezeichnet, sondern per Portal in eine Ebene ganz
+ * oben in der Szene – über der Raumabdunklung und über den Licht- und
+ * Blendeffekten. Sonst würden sie im dunklen Raum matt und von
+ * Blendenflecken überdeckt. Die Trefferflächen bleiben in der Gruppe
+ * der Quelle; die Markierungsebene nimmt keine Eingaben an.
+ */
+const RingLayerContext = createContext(null);
+function RingLayerProvider({ children }) {
+    const [el, setEl] = useState(null);
+    return React.createElement(RingLayerContext.Provider, { value: { el, setEl } }, children);
+}
+function RingLayerTarget() {
+    const layer = useContext(RingLayerContext);
+    return React.createElement("g", { className: "stim-rings", ref: layer?.setEl, "aria-hidden": "true" });
+}
 function Stim({ id, children }) {
     const ctx = useContext(StimulusContext);
+    const layer = useContext(RingLayerContext);
+    const [hover, setHover] = useState(false);
+    const [focusVis, setFocusVis] = useState(false);
     const data = ctx?.byId.get(id);
     // Ohne Engine oder ohne Datensatz: rein dekorativ (wie in Phase 2)
     if (!ctx || !data) {
@@ -19875,31 +19992,160 @@ function Stim({ id, children }) {
     const selected = ctx.selectedId === id;
     const found = ctx.discovered.has(id);
     const running = ctx.activeEffects?.has(id) ?? false;
-    const { x, y, w, h } = data.hotspot;
+    const { x, y, w } = data.hotspot;
     const activate = (event) => ctx.onSelect(id, event.currentTarget);
-    const min = ctx.minHit ?? 0;
-    const hw = Math.max(w, min);
-    const hh = Math.max(h, min);
-    const hit = { x: x + (w - hw) / 2, y: y + (h - hh) / 2, w: hw, h: hh };
-    return (React.createElement("g", { className: [
-            'stim',
-            'stim--active',
-            found ? 'is-found' : '',
-            selected ? 'is-selected' : '',
-            running ? 'is-running' : '',
-        ]
+    // Trefferflächen kommen fertig berechnet aus der Engine (hitLayout.js):
+    // auf Mindestgröße gebracht und gegen die Nachbarn abgegrenzt.
+    const areas = ctx.hitAreas?.get(id) ?? [
+        { hit: data.hotspot, mark: data.hotspot },
+        ...(data.extraHotspots ?? []).map((m) => ({ hit: m, mark: m })),
+    ];
+    const state = [
+        'stim--active',
+        found ? 'is-found' : '',
+        selected ? 'is-selected' : '',
+        running ? 'is-running' : '',
+    ];
+    const marks = (React.createElement("g", { className: ['stim-marks', ...state, hover ? 'is-hover' : '', focusVis ? 'is-focusvis' : '']
             .filter(Boolean)
-            .join(' '), "data-stimulus": id, role: "button", tabIndex: 0, "aria-label": `${data.label} – mögliche Reizquelle${found ? ', bereits entdeckt' : ''}${running ? ', Reiz läuft, erneut auswählen beendet ihn' : ''}`, "aria-pressed": selected, onClick: activate, onKeyDown: (event) => {
+            .join(' '), "data-for": id },
+        areas.map(({ mark }, i) => (React.createElement("rect", { key: i, className: "stim__ring", "data-for": id, "data-area": i, x: mark.x, y: mark.y, width: mark.w, height: mark.h, rx: "12" }))),
+        found && !selected ? React.createElement("circle", { className: "stim__dot", cx: x + w - 10, cy: y + 10, r: "7" }) : null,
+        running ? React.createElement("circle", { className: "stim__live", cx: x + 12, cy: y + 12, r: "7" }) : null));
+    return (React.createElement("g", { className: ['stim', ...state].filter(Boolean).join(' '), "data-stimulus": id, role: "button", tabIndex: 0, "aria-label": `${data.label} – mögliche Reizquelle${found ? ', bereits entdeckt' : ''}${running ? ', Reiz läuft, erneut auswählen beendet ihn' : ''}`, "aria-pressed": selected, onClick: activate, onPointerEnter: () => setHover(true), onPointerLeave: () => setHover(false), onFocus: (event) => {
+            let vis = true;
+            try {
+                vis = event.currentTarget.matches(':focus-visible');
+            }
+            catch {
+                /* ältere Browser */
+            }
+            setFocusVis(vis);
+        }, onBlur: () => setFocusVis(false), onKeyDown: (event) => {
             if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
                 event.preventDefault();
                 activate(event);
             }
         } },
         children,
-        React.createElement("rect", { className: "stim__hit", x: hit.x, y: hit.y, width: hit.w, height: hit.h, rx: "12" }),
-        React.createElement("rect", { className: "stim__ring", x: x, y: y, width: w, height: h, rx: "12" }),
-        found && !selected ? (React.createElement("circle", { className: "stim__dot", cx: x + w - 10, cy: y + 10, r: "7" })) : null,
-        running ? (React.createElement("circle", { className: "stim__live", cx: x + 12, cy: y + 12, r: "7" })) : null));
+        areas.map(({ hit }, i) => (React.createElement("g", { key: i, className: "stim__area", "data-area": i },
+            React.createElement("rect", { className: "stim__hit", x: hit.x, y: hit.y, width: hit.w, height: hit.h, rx: "12" })))),
+        layer?.el && !data.moving ? createPortal(marks, layer.el) : marks));
+}
+
+"use strict";
+/**
+ * Trefferflächen aller Reizquellen einer Szene – gemeinsam berechnet.
+ *
+ * Ziel: jede Fläche so groß wie nötig, keine größer als nötig, und keine
+ * zwei Flächen verschiedener Quellen überschneiden sich.
+ *
+ * 1. Ausgangspunkt ist die Markierung jeder Quelle (hotspot plus
+ *    gegebenenfalls extraHotspots). Diese Markierungen überschneiden sich
+ *    in der Grundgeometrie nicht.
+ * 2. Jede Fläche wird um ihren Mittelpunkt auf die Mindestkantenlänge
+ *    vergrößert (minHit, in viewBox-Einheiten; abhängig vom dargestellten
+ *    Maßstab und vom Eingabegerät).
+ * 3. Überschneiden sich danach zwei Flächen verschiedener Quellen, wird
+ *    an der Mitte der Lücke zwischen den beiden Markierungen getrennt –
+ *    entlang der Achse, auf der die Markierungen auseinanderliegen. Keine
+ *    Fläche wird dabei kleiner als ihre Markierung.
+ *
+ * Quellen, deren Grafik sich bewegt (moving: true, etwa die laufende
+ * Person), liegen in einem eigenen, verschobenen Koordinatensystem und
+ * werden nur vergrößert, nicht gegen die übrigen abgeglichen.
+ */
+const right = (r) => r.x + r.w;
+const bottom = (r) => r.y + r.h;
+function grow(a, min) {
+    const w = Math.max(a.w, min);
+    const h = Math.max(a.h, min);
+    return { x: a.x + (a.w - w) / 2, y: a.y + (a.h - h) / 2, w, h };
+}
+function overlaps(p, q) {
+    return p.x < right(q) && q.x < right(p) && p.y < bottom(q) && q.y < bottom(p);
+}
+/** Fläche r auf einer Seite an der Linie s abschneiden, nie unter die Markierung a. */
+function clip(r, a, side, s) {
+    if (side === 'right') {
+        const edge = Math.max(right(a), Math.min(right(r), s));
+        return { ...r, w: edge - r.x };
+    }
+    if (side === 'left') {
+        const edge = Math.min(a.x, Math.max(r.x, s));
+        return { ...r, w: right(r) - edge, x: edge };
+    }
+    if (side === 'bottom') {
+        const edge = Math.max(bottom(a), Math.min(bottom(r), s));
+        return { ...r, h: edge - r.y };
+    }
+    const edge = Math.min(a.y, Math.max(r.y, s));
+    return { ...r, h: bottom(r) - edge, y: edge };
+}
+/**
+ * @param {Array<{id:string, hotspot:object, extraHotspots?:object[], moving?:boolean}>} stimuli
+ * @param {number} minHit Mindestkantenlänge in viewBox-Einheiten
+ * @returns {Map<string, Array<{hit:object, mark:object}>>}
+ */
+function layoutHits(stimuli, minHit) {
+    const areas = [];
+    stimuli.forEach((st) => {
+        if (!st.hotspot)
+            return;
+        [st.hotspot, ...(st.extraHotspots ?? [])].forEach((mark) => {
+            areas.push({ id: st.id, moving: !!st.moving, mark, hit: grow(mark, minHit) });
+        });
+    });
+    const fixed = areas.filter((a) => !a.moving);
+    // Mehrere Durchgänge, bis nichts mehr überlappt (in der Praxis 1–2)
+    for (let pass = 0; pass < 6; pass++) {
+        let changed = false;
+        for (let i = 0; i < fixed.length; i++) {
+            for (let j = i + 1; j < fixed.length; j++) {
+                const A = fixed[i];
+                const B = fixed[j];
+                if (A.id === B.id || !overlaps(A.hit, B.hit))
+                    continue;
+                const a = A.mark;
+                const b = B.mark;
+                // Lücke zwischen den Markierungen je Achse (negativ = keine Lücke)
+                const gapX = Math.max(b.x - right(a), a.x - right(b));
+                const gapY = Math.max(b.y - bottom(a), a.y - bottom(b));
+                if (gapX >= gapY) {
+                    if (a.x < b.x) {
+                        const s = (right(a) + b.x) / 2;
+                        A.hit = clip(A.hit, a, 'right', s);
+                        B.hit = clip(B.hit, b, 'left', s);
+                    }
+                    else {
+                        const s = (right(b) + a.x) / 2;
+                        B.hit = clip(B.hit, b, 'right', s);
+                        A.hit = clip(A.hit, a, 'left', s);
+                    }
+                }
+                else if (a.y < b.y) {
+                    const s = (bottom(a) + b.y) / 2;
+                    A.hit = clip(A.hit, a, 'bottom', s);
+                    B.hit = clip(B.hit, b, 'top', s);
+                }
+                else {
+                    const s = (bottom(b) + a.y) / 2;
+                    B.hit = clip(B.hit, b, 'bottom', s);
+                    A.hit = clip(A.hit, a, 'top', s);
+                }
+                changed = true;
+            }
+        }
+        if (!changed)
+            break;
+    }
+    const byId = new Map();
+    areas.forEach((a) => {
+        if (!byId.has(a.id))
+            byId.set(a.id, []);
+        byId.get(a.id).push({ hit: a.hit, mark: a.mark });
+    });
+    return byId;
 }
 
 "use strict";
@@ -21005,15 +21251,18 @@ function SceneStage({ scene, children }) {
         if (!root)
             return null;
         const cand = [];
-        root.querySelectorAll('[data-stimulus] > .stim__hit').forEach((hitEl) => {
-            const g = hitEl.parentElement;
+        root.querySelectorAll('[data-stimulus] .stim__area').forEach((area) => {
+            const hitEl = area.querySelector('.stim__hit');
+            const g = area.closest('[data-stimulus]');
             const id = g.dataset.stimulus;
-            if (!byId.has(id))
+            if (!byId.has(id) || !hitEl)
                 return;
             const hb = hitEl.getBoundingClientRect();
             if (clientX < hb.left || clientX > hb.right || clientY < hb.top || clientY > hb.bottom)
                 return;
-            const ring = g.querySelector('.stim__ring');
+            // Die Markierung liegt in der obersten Ebene (Portal), daher über
+            // Quelle und Flächennummer suchen statt in der Gruppe selbst
+            const ring = root.querySelector(`.stim__ring[data-for="${id}"][data-area="${area.dataset.area}"]`);
             const rb = ring ? ring.getBoundingClientRect() : hb;
             const inside = clientX >= rb.left && clientX <= rb.right && clientY >= rb.top && clientY <= rb.bottom;
             const dx = clientX - (rb.left + rb.width / 2);
@@ -21063,7 +21312,7 @@ function SceneStage({ scene, children }) {
             // 48 px statt der geforderten 44: einzelne Gruppen in der Szene
             // tragen eine eigene Skalierung (z. B. scale(0.92) bei der
             // vorbeilaufenden Person), die die Trefferfläche mitverkleinert.
-            const target = window.matchMedia('(pointer: coarse)').matches ? 48 : 24;
+            const target = window.matchMedia('(pointer: coarse)').matches ? 48 : 32;
             setMinHit(scale > 0 ? Math.ceil(target / scale) : 0);
         };
         measure();
@@ -21082,7 +21331,10 @@ function SceneStage({ scene, children }) {
             window.removeEventListener('orientationchange', measure);
         };
     }, [scene.id, zoom, immersive]);
-    const ctxValue = useMemo(() => ({ byId, selectedId, discovered, activeEffects, minHit, onSelect: handleSelect }), [byId, selectedId, discovered, activeEffects, minHit, handleSelect]);
+    // Trefferflächen aller Quellen gemeinsam: Mindestgröße, aber ohne
+    // gegenseitige Überschneidung (siehe hitLayout.js)
+    const hitAreas = useMemo(() => layoutHits(stimuli, minHit), [stimuli, minHit]);
+    const ctxValue = useMemo(() => ({ byId, selectedId, discovered, activeEffects, hitAreas, onSelect: handleSelect }), [byId, selectedId, discovered, activeEffects, hitAreas, handleSelect]);
     const visualEffects = activeList
         .map((s) => s.effect?.visual)
         .filter(Boolean);
@@ -21373,6 +21625,140 @@ function SceneStage({ scene, children }) {
 
 "use strict";
 /**
+ * Licht- und Blendebene der Büroszene.
+ *
+ * Liegt über der gesamten Illustration (aber unter den Markierungsrahmen):
+ *
+ * - Raumabdunklung: Solange die Deckenleuchten aus sind, liegt ein
+ *   dunkler Schleier über dem Raum. Er verschwindet, sobald die Leuchten
+ *   eingeschaltet werden.
+ * - Helle Lampen: grelle Leuchtröhren, Lichtsaum, Lichtkegel und ein
+ *   kalter, harter Lichtton über dem ganzen Raum.
+ * - Heller Bildschirm: der Laptop strahlt über die Abdunklung hinweg,
+ *   mit Lichtsaum und Lichtwurf auf die Tischplatte.
+ * - Blendenflecken: Reflexe wie in einer Kameraoptik – entlang der Linie
+ *   von der Lichtquelle durch die Bildmitte, dazu ein waagrechter
+ *   Lichtstreif an der Quelle selbst.
+ *
+ * Alles ist rein dekorativ (aria-hidden, keine Eingaben). Sichtbar wird
+ * es über die Wirkungsklassen der Bühne: stage--effect-flicker (Lampen)
+ * und stage--effect-glare (Bildschirm). Siehe office-scene.css.
+ */
+const CENTER = { x: 800, y: 431 };
+/** Sechseck um (cx, cy) – die Form einer Blendenöffnung. */
+function hexPoints(cx, cy, r, rot = 0) {
+    return Array.from({ length: 6 }, (_, i) => {
+        const a = rot + (Math.PI / 3) * i;
+        return `${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`;
+    }).join(' ');
+}
+/**
+ * Reflexkette einer Lichtquelle. Die Positionen liegen auf der Geraden
+ * Quelle → Bildmitte → darüber hinaus, wie bei echten Linsenreflexen.
+ */
+const GHOSTS = [
+    { t: 0.42, r: 9, shape: 'dot', color: '#d9efff', o: 0.55 },
+    { t: 0.68, r: 24, shape: 'hex', color: '#9fc4ff', o: 0.26 },
+    { t: 0.9, r: 7, shape: 'dot', color: '#ffe2b0', o: 0.5 },
+    { t: 1.12, r: 15, shape: 'dot', color: '#ffcf8a', o: 0.36 },
+    { t: 1.4, r: 44, shape: 'ring', color: '#c8b7ff', o: 0.3 },
+    { t: 1.62, r: 30, shape: 'hex', color: '#8ff2d6', o: 0.2 },
+    { t: 1.9, r: 12, shape: 'dot', color: '#b9d8ff', o: 0.4 },
+];
+function Flare({ x, y, scale = 1, streak = 300, className = '' }) {
+    const dx = CENTER.x - x;
+    const dy = CENTER.y - y;
+    return (React.createElement("g", { className: `office-flare ${className}` },
+        React.createElement("circle", { cx: x, cy: y, r: 70 * scale, fill: "url(#g-flare-halo)" }),
+        React.createElement("ellipse", { cx: x, cy: y, rx: streak * scale, ry: 3.2 * scale, fill: "url(#g-flare-streak)" }),
+        React.createElement("ellipse", { cx: x, cy: y, rx: 4 * scale, ry: 60 * scale, fill: "url(#g-flare-streak-v)", opacity: "0.7" }),
+        GHOSTS.map((g, i) => {
+            const gx = x + dx * g.t;
+            const gy = y + dy * g.t;
+            const r = g.r * scale;
+            if (g.shape === 'hex') {
+                return (React.createElement("polygon", { key: i, points: hexPoints(gx, gy, r, 0.3), fill: g.color, opacity: Math.min(0.85, g.o * 1.3), filter: "url(#f-flare-soft)" }));
+            }
+            if (g.shape === 'ring') {
+                return (React.createElement("circle", { key: i, cx: gx, cy: gy, r: r, fill: "none", stroke: g.color, strokeWidth: 5 * scale, opacity: Math.min(0.85, g.o * 1.3), filter: "url(#f-flare-soft)" }));
+            }
+            return (React.createElement("circle", { key: i, cx: gx, cy: gy, r: r, fill: g.color, opacity: Math.min(0.85, g.o * 1.3), filter: "url(#f-flare-soft)" }));
+        })));
+}
+/** Gradienten und Filter für die Lichtebene. */
+function LightFxDefs() {
+    return (React.createElement(React.Fragment, null,
+        React.createElement("radialGradient", { id: "g-flare-halo", cx: "0.5", cy: "0.5", r: "0.5" },
+            React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0.95" }),
+            React.createElement("stop", { offset: "0.25", stopColor: "#f3f8ff", stopOpacity: "0.55" }),
+            React.createElement("stop", { offset: "1", stopColor: "#dcebff", stopOpacity: "0" })),
+        React.createElement("linearGradient", { id: "g-flare-streak", x1: "0", y1: "0", x2: "1", y2: "0" },
+            React.createElement("stop", { offset: "0", stopColor: "#bfe0ff", stopOpacity: "0" }),
+            React.createElement("stop", { offset: "0.5", stopColor: "#ffffff", stopOpacity: "0.95" }),
+            React.createElement("stop", { offset: "1", stopColor: "#bfe0ff", stopOpacity: "0" })),
+        React.createElement("linearGradient", { id: "g-flare-streak-v", x1: "0", y1: "0", x2: "0", y2: "1" },
+            React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0" }),
+            React.createElement("stop", { offset: "0.5", stopColor: "#ffffff", stopOpacity: "0.9" }),
+            React.createElement("stop", { offset: "1", stopColor: "#ffffff", stopOpacity: "0" })),
+        React.createElement("linearGradient", { id: "g-lamp-cone-hot", x1: "0", y1: "0", x2: "0", y2: "1" },
+            React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0.55" }),
+            React.createElement("stop", { offset: "0.55", stopColor: "#f4f8ff", stopOpacity: "0.18" }),
+            React.createElement("stop", { offset: "1", stopColor: "#f4f8ff", stopOpacity: "0" })),
+        React.createElement("radialGradient", { id: "g-lamp-pool", cx: "0.5", cy: "0.5", r: "0.5" },
+            React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0.35" }),
+            React.createElement("stop", { offset: "1", stopColor: "#ffffff", stopOpacity: "0" })),
+        React.createElement("radialGradient", { id: "g-screen-hot", cx: "0.5", cy: "0.5", r: "0.5" },
+            React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0.9" }),
+            React.createElement("stop", { offset: "0.4", stopColor: "#e6f3ff", stopOpacity: "0.45" }),
+            React.createElement("stop", { offset: "1", stopColor: "#cfe6ff", stopOpacity: "0" })),
+        React.createElement("linearGradient", { id: "g-screen-face", x1: "0", y1: "0", x2: "1", y2: "1" },
+            React.createElement("stop", { offset: "0", stopColor: "#ffffff" }),
+            React.createElement("stop", { offset: "0.6", stopColor: "#f2f9ff" }),
+            React.createElement("stop", { offset: "1", stopColor: "#d4ebff" })),
+        React.createElement("filter", { id: "f-flare-soft", x: "-60%", y: "-60%", width: "220%", height: "220%" },
+            React.createElement("feGaussianBlur", { stdDeviation: "2.4" })),
+        React.createElement("filter", { id: "f-bloom", x: "-80%", y: "-80%", width: "260%", height: "260%" },
+            React.createElement("feGaussianBlur", { stdDeviation: "22" }))));
+}
+const LAMPS = [
+    { cx: 470, w: 180 },
+    { cx: 800, w: 196 },
+    { cx: 1130, w: 180 },
+];
+/** Bildschirmfläche des Laptops (identisch zur Illustration). */
+const SCREEN = '111,747 303,747 296,672 138,672';
+const SCREEN_C = { x: 207, y: 710 };
+function LightFx() {
+    return (React.createElement("g", { className: "office-lightfx", "aria-hidden": "true", pointerEvents: "none" },
+        React.createElement("rect", { className: "office-ambient", x: "0", y: "0", width: "1600", height: "900" }),
+        React.createElement("g", { className: "office-lightfx__lamps" },
+            React.createElement("rect", { className: "office-lightfx__wash", x: "0", y: "0", width: "1600", height: "900" }),
+            LAMPS.map((l) => (React.createElement("g", { key: l.cx, className: "office-lightfx__lamp" },
+                React.createElement("polygon", { points: `${l.cx - l.w / 2 + 6},168 ${l.cx + l.w / 2 - 6},168 ${l.cx + l.w * 0.95},640 ${l.cx - l.w * 0.95},640`, fill: "url(#g-lamp-cone-hot)" }),
+                React.createElement("ellipse", { cx: l.cx, cy: 600, rx: l.w * 1.1, ry: 70, fill: "url(#g-lamp-pool)" }),
+                React.createElement("ellipse", { cx: l.cx, cy: 146, rx: l.w * 1.35, ry: 120, fill: "url(#g-flare-halo)" }),
+                React.createElement("ellipse", { cx: l.cx, cy: 146, rx: l.w * 0.95, ry: 64, fill: "#ffffff", opacity: "0.95", filter: "url(#f-bloom)" }),
+                React.createElement("polygon", { className: "office-lightfx__tube", points: `${l.cx - l.w / 2 + 9},121 ${l.cx + l.w / 2 - 9},121 ${l.cx + l.w / 2 - 23},161 ${l.cx - l.w / 2 + 23},161`, fill: "#ffffff" }),
+                React.createElement("polygon", { className: "office-lightfx__tube", points: `${l.cx - l.w / 2 - 4},116 ${l.cx + l.w / 2 + 4},116 ${l.cx + l.w / 2 - 12},166 ${l.cx - l.w / 2 + 12},166`, fill: "#ffffff", opacity: "0.55", filter: "url(#f-flare-soft)" })))),
+            React.createElement("g", { className: "office-lightfx__flares" },
+                React.createElement(Flare, { x: 800, y: 141, scale: 1.15, streak: 420 }),
+                React.createElement(Flare, { x: 470, y: 141, scale: 0.8, streak: 260 }),
+                React.createElement(Flare, { x: 1130, y: 141, scale: 0.8, streak: 260 }))),
+        React.createElement("g", { className: "office-lightfx__screen" },
+            React.createElement("ellipse", { cx: SCREEN_C.x, cy: SCREEN_C.y + 40, rx: "420", ry: "230", fill: "url(#g-screen-hot)" }),
+            React.createElement("ellipse", { cx: SCREEN_C.x, cy: SCREEN_C.y, rx: "230", ry: "150", fill: "url(#g-flare-halo)" }),
+            React.createElement("ellipse", { cx: SCREEN_C.x, cy: SCREEN_C.y, rx: "170", ry: "95", fill: "#ffffff", opacity: "0.95", filter: "url(#f-bloom)" }),
+            React.createElement("polygon", { points: SCREEN, fill: "url(#g-screen-face)" }),
+            React.createElement("g", { fill: "#7fa6c4", opacity: "0.35" },
+                React.createElement("rect", { x: "152", y: "690", width: "110", height: "6", rx: "3" }),
+                React.createElement("rect", { x: "152", y: "704", width: "78", height: "6", rx: "3" }),
+                React.createElement("rect", { x: "152", y: "718", width: "96", height: "6", rx: "3" })),
+            React.createElement("g", { className: "office-lightfx__flares" },
+                React.createElement(Flare, { x: SCREEN_C.x, y: SCREEN_C.y, scale: 0.95, streak: 340 })))));
+}
+
+"use strict";
+/**
  * Büro-Szene (Phase 2: rein visuell).
  *
  * Vorbereitung für Phase 3+:
@@ -21417,272 +21803,276 @@ function OfficeScene() {
     return (React.createElement("div", { className: "office" },
         React.createElement("div", { className: "office__scroll" },
             React.createElement("div", { className: "office__canvas" },
-                React.createElement("svg", { className: "office__svg", viewBox: "0 0 1600 862", preserveAspectRatio: "xMidYMid meet", role: "img", "aria-label": "Illustration eines Gro\u00DFraumb\u00FCros: im Vordergrund ein Schreibtisch mit Laptop, Tastatur, Maus, Kugelschreiber, Kaffeebecher und Smartphone; dahinter zwei besetzte Arbeitspl\u00E4tze, links ein Drucker auf einem Sideboard, rechts eine Kaffeemaschine auf einer K\u00FCchenzeile und eine T\u00FCr in der Wand, im Hintergrund Fenster (eines gekippt), Deckenleuchten und eine Deckenklimaanlage; auf dem linken Schreibtisch ein Telefon." },
-                    React.createElement("defs", null,
-                        React.createElement("linearGradient", { id: "g-ceiling", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#f7f4ee" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#e7e2d7" })),
-                        React.createElement("linearGradient", { id: "g-wall", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#efebe2" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#ddd8cc" })),
-                        React.createElement("linearGradient", { id: "g-wall-side", x1: "0", y1: "0", x2: "1", y2: "0" },
-                            React.createElement("stop", { offset: "0", stopColor: "#c5bfb1" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#e4dfd4" })),
-                        React.createElement("linearGradient", { id: "g-floor", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#a69d8d" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#8a8171" })),
-                        React.createElement("linearGradient", { id: "g-window", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#d4e6f0" }),
-                            React.createElement("stop", { offset: "0.55", stopColor: "#b7d2e0" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#a6c2cd" })),
-                        React.createElement("linearGradient", { id: "g-desk", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#dcc19a" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#c9a87c" })),
-                        React.createElement("linearGradient", { id: "g-desk-fore", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#e5cda9" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#c9a87c" })),
-                        React.createElement("linearGradient", { id: "g-screen", x1: "0", y1: "0", x2: "1", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#53788a" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#36545f" })),
-                        React.createElement("linearGradient", { id: "g-screen-bright", x1: "0", y1: "0", x2: "1", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#ffffff" }),
-                            React.createElement("stop", { offset: "0.5", stopColor: "#d6ecff" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#7fbde4" })),
-                        React.createElement("radialGradient", { id: "g-screen-spill", cx: "0.5", cy: "0.5", r: "0.5" },
-                            React.createElement("stop", { offset: "0", stopColor: "#eaf6ff", stopOpacity: "0.85" }),
-                            React.createElement("stop", { offset: "0.45", stopColor: "#cfe8fb", stopOpacity: "0.4" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#bcdff8", stopOpacity: "0" })),
-                        React.createElement("linearGradient", { id: "g-counter", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#d9d2c4" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#bcb3a2" })),
-                        React.createElement("linearGradient", { id: "g-lightcone", x1: "0", y1: "0", x2: "0", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#fff3d8", stopOpacity: "0.22" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#fff3d8", stopOpacity: "0" })),
-                        React.createElement("linearGradient", { id: "g-daylight", x1: "0.25", y1: "0", x2: "0.7", y2: "1" },
-                            React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0.17" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#ffffff", stopOpacity: "0" })),
-                        React.createElement("radialGradient", { id: "g-vignette", cx: "0.5", cy: "0.44", r: "0.8" },
-                            React.createElement("stop", { offset: "0.52", stopColor: "#000000", stopOpacity: "0" }),
-                            React.createElement("stop", { offset: "1", stopColor: "#201c15", stopOpacity: "0.3" })),
-                        React.createElement("filter", { id: "f-soft", x: "-40%", y: "-40%", width: "180%", height: "180%" },
-                            React.createElement("feGaussianBlur", { stdDeviation: "16" })),
-                        React.createElement("filter", { id: "f-contact", x: "-60%", y: "-160%", width: "220%", height: "420%" },
-                            React.createElement("feGaussianBlur", { stdDeviation: "6" })),
-                        React.createElement("filter", { id: "f-glow", x: "-70%", y: "-70%", width: "240%", height: "240%" },
-                            React.createElement("feGaussianBlur", { stdDeviation: "16" })),
-                        React.createElement("clipPath", { id: "clip-room" },
-                            React.createElement("rect", { x: "0", y: "0", width: "1600", height: "900" }))),
-                    React.createElement("g", { clipPath: "url(#clip-room)" },
-                        React.createElement("rect", { width: "1600", height: "900", fill: "#ddd8cc" }),
-                        React.createElement("polygon", { points: "0,0 1600,0 1330,206 270,206", fill: "url(#g-ceiling)" }),
-                        React.createElement("rect", { x: "270", y: "206", width: "1060", height: "336", fill: "url(#g-wall)" }),
-                        React.createElement("polygon", { points: "0,0 270,206 270,542 0,772", fill: "url(#g-wall-side)" }),
-                        React.createElement("polygon", { points: "1600,0 1330,206 1330,542 1600,772", fill: "#cdc7b9" }),
-                        React.createElement("polygon", { points: "270,542 1330,542 1600,772 1600,900 0,900 0,772", fill: "url(#g-floor)" }),
-                        React.createElement("g", { stroke: "#776f61", strokeWidth: "1.5", opacity: "0.3" },
-                            React.createElement("line", { x1: "430", y1: "542", x2: "330", y2: "900" }),
-                            React.createElement("line", { x1: "620", y1: "542", x2: "600", y2: "900" }),
-                            React.createElement("line", { x1: "810", y1: "542", x2: "860", y2: "900" }),
-                            React.createElement("line", { x1: "1000", y1: "542", x2: "1125", y2: "900" }),
-                            React.createElement("line", { x1: "1180", y1: "542", x2: "1370", y2: "900" }),
-                            React.createElement("line", { x1: "0", y1: "624", x2: "1600", y2: "624" }),
-                            React.createElement("line", { x1: "0", y1: "700", x2: "1600", y2: "700" })),
-                        React.createElement("rect", { x: "270", y: "526", width: "1060", height: "16", fill: "#c2bbab" }),
-                        [
-                            { x: 330, w: 300 },
-                            { x: 680, w: 300 },
-                        ].map((w) => (React.createElement("g", { key: w.x },
-                            React.createElement("rect", { x: w.x - 12, y: 244, width: w.w + 24, height: 240, rx: "4", fill: "#c7c0b1" }),
-                            React.createElement("rect", { x: w.x, y: 256, width: w.w, height: 216, fill: "url(#g-window)" }),
-                            React.createElement("g", { opacity: "0.45" },
-                                React.createElement("rect", { x: w.x + 20, y: 372, width: 54, height: 100, fill: "#8ba7b5" }),
-                                React.createElement("rect", { x: w.x + 92, y: 344, width: 40, height: 128, fill: "#9db7c3" }),
-                                React.createElement("rect", { x: w.x + 152, y: 392, width: 64, height: 80, fill: "#8ba7b5" }),
-                                React.createElement("rect", { x: w.x + 234, y: 358, width: 46, height: 114, fill: "#a4bdc7" })),
-                            React.createElement("rect", { x: w.x + w.w / 2 - 3, y: 256, width: "6", height: "216", fill: "#c7c0b1" }),
-                            React.createElement("rect", { x: w.x, y: 356, width: w.w, height: "6", fill: "#c7c0b1" }),
-                            React.createElement("polygon", { points: `${w.x},${472} ${w.x + 104},${256} ${w.x + 158},${256} ${w.x + 54},${472}`, fill: "#ffffff", opacity: "0.18" }),
-                            React.createElement("rect", { x: w.x - 16, y: 478, width: w.w + 32, height: 12, rx: "3", fill: "#bdb6a6" })))),
-                        React.createElement(Stim, { id: "window-traffic" },
-                            React.createElement("g", { className: "office-window-tilt" },
-                                React.createElement("rect", { x: "833", y: "256", width: "144", height: "100", fill: "#5d6a74" }),
-                                React.createElement("polygon", { points: "833,356 977,356 965,274 845,274", fill: "url(#g-window)", opacity: "0.92" }),
-                                React.createElement("polygon", { points: "845,274 965,274 965,279 845,279", fill: "#c7c0b1" }),
-                                React.createElement("polygon", { points: "833,356 845,274 850,274 838,356", fill: "#b4ad9d" }),
-                                React.createElement("polygon", { points: "977,356 965,274 960,274 972,356", fill: "#b4ad9d" }),
-                                React.createElement("polygon", { points: "858,350 896,278 916,278 878,350", fill: "#ffffff", opacity: "0.16" }),
-                                React.createElement("g", { className: "office-traffic-waves", "aria-hidden": "true" },
-                                    React.createElement("path", { d: "M886,262 a16,16 0 0 1 20,0" }),
-                                    React.createElement("path", { d: "M878,252 a26,26 0 0 1 36,0" }),
-                                    React.createElement("path", { d: "M870,242 a38,38 0 0 1 52,0" })))),
-                        React.createElement("polygon", { points: "340,542 980,542 1160,900 190,900", fill: "url(#g-daylight)" }),
-                        React.createElement(Stim, { id: "ceiling-light" },
-                            React.createElement("g", { className: "office-light" }, [
-                                { cx: 470, w: 180 },
-                                { cx: 800, w: 196 },
-                                { cx: 1130, w: 180 },
-                            ].map((l, i) => (React.createElement("g", { key: l.cx, className: `office-light__unit office-light__unit--${i + 1}` },
-                                React.createElement("polygon", { className: "office-light__cone", points: `${l.cx - l.w / 2 + 10},168 ${l.cx + l.w / 2 - 10},168 ${l.cx + l.w * 0.78},540 ${l.cx - l.w * 0.78},540`, fill: "url(#g-lightcone)" }),
-                                React.createElement("polygon", { points: `${l.cx - l.w / 2},114 ${l.cx + l.w / 2},114 ${l.cx + l.w / 2 - 16},168 ${l.cx - l.w / 2 + 16},168`, fill: "#aeb4b9" }),
-                                React.createElement("polygon", { className: "office-light__tube", points: `${l.cx - l.w / 2 + 9},121 ${l.cx + l.w / 2 - 9},121 ${l.cx + l.w / 2 - 23},161 ${l.cx - l.w / 2 + 23},161`, fill: "#fdf7e8" }),
-                                React.createElement("ellipse", { className: "office-light__glow", cx: l.cx, cy: 148, rx: l.w * 0.56, ry: "34", fill: "#fff1ce", opacity: "0.4", filter: "url(#f-glow)" })))))),
-                        React.createElement("g", { className: "office-door", "aria-hidden": "true" },
-                            React.createElement("rect", { x: "1226", y: "332", width: "104", height: "214", rx: "3", fill: "#c7c0b1" }),
-                            React.createElement("rect", { x: "1232", y: "340", width: "92", height: "202", fill: "#4a453d" }),
-                            React.createElement("rect", { x: "1232", y: "340", width: "24", height: "202", fill: "#403b34" }),
-                            React.createElement("g", { className: "office-door__leaf", style: { transformOrigin: '1232px 440px' } },
-                                React.createElement("rect", { x: "1232", y: "340", width: "92", height: "202", fill: "#b5a386" }),
-                                React.createElement("rect", { x: "1241", y: "352", width: "74", height: "82", rx: "3", fill: "#aa9879" }),
-                                React.createElement("rect", { x: "1241", y: "446", width: "74", height: "82", rx: "3", fill: "#aa9879" }),
-                                React.createElement("circle", { cx: "1308", cy: "424", r: "5", fill: "#6d6250" }))),
-                        React.createElement(Stim, { id: "aircon" },
-                            React.createElement("g", { className: "office-aircon" },
-                                React.createElement("polygon", { points: "1233,112 1367,112 1352,162 1248,162", fill: "#b7bdc2" }),
-                                React.createElement("polygon", { points: "1241,120 1359,120 1347,154 1253,154", fill: "#99a1a7" }),
-                                React.createElement("g", { stroke: "#747d84", strokeWidth: "3.5", opacity: "0.85" },
-                                    React.createElement("line", { x1: "1253", y1: "128", x2: "1347", y2: "128" }),
-                                    React.createElement("line", { x1: "1255", y1: "137", x2: "1345", y2: "137" }),
-                                    React.createElement("line", { x1: "1257", y1: "146", x2: "1343", y2: "146" })),
-                                React.createElement("circle", { cx: "1352", cy: "117", r: "3", fill: "#7fa98b" }),
-                                React.createElement("g", { className: "office-aircon__air", "aria-hidden": "true" },
-                                    React.createElement("path", { d: "M1272,168 q-6,16 2,30 q8,14 0,30" }),
-                                    React.createElement("path", { d: "M1300,170 q-6,16 2,30 q8,14 0,30" }),
-                                    React.createElement("path", { d: "M1328,168 q-6,16 2,30 q8,14 0,30" })))),
-                        React.createElement("g", { className: "office-passerby" },
-                            React.createElement(Stim, { id: "passerby" },
-                                React.createElement("ellipse", { cx: "0", cy: "596", rx: "24", ry: "7", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                                React.createElement("path", { d: "M-13,596 L-9,536 L9,536 L13,596 Z", fill: "#455160" }),
-                                React.createElement("rect", { x: "-21", y: "486", width: "42", height: "56", rx: "15", fill: "#5d7280" }),
-                                React.createElement("rect", { x: "-26", y: "492", width: "11", height: "42", rx: "5.5", fill: "#526675" }),
-                                React.createElement("rect", { x: "15", y: "492", width: "11", height: "42", rx: "5.5", fill: "#526675" }),
-                                React.createElement("circle", { cx: "0", cy: "468", r: "16", fill: "#d2a481" }),
-                                React.createElement("path", { d: "M-16,464 a16,16 0 0 1 32,0 q-16,-9 -32,0 Z", fill: "#3a3734" }))),
-                        React.createElement("g", null,
-                            React.createElement("ellipse", { cx: "216", cy: "716", rx: "142", ry: "17", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                            React.createElement("polygon", { points: "96,572 336,572 350,710 82,710", fill: "#b8af9e" }),
-                            React.createElement("polygon", { points: "88,552 344,552 356,572 76,572", fill: "url(#g-counter)" }),
-                            React.createElement("rect", { x: "116", y: "596", width: "96", height: "92", rx: "4", fill: "#ada392" }),
-                            React.createElement("rect", { x: "226", y: "596", width: "96", height: "92", rx: "4", fill: "#ada392" }),
-                            React.createElement("rect", { x: "150", y: "636", width: "28", height: "5", rx: "2.5", fill: "#857b6b" }),
-                            React.createElement("rect", { x: "260", y: "636", width: "28", height: "5", rx: "2.5", fill: "#857b6b" }),
-                            React.createElement(Stim, { id: "printer" },
-                                React.createElement("g", { className: "office-printer" },
-                                    React.createElement("ellipse", { cx: "216", cy: "552", rx: "104", ry: "8", fill: "#000", opacity: "0.18", filter: "url(#f-contact)" }),
-                                    React.createElement("rect", { x: "150", y: "430", width: "126", height: "12", rx: "2", fill: "#efece4" }),
-                                    React.createElement("rect", { x: "122", y: "440", width: "190", height: "30", rx: "6", fill: "#a2a8ad" }),
-                                    React.createElement("rect", { x: "114", y: "466", width: "206", height: "86", rx: "8", fill: "#c3c9cd" }),
-                                    React.createElement("rect", { x: "114", y: "466", width: "206", height: "16", rx: "8", fill: "#d6dbde" }),
-                                    React.createElement("rect", { x: "132", y: "500", width: "58", height: "10", rx: "3", fill: "#8f969b" }),
-                                    React.createElement("circle", { cx: "296", cy: "505", r: "7", fill: "#7fa98b", className: "office-printer__led" }),
-                                    React.createElement("g", { className: "office-printer__paper" },
-                                        React.createElement("rect", { x: "146", y: "456", width: "134", height: "18", rx: "2", fill: "#f7f4ed" }),
-                                        React.createElement("rect", { x: "146", y: "456", width: "134", height: "3", fill: "#dbd6cb" }))))),
-                        React.createElement("g", null,
-                            React.createElement("ellipse", { cx: "1388", cy: "720", rx: "160", ry: "18", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                            React.createElement("polygon", { points: "1256,578 1516,578 1544,716 1232,716", fill: "#b6ad9c" }),
-                            React.createElement("polygon", { points: "1248,558 1512,558 1522,578 1240,578", fill: "url(#g-counter)" }),
-                            React.createElement("rect", { x: "1272", y: "602", width: "112", height: "98", rx: "4", fill: "#aba190" }),
-                            React.createElement("rect", { x: "1398", y: "602", width: "112", height: "98", rx: "4", fill: "#aba190" }),
-                            React.createElement("rect", { x: "1312", y: "642", width: "30", height: "5", rx: "2.5", fill: "#847a6a" }),
-                            React.createElement("rect", { x: "1438", y: "642", width: "30", height: "5", rx: "2.5", fill: "#847a6a" }),
-                            React.createElement(Stim, { id: "coffee-machine" },
-                                React.createElement("g", { className: "office-coffee" },
-                                    React.createElement("ellipse", { cx: "1364", cy: "558", rx: "72", ry: "7", fill: "#000", opacity: "0.18", filter: "url(#f-contact)" }),
-                                    React.createElement("rect", { x: "1304", y: "442", width: "120", height: "116", rx: "10", fill: "#3b4248" }),
-                                    React.createElement("rect", { x: "1304", y: "442", width: "120", height: "26", rx: "10", fill: "#474f55" }),
-                                    React.createElement("rect", { x: "1318", y: "480", width: "50", height: "24", rx: "4", fill: "#282e32" }),
-                                    React.createElement("rect", { x: "1324", y: "486", width: "18", height: "5", rx: "2", fill: "#7fa98b" }),
-                                    React.createElement("circle", { cx: "1400", cy: "494", r: "9", fill: "#c9872f" }),
-                                    React.createElement("rect", { x: "1338", y: "508", width: "13", height: "16", fill: "#878d92" }),
-                                    React.createElement("rect", { x: "1314", y: "542", width: "100", height: "8", rx: "3", fill: "#282e32" }),
-                                    React.createElement("rect", { x: "1330", y: "522", width: "30", height: "20", rx: "3", fill: "#efe9dd" }),
-                                    React.createElement("g", { className: "office-coffee__steam" },
-                                        React.createElement("path", { d: "M1339,518 q6,-12 0,-24 q-6,-12 0,-22", fill: "none", stroke: "#ffffff", strokeWidth: "3", strokeLinecap: "round", opacity: "0.55" }),
-                                        React.createElement("path", { d: "M1352,518 q6,-10 0,-20 q-6,-10 0,-18", fill: "none", stroke: "#ffffff", strokeWidth: "3", strokeLinecap: "round", opacity: "0.4" }))))),
-                        React.createElement(Workstation, { x: 452, deskW: 300, deskY: 604, personOffset: 226, bodyFill: "#7d6f8c", headFill: "#e0b48f", hairFill: "#5a4636", typing: true }),
-                        React.createElement(Stim, { id: "desk-phone" },
-                            React.createElement("g", { className: "office-deskphone" },
-                                React.createElement("path", { d: "M470,586 q-8,6 -2,12 q6,6 -2,12", fill: "none", stroke: "#2e343a", strokeWidth: "2.5", opacity: "0.8" }),
-                                React.createElement("polygon", { points: "462,604 516,604 512,582 468,582", fill: "#3c434a" }),
-                                React.createElement("rect", { x: "478", y: "588", width: "26", height: "10", rx: "2", fill: "#565f68" }),
-                                React.createElement("g", { className: "office-deskphone__handset", style: { transformOrigin: '488px 578px' } },
-                                    React.createElement("rect", { x: "458", y: "572", width: "60", height: "9", rx: "4.5", fill: "#2e343a" }),
-                                    React.createElement("rect", { x: "456", y: "570", width: "12", height: "13", rx: "4", fill: "#2e343a" }),
-                                    React.createElement("rect", { x: "508", y: "570", width: "12", height: "13", rx: "4", fill: "#2e343a" })),
-                                React.createElement("g", { className: "office-deskphone__ring", "aria-hidden": "true" },
-                                    React.createElement("path", { d: "M524,566 a14,14 0 0 1 0,20" }),
-                                    React.createElement("path", { d: "M532,558 a24,24 0 0 1 0,36" }),
-                                    React.createElement("path", { d: "M452,566 a14,14 0 0 0 0,20" }),
-                                    React.createElement("path", { d: "M444,558 a24,24 0 0 0 0,36" })))),
-                        React.createElement(Stim, { id: "conversation" },
-                            React.createElement(Workstation, { x: 846, deskW: 264, deskY: 594, personOffset: 210, bodyFill: "#6f8a86", headFill: "#c99a76", hairFill: "#2f2b28" },
-                                React.createElement("g", { className: "office-person office-person--standing" },
-                                    React.createElement("ellipse", { cx: "1176", cy: "680", rx: "34", ry: "9", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                                    React.createElement("path", { d: "M1160,678 L1164,588 L1194,588 L1198,678 Z", fill: "#455160" }),
-                                    React.createElement("rect", { x: "1150", y: "514", width: "56", height: "80", rx: "19", fill: "#9a6f62" }),
-                                    React.createElement("g", { className: "office-arm office-arm--gesture", style: { transformOrigin: '1152px 530px' } },
-                                        React.createElement("rect", { x: "1134", y: "524", width: "19", height: "64", rx: "9.5", fill: "#8e6457" })),
-                                    React.createElement("circle", { cx: "1178", cy: "490", r: "22", fill: "#e3b995" }),
-                                    React.createElement("path", { d: "M1156,486 a22,22 0 0 1 44,0 q-22,-12 -44,0 Z", fill: "#6a4f3a" }),
-                                    React.createElement("g", { className: "office-talk", "aria-hidden": "true" },
-                                        React.createElement("path", { d: "M1206,468 a26,26 0 0 1 0,34" }),
-                                        React.createElement("path", { d: "M1218,458 a40,40 0 0 1 0,54" }),
-                                        React.createElement("path", { d: "M1230,448 a54,54 0 0 1 0,74" }))))),
-                        React.createElement("g", { className: "office-foreground" },
-                            React.createElement("rect", { x: "0", y: "688", width: "1600", height: "64", fill: "#000", opacity: "0.1", filter: "url(#f-soft)" }),
-                            React.createElement("polygon", { points: "54,744 1546,744 1600,796 0,796", fill: "url(#g-desk-fore)" }),
-                            React.createElement("rect", { x: "0", y: "792", width: "1600", height: "108", fill: "#a98a63" }),
-                            React.createElement("rect", { x: "0", y: "792", width: "1600", height: "7", fill: "#8e7250" }),
-                            React.createElement("g", { className: "office-screen__spill", "aria-hidden": "true" },
-                                React.createElement("ellipse", { cx: "207", cy: "702", rx: "225", ry: "140", fill: "url(#g-screen-spill)" })),
-                            React.createElement(Stim, { id: "laptop" },
-                                React.createElement("g", { className: "office-laptop" },
-                                    React.createElement("polygon", { points: "96,756 318,756 336,788 78,788", fill: "#b4b9bd" }),
-                                    React.createElement("polygon", { points: "104,752 310,752 302,666 132,666", fill: "#474e54" }),
-                                    React.createElement("polygon", { points: "111,747 303,747 296,672 138,672", fill: "url(#g-screen)", className: "office-screen" }),
-                                    React.createElement("polygon", { points: "111,747 303,747 296,672 138,672", fill: "url(#g-screen-bright)", className: "office-screen__bright" }),
-                                    React.createElement("g", { fill: "#ffffff", opacity: "0.2", className: "office-screen__lines" },
-                                        React.createElement("rect", { x: "152", y: "690", width: "110", height: "6", rx: "3" }),
-                                        React.createElement("rect", { x: "152", y: "704", width: "78", height: "6", rx: "3" }),
-                                        React.createElement("rect", { x: "152", y: "718", width: "96", height: "6", rx: "3" })))),
-                            React.createElement(Stim, { id: "keyboard" },
-                                React.createElement("g", { className: "office-keyboard" },
-                                    React.createElement("ellipse", { cx: "700", cy: "790", rx: "196", ry: "11", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                                    React.createElement("polygon", { points: "518,748 882,748 900,786 500,786", fill: "#dcd6c8" }),
-                                    React.createElement("polygon", { points: "518,748 882,748 884,755 516,755", fill: "#f0ebe0" }),
-                                    React.createElement("g", { fill: "#c4bdad" },
-                                        Array.from({ length: 14 }).map((_, i) => (React.createElement("rect", { key: i, x: 530 + i * 25, y: 759, width: "19", height: "8", rx: "2", className: "office-key", style: { animationDelay: `${(i % 7) * 0.17}s` } }))),
-                                        Array.from({ length: 13 }).map((_, i) => (React.createElement("rect", { key: `b${i}`, x: 536 + i * 26, y: 771, width: "20", height: "9", rx: "2", className: "office-key", style: { animationDelay: `${((i + 3) % 7) * 0.17}s` } })))))),
-                            React.createElement(Stim, { id: "mouse" },
-                                React.createElement("g", { className: "office-mouse" },
-                                    React.createElement("ellipse", { cx: "986", cy: "784", rx: "38", ry: "9", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                                    React.createElement("path", { d: "M958,778 q0,-30 28,-30 q28,0 28,30 q-28,10 -56,0 Z", fill: "#dcd6c8" }),
-                                    React.createElement("path", { d: "M986,748 L986,762", stroke: "#b7b0a0", strokeWidth: "2" }))),
-                            React.createElement(Stim, { id: "pen" },
-                                React.createElement("g", { className: "office-pen" },
-                                    React.createElement("g", { transform: "rotate(-13 1130 772)" },
-                                        React.createElement("ellipse", { cx: "1126", cy: "780", rx: "60", ry: "6", fill: "#000", opacity: "0.16", filter: "url(#f-contact)" }),
-                                        React.createElement("rect", { x: "1070", y: "766", width: "116", height: "11", rx: "5.5", fill: "#2f6f7a" }),
-                                        React.createElement("rect", { x: "1070", y: "766", width: "30", height: "11", rx: "5.5", fill: "#245862" }),
-                                        React.createElement("polygon", { points: "1186,766 1202,771.5 1186,777", fill: "#c3bcab" }),
-                                        React.createElement("rect", { x: "1096", y: "761", width: "9", height: "5", rx: "2", fill: "#d8d2c2" })))),
-                            React.createElement(Stim, { id: "mug" },
-                                React.createElement("g", { className: "office-mug" },
-                                    React.createElement("ellipse", { cx: "1308", cy: "786", rx: "44", ry: "10", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
-                                    React.createElement("path", { d: "M1346,722 q22,6 22,24 q0,18 -22,22", fill: "none", stroke: "#e7e0d2", strokeWidth: "10" }),
-                                    React.createElement("path", { d: "M1270,714 L1350,714 L1342,784 L1278,784 Z", fill: "#efe9dc" }),
-                                    React.createElement("ellipse", { cx: "1310", cy: "714", rx: "40", ry: "9", fill: "#d3cbba" }),
-                                    React.createElement("ellipse", { cx: "1310", cy: "715", rx: "33", ry: "7", fill: "#6b4a33" }))),
-                            React.createElement("g", { className: "office-scent", "aria-hidden": "true" },
-                                React.createElement("path", { d: "M1292,704 q10,-26 0,-50 q-10,-24 0,-44" }),
-                                React.createElement("path", { d: "M1310,704 q11,-22 0,-44 q-11,-22 0,-40" }),
-                                React.createElement("path", { d: "M1328,704 q10,-26 0,-48 q-10,-22 0,-42" })),
-                            React.createElement(Stim, { id: "notification" },
-                                React.createElement("g", { className: "office-phone", transform: "rotate(-8 1468 752)" },
-                                    React.createElement("ellipse", { cx: "1468", cy: "788", rx: "46", ry: "8", fill: "#000", opacity: "0.18", filter: "url(#f-contact)" }),
-                                    React.createElement("rect", { x: "1428", y: "720", width: "80", height: "64", rx: "9", fill: "#2b3137" }),
-                                    React.createElement("rect", { x: "1436", y: "728", width: "64", height: "48", rx: "4", fill: "#48565f", className: "office-phone__screen" })))),
-                        React.createElement("rect", { width: "1600", height: "900", fill: "url(#g-vignette)", pointerEvents: "none" })))))));
+                React.createElement(RingLayerProvider, null,
+                    React.createElement("svg", { className: "office__svg", viewBox: "0 0 1600 862", preserveAspectRatio: "xMidYMid meet", role: "img", "aria-label": "Illustration eines Gro\u00DFraumb\u00FCros: im Vordergrund ein Schreibtisch mit Laptop, Tastatur, Maus, Kugelschreiber, Kaffeebecher und Smartphone; dahinter zwei besetzte Arbeitspl\u00E4tze, links ein Drucker auf einem Sideboard, rechts eine Kaffeemaschine auf einer K\u00FCchenzeile und eine T\u00FCr in der Wand, im Hintergrund Fenster (eines gekippt), Deckenleuchten und eine Deckenklimaanlage; auf dem linken Schreibtisch ein Telefon." },
+                        React.createElement("defs", null,
+                            React.createElement("linearGradient", { id: "g-ceiling", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#f7f4ee" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#e7e2d7" })),
+                            React.createElement("linearGradient", { id: "g-wall", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#efebe2" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#ddd8cc" })),
+                            React.createElement("linearGradient", { id: "g-wall-side", x1: "0", y1: "0", x2: "1", y2: "0" },
+                                React.createElement("stop", { offset: "0", stopColor: "#c5bfb1" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#e4dfd4" })),
+                            React.createElement("linearGradient", { id: "g-floor", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#a69d8d" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#8a8171" })),
+                            React.createElement("linearGradient", { id: "g-window", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#d4e6f0" }),
+                                React.createElement("stop", { offset: "0.55", stopColor: "#b7d2e0" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#a6c2cd" })),
+                            React.createElement("linearGradient", { id: "g-desk", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#dcc19a" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#c9a87c" })),
+                            React.createElement("linearGradient", { id: "g-desk-fore", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#e5cda9" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#c9a87c" })),
+                            React.createElement("linearGradient", { id: "g-screen", x1: "0", y1: "0", x2: "1", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#53788a" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#36545f" })),
+                            React.createElement("linearGradient", { id: "g-screen-bright", x1: "0", y1: "0", x2: "1", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#ffffff" }),
+                                React.createElement("stop", { offset: "0.5", stopColor: "#d6ecff" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#7fbde4" })),
+                            React.createElement("radialGradient", { id: "g-screen-spill", cx: "0.5", cy: "0.5", r: "0.5" },
+                                React.createElement("stop", { offset: "0", stopColor: "#eaf6ff", stopOpacity: "0.85" }),
+                                React.createElement("stop", { offset: "0.45", stopColor: "#cfe8fb", stopOpacity: "0.4" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#bcdff8", stopOpacity: "0" })),
+                            React.createElement("linearGradient", { id: "g-counter", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#d9d2c4" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#bcb3a2" })),
+                            React.createElement("linearGradient", { id: "g-lightcone", x1: "0", y1: "0", x2: "0", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#fff3d8", stopOpacity: "0.22" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#fff3d8", stopOpacity: "0" })),
+                            React.createElement("linearGradient", { id: "g-daylight", x1: "0.25", y1: "0", x2: "0.7", y2: "1" },
+                                React.createElement("stop", { offset: "0", stopColor: "#ffffff", stopOpacity: "0.17" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#ffffff", stopOpacity: "0" })),
+                            React.createElement("radialGradient", { id: "g-vignette", cx: "0.5", cy: "0.44", r: "0.8" },
+                                React.createElement("stop", { offset: "0.52", stopColor: "#000000", stopOpacity: "0" }),
+                                React.createElement("stop", { offset: "1", stopColor: "#201c15", stopOpacity: "0.3" })),
+                            React.createElement("filter", { id: "f-soft", x: "-40%", y: "-40%", width: "180%", height: "180%" },
+                                React.createElement("feGaussianBlur", { stdDeviation: "16" })),
+                            React.createElement("filter", { id: "f-contact", x: "-60%", y: "-160%", width: "220%", height: "420%" },
+                                React.createElement("feGaussianBlur", { stdDeviation: "6" })),
+                            React.createElement("filter", { id: "f-glow", x: "-70%", y: "-70%", width: "240%", height: "240%" },
+                                React.createElement("feGaussianBlur", { stdDeviation: "16" })),
+                            React.createElement(LightFxDefs, null),
+                            React.createElement("clipPath", { id: "clip-room" },
+                                React.createElement("rect", { x: "0", y: "0", width: "1600", height: "900" }))),
+                        React.createElement("g", { clipPath: "url(#clip-room)" },
+                            React.createElement("rect", { width: "1600", height: "900", fill: "#ddd8cc" }),
+                            React.createElement("polygon", { points: "0,0 1600,0 1330,206 270,206", fill: "url(#g-ceiling)" }),
+                            React.createElement("rect", { x: "270", y: "206", width: "1060", height: "336", fill: "url(#g-wall)" }),
+                            React.createElement("polygon", { points: "0,0 270,206 270,542 0,772", fill: "url(#g-wall-side)" }),
+                            React.createElement("polygon", { points: "1600,0 1330,206 1330,542 1600,772", fill: "#cdc7b9" }),
+                            React.createElement("polygon", { points: "270,542 1330,542 1600,772 1600,900 0,900 0,772", fill: "url(#g-floor)" }),
+                            React.createElement("g", { stroke: "#776f61", strokeWidth: "1.5", opacity: "0.3" },
+                                React.createElement("line", { x1: "430", y1: "542", x2: "330", y2: "900" }),
+                                React.createElement("line", { x1: "620", y1: "542", x2: "600", y2: "900" }),
+                                React.createElement("line", { x1: "810", y1: "542", x2: "860", y2: "900" }),
+                                React.createElement("line", { x1: "1000", y1: "542", x2: "1125", y2: "900" }),
+                                React.createElement("line", { x1: "1180", y1: "542", x2: "1370", y2: "900" }),
+                                React.createElement("line", { x1: "0", y1: "624", x2: "1600", y2: "624" }),
+                                React.createElement("line", { x1: "0", y1: "700", x2: "1600", y2: "700" })),
+                            React.createElement("rect", { x: "270", y: "526", width: "1060", height: "16", fill: "#c2bbab" }),
+                            [
+                                { x: 330, w: 300 },
+                                { x: 680, w: 300 },
+                            ].map((w) => (React.createElement("g", { key: w.x },
+                                React.createElement("rect", { x: w.x - 12, y: 244, width: w.w + 24, height: 240, rx: "4", fill: "#c7c0b1" }),
+                                React.createElement("rect", { x: w.x, y: 256, width: w.w, height: 216, fill: "url(#g-window)" }),
+                                React.createElement("g", { opacity: "0.45" },
+                                    React.createElement("rect", { x: w.x + 20, y: 372, width: 54, height: 100, fill: "#8ba7b5" }),
+                                    React.createElement("rect", { x: w.x + 92, y: 344, width: 40, height: 128, fill: "#9db7c3" }),
+                                    React.createElement("rect", { x: w.x + 152, y: 392, width: 64, height: 80, fill: "#8ba7b5" }),
+                                    React.createElement("rect", { x: w.x + 234, y: 358, width: 46, height: 114, fill: "#a4bdc7" })),
+                                React.createElement("rect", { x: w.x + w.w / 2 - 3, y: 256, width: "6", height: "216", fill: "#c7c0b1" }),
+                                React.createElement("rect", { x: w.x, y: 356, width: w.w, height: "6", fill: "#c7c0b1" }),
+                                React.createElement("polygon", { points: `${w.x},${472} ${w.x + 104},${256} ${w.x + 158},${256} ${w.x + 54},${472}`, fill: "#ffffff", opacity: "0.18" }),
+                                React.createElement("rect", { x: w.x - 16, y: 478, width: w.w + 32, height: 12, rx: "3", fill: "#bdb6a6" })))),
+                            React.createElement(Stim, { id: "window-traffic" },
+                                React.createElement("g", { className: "office-window-tilt" },
+                                    React.createElement("rect", { x: "833", y: "256", width: "144", height: "100", fill: "#5d6a74" }),
+                                    React.createElement("polygon", { points: "833,356 977,356 965,274 845,274", fill: "url(#g-window)", opacity: "0.92" }),
+                                    React.createElement("polygon", { points: "845,274 965,274 965,279 845,279", fill: "#c7c0b1" }),
+                                    React.createElement("polygon", { points: "833,356 845,274 850,274 838,356", fill: "#b4ad9d" }),
+                                    React.createElement("polygon", { points: "977,356 965,274 960,274 972,356", fill: "#b4ad9d" }),
+                                    React.createElement("polygon", { points: "858,350 896,278 916,278 878,350", fill: "#ffffff", opacity: "0.16" }),
+                                    React.createElement("g", { className: "office-traffic-waves", "aria-hidden": "true" },
+                                        React.createElement("path", { d: "M886,262 a16,16 0 0 1 20,0" }),
+                                        React.createElement("path", { d: "M878,252 a26,26 0 0 1 36,0" }),
+                                        React.createElement("path", { d: "M870,242 a38,38 0 0 1 52,0" })))),
+                            React.createElement("polygon", { points: "340,542 980,542 1160,900 190,900", fill: "url(#g-daylight)" }),
+                            React.createElement(Stim, { id: "ceiling-light" },
+                                React.createElement("g", { className: "office-light" }, [
+                                    { cx: 470, w: 180 },
+                                    { cx: 800, w: 196 },
+                                    { cx: 1130, w: 180 },
+                                ].map((l, i) => (React.createElement("g", { key: l.cx, className: `office-light__unit office-light__unit--${i + 1}` },
+                                    React.createElement("polygon", { className: "office-light__cone", points: `${l.cx - l.w / 2 + 10},168 ${l.cx + l.w / 2 - 10},168 ${l.cx + l.w * 0.78},540 ${l.cx - l.w * 0.78},540`, fill: "url(#g-lightcone)" }),
+                                    React.createElement("polygon", { points: `${l.cx - l.w / 2},114 ${l.cx + l.w / 2},114 ${l.cx + l.w / 2 - 16},168 ${l.cx - l.w / 2 + 16},168`, fill: "#aeb4b9" }),
+                                    React.createElement("polygon", { className: "office-light__tube", points: `${l.cx - l.w / 2 + 9},121 ${l.cx + l.w / 2 - 9},121 ${l.cx + l.w / 2 - 23},161 ${l.cx - l.w / 2 + 23},161`, fill: "#fdf7e8" }),
+                                    React.createElement("ellipse", { className: "office-light__glow", cx: l.cx, cy: 148, rx: l.w * 0.56, ry: "34", fill: "#fff1ce", opacity: "0.4", filter: "url(#f-glow)" })))))),
+                            React.createElement("g", { className: "office-door", "aria-hidden": "true" },
+                                React.createElement("rect", { x: "1226", y: "332", width: "104", height: "214", rx: "3", fill: "#c7c0b1" }),
+                                React.createElement("rect", { x: "1232", y: "340", width: "92", height: "202", fill: "#4a453d" }),
+                                React.createElement("rect", { x: "1232", y: "340", width: "24", height: "202", fill: "#403b34" }),
+                                React.createElement("g", { className: "office-door__leaf", style: { transformOrigin: '1232px 440px' } },
+                                    React.createElement("rect", { x: "1232", y: "340", width: "92", height: "202", fill: "#b5a386" }),
+                                    React.createElement("rect", { x: "1241", y: "352", width: "74", height: "82", rx: "3", fill: "#aa9879" }),
+                                    React.createElement("rect", { x: "1241", y: "446", width: "74", height: "82", rx: "3", fill: "#aa9879" }),
+                                    React.createElement("circle", { cx: "1308", cy: "424", r: "5", fill: "#6d6250" }))),
+                            React.createElement(Stim, { id: "aircon" },
+                                React.createElement("g", { className: "office-aircon" },
+                                    React.createElement("polygon", { points: "1233,112 1367,112 1352,162 1248,162", fill: "#b7bdc2" }),
+                                    React.createElement("polygon", { points: "1241,120 1359,120 1347,154 1253,154", fill: "#99a1a7" }),
+                                    React.createElement("g", { stroke: "#747d84", strokeWidth: "3.5", opacity: "0.85" },
+                                        React.createElement("line", { x1: "1253", y1: "128", x2: "1347", y2: "128" }),
+                                        React.createElement("line", { x1: "1255", y1: "137", x2: "1345", y2: "137" }),
+                                        React.createElement("line", { x1: "1257", y1: "146", x2: "1343", y2: "146" })),
+                                    React.createElement("circle", { cx: "1352", cy: "117", r: "3", fill: "#7fa98b" }),
+                                    React.createElement("g", { className: "office-aircon__air", "aria-hidden": "true" },
+                                        React.createElement("path", { d: "M1272,168 q-6,16 2,30 q8,14 0,30" }),
+                                        React.createElement("path", { d: "M1300,170 q-6,16 2,30 q8,14 0,30" }),
+                                        React.createElement("path", { d: "M1328,168 q-6,16 2,30 q8,14 0,30" })))),
+                            React.createElement("g", { className: "office-passerby" },
+                                React.createElement(Stim, { id: "passerby" },
+                                    React.createElement("ellipse", { cx: "0", cy: "596", rx: "24", ry: "7", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                    React.createElement("path", { d: "M-13,596 L-9,536 L9,536 L13,596 Z", fill: "#455160" }),
+                                    React.createElement("rect", { x: "-21", y: "486", width: "42", height: "56", rx: "15", fill: "#5d7280" }),
+                                    React.createElement("rect", { x: "-26", y: "492", width: "11", height: "42", rx: "5.5", fill: "#526675" }),
+                                    React.createElement("rect", { x: "15", y: "492", width: "11", height: "42", rx: "5.5", fill: "#526675" }),
+                                    React.createElement("circle", { cx: "0", cy: "468", r: "16", fill: "#d2a481" }),
+                                    React.createElement("path", { d: "M-16,464 a16,16 0 0 1 32,0 q-16,-9 -32,0 Z", fill: "#3a3734" }))),
+                            React.createElement("g", null,
+                                React.createElement("ellipse", { cx: "216", cy: "716", rx: "142", ry: "17", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                React.createElement("polygon", { points: "96,572 336,572 350,710 82,710", fill: "#b8af9e" }),
+                                React.createElement("polygon", { points: "88,552 344,552 356,572 76,572", fill: "url(#g-counter)" }),
+                                React.createElement("rect", { x: "116", y: "596", width: "96", height: "92", rx: "4", fill: "#ada392" }),
+                                React.createElement("rect", { x: "226", y: "596", width: "96", height: "92", rx: "4", fill: "#ada392" }),
+                                React.createElement("rect", { x: "150", y: "636", width: "28", height: "5", rx: "2.5", fill: "#857b6b" }),
+                                React.createElement("rect", { x: "260", y: "636", width: "28", height: "5", rx: "2.5", fill: "#857b6b" }),
+                                React.createElement(Stim, { id: "printer" },
+                                    React.createElement("g", { className: "office-printer" },
+                                        React.createElement("ellipse", { cx: "216", cy: "552", rx: "104", ry: "8", fill: "#000", opacity: "0.18", filter: "url(#f-contact)" }),
+                                        React.createElement("rect", { x: "150", y: "430", width: "126", height: "12", rx: "2", fill: "#efece4" }),
+                                        React.createElement("rect", { x: "122", y: "440", width: "190", height: "30", rx: "6", fill: "#a2a8ad" }),
+                                        React.createElement("rect", { x: "114", y: "466", width: "206", height: "86", rx: "8", fill: "#c3c9cd" }),
+                                        React.createElement("rect", { x: "114", y: "466", width: "206", height: "16", rx: "8", fill: "#d6dbde" }),
+                                        React.createElement("rect", { x: "132", y: "500", width: "58", height: "10", rx: "3", fill: "#8f969b" }),
+                                        React.createElement("circle", { cx: "296", cy: "505", r: "7", fill: "#7fa98b", className: "office-printer__led" }),
+                                        React.createElement("g", { className: "office-printer__paper" },
+                                            React.createElement("rect", { x: "146", y: "456", width: "134", height: "18", rx: "2", fill: "#f7f4ed" }),
+                                            React.createElement("rect", { x: "146", y: "456", width: "134", height: "3", fill: "#dbd6cb" }))))),
+                            React.createElement("g", null,
+                                React.createElement("ellipse", { cx: "1388", cy: "720", rx: "160", ry: "18", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                React.createElement("polygon", { points: "1256,578 1516,578 1544,716 1232,716", fill: "#b6ad9c" }),
+                                React.createElement("polygon", { points: "1248,558 1512,558 1522,578 1240,578", fill: "url(#g-counter)" }),
+                                React.createElement("rect", { x: "1272", y: "602", width: "112", height: "98", rx: "4", fill: "#aba190" }),
+                                React.createElement("rect", { x: "1398", y: "602", width: "112", height: "98", rx: "4", fill: "#aba190" }),
+                                React.createElement("rect", { x: "1312", y: "642", width: "30", height: "5", rx: "2.5", fill: "#847a6a" }),
+                                React.createElement("rect", { x: "1438", y: "642", width: "30", height: "5", rx: "2.5", fill: "#847a6a" }),
+                                React.createElement(Stim, { id: "coffee-machine" },
+                                    React.createElement("g", { className: "office-coffee" },
+                                        React.createElement("ellipse", { cx: "1364", cy: "558", rx: "72", ry: "7", fill: "#000", opacity: "0.18", filter: "url(#f-contact)" }),
+                                        React.createElement("rect", { x: "1304", y: "442", width: "120", height: "116", rx: "10", fill: "#3b4248" }),
+                                        React.createElement("rect", { x: "1304", y: "442", width: "120", height: "26", rx: "10", fill: "#474f55" }),
+                                        React.createElement("rect", { x: "1318", y: "480", width: "50", height: "24", rx: "4", fill: "#282e32" }),
+                                        React.createElement("rect", { x: "1324", y: "486", width: "18", height: "5", rx: "2", fill: "#7fa98b" }),
+                                        React.createElement("circle", { cx: "1400", cy: "494", r: "9", fill: "#c9872f" }),
+                                        React.createElement("rect", { x: "1338", y: "508", width: "13", height: "16", fill: "#878d92" }),
+                                        React.createElement("rect", { x: "1314", y: "542", width: "100", height: "8", rx: "3", fill: "#282e32" }),
+                                        React.createElement("rect", { x: "1330", y: "522", width: "30", height: "20", rx: "3", fill: "#efe9dd" }),
+                                        React.createElement("g", { className: "office-coffee__steam" },
+                                            React.createElement("path", { d: "M1339,518 q6,-12 0,-24 q-6,-12 0,-22", fill: "none", stroke: "#ffffff", strokeWidth: "3", strokeLinecap: "round", opacity: "0.55" }),
+                                            React.createElement("path", { d: "M1352,518 q6,-10 0,-20 q-6,-10 0,-18", fill: "none", stroke: "#ffffff", strokeWidth: "3", strokeLinecap: "round", opacity: "0.4" }))))),
+                            React.createElement(Workstation, { x: 452, deskW: 300, deskY: 604, personOffset: 226, bodyFill: "#7d6f8c", headFill: "#e0b48f", hairFill: "#5a4636", typing: true }),
+                            React.createElement(Stim, { id: "desk-phone" },
+                                React.createElement("g", { className: "office-deskphone" },
+                                    React.createElement("path", { d: "M470,586 q-8,6 -2,12 q6,6 -2,12", fill: "none", stroke: "#2e343a", strokeWidth: "2.5", opacity: "0.8" }),
+                                    React.createElement("polygon", { points: "462,604 516,604 512,582 468,582", fill: "#3c434a" }),
+                                    React.createElement("rect", { x: "478", y: "588", width: "26", height: "10", rx: "2", fill: "#565f68" }),
+                                    React.createElement("g", { className: "office-deskphone__handset", style: { transformOrigin: '488px 578px' } },
+                                        React.createElement("rect", { x: "458", y: "572", width: "60", height: "9", rx: "4.5", fill: "#2e343a" }),
+                                        React.createElement("rect", { x: "456", y: "570", width: "12", height: "13", rx: "4", fill: "#2e343a" }),
+                                        React.createElement("rect", { x: "508", y: "570", width: "12", height: "13", rx: "4", fill: "#2e343a" })),
+                                    React.createElement("g", { className: "office-deskphone__ring", "aria-hidden": "true" },
+                                        React.createElement("path", { d: "M524,566 a14,14 0 0 1 0,20" }),
+                                        React.createElement("path", { d: "M532,558 a24,24 0 0 1 0,36" }),
+                                        React.createElement("path", { d: "M452,566 a14,14 0 0 0 0,20" }),
+                                        React.createElement("path", { d: "M444,558 a24,24 0 0 0 0,36" })))),
+                            React.createElement(Stim, { id: "conversation" },
+                                React.createElement(Workstation, { x: 846, deskW: 264, deskY: 594, personOffset: 210, bodyFill: "#6f8a86", headFill: "#c99a76", hairFill: "#2f2b28" },
+                                    React.createElement("g", { className: "office-person office-person--standing" },
+                                        React.createElement("ellipse", { cx: "1176", cy: "680", rx: "34", ry: "9", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                        React.createElement("path", { d: "M1160,678 L1164,588 L1194,588 L1198,678 Z", fill: "#455160" }),
+                                        React.createElement("rect", { x: "1150", y: "514", width: "56", height: "80", rx: "19", fill: "#9a6f62" }),
+                                        React.createElement("g", { className: "office-arm office-arm--gesture", style: { transformOrigin: '1152px 530px' } },
+                                            React.createElement("rect", { x: "1134", y: "524", width: "19", height: "64", rx: "9.5", fill: "#8e6457" })),
+                                        React.createElement("circle", { cx: "1178", cy: "490", r: "22", fill: "#e3b995" }),
+                                        React.createElement("path", { d: "M1156,486 a22,22 0 0 1 44,0 q-22,-12 -44,0 Z", fill: "#6a4f3a" }),
+                                        React.createElement("g", { className: "office-talk", "aria-hidden": "true" },
+                                            React.createElement("path", { d: "M1206,468 a26,26 0 0 1 0,34" }),
+                                            React.createElement("path", { d: "M1218,458 a40,40 0 0 1 0,54" }),
+                                            React.createElement("path", { d: "M1230,448 a54,54 0 0 1 0,74" }))))),
+                            React.createElement("g", { className: "office-foreground" },
+                                React.createElement("rect", { x: "0", y: "688", width: "1600", height: "64", fill: "#000", opacity: "0.1", filter: "url(#f-soft)" }),
+                                React.createElement("polygon", { points: "54,744 1546,744 1600,796 0,796", fill: "url(#g-desk-fore)" }),
+                                React.createElement("rect", { x: "0", y: "792", width: "1600", height: "108", fill: "#a98a63" }),
+                                React.createElement("rect", { x: "0", y: "792", width: "1600", height: "7", fill: "#8e7250" }),
+                                React.createElement("g", { className: "office-screen__spill", "aria-hidden": "true" },
+                                    React.createElement("ellipse", { cx: "207", cy: "702", rx: "225", ry: "140", fill: "url(#g-screen-spill)" })),
+                                React.createElement(Stim, { id: "laptop" },
+                                    React.createElement("g", { className: "office-laptop" },
+                                        React.createElement("polygon", { points: "96,756 318,756 336,788 78,788", fill: "#b4b9bd" }),
+                                        React.createElement("polygon", { points: "104,752 310,752 302,666 132,666", fill: "#474e54" }),
+                                        React.createElement("polygon", { points: "111,747 303,747 296,672 138,672", fill: "url(#g-screen)", className: "office-screen" }),
+                                        React.createElement("polygon", { points: "111,747 303,747 296,672 138,672", fill: "url(#g-screen-bright)", className: "office-screen__bright" }),
+                                        React.createElement("g", { fill: "#ffffff", opacity: "0.2", className: "office-screen__lines" },
+                                            React.createElement("rect", { x: "152", y: "690", width: "110", height: "6", rx: "3" }),
+                                            React.createElement("rect", { x: "152", y: "704", width: "78", height: "6", rx: "3" }),
+                                            React.createElement("rect", { x: "152", y: "718", width: "96", height: "6", rx: "3" })))),
+                                React.createElement(Stim, { id: "keyboard" },
+                                    React.createElement("g", { className: "office-keyboard" },
+                                        React.createElement("ellipse", { cx: "700", cy: "790", rx: "196", ry: "11", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                        React.createElement("polygon", { points: "518,748 882,748 900,786 500,786", fill: "#dcd6c8" }),
+                                        React.createElement("polygon", { points: "518,748 882,748 884,755 516,755", fill: "#f0ebe0" }),
+                                        React.createElement("g", { fill: "#c4bdad" },
+                                            Array.from({ length: 14 }).map((_, i) => (React.createElement("rect", { key: i, x: 530 + i * 25, y: 759, width: "19", height: "8", rx: "2", className: "office-key", style: { animationDelay: `${(i % 7) * 0.17}s` } }))),
+                                            Array.from({ length: 13 }).map((_, i) => (React.createElement("rect", { key: `b${i}`, x: 536 + i * 26, y: 771, width: "20", height: "9", rx: "2", className: "office-key", style: { animationDelay: `${((i + 3) % 7) * 0.17}s` } })))))),
+                                React.createElement(Stim, { id: "mouse" },
+                                    React.createElement("g", { className: "office-mouse" },
+                                        React.createElement("ellipse", { cx: "986", cy: "784", rx: "38", ry: "9", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                        React.createElement("path", { d: "M958,778 q0,-30 28,-30 q28,0 28,30 q-28,10 -56,0 Z", fill: "#dcd6c8" }),
+                                        React.createElement("path", { d: "M986,748 L986,762", stroke: "#b7b0a0", strokeWidth: "2" }))),
+                                React.createElement(Stim, { id: "pen" },
+                                    React.createElement("g", { className: "office-pen" },
+                                        React.createElement("g", { transform: "rotate(-13 1130 772)" },
+                                            React.createElement("ellipse", { cx: "1126", cy: "780", rx: "60", ry: "6", fill: "#000", opacity: "0.16", filter: "url(#f-contact)" }),
+                                            React.createElement("rect", { x: "1070", y: "766", width: "116", height: "11", rx: "5.5", fill: "#2f6f7a" }),
+                                            React.createElement("rect", { x: "1070", y: "766", width: "30", height: "11", rx: "5.5", fill: "#245862" }),
+                                            React.createElement("polygon", { points: "1186,766 1202,771.5 1186,777", fill: "#c3bcab" }),
+                                            React.createElement("rect", { x: "1096", y: "761", width: "9", height: "5", rx: "2", fill: "#d8d2c2" })))),
+                                React.createElement(Stim, { id: "mug" },
+                                    React.createElement("g", { className: "office-mug" },
+                                        React.createElement("ellipse", { cx: "1308", cy: "786", rx: "44", ry: "10", fill: "#000", opacity: "0.2", filter: "url(#f-contact)" }),
+                                        React.createElement("path", { d: "M1346,722 q22,6 22,24 q0,18 -22,22", fill: "none", stroke: "#e7e0d2", strokeWidth: "10" }),
+                                        React.createElement("path", { d: "M1270,714 L1350,714 L1342,784 L1278,784 Z", fill: "#efe9dc" }),
+                                        React.createElement("ellipse", { cx: "1310", cy: "714", rx: "40", ry: "9", fill: "#d3cbba" }),
+                                        React.createElement("ellipse", { cx: "1310", cy: "715", rx: "33", ry: "7", fill: "#6b4a33" }))),
+                                React.createElement("g", { className: "office-scent", "aria-hidden": "true" },
+                                    React.createElement("path", { d: "M1292,704 q10,-26 0,-50 q-10,-24 0,-44" }),
+                                    React.createElement("path", { d: "M1310,704 q11,-22 0,-44 q-11,-22 0,-40" }),
+                                    React.createElement("path", { d: "M1328,704 q10,-26 0,-48 q-10,-22 0,-42" })),
+                                React.createElement(Stim, { id: "notification" },
+                                    React.createElement("g", { className: "office-phone", transform: "rotate(-8 1468 752)" },
+                                        React.createElement("ellipse", { cx: "1468", cy: "788", rx: "46", ry: "8", fill: "#000", opacity: "0.18", filter: "url(#f-contact)" }),
+                                        React.createElement("rect", { x: "1428", y: "720", width: "80", height: "64", rx: "9", fill: "#2b3137" }),
+                                        React.createElement("rect", { x: "1436", y: "728", width: "64", height: "48", rx: "4", fill: "#48565f", className: "office-phone__screen" })))),
+                            React.createElement(LightFx, null),
+                            React.createElement("rect", { width: "1600", height: "900", fill: "url(#g-vignette)", pointerEvents: "none" })),
+                        React.createElement(RingLayerTarget, null)))))));
 }
 
 "use strict";
