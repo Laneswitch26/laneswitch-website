@@ -31,12 +31,24 @@ body{font-family:"Inter","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;col
 .btn.dark{background:var(--navy);color:#fff}
 .tb-actions{display:flex;gap:8px;flex-wrap:wrap}
 
-.brandpanel{max-width:820px;margin:14px auto 0;background:#fff;border-radius:14px;padding:14px 16px;border:1px solid var(--line);font-size:13px}
-.brandpanel summary{cursor:pointer;font-weight:700;color:var(--navy)}
+.brandpanel{max-width:820px;margin:14px auto 0;background:#fff;border-radius:14px;padding:12px 16px;border:1px solid var(--line);font-size:13px;color:var(--ink)}
+.bp-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.bp-head strong{display:block;color:var(--navy);font-size:13.5px}
+.bp-status{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
+.bp-status b{color:var(--navy);font-weight:600}
+.bp-status .ok{color:#1d7a4a;font-weight:700}
+.brandpanel .btn.line{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.brandpanel .btn.dark{background:var(--navy);color:#fff}
+.brandpanel .linkbtn{border:0;background:none;font:inherit;font-size:12.5px;color:var(--muted);text-decoration:underline;cursor:pointer;padding:6px 2px}
 .brandpanel .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:12px}
 .brandpanel label{display:flex;flex-direction:column;gap:4px;font-weight:600;color:var(--navy)}
 .brandpanel input[type=text]{font:inherit;font-weight:400;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
-.brandpanel .hint{grid-column:1/-1;color:var(--muted);font-size:12px;line-height:1.45;margin:0}
+.bp-logo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:400}
+.bp-logo .prev{height:40px;min-width:40px;max-width:150px;border:1px dashed var(--line);border-radius:8px;display:grid;place-items:center;padding:3px;color:var(--muted);font-size:11px}
+.bp-logo .prev img{max-height:34px;max-width:144px;display:block}
+.bp-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.bp-actions .spacer{flex:1}
+.brandpanel .hint{color:var(--muted);font-size:12px;line-height:1.45;margin:10px 0 0}
 @media (max-width:640px){.brandpanel .grid{grid-template-columns:1fr}}
 
 .stage{padding:18px 10px 40px;display:flex;flex-direction:column;align-items:center;gap:18px}
@@ -164,24 +176,37 @@ dialog::backdrop{background:rgba(6,45,71,.55)}
   </div>
 </div>
 
-<details class="brandpanel" id="brandpanel">
-  <summary>Darstellung für Ihre Fahrschule anpassen</summary>
-  <div class="grid">
-    <label>Name der Fahrschule
-      <input type="text" id="inFs" maxlength="60" placeholder="z. B. Fahrschule Muster">
-    </label>
-    <label>Absenderhinweis (optional)
-      <input type="text" id="inAbs" maxlength="70" placeholder="z. B. Überreicht von deiner Fahrschule">
-    </label>
-    <label>Logo-URL (optional, für geteilte Links)
-      <input type="text" id="inLogoUrl" placeholder="https://…/logo.png">
-    </label>
-    <label>Logo hochladen (nur für Druck/PDF auf diesem Gerät)
-      <input type="file" id="inLogoFile" accept="image/png,image/jpeg,image/svg+xml,image/webp">
-    </label>
-    <p class="hint">Angepasst wird nur die Darstellung (Logo, Name, Absender). Fragen, Lösungen, Reihenfolge und Kernaussagen sind für alle Partnerfahrschulen gleich und nicht veränderbar.</p>
+<section class="brandpanel" id="brandpanel" aria-label="Darstellung Ihrer Fahrschule">
+  <div class="bp-head">
+    <div><strong>Darstellung Ihrer Fahrschule</strong><span class="bp-status" id="bpStatus">Wird geladen …</span></div>
+    <button class="btn line" id="bpEdit" type="button">Ändern</button>
   </div>
-</details>
+  <form id="bpForm" hidden>
+    <div class="grid">
+      <label>Name der Fahrschule
+        <input type="text" id="inFs" maxlength="60" placeholder="z. B. Fahrschule Muster" autocomplete="organization">
+      </label>
+      <label>Absenderhinweis (optional)
+        <input type="text" id="inAbs" maxlength="70" placeholder="z. B. Überreicht von deiner Fahrschule">
+      </label>
+      <div style="grid-column:1/-1">
+        <label for="inLogoFile">Logo (PNG, JPG, WebP oder SVG)</label>
+        <div class="bp-logo">
+          <span class="prev" id="logoPrev">kein Logo</span>
+          <input type="file" id="inLogoFile" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+          <button class="linkbtn" type="button" id="logoRemove" hidden>Logo entfernen</button>
+        </div>
+      </div>
+    </div>
+    <div class="bp-actions">
+      <button class="btn dark" type="submit" id="bpSave">Speichern</button>
+      <button class="btn line" type="button" id="bpCancel">Abbrechen</button>
+      <span class="spacer"></span>
+      <button class="linkbtn" type="button" id="bpDelete">Gespeicherte Angaben löschen</button>
+    </div>
+    <p class="hint" id="bpHint">Angepasst wird nur die Darstellung (Logo, Name, Absender). Fragen, Lösungen, Reihenfolge und Kernaussagen sind für alle Partnerfahrschulen gleich und nicht veränderbar.</p>
+  </form>
+</section>
 
 <main class="stage">
   <div class="sheetwrap" id="sheetwrap">
@@ -2603,18 +2628,20 @@ var params=new URLSearchParams(location.search);
 var shared=params.get("share")==="1";
 var schoolParam=(params.get("school")||"").toLowerCase();
 if(!/^[a-z0-9-]{1,40}$/.test(schoolParam)) schoolParam="";
-var brand={
-  school:schoolParam||(shared?"":(ls("lsfp_school")||"")),
-  schoolVerified:false,
-  fs:(params.get("fs")||ls("lsfp_fs")||"").slice(0,60),
-  abs:(params.get("abs")||ls("lsfp_abs")||"").slice(0,70),
-  logoUrl:(params.get("logo")||ls("lsfp_logoUrl")||""),
-  logoData:shared?"":(ls("lsfp_logoData")||"")
-};
+function cleanBrand(o){ o=o||{}; var logo=typeof o.logo==="string"&&/^data:image\/(png|jpeg|webp);base64,/i.test(o.logo)?o.logo:"";
+  return {fs:String(o.fs||"").trim().slice(0,60), abs:String(o.abs||"").trim().slice(0,70), logo:logo}; }
+function hasBrand(b){ return !!(b&&(b.fs||b.abs||b.logo)); }
+/* Gespeicherte Darstellung: im Partnerkonto (angemeldet) bzw. auf diesem Gerät */
+var store={ mode:"device", school:"", csrf:"",
+  saved: shared?cleanBrand({}):cleanBrand({fs:ls("lsfp_fs"),abs:ls("lsfp_abs"),logo:ls("lsfp_logoData")}) };
+var brand={ fs:"", abs:"", logoData:"" };
+function applyBrand(b){ brand.fs=b.fs; brand.abs=b.abs; brand.logoData=b.logo; }
+if(shared) applyBrand(cleanBrand({fs:params.get("fs"),abs:params.get("abs")}));
+else applyBrand(store.saved);
 function safeUrl(u){ if(!u) return ""; if(/^data:image\//i.test(u)) return u; try{var x=new URL(u,location.href); return /^https?:$/.test(x.protocol)?x.href:"";}catch(e){return "";} }
 
 function headerHtml(isBack){
-  var logo=safeUrl(brand.logoData||brand.logoUrl);
+  var logo=safeUrl(brand.logoData);
   var fsPart="";
   if(brand.fs||logo){
     fsPart='<span class="times">×</span><span class="fs">'+
@@ -2705,18 +2732,73 @@ function fit(){
 window.addEventListener("resize",fit);
 
 /* =========================================================
-   Branding-Panel
+   Darstellung speichern (Partnerkonto oder dieses Gerät)
    ========================================================= */
-var inFs=document.getElementById("inFs"), inAbs=document.getElementById("inAbs"), inLogoUrl=document.getElementById("inLogoUrl"), inLogoFile=document.getElementById("inLogoFile");
-if(shared){ document.getElementById("brandpanel").hidden=true; }
-inFs.value=brand.fs; inAbs.value=brand.abs; inLogoUrl.value=brand.logoUrl;
-inFs.addEventListener("input",function(){brand.fs=inFs.value.slice(0,60); ls("lsfp_fs",brand.fs); render();});
-inAbs.addEventListener("input",function(){brand.abs=inAbs.value.slice(0,70); ls("lsfp_abs",brand.abs); render();});
-inLogoUrl.addEventListener("change",function(){brand.logoUrl=safeUrl(inLogoUrl.value.trim()); ls("lsfp_logoUrl",brand.logoUrl); render();});
+var panel=document.getElementById("brandpanel"), form=document.getElementById("bpForm"), statusEl=document.getElementById("bpStatus"), editBtn=document.getElementById("bpEdit");
+var inFs=document.getElementById("inFs"), inAbs=document.getElementById("inAbs"), inLogoFile=document.getElementById("inLogoFile");
+var logoPrev=document.getElementById("logoPrev"), logoRemove=document.getElementById("logoRemove"), delBtn=document.getElementById("bpDelete");
+var draft=null, busy=false;
+if(shared) panel.hidden=true;
+
+function saveLocal(b){ if(hasBrand(b)){ ls("lsfp_fs",b.fs); ls("lsfp_abs",b.abs); ls("lsfp_logoData",b.logo||null); } else { ["lsfp_fs","lsfp_abs","lsfp_logoData","lsfp_logoUrl","lsfp_school"].forEach(function(k){ls(k,null);}); } }
+function api(action,body){
+  return fetch("/api/navigator",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json","x-csrf-token":store.csrf},body:JSON.stringify(Object.assign({action:action},body))})
+    .then(function(r){ return r.json().catch(function(){return {};}).then(function(j){ if(!r.ok) throw new Error(j.error||"Speichern fehlgeschlagen."); return j; }); });
+}
+function where(){ return store.mode==="account"?"im Partnerkonto":"auf diesem Gerät"; }
+function updateStatus(){
+  var b=store.saved;
+  if(hasBrand(b)){
+    statusEl.innerHTML='<span class="ok">✓ Gespeichert '+where()+':</span> <b>'+esc(b.fs||"ohne Namen")+'</b>'+(b.logo?' · mit Logo':' · ohne Logo')+(b.abs?' · Absender: '+esc(b.abs):'')+
+      (store.mode==="account"?'':'<br>Für alle Geräte: vorher im Partnerbereich anmelden.');
+    editBtn.textContent="Ändern";
+  } else {
+    statusEl.textContent="Noch nichts gespeichert. Name und Logo einmal eintragen – danach bleiben sie "+(store.mode==="account"?"in Ihrem Partnerkonto":"auf diesem Gerät")+" gespeichert.";
+    editBtn.textContent="Einrichten";
+  }
+  delBtn.hidden=!hasBrand(store.saved); delBtn.textContent="Gespeicherte Angaben löschen"; delBtn.dataset.armed="";
+}
+function showLogo(src){ logoPrev.innerHTML=src?'<img src="'+esc(src)+'" alt="Logo-Vorschau">':'kein Logo'; logoRemove.hidden=!src; }
+function openForm(prefill){
+  draft=cleanBrand(prefill||store.saved);
+  inFs.value=draft.fs; inAbs.value=draft.abs; inLogoFile.value=""; showLogo(draft.logo);
+  form.hidden=false; editBtn.hidden=true; applyBrand(draft); render();
+}
+function closeForm(){ form.hidden=true; editBtn.hidden=false; draft=null; applyBrand(store.saved); render(); updateStatus(); }
+editBtn.addEventListener("click",function(){ openForm(); inFs.focus(); });
+document.getElementById("bpCancel").addEventListener("click",closeForm);
+inFs.addEventListener("input",function(){ draft.fs=inFs.value.slice(0,60); applyBrand(draft); render(); });
+inAbs.addEventListener("input",function(){ draft.abs=inAbs.value.slice(0,70); applyBrand(draft); render(); });
+logoRemove.addEventListener("click",function(){ draft.logo=""; inLogoFile.value=""; showLogo(""); applyBrand(draft); render(); });
+/* Logo wird auf eine handliche Größe gebracht (max. 800 × 320 px) und als PNG bzw. WebP gespeichert */
 inLogoFile.addEventListener("change",function(){
   var f=inLogoFile.files&&inLogoFile.files[0]; if(!f) return;
-  if(f.size>600*1024){ toast("Logo bitte unter 600 KB."); return; }
-  var r=new FileReader(); r.onload=function(){brand.logoData=String(r.result); ls("lsfp_logoData",brand.logoData); render();}; r.readAsDataURL(f);
+  if(f.size>5*1024*1024){ toast("Bitte ein Logo unter 5 MB wählen."); inLogoFile.value=""; return; }
+  var url=URL.createObjectURL(f), img=new Image();
+  img.onload=function(){
+    var w=img.naturalWidth||800, h=img.naturalHeight||320, k=Math.min(1,800/w,320/h);
+    var c=document.createElement("canvas"); c.width=Math.max(1,Math.round(w*k)); c.height=Math.max(1,Math.round(h*k));
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height); URL.revokeObjectURL(url);
+    var out=c.toDataURL("image/png"); if(out.length>380000){ var webp=c.toDataURL("image/webp",0.9); if(/^data:image\/webp/.test(webp)) out=webp; }
+    if(out.length>380000){ toast("Logo ist zu groß. Bitte eine kleinere Datei wählen."); return; }
+    draft.logo=out; showLogo(out); applyBrand(draft); render();
+  };
+  img.onerror=function(){ URL.revokeObjectURL(url); toast("Logo konnte nicht gelesen werden."); };
+  img.src=url;
+});
+form.addEventListener("submit",function(e){
+  e.preventDefault(); if(busy||!draft) return;
+  var next=cleanBrand(draft);
+  if(!next.fs){ toast("Bitte den Namen der Fahrschule eintragen."); inFs.focus(); return; }
+  var done=function(){ store.saved=next; saveLocal(next); closeForm(); toast("Gespeichert "+where()); };
+  if(store.mode!=="account"){ done(); return; }
+  busy=true; api("savePlanBrand",{brand:next}).then(done,function(err){ toast(err.message); }).then(function(){busy=false;});
+});
+delBtn.addEventListener("click",function(){
+  if(delBtn.dataset.armed!=="1"){ delBtn.dataset.armed="1"; delBtn.textContent="Wirklich löschen? Erneut klicken"; return; }
+  var done=function(){ store.saved=cleanBrand({}); saveLocal(store.saved); closeForm(); toast("Gespeicherte Angaben gelöscht"); };
+  if(store.mode!=="account"){ done(); return; }
+  api("savePlanBrand",{brand:null}).then(done,function(err){ toast(err.message); });
 });
 
 /* =========================================================
@@ -2726,10 +2808,11 @@ function shareUrl(){
   var base=CONFIG.shareBaseUrl||(location.origin+location.pathname);
   var u; try{u=new URL(base);}catch(e){u=new URL(location.href); u.search="";}
   u.search=""; u.searchParams.set("share","1"); u.searchParams.set("view","luecke");
-  if(brand.school&&brand.schoolVerified){ u.searchParams.set("school",brand.school); }
-  else if(brand.fs) u.searchParams.set("fs",brand.fs);
-  if(brand.abs) u.searchParams.set("abs",brand.abs);
-  if(brand.logoUrl) u.searchParams.set("logo",brand.logoUrl);
+  var b=shared?{fs:brand.fs,abs:brand.abs}:store.saved;
+  var school=shared?schoolParam:(store.mode==="account"&&store.school!=="test"?store.school:"");
+  if(school) u.searchParams.set("school",school);   /* Name und Logo kommen dann aus dem Partnerkonto */
+  if(b.fs) u.searchParams.set("fs",b.fs);
+  if(b.abs) u.searchParams.set("abs",b.abs);
   return u.href;
 }
 var dlg=document.getElementById("shareDlg");
@@ -2763,19 +2846,34 @@ backBtn.addEventListener("click",function(e){ if(sameRef&&history.length>1){ e.p
 
 render(); setView(view);
 
-/* Veröffentlichte Partnerfahrschule: Name und Logo aus dem öffentlichen Navigator-Profil (nur Lesen, gleicher Ursprung) */
-if(brand.school&&window.fetch){
-  fetch("/api/navigator?action=public&school="+encodeURIComponent(brand.school),{credentials:"omit"})
-    .then(function(r){return r.ok?r.json():null;})
-    .then(function(j){
-      if(!j||!j.data) return;
-      brand.schoolVerified=true;
-      var d=j.data;
-      if(shared||!brand.fs){ if(typeof d.name==="string"&&d.name.trim()) brand.fs=d.name.trim().slice(0,60); }
-      if((shared||!brand.logoData)&&typeof d.logo==="string"&&/^data:image\/(png|jpeg|webp);base64,/i.test(d.logo)) brand.logoData=d.logo;
-      if(!shared){ inFs.value=brand.fs; }
+function getJson(url){ return fetch(url,{credentials:"same-origin"}).then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); }
+if(shared){
+  /* Geteilter Link: gespeicherte Darstellung der Fahrschule, sonst ihr veröffentlichtes Navigator-Profil */
+  if(schoolParam) getJson("/api/navigator?action=planBrand&school="+encodeURIComponent(schoolParam)).then(function(j){
+    if(j&&j.brand){ applyBrand(cleanBrand(j.brand)); render(); return; }
+    return getJson("/api/navigator?action=public&school="+encodeURIComponent(schoolParam)).then(function(p){
+      if(!p||!p.data) return; var d=p.data;
+      if(typeof d.name==="string"&&d.name.trim()) brand.fs=d.name.trim().slice(0,60);
+      if(typeof d.logo==="string"&&/^data:image\/(png|jpeg|webp);base64,/i.test(d.logo)) brand.logoData=d.logo;
       render();
-    }).catch(function(){});
+    });
+  });
+} else {
+  updateStatus();
+  /* Angemeldete Fahrschule: Darstellung im Partnerkonto speichern (gilt auf allen Geräten) */
+  getJson("/api/navigator?action=me").then(function(me){
+    if(!me||!me.school||me.admin||!me.csrf){ updateStatus(); if(!hasBrand(store.saved)) openForm(); return; }
+    store.mode="account"; store.school=me.school; store.csrf=me.csrf;
+    return getJson("/api/navigator?action=planBrand").then(function(j){
+      if(j&&j.brand&&hasBrand(j.brand)){ store.saved=cleanBrand(j.brand); saveLocal(store.saved); if(!draft){ applyBrand(store.saved); render(); } updateStatus(); return; }
+      if(hasBrand(store.saved)){ /* bisher nur auf diesem Gerät gespeichert: einmalig ins Partnerkonto übernehmen */
+        return api("savePlanBrand",{brand:store.saved}).then(function(){ updateStatus(); },function(){ updateStatus(); });
+      }
+      updateStatus();
+      var d=me.data||{}; /* Vorschlag aus dem Navigator-Profil, wird erst mit „Speichern“ übernommen */
+      openForm({fs:d.name,logo:d.logo});
+    });
+  });
 }
 })();
 </script>
