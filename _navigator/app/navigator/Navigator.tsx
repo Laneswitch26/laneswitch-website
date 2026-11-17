@@ -51,8 +51,8 @@ export default function Navigator({publicSchool,demo=false}:{publicSchool?:strin
  const inside=!publicSchool&&!demo&&!!school;
  function openBenefits(){setShowBenefits(true);setPreview(false);if(demo){setBenefits(demoBenefits);return}fetch('/api/navigator?action=benefits').then(async r=>{const j=await r.json();if(r.ok)setBenefits(j.benefits);else setMessage(j.error||'Vorteile konnten nicht geladen werden.')}).catch(()=>setMessage('Verbindung fehlgeschlagen.'))}
  function loadPosts(){fetch('/api/navigator?action=posts').then(async r=>{const j=await r.json();if(r.ok){setPosts(j.posts);setPostLimit(j.limit||0)}else setMessage(j.error||'Beiträge konnten nicht geladen werden.')}).catch(()=>setMessage('Verbindung fehlgeschlagen.'))}
- // Lernkontrolle Thema 2 (öffentliche Seite /konzept/fahrplan/ auf demselben Ursprung): nur Darstellung (Name, Logo) wird übergeben, Inhalte bleiben zentral.
- function openPlan(v:'beide'|'luecke'|'loesung'){try{localStorage.setItem('lsfp_school',school);if(data.name.trim())localStorage.setItem('lsfp_fs',data.name.trim().slice(0,60));else localStorage.removeItem('lsfp_fs');if(data.logo)localStorage.setItem('lsfp_logoData',data.logo);else localStorage.removeItem('lsfp_logoData')}catch{}window.open('/konzept/fahrplan/?view='+v,'_blank','noopener')}
+ // Lernkontrolle Thema 2 (/konzept/fahrplan/, gleicher Ursprung): Name, Absender und Logo speichert die Seite selbst im Partnerkonto (action=planBrand).
+ function openPlan(v:'beide'|'luecke'|'loesung'){window.open('/konzept/fahrplan/?view='+v,'_blank','noopener')}
  function go(a:'home'|'navigator'|'benefits'|'posts'){setArea(a);setMessage('');if(a==='benefits')openBenefits();else{setShowBenefits(false)}if(a==='posts')loadPosts();if(a==='navigator')setPreview(false);try{scrollTo({top:0})}catch{}}
  function logout(){task(async()=>{if(dirty&&!expired)await saveDraft(data);await api('logout');savedRef.current=JSON.stringify(empty);csrfRef.current='';setSchool('');setData(empty);setCsrf('');setSave({state:'idle'});setArea('home')})}
  const studioLabel=school==='test'?'✦ AI Studio Demo ansehen':trialUntil?'✦ AI Studio testen':'✦ AI Studio öffnen';
