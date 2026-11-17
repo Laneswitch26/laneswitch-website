@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "learner",
-  "checkedAt": "2026-11-16T07:08:10Z",
+  "checkedAt": "2026-11-17T07:00:26Z",
   "items": [
+    {
+      "id": "recklinghausen-magdalenenstrasse-2026-11-16",
+      "category": "Region & Verkehr",
+      "status": "report",
+      "title": "Recklinghausen: Magdalenenstraße bleibt unterbrochen",
+      "summary": "Die Stadt meldet am 16. November eine Vollsperrung auf Höhe der Hausnummer 3 bis voraussichtlich 31. Januar 2028. Wegen Abriss- und Neubauarbeiten wird die Magdalenenstraße aus beiden Richtungen zur Sackgasse. Umleitungen sind ausgeschildert.",
+      "impact": "Du kannst die Straße an dieser Stelle nicht durchfahren. Das kann deinen Weg zur Fahrschule oder einen vereinbarten Treffpunkt betreffen.",
+      "action": "Prüfe bei einem Treffpunkt in der Nähe, von welcher Seite du ihn erreichst. Folge der Beschilderung vor Ort.",
+      "publishedAt": "2026-11-16T00:00:00+01:00",
+      "checkedAt": "2026-11-17T07:00:26Z",
+      "expiresAt": "2026-12-01T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "Stadt Recklinghausen · Mitteilung vom 16. November 2026",
+          "url": "https://www.recklinghausen.de/inhalte/startseite/rathaus_politik/Pressestelle/Pressemitteilungen/index.asp?db=513&form=detail&id=32589"
+        }
+      ]
+    },
     {
       "id": "tuev-adas-metastudie-2026-11-11",
       "category": "Fahrzeug & Sicherheit",
@@ -52,34 +70,12 @@
       "impact": "Bei 40 Litern entspricht der Rückgang rechnerisch 2,52 Euro für E10 beziehungsweise 1,72 Euro für Diesel. Deine tatsächlichen Kosten hängen von Tankstelle, Zeitpunkt und Menge ab.",
       "action": "Vergleiche vor dem Tanken lokale Preise. Nutze den Wochenwert nur zur Orientierung und rechne nicht mit einer dauerhaft garantierten Ersparnis.",
       "publishedAt": "2026-11-11T13:25:00+01:00",
-      "checkedAt": "2026-11-16T07:08:10Z",
+      "checkedAt": "2026-11-17T07:00:26Z",
       "expiresAt": "2026-11-19T00:00:00+01:00",
       "sources": [
         {
           "name": "ADAC · eigene Kraftstoffpreisauswertung vom 11. November 2026",
           "url": "https://www.adac.de/news/aktueller-spritpreis/"
-        }
-      ]
-    },
-    {
-      "id": "bsi-vernetztes-auto-2026-11-02",
-      "category": "Cyber & Datenschutz",
-      "status": "report",
-      "title": "Vernetzte Autos: Persönliche Daten vor der Rückgabe entfernen",
-      "summary": "Der BSI-Podcast vom 2. November behandelt mit dem TÜV-Verband digitale Risiken vernetzter Autos. Empfohlen werden Updates über offizielle Herstellerwege, geschützte Fahrzeugkonten und das Entfernen persönlicher Daten vor der Rückgabe gemeinsam genutzter Fahrzeuge. Das sind Präventionshinweise, keine neue gesetzliche Pflicht.",
-      "impact": "Wenn du dein Handy mit einem Miet-, Carsharing- oder anderen gemeinsam genutzten Auto verbindest, können Kontakte und Navigationsziele im Fahrzeug gespeichert bleiben. Bloßes Aussteigen entfernt diese Daten nicht.",
-      "action": "Gib beim Verbinden nur benötigte Daten frei. Lösche vor der Rückgabe die Handy-Kopplung, gespeicherte Kontakte und Ziele im Fahrzeugmenü. Sichere dein Fahrzeugkonto mit eigenem starkem Passwort und, soweit angeboten, Zwei-Faktor-Anmeldung oder Passkey.",
-      "publishedAt": "2026-11-02T10:44:43Z",
-      "checkedAt": "2026-11-10T07:00:39Z",
-      "expiresAt": "2026-11-17T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "BSI · Podcast Folge 72, 2. November 2026",
-          "url": "https://update-verfuegbar.podigee.io/77-72-vernetztes-auto"
-        },
-        {
-          "name": "BSI · Originaltranskript, Hinweise zu Updates und Datenlöschung",
-          "url": "https://multimedia.gsb.bund.de/BSI/Podcast/BSI-PodcastFolge72_Transkript_barr.pdf"
         }
       ]
     },
