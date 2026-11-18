@@ -1,8 +1,44 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-17T07:00:26Z",
+  "checkedAt": "2026-11-18T07:06:06Z",
   "items": [
+    {
+      "id": "dguv-arbeitsunfallgeschehen-2025-2026-11-17",
+      "category": "Betrieb & Sicherheit",
+      "status": "report",
+      "title": "DGUV: Sturzunfälle können den Betrieb länger treffen",
+      "summary": "Die DGUV veröffentlicht am 17. November Daten für 2025: Nach meldepflichtigen Stolper-, Rutsch- und Sturzunfällen im Betrieb beträgt die Arbeitsunfähigkeit im Median zwölf Tage. Die Auswertung betrifft verschiedene Branchen und schließt Dienstwege und Straßenverkehr aus; sie liefert keine eigene Fahrschulquote.",
+      "impact": "Auch Räume und Zugänge Ihrer Fahrschule gehören zur Prävention. Der Median beschreibt die Mitte der erfassten Ausfallzeiten, keine Prognose für einzelne Beschäftigte oder Ihren Betrieb.",
+      "action": "Prüfen Sie Laufwege auf Kabel, lose Matten und Nässe. Klären Sie, wer Gefahren beseitigt und bei einem Personalausfall Termine übernimmt. Das sind unsere praktischen Empfehlungen aus dem Befund.",
+      "publishedAt": "2026-11-17T00:00:00+01:00",
+      "checkedAt": "2026-11-18T07:06:06Z",
+      "expiresAt": "2026-12-02T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "DGUV · Arbeitsunfallgeschehen 2025, Mitteilung vom 17. November 2026",
+          "url": "https://www.dguv.de/de/mediencenter/pm/arbeitsunfallgeschehen-2025.jsp"
+        }
+      ]
+    },
+    {
+      "id": "dihk-phishing-datenabgleich-2026-11-09",
+      "category": "Cyber & Datenschutz",
+      "status": "report",
+      "title": "Falsche IHK-Mail: Frist am 20. November ist ein Köder",
+      "summary": "Weiterhin relevante Warnung vom 9. November: Laut DIHK verlangen betrügerische E-Mails einen Unternehmensdaten-Abgleich bis 20. November 2026. Ein verlinktes angebliches IHK-Portal fragt unter anderem IBAN und Kontoinhaber ab. Die genannte Frist stammt von den Betrügern.",
+      "impact": "Erhält Ihr Büro diese Nachricht, besteht dadurch keine echte Pflicht zum Datenabgleich. Auch eine angegebene echte DIHK-Telefonnummer macht die Mail nicht vertrauenswürdig.",
+      "action": "Klicken Sie den Button nicht an und geben Sie keine Daten ein. Löschen Sie die Nachricht; klären Sie Zweifel über selbst aufgerufene offizielle IHK-Kontaktwege. Informieren Sie Ihr Büroteam über die Masche.",
+      "publishedAt": "2026-11-09T00:00:00+01:00",
+      "checkedAt": "2026-11-18T07:06:06Z",
+      "expiresAt": "2026-11-24T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "DIHK · Phishing-Warnung vom 9. November 2026",
+          "url": "https://www.dihk.de/de/warnung-datenklau-per-mail-sms-und-telefon-158562"
+        }
+      ]
+    },
     {
       "id": "recklinghausen-magdalenenstrasse-2026-11-16",
       "category": "Region & Verkehr",
@@ -70,38 +106,12 @@
       "impact": "Bei 100 Litern entspricht der Rückgang rechnerisch 6,30 Euro für E10 beziehungsweise 4,30 Euro für Diesel. Für Ihre Fuhrparkkalkulation bleiben die tatsächlich bezahlten Preise entscheidend.",
       "action": "Vergleichen Sie lokale Preise und halten Sie die Ausgaben je Fahrzeug fest. Eine günstigere Woche ist kein Beleg für dauerhaft niedrigere Betriebskosten.",
       "publishedAt": "2026-11-11T13:25:00+01:00",
-      "checkedAt": "2026-11-17T07:00:26Z",
+      "checkedAt": "2026-11-18T07:06:06Z",
       "expiresAt": "2026-11-19T00:00:00+01:00",
       "sources": [
         {
           "name": "ADAC · eigene Kraftstoffpreisauswertung vom 11. November 2026",
           "url": "https://www.adac.de/news/aktueller-spritpreis/"
-        }
-      ]
-    },
-    {
-      "id": "bg-verkehr-arbeitnehmerverantwortung-2026-11-06",
-      "category": "Betrieb & Sicherheit",
-      "status": "report",
-      "title": "Neuer BG-Verkehr-Film: Sicherheitsaufgaben im Team klären",
-      "summary": "Die BG Verkehr stellt am 6. November einen neuen Kurzfilm zur Verantwortung Beschäftigter vor. Er behandelt das Melden von Gefahren, sichere Arbeitsmittel und Erste Hilfe. Bestehendes Recht bleibt maßgeblich: Nach § 16 ArbSchG müssen Beschäftigte unmittelbare erhebliche Gefahren und Defekte an Schutzsystemen unverzüglich dem Arbeitgeber oder zuständigen Vorgesetzten melden.",
-      "impact": "Für Fahrschulen mit Beschäftigten ist das ein Anlass, Meldewege für Fahrzeug- und Raummängel zu prüfen. Ein neuer Film schafft keine neue Vorschrift; § 15 ArbSchG verlangt bereits den bestimmungsgemäßen Umgang mit Arbeitsmitteln entsprechend Unterweisung und Weisung.",
-      "action": "Nutzen Sie den Film als Gesprächseinstieg. Legen Sie fest, an wen Ihr Team Mängel meldet und wer diese Person vertritt. Besprechen Sie anhand eines konkreten Beispiels, wie eine Meldung aufgenommen und die sichere weitere Nutzung geklärt wird. Das ist eine praktische Organisationsempfehlung.",
-      "publishedAt": "2026-11-06T00:00:00+01:00",
-      "checkedAt": "2026-11-11T06:59:38Z",
-      "expiresAt": "2026-11-21T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "BG Verkehr · Sicherheitsprofi, neuer Film vom 6. November 2026",
-          "url": "https://sicherheitsprofi.bg-verkehr.de/webmagazin/news/alle-tragen-ihren-teil-bei"
-        },
-        {
-          "name": "Gesetze im Internet · § 16 Arbeitsschutzgesetz",
-          "url": "https://www.gesetze-im-internet.de/arbschg/__16.html"
-        },
-        {
-          "name": "Gesetze im Internet · § 15 Arbeitsschutzgesetz",
-          "url": "https://www.gesetze-im-internet.de/arbschg/__15.html"
         }
       ]
     },
@@ -114,7 +124,7 @@
       "impact": "Ausbildungsrouten und Abholungen am Ruhrstadion müssen die geänderten Abbiegerichtungen berücksichtigen. Auch Lernende mit Straßenbahnanreise sind betroffen.",
       "action": "Prüfen Sie Treffpunkte und Fahrzeiten während der Bauarbeiten. Ab 19. November ist die Ausfahrt Karl-Lange-Straße zur Castroper Straße vollständig gesperrt; berücksichtigen Sie den Phasenwechsel.",
       "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-16T07:08:10Z",
+      "checkedAt": "2026-11-18T07:06:06Z",
       "expiresAt": "2026-11-28T00:00:00+01:00",
       "sources": [
         {
@@ -164,24 +174,6 @@
         {
           "name": "Bundesrat · Ausschussempfehlung 655/1/26 vom 13. November 2026",
           "url": "https://www.bundesrat.de/SharedDocs/drucksachen/2026/0601-0700/655-1-26.pdf?__blob=publicationFile&v=1"
-        }
-      ]
-    },
-    {
-      "id": "bochum-wittener-strasse-2026-10-28",
-      "category": "Betrieb & Verkehr",
-      "status": "report",
-      "title": "Wittener Straße: Ab 28. Oktober nur Richtung Innenstadt.",
-      "summary": "In Bochum-Laer wird die Wittener Straße zwischen Alter Wittener Straße und Werner Hellweg ab 28. Oktober zur Einbahnstraße Richtung Innenstadt. Die Stadt erwartet diese Verkehrsführung bis Ende November. Umleitungen verlaufen unter anderem über Nordhausen-Ring, Tsukuba-Ring und Suttner-Nobel-Allee sowie Werner Hellweg, Industriestraße und Am Vorort.",
-      "impact": "Stadtauswärts führen Ausbildungsfahrten und Abholwege in diesem Abschnitt über Umleitungen. Das kann die Zeitplanung für aufeinanderfolgende Fahrstunden verändern.",
-      "action": "Prüfen Sie Ausbildungsrouten und Abholzeiten während der Einbahnregelung und teilen Sie betroffenen Lernenden geänderte Treffpunkte mit.",
-      "publishedAt": "2026-10-26T00:00:00+01:00",
-      "checkedAt": "2026-10-31T07:09:32Z",
-      "expiresAt": "2026-12-01T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Bochum · Meldung vom 26.10.2026",
-          "url": "https://www.bochum.de/Pressemeldungen/26-Oktober-2026/Wittener-Strasse-Einbahnstrasse-zwischen-Alter-Wittener-Strasse-und-Werner-Hellweg"
         }
       ]
     },
