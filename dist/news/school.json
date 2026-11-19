@@ -1,8 +1,26 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-18T07:06:06Z",
+  "checkedAt": "2026-11-19T07:04:28Z",
   "items": [
+    {
+      "id": "adac-kraftstoffpreise-2026-11-18",
+      "category": "Tanken & Kosten",
+      "status": "report",
+      "title": "ADAC: E10 und Diesel im Wochenvergleich günstiger",
+      "summary": "Die ADAC-Auswertung vom 18. November nennt bundesweit im Mittel 1,938 Euro je Liter Super E10 und 2,181 Euro für Diesel. Gegenüber der Vorwoche sind das 4,0 beziehungsweise 3,6 Cent weniger. Es handelt sich um Durchschnittswerte, nicht um örtliche Tankstellenangebote.",
+      "impact": "Bei 100 Litern entspricht der Wochenrückgang rechnerisch 4,00 Euro für E10 oder 3,60 Euro für Diesel. Für Ihre Fuhrparkkalkulation zählen die tatsächlich bezahlten Preise.",
+      "action": "Vergleichen Sie Tankstellen entlang Ihrer Routen und dokumentieren Sie die Kosten je Fahrzeug. Kalkulieren Sie keine dauerhaft sinkenden Preise ein.",
+      "publishedAt": "2026-11-18T00:00:00+01:00",
+      "checkedAt": "2026-11-19T07:04:28Z",
+      "expiresAt": "2026-11-26T00:00:00+01:00",
+      "sources": [
+        {
+          "name": "ADAC · eigene Kraftstoffpreisauswertung vom 18. November 2026",
+          "url": "https://presse.adac.de/meldungen/adac-ev/verkehr/spritpreise-benzin-und-diesel-weiter-gefallen.html"
+        }
+      ]
+    },
     {
       "id": "dguv-arbeitsunfallgeschehen-2025-2026-11-17",
       "category": "Betrieb & Sicherheit",
@@ -30,7 +48,7 @@
       "impact": "Erhält Ihr Büro diese Nachricht, besteht dadurch keine echte Pflicht zum Datenabgleich. Auch eine angegebene echte DIHK-Telefonnummer macht die Mail nicht vertrauenswürdig.",
       "action": "Klicken Sie den Button nicht an und geben Sie keine Daten ein. Löschen Sie die Nachricht; klären Sie Zweifel über selbst aufgerufene offizielle IHK-Kontaktwege. Informieren Sie Ihr Büroteam über die Masche.",
       "publishedAt": "2026-11-09T00:00:00+01:00",
-      "checkedAt": "2026-11-18T07:06:06Z",
+      "checkedAt": "2026-11-19T07:04:28Z",
       "expiresAt": "2026-11-24T00:00:00+01:00",
       "sources": [
         {
@@ -98,33 +116,15 @@
       ]
     },
     {
-      "id": "adac-kraftstoffpreise-2026-11-11",
-      "category": "Tanken & Kosten",
-      "status": "report",
-      "title": "ADAC-Wochenvergleich: E10 wieder unter zwei Euro",
-      "summary": "Die ADAC-Auswertung vom 11. November nennt im bundesweiten Mittel 1,978 Euro je Liter Super E10 und 2,217 Euro für Diesel. Gegenüber der Vorwoche sank E10 um 6,3 Cent, Diesel um 4,3 Cent. Die Werte beschreiben den Wochenvergleich und sind keine örtlichen Preisangebote.",
-      "impact": "Bei 100 Litern entspricht der Rückgang rechnerisch 6,30 Euro für E10 beziehungsweise 4,30 Euro für Diesel. Für Ihre Fuhrparkkalkulation bleiben die tatsächlich bezahlten Preise entscheidend.",
-      "action": "Vergleichen Sie lokale Preise und halten Sie die Ausgaben je Fahrzeug fest. Eine günstigere Woche ist kein Beleg für dauerhaft niedrigere Betriebskosten.",
-      "publishedAt": "2026-11-11T13:25:00+01:00",
-      "checkedAt": "2026-11-18T07:06:06Z",
-      "expiresAt": "2026-11-19T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "ADAC · eigene Kraftstoffpreisauswertung vom 11. November 2026",
-          "url": "https://www.adac.de/news/aktueller-spritpreis/"
-        }
-      ]
-    },
-    {
       "id": "bochum-castroper-strasse-2026-11-09",
       "category": "Region & Verkehr",
       "status": "report",
-      "title": "Bochum: Castroper Straße ab 9. November eingeschränkt",
-      "summary": "Vom 9. bis voraussichtlich 27. November wird der Verkehr an den Gleisbaustellen der Castroper Straße einspurig vorbeigeführt. Ab 9. November, 6 Uhr, bis 18. November ist die Ausfahrt Karl-Lange-Straße nur stadtauswärts möglich; die Einfahrt in den Quellenweg ist gesperrt. Die Linien 308 und 318 fahren zwischen Bochum Hbf und Schürbankstraße bis voraussichtlich 27. November, etwa 12 Uhr, mit Ersatzbussen.",
+      "title": "Update: Karl-Lange-Straße ab 19. November ohne Ausfahrt",
+      "summary": "Aktualisierung zum Bauphasenwechsel am 19. November: Die Ausfahrt Karl-Lange-Straße zur Castroper Straße ist bis voraussichtlich 27. November im Laufe des Mittags gesperrt. In den Quellenweg ist die Einfahrt nun von stadtauswärts kommend möglich. Der Verkehr auf der Castroper Straße bleibt im Baustellenbereich einspurig; auf Teilen der Linien 308 und 318 fahren Ersatzbusse.",
       "impact": "Ausbildungsrouten und Abholungen am Ruhrstadion müssen die geänderten Abbiegerichtungen berücksichtigen. Auch Lernende mit Straßenbahnanreise sind betroffen.",
-      "action": "Prüfen Sie Treffpunkte und Fahrzeiten während der Bauarbeiten. Ab 19. November ist die Ausfahrt Karl-Lange-Straße zur Castroper Straße vollständig gesperrt; berücksichtigen Sie den Phasenwechsel.",
+      "action": "Passen Sie betroffene Ausbildungsrouten und Treffpunkte an die neue Bauphase an. Informieren Sie Lernende mit Straßenbahnanreise über den Ersatzverkehr.",
       "publishedAt": "2026-11-03T00:00:00+01:00",
-      "checkedAt": "2026-11-18T07:06:06Z",
+      "checkedAt": "2026-11-19T07:04:28Z",
       "expiresAt": "2026-11-28T00:00:00+01:00",
       "sources": [
         {
