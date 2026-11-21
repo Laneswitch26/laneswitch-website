@@ -1,7 +1,7 @@
 {
   "version": 1,
   "audience": "school",
-  "checkedAt": "2026-11-19T07:04:28Z",
+  "checkedAt": "2026-11-21T06:58:51Z",
   "items": [
     {
       "id": "adac-kraftstoffpreise-2026-11-18",
@@ -134,46 +134,20 @@
       ]
     },
     {
-      "id": "herne-baumstrasse-2026-11-09",
-      "category": "Region & Verkehr",
-      "status": "report",
-      "title": "Herne: Baumstraße schon ab 9. November gesperrt",
-      "summary": "Die Stadt zieht den Baustart um eine Woche vor: Ab 9. November wird die Baumstraße zwischen Funkenbergstraße und Unterführung vollständig gesperrt. Die Arbeiten sollen wetterabhängig bis Mitte Februar 2027 dauern; mindestens eine Gehwegseite bleibt nutzbar.",
-      "impact": "Die frühere Sperrung betrifft Ausbildungsrouten und Abholungen nahe dem Herner Bahnhof. Die bisherige Planung für die kommende Woche muss gegebenenfalls angepasst werden.",
-      "action": "Prüfen Sie die Routen und Treffpunkte ab Montag, 9. November, und informieren Sie betroffene Lernende vorab.",
-      "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-16T07:08:10Z",
-      "expiresAt": "2026-11-21T00:00:00+01:00",
-      "sources": [
-        {
-          "name": "Stadt Herne · Baustart Baumstraße, 5. November 2026",
-          "url": "https://www.herne.de/Meldungen/News-Detailansicht_303360.html"
-        }
-      ]
-    },
-    {
       "id": "fahrschulreform-abstimmung-2026-11-05",
       "category": "Ausbildung & Prüfung",
       "status": "decided",
-      "title": "Update: Bundesrats-Ausschuss empfiehlt Zustimmung zur Fahrschulreform",
-      "summary": "Aktualisierung vom 16. November: Der Verkehrsausschuss empfiehlt dem Bundesrat die Zustimmung zum bereits am 5. November beschlossenen Änderungsgesetz. Die Empfehlung vom 13. November betrifft TOP 62 der Sitzung am 20. November. Sie ist noch kein Bundesratsbeschluss; Gesetz und ergänzende Ausbildungs-Verordnung sind weiterhin zu unterscheiden.",
-      "impact": "Für die Planung Ihrer Klasse-B-Kurse gilt weiterhin das bisherige Pflichtprogramm. Beim Ersterwerb gehören zwölf besondere Ausbildungsfahrten zu je 45 Minuten dazu.",
-      "action": "Planen Sie laufende Kurse weiterhin nach geltendem Recht. Stellen Sie Pflichtstunden oder Theorieformate erst nach Prüfung der endgültigen Vorschriften und ihres Inkrafttretens um; kalkulieren Sie keine zugesicherte Ersparnis.",
+      "title": "Update: Bundesrat stimmt dem Fahrschulgesetz zu",
+      "summary": "Am 20. November hat der Bundesrat dem bereits vom Bundestag beschlossenen Änderungsgesetz zugestimmt. Das bestätigt die Bundesregierung. Die Ausbildungs-Verordnung ist ein eigener Baustein; aus der Zustimmung allein folgt noch keine sofortige Änderung der Pflichtfahrten oder Prüfungsanforderungen.",
+      "impact": "Für Ihre Kursplanung ist ein weiterer Gesetzgebungsschritt abgeschlossen. Der Beschluss ist keine Grundlage, sämtliche angekündigten Ausbildungsänderungen sofort umzusetzen.",
+      "action": "Prüfen Sie vor Kursumstellungen die endgültigen Vorschriften, Übergangsregeln und das Inkrafttreten. Kommunizieren Sie angekündigte Einsparungen nicht als garantierten Preisnachlass.",
       "publishedAt": "2026-11-05T00:00:00+01:00",
-      "checkedAt": "2026-11-16T07:08:10Z",
-      "expiresAt": "2026-11-21T00:00:00+01:00",
+      "checkedAt": "2026-11-21T06:58:51Z",
+      "expiresAt": "2026-12-05T00:00:00+01:00",
       "sources": [
         {
-          "name": "Bundesregierung · Bundestagsbeschluss vom 5. November 2026",
+          "name": "Bundesregierung · aktualisierte Mitteilung vom 20. November 2026",
           "url": "https://www.bundesregierung.de/breg-de/schwerpunkte/wirksam-regieren/kabinett-startet-reform-fahrschulausbildung-2431088"
-        },
-        {
-          "name": "Bundesministerium der Justiz · Fahrschüler-Ausbildungsordnung, Anlage 4",
-          "url": "https://www.gesetze-im-internet.de/fahrschausbo_2012/anlage_4.html"
-        },
-        {
-          "name": "Bundesrat · Ausschussempfehlung 655/1/26 vom 13. November 2026",
-          "url": "https://www.bundesrat.de/SharedDocs/drucksachen/2026/0601-0700/655-1-26.pdf?__blob=publicationFile&v=1"
         }
       ]
     },
