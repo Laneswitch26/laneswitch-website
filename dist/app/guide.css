@@ -47,3 +47,14 @@
   .gd-progress .gd-bar{flex-basis:100%}
 }
 .gd-next h2[tabindex]{outline:none}
+.gd-stage{display:grid;gap:8px}
+.gd-stage .gd-kicker{margin:0}
+.gd-stage-now{margin:0;font-size:17px;font-weight:650;color:var(--ink)}
+.gd-stage-hint{margin:0;font-size:14px;color:var(--muted)}
+.gd-stage .gd-actions{margin-top:6px}
+.gd-stage-ask{display:grid;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.gd-stage-ask p{margin:0;font-size:15px;color:var(--ink)}
+.gd-stage-ask .primary,.gd-stage-ask .secondary{justify-self:start}
+.gd-stage-line{margin:14px 0 0;font-size:14px;color:var(--muted)}
+.gd-stage-line a{color:var(--teal);font-weight:650}
+@media(max-width:760px){.gd-stage-ask .primary,.gd-stage-ask .secondary{justify-self:stretch}}

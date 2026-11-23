@@ -7,7 +7,7 @@ const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'null')}catch{retu
 const write=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}};
 
 // Stylesheet einmalig nachladen (App-Ansicht und Unterseiten)
-if(!document.querySelector('link[data-guide-css]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/app/guide.css?v=1';l.dataset.guideCss='';document.head.append(l);}
+if(!document.querySelector('link[data-guide-css]')){const l=document.createElement('link');l.rel='stylesheet';l.href='/app/guide.css?v=2';l.dataset.guideCss='';document.head.append(l);}
 
 /* ---------- Fahrschüler:innen ---------- */
 export const STEPS={
@@ -33,6 +33,9 @@ export const STAGES=[
   {id:'auto',t:'Ich plane mein erstes eigenes Auto',d:'Kauf, Kosten und Absicherung',base:['kosten','startklar','unfall'],after:true,
    goals:[['kosten','Laufende Kosten realistisch einschätzen'],['startklar','Vor der ersten Fahrt alles klären'],['unfall','Wissen, was bei einem Unfall zu tun ist']]}
 ];
+// Nächste Etappe: Der Fahrplan wächst mit (z. B. erst während der Ausbildung, später nach der Prüfung)
+const NEXT={start:['theorie','Ich habe mich bei einer Fahrschule angemeldet'],theorie:['pruefung','Meine Prüfung steht jetzt bald an'],pruefung:['frisch','Ich habe die Prüfung bestanden'],frisch:['auto','Ich plane jetzt ein eigenes Auto']};
+const STALE=42*24*3600*1000; // nach sechs Wochen nachfragen, ob die Etappe noch stimmt
 // Was nach einem Werkzeug sinnvoll weiterführt
 const RELATED={netzwerk:['fs-kosten','lernen'],'fs-kosten':['netzwerk','lernen'],lernen:['radar','fs-kosten'],radar:['lernen','unfall'],startklar:['unfall','kosten'],start:['startklar','unfall'],unfall:['startklar','radar'],kosten:['startklar','easi'],easi:['startklar','unfall']};
 const BEFORE_ONLY=['netzwerk','fs-kosten','lernen'];
@@ -40,7 +43,10 @@ const BEFORE_ONLY=['netzwerk','fs-kosten','lernen'];
 const PKEY='ls-fahrplan-v1';
 let plan=Object.assign({stage:null,goals:[],done:[]},read(PKEY)||{});
 let wiz=plan.stage?3:1; // 1 Lebenslage, 2 Ziele, 3 Fahrplan
-const savePlan=()=>write(PKEY,{stage:plan.stage,goals:plan.goals,done:plan.done});
+const savePlan=()=>write(PKEY,{stage:plan.stage,goals:plan.goals,done:plan.done,at:plan.at||Date.now()});
+function setStage(v){if(!STAGES.some(x=>x.id===v)||v===plan.stage)return;plan.stage=v;const ok=STAGES.find(x=>x.id===v).goals.map(g=>g[0]);plan.goals=plan.goals.filter(x=>ok.includes(x));plan.at=Date.now();savePlan();}
+const nextStage=()=>NEXT[plan.stage]||null;
+const isStale=()=>!!plan.at&&Date.now()-plan.at>STALE;
 const stageOf=()=>STAGES.find(s=>s.id===plan.stage);
 const isAfter=()=>!!stageOf()?.after;
 export function planSteps(){const s=stageOf();if(!s)return[];return[...new Set([...plan.goals,...s.base])].filter(id=>STEPS[id]).slice(0,5);}
@@ -54,7 +60,7 @@ const bar=(d,n)=>`<div class="gd-progress"><span>${d} von ${n} erledigt</span><s
 export function planHome(){
   const {steps,done,next,has}=planState();
   if(!has)return `<section class="home-section" aria-labelledby="gd-home-title"><div class="home-head"><h2 id="gd-home-title">Dein Fahrplan</h2></div><div class="home-paths"><a class="home-path" href="#fahrplan"><span class="update-icon">${icon('compass')}</span><span class="path-text"><strong>Was ist für dich als Nächstes dran?</strong><small>Zwei kurze Fragen, dann bekommst du deinen persönlichen Fahrplan.</small></span>${icon('arrow')}</a></div></section>`;
-  return `<section class="home-section" aria-labelledby="gd-home-title"><div class="home-head"><h2 id="gd-home-title">Dein Fahrplan</h2><a class="small-link" href="#fahrplan">Ansehen ${icon('arrow')}</a></div><div class="home-panel gd-home">${bar(done,steps.length)}${next?`<p class="gd-kicker">Als Nächstes</p><a class="home-path" href="${STEPS[next].href}"><span class="update-icon">${icon(STEPS[next].icon)}</span><span class="path-text"><strong>${STEPS[next].t}</strong><small>${why(next)}</small></span>${icon('arrow')}</a>`:`<p class="gd-done-note">Alles erledigt. Wenn sich bei dir etwas ändert, <a href="#fahrplan">passe deinen Fahrplan an</a>.</p>`}</div></section>`;
+  return `<section class="home-section" aria-labelledby="gd-home-title"><div class="home-head"><h2 id="gd-home-title">Dein Fahrplan</h2><a class="small-link" href="#fahrplan">Ansehen ${icon('arrow')}</a></div><div class="home-panel gd-home">${bar(done,steps.length)}${next?`<p class="gd-kicker">Als Nächstes</p><a class="home-path" href="${STEPS[next].href}"><span class="update-icon">${icon(STEPS[next].icon)}</span><span class="path-text"><strong>${STEPS[next].t}</strong><small>${why(next)}</small></span>${icon('arrow')}</a>`:`<p class="gd-done-note">Alles erledigt für diese Etappe.</p>`}${(!next||isStale())&&nextStage()?`<div class="gd-stage-ask"><p><strong>${next?'Stimmt deine Etappe noch?':'Bereit für die nächste Etappe?'}</strong></p><button class="${next?'secondary':'primary'}" type="button" data-gd-stage="${nextStage()[0]}"><span class="action-label">${nextStage()[1]}</span>${icon('arrow')}</button></div>`:''}<p class="gd-stage-line">Etappe: ${esc(stageOf().t)} · <a href="#fahrplan" data-gd="replan-go">Ändern</a></p></div></section>`;
 }
 export function heroAction(){const {next,has}=planState();if(!has)return['#fahrplan','Fahrplan erstellen'];if(next)return[STEPS[next].href,'Weiter: '+STEPS[next].t];return['#fahrplan','Fahrplan ansehen'];}
 
@@ -65,13 +71,14 @@ export function renderPlan(el,{pageHead}){
     el.innerHTML=pageHead('Dein Fahrplan','Zwei kurze Fragen, dann zeigen wir dir, was für dich als Nächstes dran ist.',back)+`<form class="sk-form gd-form" data-gd-form="stage" novalidate><div class="gd-steps" aria-hidden="true"><span class="on"></span><span></span></div><fieldset class="sk-q"><legend><span class="sk-num">Frage 1 von 2</span>Wo stehst du gerade?</legend><div class="sk-options">${STAGES.map(s=>`<label class="sk-option"><input type="radio" name="stage" value="${s.id}" ${plan.stage===s.id?'checked':''}><span><strong class="gd-opt-title">${s.t}</strong><small class="gd-opt-sub">${s.d}</small></span></label>`).join('')}</div></fieldset><p class="form-caption" role="status" data-gd-hint></p><button class="primary" type="submit"><span class="action-label">Weiter</span>${icon('arrow')}</button></form>`;return;}
   const s=stageOf();
   if(wiz===2){
-    el.innerHTML=pageHead('Dein Fahrplan','Was ist dir gerade wichtig? Mehrfachauswahl möglich, du kannst das auch überspringen.',back)+`<form class="sk-form gd-form" data-gd-form="goals" novalidate><div class="gd-steps" aria-hidden="true"><span class="on"></span><span class="on"></span></div><fieldset class="sk-q"><legend><span class="sk-num">Frage 2 von 2</span>Was ist dir gerade wichtig?</legend><div class="sk-options">${s.goals.map(([id,t])=>`<label class="sk-option"><input type="checkbox" name="goal" value="${id}" ${plan.goals.includes(id)?'checked':''}><span>${t}</span></label>`).join('')}</div></fieldset><div class="gd-actions"><button class="secondary" type="button" data-gd="back">Zurück</button><button class="primary" type="submit"><span class="action-label">Fahrplan anzeigen</span>${icon('arrow')}</button></div></form>`;return;}
+    el.innerHTML=pageHead('Dein Fahrplan',esc(s.t)+'. Was ist dir jetzt wichtig? Mehrfachauswahl möglich, du kannst das auch überspringen.',back)+`<form class="sk-form gd-form" data-gd-form="goals" novalidate><div class="gd-steps" aria-hidden="true"><span class="on"></span><span class="on"></span></div><fieldset class="sk-q"><legend><span class="sk-num">Frage 2 von 2</span>Was ist dir gerade wichtig?</legend><div class="sk-options">${s.goals.map(([id,t])=>`<label class="sk-option"><input type="checkbox" name="goal" value="${id}" ${plan.goals.includes(id)?'checked':''}><span>${t}</span></label>`).join('')}</div></fieldset><div class="gd-actions"><button class="secondary" type="button" data-gd="back">Zurück</button><button class="primary" type="submit"><span class="action-label">Fahrplan anzeigen</span>${icon('arrow')}</button></div></form>`;return;}
   const {steps,done,next}=planState();
   el.innerHTML=pageHead('Dein Fahrplan',esc(s.t)+'. Schritt für Schritt, in deinem Tempo.',back)+
   `<section class="home-section"><div class="home-panel">${bar(done,steps.length)}</div></section>`+
   (next?`<section class="home-section" aria-labelledby="gd-next-title"><div class="gd-next"><p class="gd-kicker">Als Nächstes · Schritt ${steps.indexOf(next)+1} von ${steps.length}</p><h2 id="gd-next-title" tabindex="-1">${STEPS[next].t}</h2><p>${STEPS[next].d}</p><p class="gd-why"><strong>Warum jetzt?</strong> ${why(next)}</p><div class="gd-actions"><a class="primary" href="${STEPS[next].href}"><span class="action-label">Jetzt starten</span>${icon('arrow')}</a><button class="secondary" type="button" data-gd-done="${next}">Schon erledigt</button></div></div></section>`
-   :`<section class="home-section"><div class="gd-next"><h2>Alles erledigt. Stark!</h2><p>Wenn sich deine Situation ändert, passe deinen Fahrplan an. Dann bekommst du neue Schritte.</p></div></section>`)+
-  `<section class="home-section" aria-labelledby="gd-all-title"><div class="home-head"><h2 id="gd-all-title">Alle Schritte</h2></div><ol class="gd-list">${steps.map((id,i)=>{const d=plan.done.includes(id);return `<li class="gd-item${d?' is-done':''}"><button type="button" class="gd-tick" data-gd-done="${id}" aria-pressed="${d}" aria-label="${STEPS[id].t}: ${d?'als offen markieren':'als erledigt markieren'}">${icon('check')}</button><a class="gd-item-link" href="${STEPS[id].href}"><span class="gd-item-text"><small>Schritt ${i+1}</small><strong>${STEPS[id].t}</strong><span>${STEPS[id].d}</span></span>${icon('arrow')}</a></li>`}).join('')}</ol><div class="gd-actions gd-foot"><button class="secondary" type="button" data-gd="replan">Fahrplan anpassen</button><a class="small-link" href="#werkzeuge">Alle Werkzeuge ${icon('arrow')}</a></div><p class="form-caption">Dein Fahrplan wird nur auf diesem Gerät gespeichert.</p></section>`;
+   :`<section class="home-section"><div class="gd-next"><h2 id="gd-next-title" tabindex="-1">Alles erledigt. Stark!</h2><p>${nextStage()?'Wenn du weiter bist, wechsle in die nächste Etappe. Erledigte Schritte bleiben abgehakt.':'Wenn sich bei dir etwas ändert, passe deine Etappe an. Dann bekommst du neue Schritte.'}</p></div></section>`)+
+  `<section class="home-section" aria-labelledby="gd-stage-title"><div class="home-panel gd-stage"><p class="gd-kicker" id="gd-stage-title">Deine Etappe</p><p class="gd-stage-now">${esc(s.t)}</p>${nextStage()?`<p class="gd-stage-hint">Schon weiter? Dein Fahrplan wächst mit, erledigte Schritte bleiben abgehakt.</p>`:''}<div class="gd-actions">${nextStage()?`<button class="${next?'secondary':'primary'}" type="button" data-gd-stage="${nextStage()[0]}"><span class="action-label">${nextStage()[1]}</span>${icon('arrow')}</button>`:''}<button class="secondary" type="button" data-gd="replan">Andere Etappe wählen</button></div></div></section>`+
+  `<section class="home-section" aria-labelledby="gd-all-title"><div class="home-head"><h2 id="gd-all-title">Alle Schritte</h2></div><ol class="gd-list">${steps.map((id,i)=>{const d=plan.done.includes(id);return `<li class="gd-item${d?' is-done':''}"><button type="button" class="gd-tick" data-gd-done="${id}" aria-pressed="${d}" aria-label="${STEPS[id].t}: ${d?'als offen markieren':'als erledigt markieren'}">${icon('check')}</button><a class="gd-item-link" href="${STEPS[id].href}"><span class="gd-item-text"><small>Schritt ${i+1}</small><strong>${STEPS[id].t}</strong><span>${STEPS[id].d}</span></span>${icon('arrow')}</a></li>`}).join('')}</ol><div class="gd-actions gd-foot"><button class="secondary" type="button" data-gd="goals">Ziele anpassen</button><a class="small-link" href="#werkzeuge">Alle Werkzeuge ${icon('arrow')}</a></div><p class="form-caption">Dein Fahrplan wird nur auf diesem Gerät gespeichert.</p></section>`;
 }
 
 /* ---------- Fahrschulinhaber:innen ---------- */
@@ -120,17 +127,20 @@ let rerender=()=>{},onContact=()=>{};
 export function bindApp(opts){rerender=opts.rerender;onContact=opts.onContact;}
 const top=()=>window.scrollTo({top:0,behavior:'instant'});
 document.addEventListener('submit',e=>{const f=e.target.closest('[data-gd-form]');if(!f)return;e.preventDefault();const kind=f.dataset.gdForm;const hint=f.querySelector('[data-gd-hint]');
-  if(kind==='stage'){const v=f.querySelector('input[name=stage]:checked')?.value;if(!v){if(hint)hint.textContent='Bitte wähle aus, wo du gerade stehst.';f.querySelector('input')?.focus();return;}if(v!==plan.stage){plan.stage=v;const ok=stageOf().goals.map(g=>g[0]);plan.goals=plan.goals.filter(x=>ok.includes(x));savePlan();}wiz=2;rerender();top();}
+  if(kind==='stage'){const v=f.querySelector('input[name=stage]:checked')?.value;if(!v){if(hint)hint.textContent='Bitte wähle aus, wo du gerade stehst.';f.querySelector('input')?.focus();return;}setStage(v);wiz=2;rerender();top();}
   if(kind==='goals'){plan.goals=[...f.querySelectorAll('input[name=goal]:checked')].map(i=>i.value);savePlan();wiz=3;rerender();top();}
   if(kind==='needs'){const v=[...f.querySelectorAll('input[name=need]:checked')].map(i=>i.value);if(!v.length){if(hint)hint.textContent='Bitte wählen Sie mindestens einen Punkt aus.';f.querySelector('input')?.focus();return;}way.needs=v;saveWay();wayStep=2;rerender();top();}
 });
 document.addEventListener('click',e=>{
   const d=e.target.closest('[data-gd-done]');
   if(d&&d.closest('#view')){const id=d.dataset.gdDone;const inList=!!d.closest('.gd-list');markDone(id,!plan.done.includes(id));rerender();(inList?document.querySelector(`.gd-list [data-gd-done="${id}"]`):document.getElementById('gd-next-title')||document.querySelector('.gd-next h2'))?.focus({preventScroll:true});return;}
+  const st=e.target.closest('[data-gd-stage]');if(st&&st.closest('#view')){setStage(st.dataset.gdStage);wiz=2;if(location.hash!=='#fahrplan')location.hash='#fahrplan';else{rerender();top();}return;}
   const a=e.target.closest('[data-gd]');if(!a||!a.closest('#view'))return;
   const x=a.dataset.gd;
   if(x==='back'){wiz=1;rerender();top();}
   if(x==='replan'){wiz=1;rerender();top();}
+  if(x==='replan-go'){wiz=1;}
+  if(x==='goals'){wiz=2;rerender();top();}
   if(x==='way-edit'){wayStep=1;rerender();top();}
   if(x==='way-contact'){const list=wayBlocks().map(k=>'- '+BLOCKS[k].t).join('\n');onContact({topic:'20-Minuten-Kennenlernen',message:'Ich interessiere mich für ein Kennenlernen. Diese Bausteine passen laut Wegweiser zu uns:\n'+list});}
 });
