@@ -206,6 +206,7 @@ im bestehenden Design und ohne bestehende Funktionen zu verändern. Alles in `di
   Fahrplan abhaken bzw. Weiter zum nächsten Schritt, „Passt dazu“ (nach der Prüfung ohne Lernwelt/Fahrschulsuche),
   auf Fahrschul-Seiten „Passt dazu“ plus Wegweiser. Gefahrenradar (Vollbildspiel) bewusst ohne Block.
 - Startklar-Check gilt im Fahrplan automatisch als erledigt, sobald die Checkliste angezeigt wird.
+- Wegweiser verlinkt „So läuft eine Kooperation“ direkt auf `fahrschulen-informationen/#ablauf` (die Seite `kooperation-ablauf/` leitet dorthin weiter).
 - **Etappen** (Wunsch des Eigentümers): Der Fahrplan wächst mit. Kasten „Deine Etappe“ mit Knopf zur nächsten Etappe
   (angemeldet → Prüfung bald → bestanden → eigenes Auto) und „Andere Etappe wählen“; bei allem erledigt wird der Knopf
   zur Hauptaktion. Startseite fragt nach sechs Wochen „Stimmt deine Etappe noch?“. Erledigte Schritte bleiben beim

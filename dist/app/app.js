@@ -3,7 +3,7 @@ import {mountNews} from '/app/news.mjs?v=3-share';
 import {icon,navigation,nav} from '/app/shell.js?v=7-fragen';
 import {shareButton,shareIcon} from '/app/share.mjs?v=5';
 import '/app/motion.js?v=1';
-import {planHome,heroAction,renderPlan,wayHome,renderWay,bindApp,markDone} from '/app/guide.mjs?v=2';
+import {planHome,heroAction,renderPlan,wayHome,renderWay,bindApp,markDone} from '/app/guide.mjs?v=3';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storage={get(k){try{return localStorage.getItem(k)}catch{return null}},set(k,v){try{localStorage.setItem(k,v);return true}catch{return false}}};
 const prior=storage.get('ls-audience-v2');
