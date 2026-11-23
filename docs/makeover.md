@@ -185,3 +185,24 @@ Werkzeug, Baukasten und Ablauf: `tools/gefahrenradar-3d/README.md`. Prüfung: `n
 - Entdoppelt: Der FAQ-Assistent (`app/assistant-knowledge.mjs`, Eintrag `partner`) beschrieb den Ablauf bisher
   selbst ausführlich; er fasst ihn jetzt kurz zusammen und verweist auf die neue Seite.
 
+
+## Geführte Nutzerführung (23.11.2026)
+
+Auftrag des Eigentümers: Die Seite soll Besucher:innen geführter und proaktiver zu den passenden Angeboten bringen,
+im bestehenden Design und ohne bestehende Funktionen zu verändern. Alles in `dist/app/guide.mjs` und `guide.css`
+(nur Variablen aus `shell.css`, Stylesheet lädt das Modul selbst nach).
+
+- **Fahrplan** (`#fahrplan`, Fahrschüler:innen, „du“): Frage 1 Lebenslage (überlege / Theorie / Prüfung bald /
+  gerade bestanden / erstes eigenes Auto), Frage 2 Ziele. Die Ziele hängen von der Lebenslage ab, damit nach der
+  Prüfung z. B. nicht mehr „Theorie“ angeboten wird (Wunsch des Eigentümers). Daraus höchstens fünf Schritte auf
+  vorhandene Werkzeuge, „Als Nächstes“ mit „Warum jetzt?“, Abhaken. Speicherung nur lokal (`ls-fahrplan-v1`).
+- **Wegweiser** (`#wegweiser`, Fahrschulinhaber:innen, „Sie“): Bedarf wählen → passende Bausteine (Links auf Demos und
+  bestehende Seiten) → „Kennenlernen anfragen“ füllt das Kontaktformular (Anliegen „20-Minuten-Kennenlernen“, Auswahl
+  als Nachricht). Keine Vergütung genannt. Speicherung lokal (`ls-wegweiser-v1`).
+- **Startseite**: Abschnitt „Dein Fahrplan“ bzw. „Was passt zu Ihrer Fahrschule?“ unter dem Kopfbereich. Hauptknopf
+  im Kopfbereich (Fahrschüler:innen) zeigt „Fahrplan erstellen“ oder „Weiter: <nächster Schritt>“.
+- **Werkzeuge**: neue erste Gruppe „Dein Einstieg“ / „Ihr Einstieg“.
+- **Unterseiten**: `detail.js` lädt `guide.mjs` und hängt unter Werkzeuge einen Block an (`#gd-next`): Schritt im
+  Fahrplan abhaken bzw. Weiter zum nächsten Schritt, „Passt dazu“ (nach der Prüfung ohne Lernwelt/Fahrschulsuche),
+  auf Fahrschul-Seiten „Passt dazu“ plus Wegweiser. Gefahrenradar (Vollbildspiel) bewusst ohne Block.
+- Startklar-Check gilt im Fahrplan automatisch als erledigt, sobald die Checkliste angezeigt wird.
