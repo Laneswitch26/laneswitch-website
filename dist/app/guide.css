@@ -1,0 +1,60 @@
+/* Geführte Nutzerführung (Fahrplan, Wegweiser, „Passt dazu“). Nur Farbvariablen aus shell.css. */
+.gd-steps{display:flex;gap:6px}
+.gd-steps span{flex:1;height:5px;border-radius:99px;background:var(--line)}
+.gd-steps span.on{background:var(--teal)}
+.gd-opt-title{display:block;font-weight:650}
+.gd-opt-sub{display:block;font-size:14px;color:var(--muted);font-weight:400;margin-top:2px}
+.sk-option:has(input:checked) .gd-opt-sub{font-weight:400}
+.gd-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.gd-actions .primary,.gd-actions .secondary{min-width:200px}
+.gd-foot{margin-top:18px;justify-content:space-between}
+.gd-progress{display:flex;align-items:center;gap:14px;font-size:14px;color:var(--muted)}
+.gd-progress>span:first-child{flex:none;font-weight:600}
+.gd-bar{position:relative;flex:1;min-width:0;height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.gd-bar i{position:absolute;inset:0 auto 0 0;background:var(--teal);border-radius:8px;transition:width .3s}
+.gd-kicker{font-size:13px;font-weight:650;color:var(--teal);margin:0 0 6px}
+.gd-home .gd-kicker{margin-top:18px}
+.gd-home .home-path{border-color:var(--teal)}
+.gd-done-note{margin-top:14px;color:var(--muted);font-size:15px}
+.gd-next{padding:24px;border-radius:16px;background:var(--tint);display:grid;gap:10px}
+.gd-next h2{font-size:22px;letter-spacing:-.02em;line-height:1.25;margin:0;color:var(--ink)}
+.gd-next p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
+.gd-next .gd-kicker{margin:0}
+.gd-next .gd-why{color:var(--ink)}
+.gd-next .gd-actions{margin-top:6px}
+.gd-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.gd-item{display:flex;align-items:center;gap:12px;padding:10px 12px 10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--card);min-width:0}
+.gd-tick{flex:none;display:grid;place-items:center;width:44px;height:44px;padding:0;border-radius:50%;border:1.5px solid var(--line);background:var(--bg);color:transparent;cursor:pointer}
+.gd-tick .icon{width:20px;height:20px}
+.gd-tick:hover{border-color:var(--teal)}
+.gd-tick:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.gd-item.is-done .gd-tick{background:var(--teal);border-color:var(--teal);color:var(--card)}
+.gd-item-link{flex:1;display:flex;align-items:center;gap:12px;min-width:0;min-height:44px;color:var(--ink);text-decoration:none}
+.gd-item-link>.icon{flex:none;color:var(--teal)}
+.gd-item-text{flex:1;display:grid;gap:2px;min-width:0}
+.gd-item-text small{font-size:13px;font-weight:650;color:var(--teal)}
+.gd-item-text strong{font-size:16px;line-height:1.3}
+.gd-item-text span{font-size:14px;line-height:1.5;color:var(--muted)}
+.gd-item.is-done .gd-item-text strong{text-decoration:line-through;color:var(--muted)}
+/* Unterseiten */
+.gd-sub .gd-sub-head{margin-top:28px}
+.gd-sub .sp-cta+.sp-rows,.gd-sub .sp-rows+.sp-cta{margin-top:20px}
+.gd-sub h2[tabindex]{outline:none}
+@media(max-width:760px){
+  .gd-next{padding:20px}
+  .gd-actions .primary,.gd-actions .secondary{width:100%;min-width:0}
+  .gd-progress{flex-wrap:wrap;gap:8px}
+  .gd-progress .gd-bar{flex-basis:100%}
+}
+.gd-next h2[tabindex]{outline:none}
+.gd-stage{display:grid;gap:8px}
+.gd-stage .gd-kicker{margin:0}
+.gd-stage-now{margin:0;font-size:17px;font-weight:650;color:var(--ink)}
+.gd-stage-hint{margin:0;font-size:14px;color:var(--muted)}
+.gd-stage .gd-actions{margin-top:6px}
+.gd-stage-ask{display:grid;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.gd-stage-ask p{margin:0;font-size:15px;color:var(--ink)}
+.gd-stage-ask .primary,.gd-stage-ask .secondary{justify-self:start}
+.gd-stage-line{margin:14px 0 0;font-size:14px;color:var(--muted)}
+.gd-stage-line a{color:var(--teal);font-weight:650}
+@media(max-width:760px){.gd-stage-ask .primary,.gd-stage-ask .secondary{justify-self:stretch}}

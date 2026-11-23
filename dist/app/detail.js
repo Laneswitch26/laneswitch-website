@@ -24,3 +24,6 @@ document.querySelectorAll('[data-icon]').forEach(el=>el.innerHTML=icon(el.datase
 
 const footer=document.querySelector('.site-footer');
 if(footer){footer.className='ls-footer';footer.innerHTML='<div class="ls-footer-inner"><span>LANE SWITCH</span><nav aria-label="Rechtliches und Kontakt"><a href="/#kontakt">Kontakt</a><a href="/konzept/impressum/">Impressum</a><a href="/konzept/datenschutz/">Datenschutz</a></nav></div>';layout.after(footer);}
+
+// Geführte Nutzerführung: „Passt dazu“ und Fahrplan-Schritt unter Werkzeugen (guide.mjs).
+if(/^\/konzept\/[a-z-]+\/$/.test(path))import('/app/guide.mjs?v=3').then(m=>m.mountNext()).catch(()=>{});
