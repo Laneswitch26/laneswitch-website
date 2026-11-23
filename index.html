@@ -308,6 +308,43 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
   @keyframes dash{to{background-position:24px 0}}
 }
 @media (prefers-reduced-motion:reduce){.scene ul li{transition:none}}
+/* Der Unterschied */
+.sol,.step{background:var(--card)}
+.alt .sol,.alt .step,.alt .partner:not(.partner-next){background:var(--bg)}
+.compare{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:22px;margin-bottom:clamp(28px,3vw,44px)}
+.cmp{padding:clamp(24px,2.4vw,40px);border-radius:22px;display:grid;gap:14px;align-content:start}
+.cmp h3{font-size:clamp(22px,1.8vw,30px);font-weight:800}
+.cmp ul{display:grid;gap:12px}
+.cmp li{display:flex;gap:12px;align-items:flex-start;font-size:clamp(15px,1.05vw,17px)}
+.cmp li svg{width:20px;height:20px;flex:none;margin-top:3px}
+.cmp-tag{font-size:13px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.cmp-usual{background:var(--bg);border:1px dashed var(--line);color:var(--muted)}
+.cmp-usual h3{color:var(--muted)}
+.cmp-usual li svg{color:var(--muted)}
+.cmp-ls{background:var(--navy);color:var(--on-navy)}
+.cmp-ls .cmp-tag,.cmp-ls li svg{color:var(--accent)}
+.groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.group{display:flex;flex-direction:column;gap:14px;padding:clamp(24px,2.2vw,34px);border-radius:22px;background:var(--bg);border:1px solid var(--line);transition:transform .25s,box-shadow .25s,border-color .25s}
+.group:hover{transform:translateY(-4px);box-shadow:0 18px 36px -24px #02182966;border-color:var(--teal)}
+.group .for{font-size:13px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.group h3{font-size:clamp(21px,1.6vw,26px);font-weight:800}
+.group>p{color:var(--muted)}
+.perks{display:grid;gap:16px}
+.perks li{display:grid;grid-template-columns:42px minmax(0,1fr);gap:14px;align-items:start}
+.perks .ico{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--tint);color:var(--teal);transition:background-color .25s,color .25s,transform .25s}
+.perks .ico svg{width:22px;height:22px}
+.perks li:hover .ico{background:var(--teal);color:var(--card);transform:rotate(-6deg)}
+.perks b{display:block;font-size:16px}
+.perks span span{display:block;font-size:14px;color:var(--muted);line-height:1.5}
+.group-earn{background:var(--navy);border-color:var(--navy);color:var(--on-navy)}
+.group-earn .for{color:var(--accent)}
+.group-earn>p{color:var(--on-navy-muted)}
+.group-earn .btn{margin-top:auto;align-self:flex-start}
+.band-close{background:var(--tint);color:var(--ink)}
+.band-close p{color:var(--muted)}
+@media (max-width:1180px){.groups{grid-template-columns:repeat(2,minmax(0,1fr))}.group-earn{grid-column:1/-1}}
+@media (max-width:1020px){.compare{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.groups{grid-template-columns:none}.group-earn{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -315,7 +352,7 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
   <div class="progress" aria-hidden="true"><span id="progress"></span></div>
   <div class="wrap bar">
     <a class="logo" href="#top" aria-label="LANE SWITCH, zum Seitenanfang"><span class="logo-light"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 360" role="img" aria-labelledby="lt"><title id="lt">LANE SWITCH</title><g transform="translate(30 50) scale(2.6)"><rect width="100" height="100" rx="24" fill="#062D47"/><path d="M50 14V86" fill="none" stroke="#65E5DF" stroke-width="5" stroke-dasharray="9 8" opacity="0.75"/><path d="M68 86V64C68 50 32 50 32 36V14" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/></g><path d="M357.29443359375 231.29150390625H422.56201171875V213.873046875H378.29296875V128.70849609375H357.29443359375ZM433.91912109375 231.29150390625H457.12078125L464.76287109375 207.47021484375H501.18328125L509.10076171875 231.29150390625H532.4401171874999L496.501640625 128.70849609375H468.962578125ZM469.99529296875 191.015625 472.9557421875 181.7900390625C476.05388671875 171.462890625 479.08318359375 159.27685546875 482.52556640625 145.1630859375C486.10564453125 159.13916015625 489.341484375 171.25634765625 492.646171875 181.7900390625L495.74431640625 191.015625ZM547.9280859375 231.29150390625H569.4085546875V184.130859375C569.4085546875 178.072265625 568.78892578125 167.056640625 568.0316015625 154.6640625C574.3655859375 167.4697265625 578.15220703125 174.97412109375 583.8665625 184.19970703125L613.333359375 231.29150390625H636.81041015625V128.70849609375H615.32994140625V177.9345703125C615.32994140625 184.681640625 615.88072265625 195.697265625 616.638046875 205.7490234375C612.16294921875 195.07763671875 607.825546875 187.2978515625 603.76353515625 180.61962890625L571.3362890625 128.70849609375H547.9280859375ZM658.21927734375 231.29150390625H726.9980859375V213.873046875H679.2178125V188.05517578125H723.2803125V170.912109375H679.2178125V146.126953125H726.860390625V128.70849609375H658.21927734375ZM820.4876953125 232.80615234375C845.410546875 232.80615234375 860.07509765625 220.7578125 860.07509765625 202.10009765625C860.07509765625 184.88818359375 846.71865234375 176.07568359375 829.437890625 172.08251953125L820.14345703125 169.810546875C811.46865234375 167.7451171875 803.75771484375 164.50927734375 803.75771484375 156.8671875C803.75771484375 149.982421875 809.81630859375 145.025390625 820.55654296875 145.025390625C831.090234375 145.025390625 837.63076171875 149.77587890625 838.3880859375 157.96875H858.69814453125C858.35390625 139.9306640625 843.4828125 127.33154296875 820.7630859375 127.33154296875C798.4564453125 127.33154296875 782.2083984375 139.72412109375 782.2083984375 158.244140625C782.2083984375 173.18408203125 792.60439453125 181.927734375 809.95400390625 186.12744140625L821.24501953125 188.9501953125C832.39833984375 191.7041015625 838.9388671875 194.93994140625 838.9388671875 201.96240234375C838.9388671875 209.7421875 831.5033203125 215.04345703125 820.28115234375 215.04345703125C808.9212890625 215.04345703125 800.59072265625 209.8798828125 799.90224609375 199.48388671875H779.4544921875C780.07412109375 221.30859375 795.840234375 232.80615234375 820.4876953125 232.80615234375ZM899.6597460937501 231.29150390625H923.6875781250001L937.2505664062501 178.82958984375C939.2471484375001 171.0498046875 940.4864062500001 162.85693359375 941.7945117187501 154.31982421875C943.2403125000001 163.13232421875 944.6172656250001 171.462890625 946.4761523437501 178.82958984375L960.1079882812501 231.29150390625H984.0669726562501L1011.6748828125001 128.70849609375H988.6797656250001L976.7691210937501 179.173828125C974.7036914062501 188.537109375 972.9136523437501 199.552734375 971.2613085937501 210.017578125C969.4024218750001 199.552734375 967.5435351562501 188.537109375 965.2715625000001 179.173828125L952.8101367187501 128.70849609375H930.9854296875001L918.4551562500001 179.173828125C916.1143359375001 188.60595703125 914.3242968750001 199.75927734375 912.4654101562501 210.29296875C910.8130664062501 199.75927734375 909.0230273437501 188.60595703125 906.9575976562501 179.173828125L895.0469531250001 128.70849609375H872.1206835937501ZM1048.16138671875 128.70849609375H1027.1628515625V231.29150390625H1048.16138671875ZM1065.43939453125 146.126953125H1096.83392578125V231.29150390625H1117.90130859375V146.126953125H1149.2269921875V128.70849609375H1065.43939453125ZM1211.3248242187499 232.66845703125C1237.2115429687499 232.66845703125 1253.1841992187499 215.25 1255.5250195312499 196.17919921875H1234.2510937499999C1232.1856640624999 207.33251953125 1223.3731640624999 214.0107421875 1211.6690624999999 214.0107421875C1195.8341015624999 214.0107421875 1185.0250195312499 202.306640625 1185.0250195312499 180.06884765625C1185.0250195312499 158.31298828125 1195.6964062499999 145.9892578125 1211.7379101562499 145.9892578125C1223.4420117187499 145.9892578125 1232.2545117187499 152.5986328125 1234.1822460937499 163.751953125H1255.4561718749999C1252.4268749999999 140.68798828125 1234.6641796874999 127.33154296875 1211.3248242187499 127.33154296875C1184.2676953124999 127.33154296875 1163.6822460937499 146.5400390625 1163.6822460937499 180.06884765625C1163.6822460937499 213.39111328125 1183.9923046874999 232.66845703125 1211.3248242187499 232.66845703125ZM1273.6291992187498 231.29150390625H1294.6277343749998V187.5732421875H1339.3098632812498V231.29150390625H1360.3772460937498V128.70849609375H1339.3098632812498V170.15478515625H1294.6277343749998V128.70849609375H1273.6291992187498Z" fill="#062D47"/></svg></span><span class="logo-dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 360" role="img" aria-labelledby="ld"><title id="ld">LANE SWITCH</title><g transform="translate(30 50) scale(2.6)"><rect width="100" height="100" rx="24" fill="#65E5DF"/><path d="M50 14V86" fill="none" stroke="#062D47" stroke-width="5" stroke-dasharray="9 8" opacity="0.45"/><path d="M68 86V64C68 50 32 50 32 36V14" fill="none" stroke="#062D47" stroke-width="10" stroke-linecap="round"/></g><path d="M357.29443359375 231.29150390625H422.56201171875V213.873046875H378.29296875V128.70849609375H357.29443359375ZM433.91912109375 231.29150390625H457.12078125L464.76287109375 207.47021484375H501.18328125L509.10076171875 231.29150390625H532.4401171874999L496.501640625 128.70849609375H468.962578125ZM469.99529296875 191.015625 472.9557421875 181.7900390625C476.05388671875 171.462890625 479.08318359375 159.27685546875 482.52556640625 145.1630859375C486.10564453125 159.13916015625 489.341484375 171.25634765625 492.646171875 181.7900390625L495.74431640625 191.015625ZM547.9280859375 231.29150390625H569.4085546875V184.130859375C569.4085546875 178.072265625 568.78892578125 167.056640625 568.0316015625 154.6640625C574.3655859375 167.4697265625 578.15220703125 174.97412109375 583.8665625 184.19970703125L613.333359375 231.29150390625H636.81041015625V128.70849609375H615.32994140625V177.9345703125C615.32994140625 184.681640625 615.88072265625 195.697265625 616.638046875 205.7490234375C612.16294921875 195.07763671875 607.825546875 187.2978515625 603.76353515625 180.61962890625L571.3362890625 128.70849609375H547.9280859375ZM658.21927734375 231.29150390625H726.9980859375V213.873046875H679.2178125V188.05517578125H723.2803125V170.912109375H679.2178125V146.126953125H726.860390625V128.70849609375H658.21927734375ZM820.4876953125 232.80615234375C845.410546875 232.80615234375 860.07509765625 220.7578125 860.07509765625 202.10009765625C860.07509765625 184.88818359375 846.71865234375 176.07568359375 829.437890625 172.08251953125L820.14345703125 169.810546875C811.46865234375 167.7451171875 803.75771484375 164.50927734375 803.75771484375 156.8671875C803.75771484375 149.982421875 809.81630859375 145.025390625 820.55654296875 145.025390625C831.090234375 145.025390625 837.63076171875 149.77587890625 838.3880859375 157.96875H858.69814453125C858.35390625 139.9306640625 843.4828125 127.33154296875 820.7630859375 127.33154296875C798.4564453125 127.33154296875 782.2083984375 139.72412109375 782.2083984375 158.244140625C782.2083984375 173.18408203125 792.60439453125 181.927734375 809.95400390625 186.12744140625L821.24501953125 188.9501953125C832.39833984375 191.7041015625 838.9388671875 194.93994140625 838.9388671875 201.96240234375C838.9388671875 209.7421875 831.5033203125 215.04345703125 820.28115234375 215.04345703125C808.9212890625 215.04345703125 800.59072265625 209.8798828125 799.90224609375 199.48388671875H779.4544921875C780.07412109375 221.30859375 795.840234375 232.80615234375 820.4876953125 232.80615234375ZM899.6597460937501 231.29150390625H923.6875781250001L937.2505664062501 178.82958984375C939.2471484375001 171.0498046875 940.4864062500001 162.85693359375 941.7945117187501 154.31982421875C943.2403125000001 163.13232421875 944.6172656250001 171.462890625 946.4761523437501 178.82958984375L960.1079882812501 231.29150390625H984.0669726562501L1011.6748828125001 128.70849609375H988.6797656250001L976.7691210937501 179.173828125C974.7036914062501 188.537109375 972.9136523437501 199.552734375 971.2613085937501 210.017578125C969.4024218750001 199.552734375 967.5435351562501 188.537109375 965.2715625000001 179.173828125L952.8101367187501 128.70849609375H930.9854296875001L918.4551562500001 179.173828125C916.1143359375001 188.60595703125 914.3242968750001 199.75927734375 912.4654101562501 210.29296875C910.8130664062501 199.75927734375 909.0230273437501 188.60595703125 906.9575976562501 179.173828125L895.0469531250001 128.70849609375H872.1206835937501ZM1048.16138671875 128.70849609375H1027.1628515625V231.29150390625H1048.16138671875ZM1065.43939453125 146.126953125H1096.83392578125V231.29150390625H1117.90130859375V146.126953125H1149.2269921875V128.70849609375H1065.43939453125ZM1211.3248242187499 232.66845703125C1237.2115429687499 232.66845703125 1253.1841992187499 215.25 1255.5250195312499 196.17919921875H1234.2510937499999C1232.1856640624999 207.33251953125 1223.3731640624999 214.0107421875 1211.6690624999999 214.0107421875C1195.8341015624999 214.0107421875 1185.0250195312499 202.306640625 1185.0250195312499 180.06884765625C1185.0250195312499 158.31298828125 1195.6964062499999 145.9892578125 1211.7379101562499 145.9892578125C1223.4420117187499 145.9892578125 1232.2545117187499 152.5986328125 1234.1822460937499 163.751953125H1255.4561718749999C1252.4268749999999 140.68798828125 1234.6641796874999 127.33154296875 1211.3248242187499 127.33154296875C1184.2676953124999 127.33154296875 1163.6822460937499 146.5400390625 1163.6822460937499 180.06884765625C1163.6822460937499 213.39111328125 1183.9923046874999 232.66845703125 1211.3248242187499 232.66845703125ZM1273.6291992187498 231.29150390625H1294.6277343749998V187.5732421875H1339.3098632812498V231.29150390625H1360.3772460937498V128.70849609375H1339.3098632812498V170.15478515625H1294.6277343749998V128.70849609375H1273.6291992187498Z" fill="#FFFFFF"/></svg></span></a>
-    <nav aria-label="Seitenbereiche"><a href="#szenarien">Risiken</a><a href="#loesungen">Absicherung</a><a href="#partner">Partnerfahrschulen</a><a href="#mehrwert">Mehrwerte</a><a href="#ablauf">Ablauf</a></nav>
+    <nav aria-label="Seitenbereiche"><a href="#szenarien">Risiken</a><a href="#partner">Partner</a><a href="#loesungen">Absicherung</a><a href="#mehrwert">Der Unterschied</a><a href="#ablauf">Ablauf</a></nav>
     <button class="icon-btn" type="button" id="theme" aria-label="Dunkles Design einschalten"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></svg></button>
     <a class="btn btn-cta" href="#termin" data-cta>Termin buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
@@ -334,11 +371,6 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
           <a class="btn btn-line" href="#szenarien">Die drei Risiken ansehen</a>
         </div>
         <p class="note">20 Minuten, online oder bei Ihnen vor Ort. Unverbindlich.</p>
-        <div class="trust">
-          <span>Bereits dabei</span>
-          <a class="chip" href="#partner"><i aria-hidden="true">A1</i><span>A1 Fahrschule <small>Herne-Wanne-Eickel</small></span></a>
-          <a class="chip" href="#partner"><i aria-hidden="true">E</i><span>Fahrschule Emre <small>Herne und Recklinghausen</small></span></a>
-        </div>
       </div>
       <div class="risk" aria-label="Drei Risiken für Ihre Fahrschule">
         <p class="risk-head">Drei Situationen, die jede Fahrschule treffen können</p>
@@ -350,28 +382,6 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     </div>
   </div>
 
-  <section class="alt" id="partner"><div class="wrap">
-    <div class="head"><p class="eyebrow">Partnerfahrschulen</p><h2>Diese Fahrschulen sind bereits dabei.</h2><p>Fahrschulen aus Herne und Umgebung arbeiten schon mit LANE SWITCH zusammen. Sie sichern ihren Betrieb ab und geben ihren Fahrschüler:innen mehr mit als die Prüfung.</p></div>
-    <div class="partners">
-      <a class="partner" href="https://laneswitch.online/konzept/kooperationen/fahrschulen/fahrschule-a1/">
-        <div class="top"><span class="mono" aria-hidden="true">A1</span><div><h3>A1 Fahrschule</h3><p class="loc">Herne-Wanne-Eickel · Hauptstraße</p></div></div>
-        <span class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Partnerfahrschule</span>
-        <p>Pkw, Anhänger, Motorrad und Mofa. Inhaber André Klotzsche.</p>
-        <span class="more">Partnerprofil ansehen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <a class="partner" href="https://laneswitch.online/konzept/kooperationen/fahrschulen/fahrschule-emre/">
-        <div class="top"><span class="mono" aria-hidden="true">E</span><div><h3>Fahrschule Emre</h3><p class="loc">Hauptsitz Herne · zwei Standorte in Herne, einer in Recklinghausen</p></div></div>
-        <span class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Partnerfahrschule</span>
-        <p>Pkw, Anhänger, Motorrad und begleitetes Fahren ab 17. Inhaber Emre Demiryürek.</p>
-        <span class="more">Partnerprofil ansehen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-      </a>
-      <div class="partner partner-next">
-        <div class="top"><span class="mono" aria-hidden="true" style="background:var(--accent);color:var(--navy)">+</span><div><h3>Ihre Fahrschule?</h3></div></div>
-        <p>Wir lernen uns in einem kurzen Gespräch kennen. Danach entscheiden Sie in Ruhe, ob und wie wir zusammenarbeiten.</p>
-        <a class="btn btn-cta" href="#termin" data-cta>Termin buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
-    </div>
-  </div></section>
 
   <section id="szenarien"><div class="wrap">
     <div class="head"><p class="eyebrow">Klartext</p><h2>Drei Situationen, über die kaum jemand spricht, bis sie eintreten.</h2><p>Keine Panikmache, sondern Alltag in Fahrschulen. Jede dieser Situationen kann einen gesunden Betrieb in kurzer Zeit in Schieflage bringen.</p></div>
@@ -425,7 +435,30 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     </div>
   </div></section>
 
-  <section class="alt" id="loesungen"><div class="wrap">
+  <section class="alt" id="partner"><div class="wrap">
+    <div class="head"><p class="eyebrow">Bereits dabei</p><h2>Diese Fahrschulen haben sich schon entschieden.</h2><p>Fahrschulen aus Herne und Umgebung arbeiten bereits mit LANE SWITCH zusammen. Sie haben ihren Betrieb im Blick und geben ihren Fahrschüler:innen mehr mit als die Prüfung.</p></div>
+    <div class="partners">
+      <a class="partner" href="https://laneswitch.online/konzept/kooperationen/fahrschulen/fahrschule-a1/">
+        <div class="top"><span class="mono" aria-hidden="true">A1</span><div><h3>A1 Fahrschule</h3><p class="loc">Herne-Wanne-Eickel · Hauptstraße</p></div></div>
+        <span class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Partnerfahrschule</span>
+        <p>Pkw, Anhänger, Motorrad und Mofa. Inhaber André Klotzsche.</p>
+        <span class="more">Partnerprofil ansehen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="partner" href="https://laneswitch.online/konzept/kooperationen/fahrschulen/fahrschule-emre/">
+        <div class="top"><span class="mono" aria-hidden="true">E</span><div><h3>Fahrschule Emre</h3><p class="loc">Hauptsitz Herne · zwei Standorte in Herne, einer in Recklinghausen</p></div></div>
+        <span class="badge"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Partnerfahrschule</span>
+        <p>Pkw, Anhänger, Motorrad und begleitetes Fahren ab 17. Inhaber Emre Demiryürek.</p>
+        <span class="more">Partnerprofil ansehen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <div class="partner partner-next">
+        <div class="top"><span class="mono" aria-hidden="true" style="background:var(--accent);color:var(--navy)">+</span><div><h3>Ihre Fahrschule?</h3></div></div>
+        <p>Wir lernen uns in einem kurzen Gespräch kennen. Danach entscheiden Sie in Ruhe, ob und wie wir zusammenarbeiten.</p>
+        <a class="btn btn-cta" href="#termin" data-cta>Termin buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div></section>
+
+  <section id="loesungen"><div class="wrap">
     <div class="head"><p class="eyebrow">Die Absicherung</p><h2>Für jedes der drei Risiken gibt es eine passende Lösung.</h2><p>Wir schauen zuerst, was Sie schon haben. Ergänzt wird nur, wo Ihr Betrieb tatsächlich ungeschützt ist.</p></div>
     <p class="swipe-hint"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Zum Weiterblättern wischen</p>
     <div class="solutions swipe" data-swipe>
@@ -459,19 +492,41 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     <p class="fine">Umfang und Leistungen richten sich nach den jeweiligen Versicherungsbedingungen. Versicherungsinformationen, Beratung, Produktauswahl, Dokumentation und eine mögliche Vermittlung erfolgen durch Steven Dragojevic als angestellten Mitarbeiter im Versicherungsvertrieb der SIGNAL IDUNA Allgemeine Versicherung Aktiengesellschaft. Es findet kein unabhängiger Marktvergleich statt. Kontakt und Abschluss sind freiwillig. <a href="https://signal-iduna-agentur.de/steven.dragojevic/vermittlerinformationen/?advnr=3276452" target="_blank" rel="noopener noreferrer">Erstinformation (Vermittlerinformation)</a></p>
   </div></section>
 
-  <section id="mehrwert"><div class="wrap">
-    <div class="head"><p class="eyebrow">Mehr als Versicherung</p><h2>Als Partnerfahrschule bekommen Sie noch mehr dazu.</h2><p>Die Bausteine sind frei wählbar und für Partnerfahrschulen kostenfrei.</p></div>
-    <p class="swipe-hint"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Zum Weiterblättern wischen</p>
-    <div class="extras swipe" data-swipe>
-      <div class="extra"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9"/></svg></span><h3>Gastbeitrag im Theorieunterricht</h3><p>Rund 45 Minuten Praxiswissen zu Kfz-Versicherung, Unfall und Rechtsschutz, vor Ort oder online.</p></div>
-      <div class="extra"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM18 14h2M14 18v2"/></svg></span><h3>Ansprechpartner für Ihre Fahrschüler:innen</h3><p>Ihr eigener QR-Code führt Fahrschüler:innen zu einem festen Kontakt für Versicherungsfragen. Auf Wunsch mit Tippgebervertrag.</p></div>
-      <div class="extra"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5z"/><path d="M9 11h6M9 15h6"/></svg></span><h3>Fahrschul-Navigator und AI Studio</h3><p>Ihre Fahrschule als Online-Ausgabe und PDF, dazu geführte Unterstützung für eigene Social-Media-Beiträge.</p></div>
-      <div class="extra"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg></span><h3>Werkzeuge für Ihre Fahrschüler:innen</h3><p>Lernwelt Klasse B, Gefahrenradar, Kostenrechner und Unfallhelfer, kostenlos auf laneswitch.online.</p></div>
+  <section class="alt" id="mehrwert"><div class="wrap">
+    <div class="head"><p class="eyebrow">Der Unterschied</p><h2>Die Versicherung bekommen Sie überall. Alles andere bekommen Sie nur hier.</h2><p>Ein üblicher Versicherer schließt den Vertrag ab und meldet sich dann erst wieder, wenn die nächste Beitragsrechnung kommt. LANE SWITCH bleibt an Ihrer Seite: mit Werkzeugen für Ihren Betrieb, Mehrwerten für Ihre Fahrschüler:innen und der Möglichkeit, nebenbei etwas dazuzuverdienen.</p></div>
+    <div class="compare">
+      <div class="cmp cmp-usual"><p class="cmp-tag">Üblich</p><h3>Vertrag, Rechnung, weg.</h3><ul>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Vertrag abschließen, Beitrag zahlen</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Kontakt meist erst im Schadenfall</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Nichts für Ihre Fahrschüler:innen</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>Kein Nutzen für Ihren Alltag</li></ul></div>
+      <div class="cmp cmp-ls"><p class="cmp-tag">Mit LANE SWITCH</p><h3>Absicherung plus alles, was dazugehört.</h3><ul>
+        <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Absicherung für die drei großen Risiken Ihres Betriebs</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Persönlicher Ansprechpartner aus Herne, der bleibt</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Kostenfreie Mehrwerte für Betrieb und Fahrschüler:innen</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Auf Wunsch zusätzliche Einnahmen als Tippgeber</li></ul></div>
     </div>
-    <div class="section-cta"><a class="btn btn-ghost" href="https://laneswitch.online/?zielgruppe=school">Alle Mehrwerte auf laneswitch.online <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    <p class="swipe-hint"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Zum Weiterblättern wischen</p>
+    <div class="groups swipe" data-swipe>
+      <article class="group"><p class="for">Für Ihren Betrieb</p><h3>Werkzeuge, die Arbeit abnehmen</h3><ul class="perks">
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM9 11h6M9 15h6"/></svg></span><span><b>Fahrschul-Navigator</b><span>Die häufigen Fragen vor der Anmeldung gebündelt beantwortet, als Online-Ausgabe und PDF.</span></span></li>
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 9.8 9.8 3 12l6.8 2.2L12 21l2.2-6.8L21 12l-6.8-2.2L12 3Z"/></svg></span><span><b>LANESWITCH AI Studio</b><span>Schritt für Schritt zu eigenen Social-Media-Beiträgen, die nach Ihrer Fahrschule aussehen.</span></span></li>
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11ZM12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/></svg></span><span><b>Sichtbar als Partnerfahrschule</b><span>Eigenes Profil auf laneswitch.online und Vorstellung auf Instagram.</span></span></li>
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3ZM12 10v4M12 17h.01"/></svg></span><span><b>Notfallcenter und Vorlagen</b><span>Klare Abläufe und druckbare Hilfen für den Ernstfall im Betrieb.</span></span></li>
+      </ul></article>
+      <article class="group"><p class="for">Für Ihre Fahrschüler:innen</p><h3>Mehr als die Prüfung</h3><ul class="perks">
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4-9-4ZM7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9"/></svg></span><span><b>Gastbeitrag im Theorieunterricht</b><span>Rund 45 Minuten Praxiswissen mit Wissensquiz, vor Ort oder online zugeschaltet.</span></span></li>
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5ZM4 19a2 2 0 0 1 2-2h13"/></svg></span><span><b>Lernwelt Klasse B und Gefahrenradar</b><span>Theorie verstehen, üben und Gefahren im Verkehr früh erkennen.</span></span></li>
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM6 15V9a4 4 0 0 1 4-4h6M18 9v6a4 4 0 0 1-4 4H8"/></svg></span><span><b>Persönlicher Fahrplan</b><span>Begleitet Schritt für Schritt bis nach der Prüfung und zum ersten eigenen Auto.</span></span></li>
+        <li><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16h14l-1.5-5.5A2 2 0 0 0 15.6 9H8.4a2 2 0 0 0-1.9 1.5L5 16ZM4 16v3h3v-3M17 16v3h3v-3"/></svg></span><span><b>Unfallhelfer und Kostenrechner</b><span>Hilfe im Ernstfall und ein ehrlicher Blick auf die Kosten fürs erste Auto.</span></span></li>
+      </ul></article>
+      <article class="group group-earn"><p class="for">Für Sie</p><h3>Nebenbei etwas dazuverdienen</h3>
+        <p>Ihre Fahrschüler:innen bekommen über Ihren eigenen QR-Code einen festen Ansprechpartner für Versicherungsfragen. Ihr Team gibt nur den Hinweis, es berät nicht und verkauft nichts.</p>
+        <p>Auf Wunsch schließen wir eine Tippgebervereinbarung. Die Vergütung wird vorab individuell und transparent vereinbart.</p>
+        <a class="btn btn-cta" href="#termin" data-cta>Im Gespräch klären <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+    </div>
+    <div class="band band-close">
+      <div><h2>Unterm Strich: Die Absicherung brauchen Sie sowieso. Die Mehrwerte gibt es nur hier.</h2><p>Warum also woanders abschließen? Lernen wir uns in 20 Minuten kennen.</p></div>
+      <div class="acts"><a class="btn btn-cta" href="#termin" data-cta>Erstgespräch buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
   </div></section>
 
-  <section class="alt" id="ablauf"><div class="wrap">
+  <section id="ablauf"><div class="wrap">
     <div class="head"><p class="eyebrow">So geht es weiter</p><h2>In drei Schritten zur Klarheit.</h2></div>
     <ol class="steps">
       <li class="step"><span class="n">1</span><b>Termin buchen</b><p>Sie wählen einen Termin für ein Erstgespräch, online oder bei Ihnen vor Ort.</p></li>
@@ -526,10 +581,10 @@ const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(B
 const sticky=document.getElementById('sticky');const hero=document.querySelector('.hero');const termin=document.getElementById('termin');
 let tick=false;const upd=()=>{tick=false;const h=document.documentElement;const max=h.scrollHeight-innerHeight;bar.style.transform='scaleX('+(max>0?Math.min(1,scrollY/max):0)+')';
 let cur=null;for(const s of secs){if(s.getBoundingClientRect().top<innerHeight*.4)cur=s}links.forEach(a=>a.classList.toggle('on',!!cur&&a.getAttribute('href')==='#'+cur.id));
-const show=hero.getBoundingClientRect().bottom<0&&termin.getBoundingClientRect().top>innerHeight*.6;sticky.classList.toggle('show',show);sticky.setAttribute('aria-hidden',show?'false':'true');sticky.querySelectorAll('a').forEach(a=>a.tabIndex=show?0:-1)};
+const show=hero.getBoundingClientRect().bottom<90&&termin.getBoundingClientRect().top>innerHeight*.6;sticky.classList.toggle('show',show);sticky.setAttribute('aria-hidden',show?'false':'true');sticky.querySelectorAll('a').forEach(a=>a.tabIndex=show?0:-1)};
 addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd();
 if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-const items=[...document.querySelectorAll('section .head, .partner, .scene, .band, .sol, .tailor, .extra, .step, .contact')].filter(el=>!(matchMedia('(max-width:760px)').matches&&el.parentElement.matches('[data-swipe]')));
+const items=[...document.querySelectorAll('section .head, .partner, .scene, .band, .sol, .tailor, .cmp, .group, .step, .contact')].filter(el=>!(matchMedia('(max-width:760px)').matches&&el.parentElement.matches('[data-swipe]')));
 const groups=new Map();items.forEach(el=>{const p=el.parentElement;const i=(groups.get(p)||0);groups.set(p,i+1);el.style.setProperty('--d',Math.min(i,4)*0.08+'s');if(el.getBoundingClientRect().top>innerHeight*.92)el.classList.add('rv')});
 document.documentElement.classList.add('fx');
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
