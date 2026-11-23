@@ -15,7 +15,7 @@
 <meta property="og:locale" content="de_DE">
 <meta property="og:site_name" content="LANE SWITCH">
 <meta property="og:title" content="Was passiert mit Ihrer Fahrschule, wenn Sie morgen ausfallen?">
-<meta property="og:description" content="Inhaberausfall, fehlende Fahrlehrer:innen, falsche Vorwürfe: drei Situationen, die jede Fahrschule treffen können, und wie Sie Ihren Betrieb absichern.">
+<meta property="og:description" content="Inhaberausfall, fehlende Fahrlehrer:innen, falsche Vorwürfe: So sichern Sie Ihre Fahrschule ab. Plus Mehrwerte, die Ihnen kein Versicherer gibt.">
 <meta property="og:url" content="https://laneswitch.de/">
 <meta property="og:image" content="https://laneswitch.de/assets/og-fahrschulen.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -451,6 +451,17 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
 #mehrwert .group:not(.group-earn){background:var(--card)}
 #mehrwert .cmp-usual{background:transparent}
 .alt .fit-yes,.alt .faq details{background:var(--bg)}
+/* Hook: Alleinstellungsmerkmal direkt unter dem Pain */
+.hook{margin-top:24px;padding:18px 20px;border-radius:18px;background:#0d3a58;border:1px solid #65e5df4d;display:grid;gap:12px;max-width:760px}
+.hook-line{font-size:clamp(17px,1.4vw,22px);line-height:1.35;color:var(--on-navy)}
+.hook-line b{color:var(--accent)}
+.hook-chips{display:flex;flex-wrap:wrap;gap:8px}
+.hook-chips a{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:30px;background:#ffffff12;border:1px solid #ffffff26;color:var(--on-navy);font-size:14px;font-weight:600;text-decoration:none;transition:background-color .2s,border-color .2s}
+.hook-chips a::before{content:"+";font-weight:800;color:var(--accent)}
+.hook-chips a:hover{background:#ffffff22;border-color:var(--accent)}
+.hero .actions{margin-top:26px}
+@media (max-width:760px){.hook{order:4;padding:16px}.hero .actions{order:5}.note{order:6}.hook-chips a{font-size:13px;padding:6px 11px}}
+@media (prefers-reduced-motion:no-preference){.hook-chips li{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}.hook-chips li:nth-child(2){animation-delay:.45s}.hook-chips li:nth-child(3){animation-delay:.55s}.hook-chips li:nth-child(4){animation-delay:.65s}.hook-chips li:nth-child(5){animation-delay:.75s}.hook-chips li:nth-child(1){animation-delay:.35s}}
 </style>
 </head>
 <body>
@@ -471,7 +482,17 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
       <div>
         <p class="eyebrow">Für Fahrschulinhaber:innen</p>
         <h1>Was passiert mit Ihrer Fahrschule, wenn <em>Sie morgen ausfallen?</em></h1>
-        <p class="lead">Krankheit, ein Unfall, ein Fahrlehrer, der wochenlang fehlt, oder ein falscher Vorwurf nach einer Fahrstunde: Ein einziges Ereignis reicht, und Ihr Betrieb steht still. Die Kosten laufen weiter. Lassen Sie uns klären, ob Ihre Fahrschule darauf vorbereitet ist.</p>
+        <p class="lead">Krankheit, ein Unfall, ein Fahrlehrer, der wochenlang fehlt, oder ein falscher Vorwurf nach einer Fahrstunde: Ein einziges Ereignis reicht, und Ihr Betrieb steht still. Die Kosten laufen weiter.</p>
+        <div class="hook">
+          <p class="hook-line"><b>Absichern kann jeder Versicherer.</b> <span>LANE SWITCH bringt Ihre Fahrschule zusätzlich weiter.</span></p>
+          <ul class="hook-chips" aria-label="Mehrwerte, die es nur bei LANE SWITCH gibt">
+            <li><a href="#mehrwert">Gastbeitrag im Unterricht</a></li>
+            <li><a href="#mehrwert">Fahrschul-Navigator</a></li>
+            <li><a href="#mehrwert">AI Studio</a></li>
+            <li><a href="#mehrwert">Lernwelt für Ihre Fahrschüler:innen</a></li>
+            <li><a href="#mehrwert">Einnahmen als Tippgeber</a></li>
+          </ul>
+        </div>
         <div class="actions">
           <a class="btn btn-cta" href="#termin" data-cta>Kostenloses Erstgespräch buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           <a class="btn btn-line" href="#szenarien">Die drei Risiken ansehen</a>
