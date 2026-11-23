@@ -386,6 +386,71 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
 @media (max-width:1020px){.mirror{grid-template-columns:minmax(0,1fr)}.fit,.faq-wrap{grid-template-columns:minmax(0,1fr)}.faq-wrap .head{position:static}}
 @media (min-width:761px) and (max-width:1020px){.mirror{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (prefers-reduced-motion:no-preference){.faq details[open] p{animation:rise .35s ease both}}
+/* Kennen Sie das? (interaktiv) */
+.ken-wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,72px);align-items:center}
+.ken-wrap .head{margin-bottom:0}
+.ken-list{display:grid;gap:12px}
+.ken{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:16px;align-items:center;text-align:left;padding:18px 20px;border-radius:18px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer;transition:border-color .25s,background-color .25s,transform .2s,box-shadow .25s}
+.ken:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 14px 30px -24px #02182966}
+.ken-box{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;border:2px solid var(--line);background:var(--card);color:transparent;transition:background-color .25s,border-color .25s,color .25s,transform .25s}
+.ken-box svg{width:18px;height:18px}
+.ken-t b{display:block;font-size:clamp(16px,1.15vw,18px);line-height:1.3}
+.ken-t span{display:block;font-size:14px;color:var(--muted);line-height:1.5;margin-top:3px}
+.ken-tag{font-size:12px;font-weight:750;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:6px 10px;border-radius:20px;border:1px solid var(--line);white-space:nowrap;transition:all .25s}
+.ken[aria-pressed="true"]{border-color:var(--teal);background:var(--tint)}
+.ken[aria-pressed="true"] .ken-box{background:var(--teal);border-color:var(--teal);color:var(--card);transform:scale(1.06)}
+.ken[aria-pressed="true"] .ken-tag{background:var(--teal);border-color:var(--teal);color:var(--card)}
+.ken-result{margin-top:18px;font-weight:650;font-size:clamp(15px,1.05vw,17px)}
+.ken-result a{display:inline-flex;align-items:center;gap:8px;color:var(--teal);font-weight:750;text-decoration:none;white-space:nowrap}
+.ken-result a svg{width:18px;height:18px;transition:transform .2s}.ken-result a:hover svg{transform:translateX(3px)}
+/* Risiken als Scroll-Story mit mitlaufender Navigation */
+.rs{display:grid;grid-template-columns:minmax(220px,300px) minmax(0,1fr);gap:clamp(24px,3vw,56px);align-items:start}
+.rs-nav{position:sticky;top:110px;display:grid;gap:8px;padding-left:18px}
+.rs-head{font-size:12px;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rs-nav a{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:center;padding:12px 14px;border-radius:14px;text-decoration:none;color:var(--muted);transition:background-color .25s,color .25s}
+.rs-nav a:hover{background:var(--card);color:var(--ink)}
+.rs-nav a b{display:block;font-size:15px;color:inherit}
+.rs-nav a small{display:block;font-size:13px;line-height:1.4}
+.rs-n{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);font-weight:750;font-size:14px;color:var(--muted);background:var(--card);transition:all .25s}
+.rs-nav a.on{background:var(--card);color:var(--ink);box-shadow:0 14px 30px -24px #02182966}
+.rs-nav a.on .rs-n{background:var(--warn);border-color:var(--warn);color:#fff}
+.rs-bar{position:absolute;left:0;top:34px;bottom:4px;width:3px;border-radius:3px;background:var(--line)}
+.rs-bar i{position:absolute;left:0;top:0;width:100%;height:calc(100% * var(--p,0));background:var(--warn);border-radius:3px;transition:height .15s linear}
+.rs-panels{display:grid;gap:24px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,2.6vw,44px);display:grid;gap:18px;scroll-margin-top:100px;transition:border-color .3s,box-shadow .3s}
+.panel.on{border-color:var(--warn);box-shadow:0 24px 48px -36px #02182980}
+.panel-tag{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--warn)}
+.panel-tag i{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--warn-tint);color:var(--warn);font-style:normal;transition:transform .3s}
+.panel.on .panel-tag i{transform:rotate(-6deg)}
+.panel-tag svg{width:22px;height:22px}
+.panel h3{font-size:clamp(24px,2.2vw,36px);font-weight:820}
+.panel-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(20px,2.5vw,40px);align-items:start}
+.panel-story{display:grid;gap:16px}
+.panel .story{font-size:clamp(16px,1.15vw,19px);line-height:1.65;padding-left:16px;border-left:3px solid var(--warn)}
+.panel .q{padding:14px 18px;border-radius:14px;background:var(--bg);font-weight:700}
+.panel h4{margin:0;font-size:13px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel-then{display:grid;gap:12px}
+.panel-then ul{display:grid;gap:10px}
+.panel-then li{display:flex;gap:11px;align-items:flex-start;font-size:15px}
+.panel-then li svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--warn)}
+.panel-then li{transition:opacity .5s,transform .5s;transition-delay:calc(var(--i,0) * .08s)}
+.fx .panel.rv:not(.in) .panel-then li{opacity:0;transform:translateX(-10px)}
+.panel-sol{display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;padding:clamp(18px,2vw,28px);border-radius:18px;background:var(--tint);scroll-margin-top:100px}
+.panel-sol .ico{display:grid;place-items:center;width:52px;height:52px;border-radius:14px;background:var(--navy);color:var(--accent)}
+.panel-sol .ico svg{width:26px;height:26px}
+.panel-sol .for{font-size:12px;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.panel-sol h4{font-size:clamp(19px,1.5vw,24px);font-weight:800;letter-spacing:-.015em;text-transform:none;color:var(--ink);margin:4px 0 6px}
+.panel-sol p{color:var(--muted)}
+.panel-sol ul{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:10px}
+.panel-sol li{display:flex;gap:8px;align-items:flex-start;font-size:14px;font-weight:600}
+.panel-sol li svg{width:17px;height:17px;color:var(--teal);flex:none;margin-top:3px}
+@media (max-width:1180px){.panel-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:1020px){.ken-wrap{grid-template-columns:minmax(0,1fr)}.rs{grid-template-columns:minmax(0,1fr)}.rs-nav{display:none}}
+@media (max-width:760px){.ken{grid-template-columns:28px minmax(0,1fr);padding:16px}.ken-tag{display:none}.panel-sol{grid-template-columns:minmax(0,1fr)}.panel.is-focus{border-color:var(--warn)!important}}
+@media (prefers-reduced-motion:reduce){.panel-then li{transition:none}}
+#mehrwert .group:not(.group-earn){background:var(--card)}
+#mehrwert .cmp-usual{background:transparent}
+.alt .fit-yes,.alt .faq details{background:var(--bg)}
 </style>
 </head>
 <body>
@@ -393,7 +458,7 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
   <div class="progress" aria-hidden="true"><span id="progress"></span></div>
   <div class="wrap bar">
     <a class="logo" href="#top" aria-label="LANE SWITCH, zum Seitenanfang"><span class="logo-light"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 360" role="img" aria-labelledby="lt"><title id="lt">LANE SWITCH</title><g transform="translate(30 50) scale(2.6)"><rect width="100" height="100" rx="24" fill="#062D47"/><path d="M50 14V86" fill="none" stroke="#65E5DF" stroke-width="5" stroke-dasharray="9 8" opacity="0.75"/><path d="M68 86V64C68 50 32 50 32 36V14" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/></g><path d="M357.29443359375 231.29150390625H422.56201171875V213.873046875H378.29296875V128.70849609375H357.29443359375ZM433.91912109375 231.29150390625H457.12078125L464.76287109375 207.47021484375H501.18328125L509.10076171875 231.29150390625H532.4401171874999L496.501640625 128.70849609375H468.962578125ZM469.99529296875 191.015625 472.9557421875 181.7900390625C476.05388671875 171.462890625 479.08318359375 159.27685546875 482.52556640625 145.1630859375C486.10564453125 159.13916015625 489.341484375 171.25634765625 492.646171875 181.7900390625L495.74431640625 191.015625ZM547.9280859375 231.29150390625H569.4085546875V184.130859375C569.4085546875 178.072265625 568.78892578125 167.056640625 568.0316015625 154.6640625C574.3655859375 167.4697265625 578.15220703125 174.97412109375 583.8665625 184.19970703125L613.333359375 231.29150390625H636.81041015625V128.70849609375H615.32994140625V177.9345703125C615.32994140625 184.681640625 615.88072265625 195.697265625 616.638046875 205.7490234375C612.16294921875 195.07763671875 607.825546875 187.2978515625 603.76353515625 180.61962890625L571.3362890625 128.70849609375H547.9280859375ZM658.21927734375 231.29150390625H726.9980859375V213.873046875H679.2178125V188.05517578125H723.2803125V170.912109375H679.2178125V146.126953125H726.860390625V128.70849609375H658.21927734375ZM820.4876953125 232.80615234375C845.410546875 232.80615234375 860.07509765625 220.7578125 860.07509765625 202.10009765625C860.07509765625 184.88818359375 846.71865234375 176.07568359375 829.437890625 172.08251953125L820.14345703125 169.810546875C811.46865234375 167.7451171875 803.75771484375 164.50927734375 803.75771484375 156.8671875C803.75771484375 149.982421875 809.81630859375 145.025390625 820.55654296875 145.025390625C831.090234375 145.025390625 837.63076171875 149.77587890625 838.3880859375 157.96875H858.69814453125C858.35390625 139.9306640625 843.4828125 127.33154296875 820.7630859375 127.33154296875C798.4564453125 127.33154296875 782.2083984375 139.72412109375 782.2083984375 158.244140625C782.2083984375 173.18408203125 792.60439453125 181.927734375 809.95400390625 186.12744140625L821.24501953125 188.9501953125C832.39833984375 191.7041015625 838.9388671875 194.93994140625 838.9388671875 201.96240234375C838.9388671875 209.7421875 831.5033203125 215.04345703125 820.28115234375 215.04345703125C808.9212890625 215.04345703125 800.59072265625 209.8798828125 799.90224609375 199.48388671875H779.4544921875C780.07412109375 221.30859375 795.840234375 232.80615234375 820.4876953125 232.80615234375ZM899.6597460937501 231.29150390625H923.6875781250001L937.2505664062501 178.82958984375C939.2471484375001 171.0498046875 940.4864062500001 162.85693359375 941.7945117187501 154.31982421875C943.2403125000001 163.13232421875 944.6172656250001 171.462890625 946.4761523437501 178.82958984375L960.1079882812501 231.29150390625H984.0669726562501L1011.6748828125001 128.70849609375H988.6797656250001L976.7691210937501 179.173828125C974.7036914062501 188.537109375 972.9136523437501 199.552734375 971.2613085937501 210.017578125C969.4024218750001 199.552734375 967.5435351562501 188.537109375 965.2715625000001 179.173828125L952.8101367187501 128.70849609375H930.9854296875001L918.4551562500001 179.173828125C916.1143359375001 188.60595703125 914.3242968750001 199.75927734375 912.4654101562501 210.29296875C910.8130664062501 199.75927734375 909.0230273437501 188.60595703125 906.9575976562501 179.173828125L895.0469531250001 128.70849609375H872.1206835937501ZM1048.16138671875 128.70849609375H1027.1628515625V231.29150390625H1048.16138671875ZM1065.43939453125 146.126953125H1096.83392578125V231.29150390625H1117.90130859375V146.126953125H1149.2269921875V128.70849609375H1065.43939453125ZM1211.3248242187499 232.66845703125C1237.2115429687499 232.66845703125 1253.1841992187499 215.25 1255.5250195312499 196.17919921875H1234.2510937499999C1232.1856640624999 207.33251953125 1223.3731640624999 214.0107421875 1211.6690624999999 214.0107421875C1195.8341015624999 214.0107421875 1185.0250195312499 202.306640625 1185.0250195312499 180.06884765625C1185.0250195312499 158.31298828125 1195.6964062499999 145.9892578125 1211.7379101562499 145.9892578125C1223.4420117187499 145.9892578125 1232.2545117187499 152.5986328125 1234.1822460937499 163.751953125H1255.4561718749999C1252.4268749999999 140.68798828125 1234.6641796874999 127.33154296875 1211.3248242187499 127.33154296875C1184.2676953124999 127.33154296875 1163.6822460937499 146.5400390625 1163.6822460937499 180.06884765625C1163.6822460937499 213.39111328125 1183.9923046874999 232.66845703125 1211.3248242187499 232.66845703125ZM1273.6291992187498 231.29150390625H1294.6277343749998V187.5732421875H1339.3098632812498V231.29150390625H1360.3772460937498V128.70849609375H1339.3098632812498V170.15478515625H1294.6277343749998V128.70849609375H1273.6291992187498Z" fill="#062D47"/></svg></span><span class="logo-dark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 360" role="img" aria-labelledby="ld"><title id="ld">LANE SWITCH</title><g transform="translate(30 50) scale(2.6)"><rect width="100" height="100" rx="24" fill="#65E5DF"/><path d="M50 14V86" fill="none" stroke="#062D47" stroke-width="5" stroke-dasharray="9 8" opacity="0.45"/><path d="M68 86V64C68 50 32 50 32 36V14" fill="none" stroke="#062D47" stroke-width="10" stroke-linecap="round"/></g><path d="M357.29443359375 231.29150390625H422.56201171875V213.873046875H378.29296875V128.70849609375H357.29443359375ZM433.91912109375 231.29150390625H457.12078125L464.76287109375 207.47021484375H501.18328125L509.10076171875 231.29150390625H532.4401171874999L496.501640625 128.70849609375H468.962578125ZM469.99529296875 191.015625 472.9557421875 181.7900390625C476.05388671875 171.462890625 479.08318359375 159.27685546875 482.52556640625 145.1630859375C486.10564453125 159.13916015625 489.341484375 171.25634765625 492.646171875 181.7900390625L495.74431640625 191.015625ZM547.9280859375 231.29150390625H569.4085546875V184.130859375C569.4085546875 178.072265625 568.78892578125 167.056640625 568.0316015625 154.6640625C574.3655859375 167.4697265625 578.15220703125 174.97412109375 583.8665625 184.19970703125L613.333359375 231.29150390625H636.81041015625V128.70849609375H615.32994140625V177.9345703125C615.32994140625 184.681640625 615.88072265625 195.697265625 616.638046875 205.7490234375C612.16294921875 195.07763671875 607.825546875 187.2978515625 603.76353515625 180.61962890625L571.3362890625 128.70849609375H547.9280859375ZM658.21927734375 231.29150390625H726.9980859375V213.873046875H679.2178125V188.05517578125H723.2803125V170.912109375H679.2178125V146.126953125H726.860390625V128.70849609375H658.21927734375ZM820.4876953125 232.80615234375C845.410546875 232.80615234375 860.07509765625 220.7578125 860.07509765625 202.10009765625C860.07509765625 184.88818359375 846.71865234375 176.07568359375 829.437890625 172.08251953125L820.14345703125 169.810546875C811.46865234375 167.7451171875 803.75771484375 164.50927734375 803.75771484375 156.8671875C803.75771484375 149.982421875 809.81630859375 145.025390625 820.55654296875 145.025390625C831.090234375 145.025390625 837.63076171875 149.77587890625 838.3880859375 157.96875H858.69814453125C858.35390625 139.9306640625 843.4828125 127.33154296875 820.7630859375 127.33154296875C798.4564453125 127.33154296875 782.2083984375 139.72412109375 782.2083984375 158.244140625C782.2083984375 173.18408203125 792.60439453125 181.927734375 809.95400390625 186.12744140625L821.24501953125 188.9501953125C832.39833984375 191.7041015625 838.9388671875 194.93994140625 838.9388671875 201.96240234375C838.9388671875 209.7421875 831.5033203125 215.04345703125 820.28115234375 215.04345703125C808.9212890625 215.04345703125 800.59072265625 209.8798828125 799.90224609375 199.48388671875H779.4544921875C780.07412109375 221.30859375 795.840234375 232.80615234375 820.4876953125 232.80615234375ZM899.6597460937501 231.29150390625H923.6875781250001L937.2505664062501 178.82958984375C939.2471484375001 171.0498046875 940.4864062500001 162.85693359375 941.7945117187501 154.31982421875C943.2403125000001 163.13232421875 944.6172656250001 171.462890625 946.4761523437501 178.82958984375L960.1079882812501 231.29150390625H984.0669726562501L1011.6748828125001 128.70849609375H988.6797656250001L976.7691210937501 179.173828125C974.7036914062501 188.537109375 972.9136523437501 199.552734375 971.2613085937501 210.017578125C969.4024218750001 199.552734375 967.5435351562501 188.537109375 965.2715625000001 179.173828125L952.8101367187501 128.70849609375H930.9854296875001L918.4551562500001 179.173828125C916.1143359375001 188.60595703125 914.3242968750001 199.75927734375 912.4654101562501 210.29296875C910.8130664062501 199.75927734375 909.0230273437501 188.60595703125 906.9575976562501 179.173828125L895.0469531250001 128.70849609375H872.1206835937501ZM1048.16138671875 128.70849609375H1027.1628515625V231.29150390625H1048.16138671875ZM1065.43939453125 146.126953125H1096.83392578125V231.29150390625H1117.90130859375V146.126953125H1149.2269921875V128.70849609375H1065.43939453125ZM1211.3248242187499 232.66845703125C1237.2115429687499 232.66845703125 1253.1841992187499 215.25 1255.5250195312499 196.17919921875H1234.2510937499999C1232.1856640624999 207.33251953125 1223.3731640624999 214.0107421875 1211.6690624999999 214.0107421875C1195.8341015624999 214.0107421875 1185.0250195312499 202.306640625 1185.0250195312499 180.06884765625C1185.0250195312499 158.31298828125 1195.6964062499999 145.9892578125 1211.7379101562499 145.9892578125C1223.4420117187499 145.9892578125 1232.2545117187499 152.5986328125 1234.1822460937499 163.751953125H1255.4561718749999C1252.4268749999999 140.68798828125 1234.6641796874999 127.33154296875 1211.3248242187499 127.33154296875C1184.2676953124999 127.33154296875 1163.6822460937499 146.5400390625 1163.6822460937499 180.06884765625C1163.6822460937499 213.39111328125 1183.9923046874999 232.66845703125 1211.3248242187499 232.66845703125ZM1273.6291992187498 231.29150390625H1294.6277343749998V187.5732421875H1339.3098632812498V231.29150390625H1360.3772460937498V128.70849609375H1339.3098632812498V170.15478515625H1294.6277343749998V128.70849609375H1273.6291992187498Z" fill="#FFFFFF"/></svg></span></a>
-    <nav aria-label="Seitenbereiche"><a href="#szenarien">Risiken</a><a href="#partner">Partner</a><a href="#loesungen">Absicherung</a><a href="#mehrwert">Der Unterschied</a><a href="#faq">Fragen</a></nav>
+    <nav aria-label="Seitenbereiche"><a href="#szenarien">Risiken &amp; Absicherung</a><a href="#partner">Partner</a><a href="#mehrwert">Der Unterschied</a><a href="#fuer-wen">Für wen</a><a href="#faq">Fragen</a></nav>
     <button class="icon-btn" type="button" id="theme" aria-label="Dunkles Design einschalten"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z"/></svg></button>
     <a class="btn btn-cta" href="#termin" data-cta>Termin buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
@@ -424,66 +489,72 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
   </div>
 
 
-  <section class="alt" id="kennen"><div class="wrap">
-    <div class="head"><p class="eyebrow">Kennen Sie das?</p><h2>Sie halten alles am Laufen. Aber wer hält Sie?</h2></div>
-    <div class="mirror">
-      <article class="mir"><span class="mir-n">01</span><h3>Chef, Fahrlehrer und Büro in einer Person</h3><p>Morgens Fahrstunden, nachmittags Theorie, abends Abrechnung. Für die eigene Absicherung bleibt im Alltag keine Zeit.</p></article>
-      <article class="mir"><span class="mir-n">02</span><h3>Der Betrieb läuft, solange Sie laufen</h3><p>Ihr Wissen, Ihre Kontakte, Ihre Unterschrift: Vieles hängt an Ihnen persönlich. Ein Plan B existiert oft nur im Kopf.</p></article>
-      <article class="mir"><span class="mir-n">03</span><h3>Versicherung? Irgendwann mal abgeschlossen.</h3><p>Ob die Verträge zu Ihrem heutigen Betrieb passen, hat lange niemand geprüft. Und der Versicherer meldet sich erst mit der Rechnung.</p></article>
+  <section class="alt" id="kennen"><div class="wrap ken-wrap">
+    <div class="head"><p class="eyebrow">Kennen Sie das?</p><h2>Sie halten alles am Laufen. Aber wer hält Sie?</h2><p>Tippen Sie an, was auf Sie zutrifft.</p></div>
+    <div class="ken-side">
+      <ul class="ken-list"><li><button type="button" class="ken" aria-pressed="false"><span class="ken-box" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg></span><span class="ken-t"><b>Chef, Fahrlehrer und Büro in einer Person</b><span>Morgens Fahrstunden, nachmittags Theorie, abends Abrechnung. Für die eigene Absicherung bleibt keine Zeit.</span></span><span class="ken-tag" aria-hidden="true">Kenne ich</span></button></li><li><button type="button" class="ken" aria-pressed="false"><span class="ken-box" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg></span><span class="ken-t"><b>Der Betrieb läuft, solange Sie laufen</b><span>Ihr Wissen, Ihre Kontakte, Ihre Unterschrift: Vieles hängt an Ihnen persönlich. Ein Plan B existiert oft nur im Kopf.</span></span><span class="ken-tag" aria-hidden="true">Kenne ich</span></button></li><li><button type="button" class="ken" aria-pressed="false"><span class="ken-box" aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg></span><span class="ken-t"><b>Versicherung? Irgendwann mal abgeschlossen.</b><span>Ob die Verträge zu Ihrem heutigen Betrieb passen, hat lange niemand geprüft. Der Versicherer meldet sich erst mit der Rechnung.</span></span><span class="ken-tag" aria-hidden="true">Kenne ich</span></button></li></ul>
+      <p class="ken-result" aria-live="polite"><span data-ken-text>Wenn Sie sich in einem Punkt wiedererkennen, lohnt sich ein ehrlicher Blick auf die drei größten Risiken.</span> <a href="#szenarien">Zu den Risiken <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
     </div>
-    <p class="mirror-cta">Wenn Sie sich in einem Punkt wiedererkennen, lohnt sich ein ehrlicher Blick auf die drei größten Risiken. <a href="#szenarien">Zu den Risiken <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
   </div></section>
 
   <section id="szenarien"><div class="wrap">
-    <div class="head"><p class="eyebrow">Klartext</p><h2>Drei Situationen, über die kaum jemand spricht, bis sie eintreten.</h2><p>Keine Panikmache, sondern Alltag in Fahrschulen. Jede dieser Situationen kann einen gesunden Betrieb in kurzer Zeit in Schieflage bringen.</p></div>
-    <div class="scenes">
-      <article class="scene" id="inhaber">
-        <p class="n"><i><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/><path d="M17 3l4 4M21 3l-4 4"/></svg></i>Risiko 1 · Inhaberausfall</p>
+    <div class="head"><p class="eyebrow">Klartext</p><h2>Drei Situationen, über die kaum jemand spricht, bis sie eintreten.</h2><p>Keine Panikmache, sondern Alltag in Fahrschulen. Jede dieser Situationen kann einen gesunden Betrieb in kurzer Zeit in Schieflage bringen. Und für jede gibt es eine Absicherung.</p></div>
+    <div class="rs">
+      <nav class="rs-nav" aria-label="Die drei Risiken"><p class="rs-head">Die drei Risiken</p><a href="#inhaber" data-rs="inhaber"><span class="rs-n">1</span><span><b>Sie fallen aus</b><small>Wer führt Ihren Betrieb?</small></span></a><a href="#fahrlehrer" data-rs="fahrlehrer"><span class="rs-n">2</span><span><b>Ein Fahrlehrer fällt aus</b><small>Stunden und Prüfungen platzen</small></span></a><a href="#vorwurf" data-rs="vorwurf"><span class="rs-n">3</span><span><b>Ein falscher Vorwurf</b><small>Ermittlungen gegen Ihr Team</small></span></a><span class="rs-bar" aria-hidden="true"><i></i></span></nav>
+      <div class="rs-panels">
+      <article class="panel" id="inhaber">
+        <p class="panel-tag"><i><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/><path d="M17 3l4 4M21 3l-4 4"/></svg></i>Risiko 1 · Inhaberausfall</p>
         <h3>Sie fallen aus. Für Wochen.</h3>
-        <p class="story">Montagmorgen, Bandscheibenvorfall. Oder ein Unfall auf dem Weg zur Fahrschule. Die Ärztin sagt: mindestens acht Wochen, vielleicht länger. Sie sind Inhaber:in, oft auch verantwortliche Leitung, Fahrlehrer:in und Büro in einer Person. Ab heute fehlt genau diese Person.</p>
-        <h4>Was dann passiert</h4>
-        <ul>
+        <div class="panel-grid">
+          <div class="panel-story"><p class="story">Montagmorgen, Bandscheibenvorfall. Oder ein Unfall auf dem Weg zur Fahrschule. Die Ärztin sagt: mindestens acht Wochen, vielleicht länger. Sie sind Inhaber:in, oft auch verantwortliche Leitung, Fahrlehrer:in und Büro in einer Person. Ab heute fehlt genau diese Person.</p><p class="q">Wie lange trägt Ihr Betrieb die Fixkosten ohne Sie?</p></div>
+          <div class="panel-then"><h4>Was dann passiert</h4><ul>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Ihre eigenen Fahrstunden und Ihr Unterricht fallen weg, und damit Ihr wichtigster Umsatz.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Miete, Fahrzeugleasing, Versicherungen und Gehälter laufen jeden Monat weiter.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Anmeldungen, Abrechnungen und Prüfungsplanung bleiben liegen.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Fahrschüler:innen werden unruhig und wechseln im schlimmsten Fall die Fahrschule.</li>
-        </ul>
-        <p class="q">Wie lange trägt Ihr Betrieb die Fixkosten ohne Sie?</p>
-        <a class="fix" href="#sol-inhaber"><span><small>Absicherung</small>Inhaberausfallversicherung</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-      </article>
-      <article class="scene" id="fahrlehrer">
-        <p class="n"><i><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M9.5 14l5 5M14.5 14l-5 5"/></svg></i>Risiko 2 · Fahrlehrerausfall</p>
+        </ul></div>
+        </div>
+        <div class="panel-sol" id="sol-inhaber"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><circle cx="12" cy="10" r="2.5"/><path d="M8.5 16c.6-1.7 1.9-2.6 3.5-2.6s2.9.9 3.5 2.6"/></svg></span><div><p class="for">Die Absicherung · Wenn Sie ausfallen</p><h4>Inhaberausfallversicherung</h4><p>Fallen Sie krankheits- oder unfallbedingt aus, hilft sie, die laufenden Kosten Ihres Betriebs weiter zu tragen, bis Sie wieder da sind.</p><ul><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Fixkosten wie Miete, Leasing und Gehälter im Blick</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Zeit gewinnen, statt Entscheidungen unter Druck zu treffen</li></ul></div></div>
+      </article><article class="panel" id="fahrlehrer">
+        <p class="panel-tag"><i><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M9.5 14l5 5M14.5 14l-5 5"/></svg></i>Risiko 2 · Fahrlehrerausfall</p>
         <h3>Ihr Fahrlehrer fällt aus. Der Kalender ist voll.</h3>
-        <p class="story">Ihr erfahrenster Fahrlehrer meldet sich krank, zuerst für zwei Wochen, dann für drei Monate. Seine Fahrschüler:innen stehen kurz vor der Prüfung, die Termine sind gebucht. Ersatz zu finden dauert, denn Fahrlehrer:innen sind knapp.</p>
-        <h4>Was dann passiert</h4>
-        <ul>
+        <div class="panel-grid">
+          <div class="panel-story"><p class="story">Ihr erfahrenster Fahrlehrer meldet sich krank, zuerst für zwei Wochen, dann für drei Monate. Seine Fahrschüler:innen stehen kurz vor der Prüfung, die Termine sind gebucht. Ersatz zu finden dauert, denn Fahrlehrer:innen sind knapp.</p><p class="q">Was kostet es Sie, wenn eine Schlüsselperson ein Quartal fehlt?</p></div>
+          <div class="panel-then"><h4>Was dann passiert</h4><ul>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Seine Fahrstunden fallen Woche für Woche weg. Der Umsatz dieser Stunden kommt nicht zurück.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Prüfungstermine müssen verschoben werden, neue Termine bedeuten oft lange Wartezeiten.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Das Fahrzeug steht, die Kosten dafür nicht.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Enttäuschte Fahrschüler:innen, schlechte Bewertungen, Mehrarbeit für das übrige Team.</li>
-        </ul>
-        <p class="q">Was kostet es Sie, wenn eine Schlüsselperson ein Quartal fehlt?</p>
-        <a class="fix" href="#sol-keyman"><span><small>Absicherung</small>Keyman-Versicherung</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-      </article>
-      <article class="scene" id="vorwurf">
-        <p class="n"><i><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg></i>Risiko 3 · Falscher Vorwurf</p>
+        </ul></div>
+        </div>
+        <div class="panel-sol" id="sol-keyman"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M14 9l2 2"/></svg></span><div><p class="for">Die Absicherung · Wenn eine Schlüsselperson fehlt</p><h4>Keyman-Versicherung</h4><p>Fällt eine Person aus, an der Ihr Betrieb hängt, zum Beispiel Ihr wichtigster Fahrlehrer, verschafft sie Ihrem Betrieb finanziellen Spielraum. Je nach Vertrag gilt das bei schwerer Krankheit, Berufsunfähigkeit oder Tod.</p><ul><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Umsatzausfall und Ersatzsuche überbrücken</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Auf die Personen zugeschnitten, die für Ihren Betrieb wichtig sind</li></ul></div></div>
+      </article><article class="panel" id="vorwurf">
+        <p class="panel-tag"><i><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 10v4M12 17h.01"/></svg></i>Risiko 3 · Falscher Vorwurf</p>
         <h3>Ein Vorwurf nach der Fahrstunde.</h3>
-        <p class="story">Eine Fahrschülerin wirft Ihrem Fahrlehrer nach der Stunde Belästigung vor. Oder ein Fahrschüler behauptet, er sei genötigt oder verletzt worden. Ob es stimmt, spielt zunächst keine Rolle: Es wird Anzeige erstattet, die Polizei ermittelt. Im Auto gab es keine Zeugen.</p>
-        <h4>Was dann passiert</h4>
-        <ul>
+        <div class="panel-grid">
+          <div class="panel-story"><p class="story">Eine Fahrschülerin wirft Ihrem Fahrlehrer nach der Stunde Belästigung vor. Oder ein Fahrschüler behauptet, er sei genötigt oder verletzt worden. Ob es stimmt, spielt zunächst keine Rolle: Es wird Anzeige erstattet, die Polizei ermittelt. Im Auto gab es keine Zeugen.</p><p class="q">Wer bezahlt Ihre Verteidigung, wenn der Vorwurf falsch ist?</p></div>
+          <div class="panel-then"><h4>Was dann passiert</h4><ul>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Ein Strafverteidiger ist vom ersten Tag an nötig. Die Kosten tragen Sie selbst.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Viele normale Rechtsschutzverträge zahlen nicht, wenn eine vorsätzliche Straftat vorgeworfen wird.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>Das Verfahren kann sich über Monate ziehen, auch wenn es am Ende eingestellt wird.</li>
           <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg>In der Region spricht es sich herum. Ihr Ruf steht auf dem Spiel.</li>
-        </ul>
-        <p class="q">Wer bezahlt Ihre Verteidigung, wenn der Vorwurf falsch ist?</p>
-        <a class="fix" href="#sol-recht"><span><small>Absicherung</small>Erweiterter Strafrechtsschutz</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+        </ul></div>
+        </div>
+        <div class="panel-sol" id="sol-recht"><span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7ZM17 7l-3 7a3 3 0 0 0 6 0l-3-7ZM8 21h8"/></svg></span><div><p class="for">Die Absicherung · Wenn ein Vorwurf im Raum steht</p><h4>Erweiterter Strafrechtsschutz</h4><p>Er übernimmt Anwalts- und Verfahrenskosten, wenn gegen Sie oder Ihre Fahrlehrer:innen ermittelt wird, auch wenn eine vorsätzliche Tat vorgeworfen wird. Wichtig: Wird jemand rechtskräftig wegen einer Vorsatztat verurteilt, entfällt der Schutz in der Regel nachträglich.</p><ul><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Verteidigung ab dem ersten Tag der Ermittlungen</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Ergänzt Ihren bestehenden Rechtsschutz</li></ul></div></div>
       </article>
+      </div>
     </div>
+    <div class="tailor">
+      <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 9.8 9.8 3 12l6.8 2.2L12 21l2.2-6.8L21 12l-6.8-2.2L12 3Z"/></svg></span>
+      <div><h3>Maßgeschneidert für Partnerfahrschulen</h3><p>Für Partnerfahrschulen gibt es besondere, auf den Fahrschulbetrieb zugeschnittene Versicherungslösungen. Was davon zu Ihnen passt, besprechen wir persönlich.</p></div>
+      <a class="btn btn-cta" href="#termin" data-cta>Termin buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <p class="fine">Umfang und Leistungen richten sich nach den jeweiligen Versicherungsbedingungen. Versicherungsinformationen, Beratung, Produktauswahl, Dokumentation und eine mögliche Vermittlung erfolgen durch Steven Dragojevic als angestellten Mitarbeiter im Versicherungsvertrieb der SIGNAL IDUNA Allgemeine Versicherung Aktiengesellschaft. Es findet kein unabhängiger Marktvergleich statt. Kontakt und Abschluss sind freiwillig. <a href="https://signal-iduna-agentur.de/steven.dragojevic/vermittlerinformationen/?advnr=3276452" target="_blank" rel="noopener noreferrer">Erstinformation (Vermittlerinformation)</a></p>
     <div class="band">
       <div><h2>Wäre Ihre Fahrschule auf diese drei Fälle vorbereitet?</h2><p>Das finden wir in 20 Minuten gemeinsam heraus. Sie sehen danach klar, wo Ihr Betrieb gut steht und wo nicht.</p></div>
       <div class="acts"><a class="btn btn-cta" href="#termin" data-cta>Erstgespräch buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
+  </div>
   </div></section>
 
   <section class="alt" id="partner"><div class="wrap">
@@ -509,41 +580,8 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     </div>
   </div></section>
 
-  <section id="loesungen"><div class="wrap">
-    <div class="head"><p class="eyebrow">Die Absicherung</p><h2>Für jedes der drei Risiken gibt es eine passende Lösung.</h2><p>Wir schauen zuerst, was Sie schon haben. Ergänzt wird nur, wo Ihr Betrieb tatsächlich ungeschützt ist.</p></div>
-    <p class="swipe-hint"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Zum Weiterblättern wischen</p>
-    <div class="solutions swipe" data-swipe>
-      <article class="sol" id="sol-inhaber">
-        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><circle cx="12" cy="10" r="2.5"/><path d="M8.5 16c.6-1.7 1.9-2.6 3.5-2.6s2.9.9 3.5 2.6"/></svg></span>
-        <p class="for">Wenn Sie ausfallen</p>
-        <h3>Inhaberausfallversicherung</h3>
-        <p>Fallen Sie krankheits- oder unfallbedingt aus, hilft sie, die laufenden Kosten Ihres Betriebs weiter zu tragen, bis Sie wieder da sind.</p>
-        <ul><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Fixkosten wie Miete, Leasing und Gehälter im Blick</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Zeit gewinnen, statt Entscheidungen unter Druck zu treffen</li></ul>
-      </article>
-      <article class="sol" id="sol-keyman">
-        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 8.7-8.7M16 7l2.5 2.5M14 9l2 2"/></svg></span>
-        <p class="for">Wenn eine Schlüsselperson fehlt</p>
-        <h3>Keyman-Versicherung</h3>
-        <p>Fällt eine Person aus, an der Ihr Betrieb hängt, zum Beispiel Ihr wichtigster Fahrlehrer, verschafft sie Ihrem Betrieb finanziellen Spielraum. Je nach Vertrag gilt das bei schwerer Krankheit, Berufsunfähigkeit oder Tod.</p>
-        <ul><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Umsatzausfall und Ersatzsuche überbrücken</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Auf die Personen zugeschnitten, die für Ihren Betrieb wichtig sind</li></ul>
-      </article>
-      <article class="sol" id="sol-recht">
-        <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M7 7l-3 7a3 3 0 0 0 6 0L7 7ZM17 7l-3 7a3 3 0 0 0 6 0l-3-7ZM8 21h8"/></svg></span>
-        <p class="for">Wenn ein Vorwurf im Raum steht</p>
-        <h3>Erweiterter Strafrechtsschutz</h3>
-        <p>Er übernimmt Anwalts- und Verfahrenskosten, wenn gegen Sie oder Ihre Fahrlehrer:innen ermittelt wird, auch wenn eine vorsätzliche Tat vorgeworfen wird. Wichtig: Wird jemand rechtskräftig wegen einer Vorsatztat verurteilt, entfällt der Schutz in der Regel nachträglich.</p>
-        <ul><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Verteidigung ab dem ersten Tag der Ermittlungen</li><li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>Ergänzt Ihren bestehenden Rechtsschutz</li></ul>
-      </article>
-    </div>
-    <div class="tailor">
-      <span class="ico"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 9.8 9.8 3 12l6.8 2.2L12 21l2.2-6.8L21 12l-6.8-2.2L12 3Z"/></svg></span>
-      <div><h3>Maßgeschneidert für Partnerfahrschulen</h3><p>Für Partnerfahrschulen gibt es besondere, auf den Fahrschulbetrieb zugeschnittene Versicherungslösungen. Was davon zu Ihnen passt, besprechen wir persönlich.</p></div>
-      <a class="btn btn-cta" href="#termin" data-cta>Termin buchen <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-    </div>
-    <p class="fine">Umfang und Leistungen richten sich nach den jeweiligen Versicherungsbedingungen. Versicherungsinformationen, Beratung, Produktauswahl, Dokumentation und eine mögliche Vermittlung erfolgen durch Steven Dragojevic als angestellten Mitarbeiter im Versicherungsvertrieb der SIGNAL IDUNA Allgemeine Versicherung Aktiengesellschaft. Es findet kein unabhängiger Marktvergleich statt. Kontakt und Abschluss sind freiwillig. <a href="https://signal-iduna-agentur.de/steven.dragojevic/vermittlerinformationen/?advnr=3276452" target="_blank" rel="noopener noreferrer">Erstinformation (Vermittlerinformation)</a></p>
-  </div></section>
 
-  <section class="alt" id="mehrwert"><div class="wrap">
+  <section id="mehrwert"><div class="wrap">
     <div class="head"><p class="eyebrow">Der Unterschied</p><h2>Die Versicherung bekommen Sie überall. Alles andere bekommen Sie nur hier.</h2><p>Ein üblicher Versicherer schließt den Vertrag ab und meldet sich dann erst wieder, wenn die nächste Beitragsrechnung kommt. LANE SWITCH bleibt an Ihrer Seite: mit Werkzeugen für Ihren Betrieb, Mehrwerten für Ihre Fahrschüler:innen und der Möglichkeit, nebenbei etwas dazuzuverdienen.</p></div>
     <div class="compare">
       <div class="cmp cmp-usual"><p class="cmp-tag">Üblich</p><h3>Vertrag, Rechnung, weg.</h3><ul>
@@ -577,7 +615,7 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     </div>
   </div></section>
 
-  <section id="fuer-wen"><div class="wrap">
+  <section class="alt" id="fuer-wen"><div class="wrap">
     <div class="head"><p class="eyebrow">Für wen LANE SWITCH passt</p><h2>Ehrlich gesagt: nicht für jede Fahrschule.</h2><p>Damit wir beide keine Zeit verlieren, hier vorab, wann eine Zusammenarbeit passt und wann eher nicht.</p></div>
     <div class="fit">
       <div class="fit-yes"><h3>Passt, wenn Sie …</h3><ul>
@@ -594,7 +632,7 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     </div>
   </div></section>
 
-  <section class="alt" id="ablauf"><div class="wrap">
+  <section id="ablauf"><div class="wrap">
     <div class="head"><p class="eyebrow">So geht es weiter</p><h2>In drei Schritten zur Klarheit.</h2></div>
     <ol class="steps">
       <li class="step"><span class="n">1</span><b>Termin buchen</b><p>Sie wählen einen Termin für ein Erstgespräch, online oder bei Ihnen vor Ort.</p></li>
@@ -603,12 +641,12 @@ footer .legal{font-size:13px;line-height:1.6;max-width:1100px}
     </ol>
   </div></section>
 
-  <section id="faq"><div class="wrap faq-wrap">
+  <section class="alt" id="faq"><div class="wrap faq-wrap">
     <div class="head"><p class="eyebrow">Häufige Fragen</p><h2>Was Fahrschulinhaber:innen vorher wissen wollen.</h2><p>Ihre Frage ist nicht dabei? Schreiben Sie mir einfach kurz per WhatsApp.</p><div class="acts-inline"><a class="btn btn-ghost" href="https://wa.me/491727937262?text=Hallo%20Steven%2C%20ich%20interessiere%20mich%20f%C3%BCr%20LANE%20SWITCH%20f%C3%BCr%20meine%20Fahrschule." target="_blank" rel="noopener noreferrer"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.7L4 20ZM9 9.5c0 3 2.5 5.5 5.5 5.5l1.2-1.2-1.7-1-1 .6a4 4 0 0 1-2-2l.6-1-1-1.7L9.5 9"/></svg>Frage per WhatsApp</a></div></div>
     <div class="faq"><details><summary>Was kostet mich LANE SWITCH?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Das Erstgespräch ist kostenlos und unverbindlich. Die Mehrwerte wie Navigator, AI Studio, Gastbeitrag im Unterricht und die Werkzeuge für Ihre Fahrschüler:innen sind für Partnerfahrschulen kostenfrei. Für eine Versicherung zahlen Sie nur dann einen Beitrag, wenn Sie sich dafür entscheiden. Wie hoch er ist, hängt vom gewählten Schutz ab.</p></details><details><summary>Muss ich meine bestehenden Verträge kündigen?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Nein. Wir schauen uns zuerst an, was Sie bereits haben. Ergänzt wird nur dort, wo Ihr Betrieb tatsächlich ungeschützt ist. Ob Sie etwas ändern, entscheiden allein Sie.</p></details><details><summary>Muss mein Team etwas verkaufen?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Nein. Ihr Team gibt höchstens den Hinweis auf den QR-Code weiter. Es berät nicht und verkauft nichts. Ihre Fahrschüler:innen entscheiden selbst, ob sie sich melden.</p></details><details><summary>Wie viel Zeit kostet mich das?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Das Erstgespräch dauert rund 20 Minuten, online oder bei Ihnen vor Ort. Den Gastbeitrag im Theorieunterricht übernehme ich selbst, und die Werkzeuge für Ihre Fahrschüler:innen nutzen Sie ohne zusätzlichen Aufwand.</p></details><details><summary>Wie funktioniert die Tippgebervereinbarung?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Sie ist freiwillig. Ihre Fahrschüler:innen erhalten über Ihren eigenen QR-Code einen festen Ansprechpartner für Versicherungsfragen. Wenn Sie möchten, schließen wir eine Tippgebervereinbarung, die Vergütung wird vorab individuell und transparent vereinbart.</p></details><details><summary>Ist LANE SWITCH ein Versicherer oder Makler?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Nein. LANE SWITCH ist ein Partnerkonzept für Fahrschulen. Beratung und Vermittlung von Versicherungen erfolgen durch mich als angestellten Vermittler der SIGNAL IDUNA. Alle Pflichtangaben finden Sie in der <a href="https://signal-iduna-agentur.de/steven.dragojevic/vermittlerinformationen/?advnr=3276452" target="_blank" rel="noopener noreferrer">Erstinformation</a>.</p></details><details><summary>Meine Fahrschule liegt nicht in Herne. Geht das trotzdem?<span aria-hidden="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></summary><p>Ja. Das Erstgespräch und der Gastbeitrag im Unterricht funktionieren auch online, zum Beispiel über den Bildschirm in Ihrem Unterrichtsraum. Vor Ort komme ich nach Absprache.</p></details></div>
   </div></section>
 
-  <section class="alt" id="termin"><div class="wrap">
+  <section id="termin"><div class="wrap">
     <div class="contact">
       <div style="display:grid;gap:16px">
         <p class="eyebrow" style="color:var(--accent)">Erstgespräch</p>
@@ -659,7 +697,7 @@ let cur=null;for(const s of secs){if(s.getBoundingClientRect().top<innerHeight*.
 const show=hero.getBoundingClientRect().bottom<90&&termin.getBoundingClientRect().top>innerHeight*.6;sticky.classList.toggle('show',show);sticky.setAttribute('aria-hidden',show?'false':'true');sticky.querySelectorAll('a').forEach(a=>a.tabIndex=show?0:-1)};
 addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});addEventListener('resize',upd);upd();
 if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-const items=[...document.querySelectorAll('section .head, .mir, .partner, .scene, .band, .sol, .tailor, .cmp, .group, .fit > div, .faq details, .step, .contact')].filter(el=>!(matchMedia('(max-width:760px)').matches&&el.parentElement.matches('[data-swipe]')));
+const items=[...document.querySelectorAll('section .head, .ken-list li, .partner, .panel, .band, .tailor, .cmp, .group, .fit > div, .faq details, .step, .contact')].filter(el=>!(matchMedia('(max-width:760px)').matches&&el.parentElement.matches('[data-swipe]')));
 const groups=new Map();items.forEach(el=>{const p=el.parentElement;const i=(groups.get(p)||0);groups.set(p,i+1);el.style.setProperty('--d',Math.min(i,4)*0.08+'s');if(el.getBoundingClientRect().top>innerHeight*.92)el.classList.add('rv')});
 document.documentElement.classList.add('fx');
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
@@ -670,7 +708,7 @@ setTimeout(()=>document.querySelectorAll('.rv').forEach(el=>el.classList.add('in
 const road=[...document.querySelectorAll('.risk a')];let k=0;const show=()=>{road.forEach((a,i)=>a.classList.toggle('now',i===k));k=(k+1)%road.length};
 if(road.length){show();if(!still)setInterval(show,2600)}
 /* Folgen in den Szenarien nacheinander einblenden */
-document.querySelectorAll('.scene ul li').forEach(li=>li.style.setProperty('--i',[...li.parentElement.children].indexOf(li)));
+
 /* Wischkarten mit Punkten */
 document.querySelectorAll('[data-swipe]').forEach(sw=>{const cards=[...sw.children];const dots=document.createElement('div');dots.className='dots';
 cards.forEach((c,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Karte '+(i+1)+' von '+cards.length);b.addEventListener('click',()=>sw.scrollTo({left:c.offsetLeft-sw.offsetLeft-parseFloat(getComputedStyle(sw).paddingLeft),behavior:still?'auto':'smooth'}));dots.append(b)});
@@ -679,12 +717,21 @@ sw.after(dots);const upd=()=>{const x=sw.scrollLeft+sw.clientWidth*.35;let a=0;c
 sw.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});mobile.addEventListener?.('change',upd);upd()});
 /* Handy: Karte im Blickfeld hervorheben */
 if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(mobile.matches)e.target.classList.toggle('is-focus',e.isIntersecting)}),{rootMargin:'-42% 0px -42% 0px'});
-document.querySelectorAll('.mir,.scene,.partner:not(.partner-next),.step').forEach(el=>io.observe(el))}
+document.querySelectorAll('.panel,.partner:not(.partner-next),.step').forEach(el=>io.observe(el))}
 /* Zeitleiste im Ablauf füllt sich beim Scrollen */
 const steps=document.querySelector('.steps');const items=steps?[...steps.querySelectorAll('.step')]:[];
 const tl=()=>{if(!steps)return;const r=steps.getBoundingClientRect();const mid=innerHeight*.55;
 if(mobile.matches){const p=Math.max(0,Math.min(1,(mid-r.top)/r.height));steps.style.setProperty('--p',p.toFixed(3));items.forEach(it=>it.classList.toggle('done',it.getBoundingClientRect().top+20<mid))}
 else{const p=Math.max(0,Math.min(1,(innerHeight*.9-r.top)/(innerHeight*.45)));steps.style.setProperty('--p',p.toFixed(3))}};addEventListener('scroll',()=>requestAnimationFrame(tl),{passive:true});tl();})();
+(()=>{const btns=[...document.querySelectorAll('.ken')];const out=document.querySelector('[data-ken-text]');if(!btns.length)return;
+const txt=['Wenn Sie sich in einem Punkt wiedererkennen, lohnt sich ein ehrlicher Blick auf die drei größten Risiken.','Ein Punkt trifft zu. Dann sollten Sie die drei größten Risiken kennen.','Zwei von drei Punkten treffen zu. Dann lohnt sich ein ehrlicher Blick auf die Risiken.','Alle drei Punkte treffen zu. Dann sollten wir reden, und zwar bald.'];
+btns.forEach(b=>b.addEventListener('click',()=>{b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');out.textContent=txt[btns.filter(x=>x.getAttribute('aria-pressed')==='true').length]}));})();
+(()=>{const links=[...document.querySelectorAll('.rs-nav a')];const panels=[...document.querySelectorAll('.panel')];const wrap=document.querySelector('.rs-panels');const bar=document.querySelector('.rs-nav');if(!panels.length)return;
+document.querySelectorAll('.panel-then li').forEach(li=>li.style.setProperty('--i',[...li.parentElement.children].indexOf(li)));
+const upd=()=>{const mid=innerHeight*.45;let cur=null;panels.forEach(p=>{const r=p.getBoundingClientRect();if(r.top<mid&&r.bottom>mid*.4)cur=p});
+panels.forEach(p=>p.classList.toggle('on',p===cur));links.forEach(a=>a.classList.toggle('on',!!cur&&a.dataset.rs===cur.id));
+const r=wrap.getBoundingClientRect();bar.style.setProperty('--p',Math.max(0,Math.min(1,(mid-r.top)/r.height)).toFixed(3))};
+addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});addEventListener('resize',upd);upd();})();
 </script>
 </body>
 </html>
