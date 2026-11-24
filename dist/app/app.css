@@ -423,3 +423,15 @@ html[data-theme=dark] .page-head{border:1px solid #ffffff1f}
 .tool-share:hover{border-color:var(--teal);background:var(--tint)}
 .tool-share .icon{width:20px;height:20px}
 @media(max-width:760px){.tool-wrap{display:block;position:relative}.tool-share{position:absolute;top:8px;right:8px;width:40px;height:40px;border-color:transparent;background:transparent}.tool-wrap .path-text strong{display:block;padding-right:30px}}
+
+/* Startseite: Der Mensch hinter LANE SWITCH (Bild „Hi, ich bin Steven“) */
+.home-person-intro{grid-template-columns:170px minmax(0,1fr);gap:8px 26px;padding:22px 26px 22px 22px;align-items:center}
+.home-person-intro .portrait-intro{grid-row:1 / span 2}
+.home-person-intro .primary{grid-column:2;justify-self:start;align-self:start}
+.home-person-intro .portrait-intro{display:block;width:170px;height:auto;aspect-ratio:819/1080;object-fit:cover;border-radius:14px;background:var(--card);box-shadow:0 18px 36px -26px rgba(2,24,41,.45);transform:rotate(-1.5deg);transition:transform .35s}
+.home-person-intro:hover .portrait-intro{transform:rotate(0)}
+.home-person-intro .person-copy{display:grid;gap:6px;align-content:center}
+.home-person-intro .person-kicker{font-size:13px;font-weight:650;color:var(--teal);margin:0}
+.home-person-intro h2{font-size:22px}
+.home-person-intro .small-link{justify-self:start;margin-top:6px}
+@media(max-width:760px){.home-person-intro{grid-template-columns:minmax(0,1fr);gap:14px;padding:20px}.home-person-intro .portrait-intro{grid-row:auto;width:min(260px,100%);justify-self:center}.home-person-intro .primary{grid-column:1;width:100%}}
